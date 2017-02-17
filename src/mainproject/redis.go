@@ -8,7 +8,7 @@ import (
     "net/http"
 )
 
-const kNumOfRoutine = 5
+const kNumOfRoutine = 3
 
 func redisHandler(w http.ResponseWriter, r *http.Request) {
     cluster, err := redis.NewCluster(
