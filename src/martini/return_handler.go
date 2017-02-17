@@ -1,7 +1,7 @@
 package martini
 
 import (
-	"github.com/codegangsta/inject"
+	"inject"
 	"net/http"
 	"reflect"
 )
