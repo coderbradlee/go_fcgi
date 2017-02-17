@@ -54,7 +54,7 @@ func pdfHandler (w http.ResponseWriter, r *http.Request) {
   fmt.Fprint(w, "pdf!")
 } 
 func main() {
-    port:=fmt.Sprintf(":%s",configuration.Port)
+    port:=fmt.Sprintf("%s",configuration.Port)
     l, err := net.Listen("tcp", port)
     if err != nil { 
         panic(err) 
