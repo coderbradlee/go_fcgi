@@ -2,7 +2,7 @@
  import (
     "log"
     "fmt"
-    "encoding/json"
+    _"encoding/json"
     "net/http"
 )
 func poHandler (w http.ResponseWriter, r *http.Request) {
@@ -18,7 +18,20 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	 //    }
 	    defer r.Body.Close()
 	    // log.Println(t.Test)
-		fmt.Fprint(w, "post ok!")
+	    ret := `{
+				   "error_code":"200",
+				   "error_msg":"Goods received successfully at 2017-03-17 12:00:00",
+				   "data":{
+				      "goods_receipt_no":"GR-FR-20170226-000196",
+				      "bill_type":"Goods Receipt",
+				      "receive_by":"Enie Yang",
+				      "company":"ReneSola France",
+				      "receive_at":"2017-03-17 12:00:00"
+				   },
+				   "reply_time":"2017-03-17 12:00:00"
+			   }`
+
+		fmt.Fprint(w, ret)
 	}
 
 } 
