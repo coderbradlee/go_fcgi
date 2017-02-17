@@ -56,6 +56,8 @@ func log_init() {
 
 
 func main() {
+    go startHttpServer()
+    
     port:=fmt.Sprintf("%s",configuration.FastcgiPort)
     l, err := net.Listen("tcp", port)
     if err != nil { 
@@ -68,7 +70,7 @@ func main() {
     if err != nil { 
         log.Println("fcgi error", err) 
     }
-    startHttpServer()
+    go startHttpServer()
 }
 func startHttpServer() {
     port:=fmt.Sprintf("%s",configuration.HttpPort)
