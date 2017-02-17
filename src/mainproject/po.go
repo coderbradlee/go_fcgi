@@ -37,7 +37,7 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 				   },
 				   "reply_time":"2017-03-17 12:00:00"
 			   }`
-
+		log.Logger(ret)
 		fmt.Fprint(w, ret)
 	}
 
