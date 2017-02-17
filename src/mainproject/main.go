@@ -31,7 +31,10 @@ func init() {
     if err != nil {
       fmt.Println("error:", err)
     }
-    fmt.Printf("%s\n",configuration.Log_name)
+    fmt.Printf("Exec_time %s\n",configuration.Exec_time)
+    fmt.Printf("FastcgiPort %s\n",configuration.FastcgiPort)
+    fmt.Printf("Log_name %s\n",configuration.Log_name)
+    fmt.Printf("HttpPort %s\n",configuration.HttpPort)
     log_init()
     //fmt.Println(configuration.exec_time) // output: [UserA, UserB]
 }
