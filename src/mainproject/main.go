@@ -50,8 +50,7 @@ func log_init() {
 func redisHandler (w http.ResponseWriter, r *http.Request) {
   fmt.Fprint(w, "redis!")
 } 
-type Hello struct{} func pdfHandler (  
-  w http.ResponseWriter, r *http.Request) {
+func pdfHandler (w http.ResponseWriter, r *http.Request) {
   fmt.Fprint(w, "pdf!")
 } 
 func main() {
