@@ -47,12 +47,8 @@ func log_init() {
     log.SetOutput(logFile)
     log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 }
-func redisHandler (w http.ResponseWriter, r *http.Request) {
-  fmt.Fprint(w, "redis!")
-} 
-func pdfHandler (w http.ResponseWriter, r *http.Request) {
-  fmt.Fprint(w, "pdf!")
-} 
+
+
 func main() {
     port:=fmt.Sprintf("%s",configuration.Port)
     l, err := net.Listen("tcp", port)
