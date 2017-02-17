@@ -51,8 +51,8 @@ func log_init() {
         fmt.Println("Fail to find", *logFile, "cServer start Failed")
         os.Exit(1)
     }
-    log.SetOutput(logFile)
-    log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
+    // log.SetOutput(logFile)
+    // log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 }
 
 
