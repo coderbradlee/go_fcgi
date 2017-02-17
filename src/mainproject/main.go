@@ -39,7 +39,7 @@ func log_init() {
     logFileName := flag.String("log", log_name, "Log file name")
     runtime.GOMAXPROCS(runtime.NumCPU())
     flag.Parse()
-
+    fmt.Println(log_name)
     //set logfile Stdout
     logFile, logErr := os.OpenFile(*logFileName, os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
     if logErr != nil {
