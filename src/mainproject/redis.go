@@ -4,7 +4,7 @@ import (
     "fmt"
     "time"
     "strconv"
-    "../go-redis-cluster"
+    "go_redis_cluster"
     // "redis-go-cluster"
 )
 
