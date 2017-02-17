@@ -14,7 +14,7 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 	 		log.Printf(err)
  		}
- 		sbody=string(body)
+ 		sbody :=string(body)
 		log.Printf(sbody)
 		// decoder := json.NewDecoder(r.Body)
 	 //    var t test_struct   
