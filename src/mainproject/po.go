@@ -12,10 +12,10 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	} else{
 		body, err := ioutil.ReadAll(r.Body)
 		if err != nil {
-	 		log.Printf(err)
+	 		log.Println("ioutil.ReadAll error", err) 
  		}
  		sbody :=string(body)
-		log.Printf(sbody)
+		log.Println(sbody)
 		// decoder := json.NewDecoder(r.Body)
 	 //    var t test_struct   
 	 //    err := decoder.Decode(&t)
