@@ -12,7 +12,8 @@ import (
     "flag"
     "runtime" 
     "net" 
-    "net/http/fcgi")
+    "net/http/fcgi"
+    "martini")
 type Configuration struct {
     Exec_time string
     FastcgiPort string
@@ -56,8 +57,8 @@ func log_init() {
 
 
 func main() {
-    go startHttpServer()
-    
+    // go startHttpServer()
+    go startMartini()
     port:=fmt.Sprintf("%s",configuration.FastcgiPort)
     l, err := net.Listen("tcp", port)
     if err != nil { 
@@ -76,10 +77,16 @@ func startHttpServer() {
     port:=fmt.Sprintf("%s",configuration.HttpPort)
     http.HandleFunc("/redis", redisHandler) 
     http.HandleFunc("/pdf", pdfHandler) 
-    http.HandleFunc("/po/deliver_goods",poHandler)
+    // http.HandleFunc("/po/deliver_goods",poHandler)
     err := http.ListenAndServe(port, nil)
     if err != nil {
         log.Fatal("ListenAndServe: ", err)
     }
 }
-
+func startMartini() {
+    port:=fmt.Sprintf("%s",configuration.HttpPort)
+    m := martini.Classic()
+    m.Post("/po/deliver_goods",poHandler)
+    m.RunOnAddr(port)
+    m.Run()
+}
