@@ -4,7 +4,8 @@ import (
     "fmt"
     "time"
     "strconv"
-    "go-redis-cluster"
+    //"go-redis-cluster"
+    "redis-go-cluster"
 )
 
 const kNumOfRoutine = 50
