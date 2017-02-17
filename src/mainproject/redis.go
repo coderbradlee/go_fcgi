@@ -13,7 +13,7 @@ const kNumOfRoutine = 5
 func redisHandler(w http.ResponseWriter, r *http.Request) {
     cluster, err := redis.NewCluster(
     &redis.Options{
-        StartNodes: []string{"127.0.0.1:6382", "127.0.0.1:7380", "127.0.0.1:7381"},
+        StartNodes: configuration.RedisNodes,
         ConnTimeout: 50 * time.Millisecond,
         ReadTimeout: 50 * time.Millisecond,
         WriteTimeout: 50 * time.Millisecond,

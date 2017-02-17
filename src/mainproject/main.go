@@ -15,8 +15,9 @@ import (
     "net/http/fcgi")
 type Configuration struct {
     Exec_time string
-    Port string
+    FastcgiPort string
     Log_name string
+    HttpPort []string
 }
 var configuration Configuration
 
@@ -62,6 +63,15 @@ func main() {
     if err != nil { 
         log.Println("fcgi error", err) 
     }
+    startHttpServer()
 }
-
+func startHttpServer() {
+    port:=fmt.Sprintf("%s",configuration.HttpPort)
+    http.HandleFunc("/redis", redisHandler) 
+    http.HandleFunc("/pdf", pdfHandler) 
+    err := http.ListenAndServe(port, nil)
+    if err != nil {
+        log.Fatal("ListenAndServe: ", err)
+    }
+}
 
