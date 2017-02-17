@@ -8,7 +8,7 @@ import (
     "net/http"
 )
 
-const kNumOfRoutine = 10
+const kNumOfRoutine = 5
 
 func redisHandler(w http.ResponseWriter, r *http.Request) {
     cluster, err := redis.NewCluster(
@@ -36,8 +36,8 @@ func redisHandler(w http.ResponseWriter, r *http.Request) {
     end := time.Now()
  
     //输出执行时间，单位为毫秒。
-    fmt.Println((end - start) / 1000000)
-    fmt.Fprint(w, end.Sub(start))
+    fmt.Println((end - start) / 500000)
+    fmt.Fprint(w, end.Sub(start)/ 500000)
 }
 
 func redisTest(cluster *redis.Cluster, begin, end int, done chan int) {
