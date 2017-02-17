@@ -23,6 +23,7 @@ type Configuration struct {
 var configuration Configuration
 
 func init() {
+    runtime.GOMAXPROCS(runtime.NumCPU())
     file, _ := os.Open("src/mainproject/conf.json")
     decoder := json.NewDecoder(file)
     configuration = Configuration{}
@@ -32,14 +33,14 @@ func init() {
     }
     log_init()
     //fmt.Println(configuration.exec_time) // output: [UserA, UserB]
-    //fmt.Printf("%s\n",configuration.Exec_time)
+    fmt.Printf("%s\n",configuration.Log_name)
 }
 func log_init() {
     log_name:=fmt.Sprintf("%s",configuration.Log_name)
     logFileName := flag.String("log", log_name, "Log file name")
-    runtime.GOMAXPROCS(runtime.NumCPU())
+    
     flag.Parse()
-    fmt.Println(log_name)
+
     //set logfile Stdout
     logFile, logErr := os.OpenFile(*logFileName, os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
     if logErr != nil {
