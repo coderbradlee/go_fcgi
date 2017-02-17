@@ -47,8 +47,7 @@ func log_init() {
     log.SetOutput(logFile)
     log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 }
-type Hello struct{} func redisHandler (  
-  w http.ResponseWriter, r *http.Request) {
+func redisHandler (w http.ResponseWriter, r *http.Request) {
   fmt.Fprint(w, "redis!")
 } 
 type Hello struct{} func pdfHandler (  
