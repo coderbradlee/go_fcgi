@@ -4,12 +4,14 @@
     "fmt"
     _"encoding/json"
     "net/http"
+    "io/ioutil"
 )
 func poHandler (w http.ResponseWriter, r *http.Request) {
 	if r.Method !="POST"{
 		fmt.Fprint(w, "this interface should be post!")
 	} else{
-		log.Printf(r.Body)
+		body, _ := ioutil.ReadAll(r.Body)
+		log.Printf(body)
 		// decoder := json.NewDecoder(r.Body)
 	 //    var t test_struct   
 	 //    err := decoder.Decode(&t)
