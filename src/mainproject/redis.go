@@ -24,7 +24,7 @@ func redisHandler(w http.ResponseWriter, r *http.Request) {
     if err != nil {
     log.Fatalf("redis.New error: %s", err.Error())
     }
-    start := time.Nanoseconds()
+    start := time.Millisecond()
     chann := make(chan int, kNumOfRoutine)
     for i := 0; i < kNumOfRoutine; i++ {
         go redisTest(cluster, i * 100000, (i+1)*100000, chann)
@@ -33,11 +33,11 @@ func redisHandler(w http.ResponseWriter, r *http.Request) {
     for i := 0; i < kNumOfRoutine; i++ {
         _ = <-chann
     }
-    end := time.Nanoseconds()
+    end := time.Millisecond()
  
     //输出执行时间，单位为毫秒。
     //fmt.Println((end - start) / 1000000)
-    fmt.Fprint(w, (end - start) / 1000000)
+    fmt.Fprint(w, (end - start))
 }
 
 func redisTest(cluster *redis.Cluster, begin, end int, done chan int) {
