@@ -10,8 +10,12 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	if r.Method !="POST"{
 		fmt.Fprint(w, "this interface should be post!")
 	} else{
-		body, _ := ioutil.ReadAll(r.Body)
-		log.Printf(body)
+		body, err := ioutil.ReadAll(r.Body)
+		if err != nil {
+	 		log.Printf(err)
+ 		}
+ 		sbody=string(body)
+		log.Printf(sbody)
 		// decoder := json.NewDecoder(r.Body)
 	 //    var t test_struct   
 	 //    err := decoder.Decode(&t)
