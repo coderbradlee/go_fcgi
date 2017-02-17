@@ -17,7 +17,8 @@ type Configuration struct {
     Exec_time string
     FastcgiPort string
     Log_name string
-    HttpPort []string
+    HttpPort string
+    RedisNodes []string
 }
 var configuration Configuration
 
@@ -51,7 +52,7 @@ func log_init() {
 
 
 func main() {
-    port:=fmt.Sprintf("%s",configuration.Port)
+    port:=fmt.Sprintf("%s",configuration.FastcgiPort)
     l, err := net.Listen("tcp", port)
     if err != nil { 
         panic(err) 
