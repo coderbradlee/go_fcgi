@@ -1,0 +1,10 @@
+{
+    "port":":8888",
+    "exec_time": "11:05",
+    "log_name":"go_fcgi.log"
+}
+
+// {
+//     "Users": ["UserA","UserB"],
+//     "Groups": ["GroupA"]
+// }
