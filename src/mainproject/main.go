@@ -31,9 +31,9 @@ func init() {
     if err != nil {
       fmt.Println("error:", err)
     }
+    fmt.Printf("%s\n",configuration.Log_name)
     log_init()
     //fmt.Println(configuration.exec_time) // output: [UserA, UserB]
-    fmt.Printf("%s\n",configuration.Log_name)
 }
 func log_init() {
     log_name:=fmt.Sprintf("%s",configuration.Log_name)
