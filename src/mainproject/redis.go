@@ -36,7 +36,7 @@ func redisHandler(w http.ResponseWriter, r *http.Request) {
     end := time.Now()
  
     //输出执行时间，单位为毫秒。
-    // fmt.Println((end - start) / 1000000)
+    fmt.Println((end - start) / 1000000)
     fmt.Fprint(w, end.Sub(start))
 }
 
