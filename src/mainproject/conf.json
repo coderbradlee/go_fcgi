@@ -5,10 +5,9 @@
  //    HttpPort string
  //    RedisNodes
 
-    "exec_time": "11:05",
+    "Exec_time": "11:05",
     "FastcgiPort":":8888",
-    
-    "log_name":"go_fcgi.log",
+    "Log_name":"go_fcgi.log",
     "HttpPort":":9888",
     //"RedisNodes":["127.0.0.1:6382","127.0.0.1:7380","127.0.0.1:7381"]
     "RedisNodes":["127.0.0.1:6380","127.0.0.1:7382","127.0.0.1:6381"]
