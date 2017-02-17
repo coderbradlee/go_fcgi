@@ -2,7 +2,6 @@
  
 import (
     "fmt"
-    _ "github.com/go-sql-driver/mysql"
     "net/http"
     "log"
     "time"
