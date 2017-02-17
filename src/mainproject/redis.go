@@ -5,12 +5,12 @@ import (
     "time"
     "strconv"
     "go_redis_cluster"
-    // "redis-go-cluster"
+    "net/http"
 )
 
 const kNumOfRoutine = 50
 
-func redisHandler() {
+func redisHandler(w http.ResponseWriter, r *http.Request) {
     cluster, err := redis.NewCluster(
     &redis.Options{
         StartNodes: []string{"127.0.0.1:6380", "127.0.0.1:6381", "127.0.0.1:7382"},
