@@ -70,12 +70,13 @@ func main() {
     if err != nil { 
         log.Println("fcgi error", err) 
     }
-    go startHttpServer()
+    // go startHttpServer()
 }
 func startHttpServer() {
     port:=fmt.Sprintf("%s",configuration.HttpPort)
     http.HandleFunc("/redis", redisHandler) 
     http.HandleFunc("/pdf", pdfHandler) 
+    http.HandleFunc("/po/deliver_goods",poHandler)
     err := http.ListenAndServe(port, nil)
     if err != nil {
         log.Fatal("ListenAndServe: ", err)
