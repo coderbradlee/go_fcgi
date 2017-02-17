@@ -1,19 +1,7 @@
 {
-	// Exec_time string
- //    FastcgiPort string
- //    Log_name string
- //    HttpPort string
- //    RedisNodes
-
     "Exec_time": "11:05",
     "FastcgiPort":":8888",
     "Log_name":"go_fcgi.log",
     "HttpPort":":9888",
-    //"RedisNodes":["127.0.0.1:6382","127.0.0.1:7380","127.0.0.1:7381"]
     "RedisNodes":["127.0.0.1:6380","127.0.0.1:7382","127.0.0.1:6381"]
 }
-
-// {
-//     "Users": ["UserA","UserB"],
-//     "Groups": ["GroupA"]
-// }
