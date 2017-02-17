@@ -88,6 +88,6 @@ func startMartini() {
     m := martini.Classic()
     m.Post("/po/deliver_goods",poHandler)
     m.RunOnAddr(port)
-    m.Logger(log)
+    m.Logger(log.Logger)
     m.Run()
 }
