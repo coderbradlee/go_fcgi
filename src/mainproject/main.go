@@ -52,7 +52,7 @@ func log_init() {
         os.Exit(1)
     }
     log.SetOutput(logFile)
-    log.SetFlags(log.Ldate | log.Ltime | Lmicroseconds | log.Lshortfile)
+    log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 }
 
 
