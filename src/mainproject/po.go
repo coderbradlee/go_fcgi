@@ -106,17 +106,17 @@ type DeliverGoodsForPO struct {
    data Data 
 }
 type Response_json_data struct{
-	goods_receipt_no string
-	bill_type string
-	receive_by string
-	company string
-	receive_at string
+	Goods_receipt_no string
+	Bill_type string
+	Receive_by string
+	Company string
+	Receive_at string
 }
 type Response_json struct{
-	error_code string
-	error_msg string
-	data Response_json_data	
-	reply_time string		   
+	Error_code string
+	Error_msg string
+	Data Response_json_Data	
+	Reply_time string		   
 }
 func poHandler (w http.ResponseWriter, r *http.Request) {
 	////////////////////////////////
@@ -162,40 +162,23 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	    //     ret=`{"error_code":"-200","error_msg":"json encoder error","data":{},"reply_time":"2017-03-17 12:00:00"}`
 	    //     fmt.Fprint(w, ret)
 	    // }
-		// var buffer bytes.Buffer
-	    // enc := json.NewEncoder(&buffer)
+		var buffer bytes.Buffer
+	    enc := json.NewEncoder(&buffer)
 
-	    // err_encode := enc.Encode(json_ret)
-	    buffer,err_encode:=json.Marshal(json_ret)
+	    err_encode := enc.Encode(json_ret)
 	    if err_encode != nil {
 	    	ret=`{"error_code":"-200","error_msg":"json encoder error","data":{},"reply_time":"2017-03-17 12:00:00"}`
 	        fmt.Fprint(w, ret)
 	        fmt.Println("error encoding the response to a join request")
 	        log.Fatal(err_encode.Error)
 	    }
-	    os.Stdout.Write(buffer)
-		fmt.Printf("response: %s\n", buffer)
-	    fmt.Fprint(w, buffer)
-	    // fmt.Printf("response: %s\n", buffer.Bytes())
-	    // fmt.Fprint(w, buffer.Bytes())
+	    
+	    fmt.Printf("response: %s\n", buffer.Bytes())
+	    fmt.Fprint(w, buffer.Bytes())
 	    // 
 	    // 
 	    ////////////////////////////////////
-	    type ColorGroup struct {
-			iD     int
-			name   string
-			colors []string
-		}
-		group := ColorGroup{
-			iD:     1,
-			name:   "Reds",
-			colors: []string{"Crimson", "Red", "Ruby", "Maroon"},
-		}
-		b, err := json.Marshal(group)
-		if err != nil {
-			fmt.Println("error:", err)
-		}
-		os.Stdout.Write(b)
+	    
 	}
 
 } 
