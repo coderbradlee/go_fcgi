@@ -182,14 +182,14 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	    // 
 	    ////////////////////////////////////
 	    type ColorGroup struct {
-			ID     int
-			Name   string
-			Colors []string
+			iD     int
+			name   string
+			colors []string
 		}
 		group := ColorGroup{
-			ID:     1,
-			Name:   "Reds",
-			Colors: []string{"Crimson", "Red", "Ruby", "Maroon"},
+			iD:     1,
+			name:   "Reds",
+			colors: []string{"Crimson", "Red", "Ruby", "Maroon"},
 		}
 		b, err := json.Marshal(group)
 		if err != nil {
