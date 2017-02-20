@@ -132,14 +132,14 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	if r.Method !="POST"{
 		fmt.Fprint(w, "this interface should be post!")
 	} else{
-		body, err := ioutil.ReadAll(r.Body)
-		if err != nil {
-	 		log.Println("ioutil.ReadAll error", err) 
- 		}
- 		sbody :=string(body)
- 		var ret=""
-		// log.Println(sbody)
-		log.Printf("Started %s %s for %s:%s", r.Method, r.URL.Path, addr,sbody)
+		// body, err := ioutil.ReadAll(r.Body)
+		// if err != nil {
+	 // 		log.Println("ioutil.ReadAll error", err) 
+ 	// 	}
+ 	// 	sbody :=string(body)
+ 	// 	var ret=""
+		// // log.Println(sbody)
+		// log.Printf("Started %s %s for %s:%s", r.Method, r.URL.Path, addr,sbody)
 		decoder := json.NewDecoder(r.Body)
 		defer r.Body.Close()
 	    var t DeliverGoodsForPO   
