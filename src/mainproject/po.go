@@ -17,7 +17,7 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	log.Printf("Started %s %s for %s", r.Method, r.URL.Path, addr)
+	// log.Printf("Started %s %s for %s", r.Method, r.URL.Path, addr)
 
 /////////////////////////////////////////////////////////////////
 	if r.Method !="POST"{
@@ -28,7 +28,8 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	 		log.Println("ioutil.ReadAll error", err) 
  		}
  		sbody :=string(body)
-		log.Println(sbody)
+		// log.Println(sbody)
+		log.Printf("Started %s %s for %s:%s", r.Method, r.URL.Path, addr,sbody)
 		// decoder := json.NewDecoder(r.Body)
 	 //    var t test_struct   
 	 //    err := decoder.Decode(&t)
