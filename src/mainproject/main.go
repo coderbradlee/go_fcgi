@@ -50,7 +50,7 @@ func init() {
     //fmt.Println(configuration.exec_time) // output: [UserA, UserB]
 }
 func mysql_init() {
-    conn_string:=configuration.Mysql_conf.Username+":"+configuration.Mysql_conf.Password+"@tcp("+configuration.Mysql_conf.Host+":"+configuration.Mysql_conf.Port+")"+configuration.Mysql_conf.Database+"?charset=utf8"
+    conn_string:=configuration.Mysql_conf.Username+":"+configuration.Mysql_conf.Password+"@tcp("+configuration.Mysql_conf.Host+":"+configuration.Mysql_conf.Port+")/"+configuration.Mysql_conf.Database+"?charset=utf8"
     // db, _ = sql.Open("mysql", "renesola:renes0la.xx@tcp(172.18.22.202:3306)/apollo_eu_erp?charset=utf8")
     fmt.Printf("conn_string:%s\n",conn_string)
     db, _ = sql.Open("mysql", conn_string)
