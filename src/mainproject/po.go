@@ -154,7 +154,7 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	    }
 	    log.Println(t.Operation)
 	    var err_encode error
-	    ret,err_encode=get_response()
+	    ret,err_encode=get_response(t)
 	    if err_encode != nil {
 	    	ret=`{"error_code":"-200","error_msg":"json encoder error","data":{},"reply_time":"2017-03-17 12:00:00"}`
 	        // fmt.Fprint(w, ret)
@@ -169,7 +169,11 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	}
 
 } 
-func get_response() (string, error){
+func deal_with_database(t *DeliverGoodsForPO) {
+	
+}
+func get_response(t *DeliverGoodsForPO) (string, error){
+	deal_with_database(t)
 	json_ret:=&Response_json{Error_code:"200",Error_msg:"Goods received successfully at 2017-03-17 12:00:00",Data:Response_json_data{Goods_receipt_no:"GR-FR-20170226-000196",Bill_type:"Goods Receipt",Receive_by:"Enie Yang",Company:"ReneSola France",Receive_at:"2017-03-17 12:00:00"},Reply_time:"2017-03-17 12:00:00"}
 		
 		var buffer bytes.Buffer
