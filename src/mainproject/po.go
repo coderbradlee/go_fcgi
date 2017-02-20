@@ -8,6 +8,20 @@
 )
 
 func poHandler (w http.ResponseWriter, r *http.Request) {
+	////////////////////////////////
+	start := time.Now()
+
+	addr := req.Header.Get("X-Real-IP")
+	if addr == "" {
+		addr = req.Header.Get("X-Forwarded-For")
+		if addr == "" {
+			addr = req.RemoteAddr
+		}
+	}
+
+	log.Printf("Started %s %s for %s", req.Method, req.URL.Path, addr)
+
+/////////////////////////////////////////////////////////////////
 	if r.Method !="POST"{
 		fmt.Fprint(w, "this interface should be post!")
 	} else{
