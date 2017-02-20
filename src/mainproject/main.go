@@ -105,6 +105,11 @@ func startMartini() {
     // log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 
 ///////////////////////////////
-    m.Logger(log.GetLogger)
+    l,err:=log.GetLogger("x")
+    if err != nil {
+        fmt.Println("Fail to find logFile cServer start Failed")
+        os.Exit(1)
+    }
+    m.Logger(l)
     m.Run()
 }
