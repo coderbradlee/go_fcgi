@@ -51,8 +51,8 @@ func log_init() {
         fmt.Println("Fail to find", *logFile, "cServer start Failed")
         os.Exit(1)
     }
-    // log.SetOutput(logFile)
-    // log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
+    log.SetOutput(logFile)
+    log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 }
 
 
@@ -89,6 +89,6 @@ func startMartini() {
     m.Post("/po/deliver_goods",poHandler)
     m.RunOnAddr(port)
     // l:=log.Logger
-    // m.Logger(l)
+    m.Logger(log)
     m.Run()
 }
