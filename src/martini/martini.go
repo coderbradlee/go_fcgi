@@ -35,7 +35,7 @@ type Martini struct {
 }
 
 // New creates a bare bones Martini instance. Use this method if you want to have full control over the middleware that is used.
-func New(filename string) *Martini {
+func New() *Martini {
 	// logFileName := flag.String("log", filename, "Log file name")
     
  //    flag.Parse()
@@ -50,7 +50,8 @@ func New(filename string) *Martini {
  //    // logger:= log.New(os.Stdout, "[martini] ", 0)
  //    logger:= log.New(logFile, "[martini] ", 0)
  //    logger.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
-	m := &Martini{Injector: inject.New(), action: func() {}, logger:log.New(os.Stdout, "[martini] ", 0)}
+	// m := &Martini{Injector: inject.New(), action: func() {}, logger:log.New(os.Stdout, "[martini] ", 0)}
+	m := &Martini{Injector: inject.New(), action: func() {}, logger: log.New(os.Stdout, "[martini] ", 0)}
 	m.Map(m.logger)
 	m.Map(defaultReturnHandler())
 	return m
