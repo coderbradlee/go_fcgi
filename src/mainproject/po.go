@@ -170,7 +170,7 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	}
 
 } 
-func get_response() (int, error){
+func get_response() (string, error){
 	json_ret:=&Response_json{Error_code:"200",Error_msg:"Goods received successfully at 2017-03-17 12:00:00",Data:Response_json_data{Goods_receipt_no:"GR-FR-20170226-000196",Bill_type:"Goods Receipt",Receive_by:"Enie Yang",Company:"ReneSola France",Receive_at:"2017-03-17 12:00:00"},Reply_time:"2017-03-17 12:00:00"}
 		
 		var buffer bytes.Buffer
