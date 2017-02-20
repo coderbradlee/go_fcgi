@@ -37,7 +37,8 @@ type Martini struct {
 
 // New creates a bare bones Martini instance. Use this method if you want to have full control over the middleware that is used.
 func New() *Martini {
-	logFileName := flag.String("log", "martini.log", "Log file name")
+	filename:="martini.log"
+	logFileName := flag.String("log", filename, "Log file name")
     
     flag.Parse()
 
