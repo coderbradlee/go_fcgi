@@ -90,21 +90,21 @@ func startMartini() {
     m.RunOnAddr(port)
     ////////////////////
 
-    log_name:=fmt.Sprintf("%s",configuration.Log_name)
-    logFileName := flag.String("log", log_name, "Log file name")
+    // log_name:=fmt.Sprintf("%s",configuration.Log_name)
+    // logFileName := flag.String("log", log_name, "Log file name")
     
-    flag.Parse()
+    // flag.Parse()
 
-    //set logfile Stdout
-    logFile, logErr := os.OpenFile(*logFileName, os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
-    if logErr != nil {
-        fmt.Println("Fail to find", *logFile, "cServer start Failed")
-        os.Exit(1)
-    }
+    // //set logfile Stdout
+    // logFile, logErr := os.OpenFile(*logFileName, os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
+    // if logErr != nil {
+    //     fmt.Println("Fail to find", *logFile, "cServer start Failed")
+    //     os.Exit(1)
+    // }
     // log.SetOutput(logFile)
     // log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 
 ///////////////////////////////
-    m.Logger(log.New(logFile,"test",log.Ldate | log.Ltime | log.Lshortfile))
+    m.Logger(log.GetLogger("xx"))
     m.Run()
 }
