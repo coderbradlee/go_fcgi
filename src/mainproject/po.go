@@ -5,7 +5,7 @@
     "encoding/json"
     "net/http"
     _"io/ioutil"
-    "bytes"
+    _"bytes"
 )
 type Detail struct{
 	product_name string
@@ -172,9 +172,10 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	        fmt.Println("error encoding the response to a join request")
 	        log.Fatal(err_encode.Error)
 	    }
-
-	    fmt.Printf("response: %s\n", buffer.Bytes())
-	    fmt.Fprint(w, buffer.Bytes())
+		fmt.Printf("response: %s\n", buffer)
+	    fmt.Fprint(w, buffer)
+	    // fmt.Printf("response: %s\n", buffer.Bytes())
+	    // fmt.Fprint(w, buffer.Bytes())
 	}
 
 } 
