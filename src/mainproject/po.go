@@ -10,8 +10,6 @@
 
 func poHandler (w http.ResponseWriter, r *http.Request) {
 	////////////////////////////////
-	start := time.Now()
-
 	addr := r.Header.Get("X-Real-IP")
 	if addr == "" {
 		addr = r.Header.Get("X-Forwarded-For")
