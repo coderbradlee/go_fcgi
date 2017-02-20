@@ -169,7 +169,7 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	    	ret=`{"error_code":"-200","error_msg":"json encoder error","data":{},"reply_time":"2017-03-17 12:00:00"}`
 	        fmt.Fprint(w, ret)
 	        fmt.Println("error encoding the response to a join request")
-	        log.Fatal(err_encode)
+	        log.Fatal(err_encode.Error)
 	    }
 
 	    fmt.Printf("response: %s\n", buffer.Bytes())
