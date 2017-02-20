@@ -12,15 +12,15 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	////////////////////////////////
 	start := time.Now()
 
-	addr := req.Header.Get("X-Real-IP")
+	addr := r.Header.Get("X-Real-IP")
 	if addr == "" {
-		addr = req.Header.Get("X-Forwarded-For")
+		addr = r.Header.Get("X-Forwarded-For")
 		if addr == "" {
-			addr = req.RemoteAddr
+			addr = r.RemoteAddr
 		}
 	}
 
-	log.Printf("Started %s %s for %s", req.Method, req.URL.Path, addr)
+	log.Printf("Started %s %s for %s", r.Method, r.URL.Path, addr)
 
 /////////////////////////////////////////////////////////////////
 	if r.Method !="POST"{
