@@ -5,6 +5,7 @@
     "encoding/json"
     "net/http"
     _"io/ioutil"
+    "bytes"
 )
 type Detail struct{
 	product_name string
