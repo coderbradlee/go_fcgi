@@ -151,7 +151,7 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	    }
 	    log.Println(t.operation)
 
-	    response_data:=&Response_json_data{"GR-FR-20170226-000196","Goods Receipt","Enie Yang","ReneSola France","2017-03-17 12:00:00"}
+	    response_data:=Response_json_data{"GR-FR-20170226-000196","Goods Receipt","Enie Yang","ReneSola France","2017-03-17 12:00:00"}
 	    json_ret:=&Response_json{"200","Goods received successfully at 2017-03-17 12:00:00",response_data,"2017-03-17 12:00:00"}
 
 	    // encoder:=json.NewEncoder(w)
