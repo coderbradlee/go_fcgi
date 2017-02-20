@@ -24,7 +24,7 @@ type Purchase_order struct{
 	po_url string
 	po_date string
 	create_by string
-	status string
+	status int32
 	supplier string
 	website string
 	company string
@@ -35,8 +35,8 @@ type Purchase_order struct{
 	destination_country string
 	loading_port string
 	certificate string
-	total_quantity string
-	total_amount string
+	total_quantity int32
+	total_amount float64
 	currency string
 	comments string
 	note string
@@ -94,7 +94,7 @@ type Deliver_notes struct{
 
 }
 type Data struct{
-	request_system int
+	request_system int32
 	request_time string
 	purchase_order Purchase_order
 	deliver_notes []Deliver_notes
@@ -153,7 +153,7 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	     */
 	    response_data:=Response_json_data{"GR-FR-20170226-000196","Goods Receipt","Enie Yang","ReneSola France","2017-03-17 12:00:00"}
 	    json_ret:=Response_json{"200","Goods received successfully at 2017-03-17 12:00:00",response_data,"2017-03-17 12:00:00"}
-	    
+
 	    encoder:=json.NewEncoder(w)
 	    err_encode:=encoder.Encode(json_ret)
 	    if err_encode != nil {
