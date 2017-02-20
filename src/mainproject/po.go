@@ -153,8 +153,7 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	        return;
 	    }
 	    log.Println(t.Operation)
-
-	    
+	    var err_encode error
 	    ret,err_encode=get_response()
 	    if err_encode != nil {
 	    	ret=`{"error_code":"-200","error_msg":"json encoder error","data":{},"reply_time":"2017-03-17 12:00:00"}`
