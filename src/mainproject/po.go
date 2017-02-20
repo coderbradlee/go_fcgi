@@ -148,26 +148,34 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	    if err_decode != nil {
 	        // panic(err)
 	        ret=`{"error_code":"-100","error_msg":"json decoder error","data":{},"reply_time":"2017-03-17 12:00:00"}`
+	        fmt.Fprint(w,ret )
+	        log.Printf("Started %s %s for %s:%s\nrespose:%s", r.Method, r.URL.Path, addr,"sbody",ret)
+	        return;
 	    }
 	    log.Println(t.Operation)
 
-	    json_ret:=&Response_json{Error_code:"200",Error_msg:"Goods received successfully at 2017-03-17 12:00:00",Data:Response_json_data{Goods_receipt_no:"GR-FR-20170226-000196",Bill_type:"Goods Receipt",Receive_by:"Enie Yang",Company:"ReneSola France",Receive_at:"2017-03-17 12:00:00"},Reply_time:"2017-03-17 12:00:00"}
-		
-		var buffer bytes.Buffer
-	    enc := json.NewEncoder(&buffer)
-
-	    err_encode := enc.Encode(json_ret)
-	    ret=buffer.String()
+	    
+	    ret,err_encode=get_response()
 	    if err_encode != nil {
 	    	ret=`{"error_code":"-200","error_msg":"json encoder error","data":{},"reply_time":"2017-03-17 12:00:00"}`
-	        fmt.Fprint(w, ret)
-	        fmt.Println("error encoding the response to a join request")
-	        log.Fatal(err_encode.Error)
+	        // fmt.Fprint(w, ret)
+	        // fmt.Println(ret)
+	        // log.Fatal(err_encode.Error)
+	        fmt.Fprint(w,ret )
+	        log.Printf("Started %s %s for %s:%s\nrespose:%s", r.Method, r.URL.Path, addr,"sbody",ret)
+	        return;
 	    }
-	    
-	    fmt.Printf("response: %s\n", buffer.Bytes())
 	    fmt.Fprint(w,ret )
 	    log.Printf("Started %s %s for %s:%s\nrespose:%s", r.Method, r.URL.Path, addr,"sbody",ret)
 	}
 
 } 
+func get_response() (int, error){
+	json_ret:=&Response_json{Error_code:"200",Error_msg:"Goods received successfully at 2017-03-17 12:00:00",Data:Response_json_data{Goods_receipt_no:"GR-FR-20170226-000196",Bill_type:"Goods Receipt",Receive_by:"Enie Yang",Company:"ReneSola France",Receive_at:"2017-03-17 12:00:00"},Reply_time:"2017-03-17 12:00:00"}
+		
+		var buffer bytes.Buffer
+	    enc := json.NewEncoder(&buffer)
+
+	    err_encode := enc.Encode(json_ret)
+	return buffer.String(),err_encode
+}
