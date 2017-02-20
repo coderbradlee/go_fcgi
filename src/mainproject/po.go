@@ -140,17 +140,20 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	 		log.Println("ioutil.ReadAll error", err) 
  		}
  		sbody :=string(body)
+ 		var ret=""
 		// log.Println(sbody)
 		log.Printf("Started %s %s for %s:%s", r.Method, r.URL.Path, addr,sbody)
 		decoder := json.NewDecoder(r.Body)
+		defer r.Body.Close()
 	    var t DeliverGoodsForPO   
-	    err := decoder.Decode(&t)
-	    if err != nil {
-	        panic(err)
+	    err_decode := decoder.Decode(&t)
+	    if err_decode != nil {
+	        // panic(err)
+	        ret=`{"error_code":"-100","error_msg":"json decoder error","data":{},"reply_time":"2017-03-17 12:00:00"}`
 	    }
-	    defer r.Body.Close()
+	    
 	    // log.Println(t.Test)
-	    ret := `{
+	    ret = `{
 				   "error_code":"200",
 				   "error_msg":"Goods received successfully at 2017-03-17 12:00:00",
 				   "data":{
@@ -164,6 +167,7 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 			   }`
 		// log.Logger(ret)
 		fmt.Fprint(w, ret)
+
 	}
 
 } 
