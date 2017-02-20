@@ -105,17 +105,17 @@ type DeliverGoodsForPO struct {
    data Data 
 }
 type Response_json_data struct{
-	Goods_receipt_no string
-	Bill_type string
-	Receive_by string
-	Company string
-	Receive_at string
+	Goods_receipt_no string `json:"goods_receipt_no"`
+	Bill_type string `json:"bill_type"`
+	Receive_by string `json:"receive_by"`
+	Company string `json:"company"`
+	Receive_at string `json:"receive_at"`
 }
 type Response_json struct{
-	Error_code string
-	Error_msg string
-	Data Response_json_data	
-	Reply_time string		   
+	Error_code string `json:"error_code"`
+	Error_msg string `json:"error_msg"`
+	Data Response_json_data	 `json:"response_json_data"`
+	Reply_time string `json:"reply_time"`		   
 }
 func poHandler (w http.ResponseWriter, r *http.Request) {
 	////////////////////////////////
