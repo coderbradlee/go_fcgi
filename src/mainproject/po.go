@@ -173,7 +173,7 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	    }
 	    
 	    fmt.Printf("response: %s\n", buffer.Bytes())
-	    fmt.Fprint(w, buffer.Bytes.String())
+	    fmt.Fprint(w, buffer.String())
 	    // 
 	    // 
 	    ////////////////////////////////////
