@@ -142,7 +142,7 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
  		sbody :=string(body)
 		// log.Println(sbody)
 		log.Printf("Started %s %s for %s:%s", r.Method, r.URL.Path, addr,sbody)
-		decoder := json.NewDecoder(sbody)
+		decoder := json.NewDecoder(r.Body)
 	    var t DeliverGoodsForPO   
 	    err := decoder.Decode(&t)
 	    if err != nil {
