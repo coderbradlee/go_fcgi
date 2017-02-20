@@ -105,6 +105,6 @@ func startMartini() {
     // log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 
 ///////////////////////////////
-    m.Logger(log.GetLogger("xx"))
+    m.Logger(log.GetLogger)
     m.Run()
 }
