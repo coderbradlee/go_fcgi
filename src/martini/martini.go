@@ -22,7 +22,7 @@ import (
 	"net/http"
 	"os"
 	"reflect"
-	"flag"
+	_"flag"
 	"inject"
 	"fmt"
 )
