@@ -38,12 +38,13 @@ type Martini struct {
 // New creates a bare bones Martini instance. Use this method if you want to have full control over the middleware that is used.
 func New() *Martini {
 	filename:="martini.log"
-	logFileName := flag.String("log", filename, "Log file name")
+	// logFileName := flag.String("log", filename, "Log file name")
     
-    flag.Parse()
+ //    flag.Parse()
 
     //set logfile Stdout
-    logFile, logErr := os.OpenFile(*logFileName, os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
+    // logFile, logErr := os.OpenFile(*logFileName, os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
+    logFile, logErr := os.OpenFile(filename, os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
     if logErr != nil {
         fmt.Println("Fail to find", *logFile, "cServer start Failed")
         os.Exit(1)
