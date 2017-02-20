@@ -6,113 +6,98 @@
     "net/http"
     "io/ioutil"
 )
+type Detail struct{
+	product_name string
+	product_code string
+	item_no string
+	unit_price float64
+	quantity int32
+	uom string
+	sub_total float64
+	warranty int32
+	comments string
+	note string
+}
 type Purchase_order struct{
- bill_type string
-//          "po_no":"PO-FR-20170216-001014",
-//          "po_url":"/opt/renesola/apollo/file/po/PO-FR-20170216-001014.pdf",
-//          "po_date":"2017-02-16 18:00:00",
-//          "create_by":"",
-//          "status":1,
-// "supplier":"Renesola Shanghai",
-//          "website":"France",
-//          "company":"ReneSola France",
-//          "requested_delivery_date":"2017-03-20 24:00:00",
-// "trade_term":"EXW",
-//          "payment_terms":"",
-//          "ship_via":"Sea",
-//          "destination_country":"France",
-//          "loading_port":"Amsterdam",
-//          "certificate":"",
-//          "total_quantity":2400,
-//          "total_amount":5690.47,
-//          "currency":"EUR",
-//          "comments":"",
-//          "note":"",
-//          "detail":[{
-//             "product_name":"Highbay",
-//             "product_code":"RHB120X0302",
-//             "item_no":"3518020400845",
-//             "unit_price":3.64,
-//             "quantity":1000,
-//             "uom":"PCS",
-//             "sub_total":3640.00,
-//             "warranty":3,
-//             "comments":"",
-// "note":""
-// },{
-//             "product_name":"Flood Light",
-//             "product_code":"RFL400AK01D06",
-//             "item_no":"3518030601741",
-//             "unit_price":6.89,
-//             "quantity":200,
-//             "uom":"PCS",
-//             "sub_total":1378.00,
-//             "warranty":3,
-//             "comments":"",
-// "note":""
-// }]
-// },
-// "deliver_notes":[{
-// "supplier":"Renesola Shanghai",
-// " buyer":"",
-// "loading_port":"Amsterdam",
-// "trade_term":"CIF",
-// "ship_via":"Sea",
-// "packing_method":"Pallet",
-// "logistic":"COSCO",
-// "logistic_contact":"",
-// "logistic_contact_email":"",
-// "logistic_contact_telephone_number":"",
-// "etd":"2017-02-28 17:00:00",
-// "eta":"2017-03-17 10:00:00",
-// "customs_clearance_date":"2017-03-18 10:00:00",
-// "total_freight_charges":879.65,
-// "total_insurance_fee":262.00,
-// "total_excluded_tax":3650.65,
-// "currency":"EUR",
-// "commercial_invoice":{
-// "ci_no":"CI-FR-20170226-000196",
-// "ci_url":"/opt/renesola/apollo/file/ci/CI-FR-20170226-000196.pdf"
-// },
-// "packing_list":{
-// "pl_no":"PKL-FR-20170226-000196",
-// "pl_url":"/opt/renesola/apollo/file/pkl/PKL-FR-20170226-000196.pdf"
-// },
-// "bill_of_lading":{
-// "bl_no":"",
-// "bl_url":""
-// },
-// "associated_so":{
-// "associated_so_no":"SC-FR-20170226-000196",
-// "associated_so_url":"/opt/renesola/apollo/file/sc/SC-FR-20170226-000196.pdf"
-// },
-// "detail":[{
-//             "product_name":"Highbay",
-//             "product_code":"RHB120X0302",
-//             "item_no":"3518020400845",
-//             "unit_price":3.64,
-//             "quantity":500,
-//             "uom":"PCS",
-//             "sub_total":1820.00
-// },{
-//             "product_name":"Flood Light",
-//             "product_code":"RFL400AK01D06",
-//             "item_no":"3518030601741",
-//             "unit_price":6.89,
-//             "quantity":100,
-//             "uom":"PCS",
-//             "sub_total":689.00
-// }]
-// }]
-//    }
-// }
+	bill_type string
+	po_no string
+	po_url string
+	po_date string
+	create_by string
+	status string
+	supplier string
+	website string
+	company string
+	requested_delivery_date string
+	trade_term  string
+	payment_terms string
+	ship_via string
+	destination_country string
+	loading_port string
+	certificate string
+	total_quantity string
+	total_amount string
+	currency string
+	comments string
+	note string
+	detail []Detail
+}
+type Commercial_invoice struct{
+	ci_no string
+	ci_url string
+}
+type Packing_list struct{
+	pl_no string
+	pl_url string
+}
+type Bill_of_lading struct{
+	bl_no string
+	bl_url string
+}
+type Associated_so struct{
+	associated_so_no string
+	associated_so_url string
+}
 
-// }
+type Deliver_notes_detail struct{
+	product_name string
+	product_code string
+	item_no string
+	unit_price float64
+	quantity int32
+	uom string
+	sub_total float64
+}
+type Deliver_notes struct{
+	supplier string
+	buyer string
+	loading_port string
+	trade_term string
+	ship_via string
+	packing_method string
+	logistic string
+	logistic_contact string
+	logistic_contact_email string
+	logistic_contact_telephone_number string
+	etd string
+	eta string
+	customs_clearance_date string
+	total_freight_charges float64
+	total_insurance_fee float64
+	total_excluded_tax float64
+	currency string
+	commercial_invoice Commercial_invoice
+	packing_list Packing_list
+	bill_of_lading Bill_of_lading
+	associated_so Associated_so
+	detail []Deliver_notes_detail
+
 }
 type Data struct{
 	request_system int
 	request_time string
 	purchase_order Purchase_order
+	deliver_notes []Deliver_notes
 }
 type DeliverGoodsForPO struct {
    operation string
