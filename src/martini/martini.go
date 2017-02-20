@@ -50,7 +50,7 @@ func New() *Martini {
     // logger:= log.New(os.Stdout, "[martini] ", 0)
     loggers:= log.New(logFile, "[martini] ", 0)
     loggers.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
-	m := &Martini{Injector: inject.New(), action: func() {}, logger:log.New(loggers, "[martini] ", 0)}
+	m := &Martini{Injector: inject.New(), action: func() {}, logger:loggers}
 	// m := &Martini{Injector: inject.New(), action: func() {}, logger: log.New(os.Stdout, "[martini] ", 0)}
 	m.Map(m.logger)
 	m.Map(defaultReturnHandler())
