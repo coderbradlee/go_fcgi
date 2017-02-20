@@ -153,7 +153,7 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 
 	    // response_data:=Response_json_data{goods_receipt_no:"GR-FR-20170226-000196",bill_type:"Goods Receipt",receive_by:"Enie Yang",company:"ReneSola France",receive_at:"2017-03-17 12:00:00"}
 	    json_ret:=&Response_json{error_code:"200",error_msg:"Goods received successfully at 2017-03-17 12:00:00",data:Response_json_data{goods_receipt_no:"GR-FR-20170226-000196",bill_type:"Goods Receipt",receive_by:"Enie Yang",company:"ReneSola France",receive_at:"2017-03-17 12:00:00"},reply_time:"2017-03-17 12:00:00"}
-		fmt.Println(json_ret)
+		// fmt.Println(json_ret)
 	    // encoder:=json.NewEncoder(w)
 	    // err_encode:=encoder.Encode(json_ret)
 	    // if err_encode != nil {
@@ -161,10 +161,11 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	    //     ret=`{"error_code":"-200","error_msg":"json encoder error","data":{},"reply_time":"2017-03-17 12:00:00"}`
 	    //     fmt.Fprint(w, ret)
 	    // }
-		var buffer bytes.Buffer
-	    enc := json.NewEncoder(&buffer)
+		// var buffer bytes.Buffer
+	    // enc := json.NewEncoder(&buffer)
 
-	    err_encode := enc.Encode(json_ret)
+	    // err_encode := enc.Encode(json_ret)
+	    buffer,err_encode:=json.Marshal(json_ret)
 	    if err_encode != nil {
 	    	ret=`{"error_code":"-200","error_msg":"json encoder error","data":{},"reply_time":"2017-03-17 12:00:00"}`
 	        fmt.Fprint(w, ret)
