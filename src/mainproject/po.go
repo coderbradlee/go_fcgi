@@ -167,7 +167,7 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	    	fmt.Fprint(w, ret)
 		}
 		w.Write(js)
-		// log.Println(ret)
+		log.Println(js)
 	}
 
 } 
