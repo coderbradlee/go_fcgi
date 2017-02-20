@@ -154,14 +154,20 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	    response_data:=Response_json_data{"GR-FR-20170226-000196","Goods Receipt","Enie Yang","ReneSola France","2017-03-17 12:00:00"}
 	    json_ret:=Response_json{"200","Goods received successfully at 2017-03-17 12:00:00",response_data,"2017-03-17 12:00:00"}
 
-	    encoder:=json.NewEncoder(w)
-	    err_encode:=encoder.Encode(json_ret)
-	    if err_encode != nil {
-	        // panic(err)
-	        ret=`{"error_code":"-200","error_msg":"json encoder error","data":{},"reply_time":"2017-03-17 12:00:00"}`
-	    }
-		fmt.Fprint(w, ret)
-		log.Println(ret)
+	    // encoder:=json.NewEncoder(w)
+	    // err_encode:=encoder.Encode(json_ret)
+	    // if err_encode != nil {
+	    //     // panic(err)
+	    //     ret=`{"error_code":"-200","error_msg":"json encoder error","data":{},"reply_time":"2017-03-17 12:00:00"}`
+	    //     fmt.Fprint(w, ret)
+	    // }
+		js, err_encode := json.Marshal(json_ret)
+		if err_encode != nil {
+		    ret=`{"error_code":"-200","error_msg":"json encoder error","data":{},"reply_time":"2017-03-17 12:00:00"}`
+	    	fmt.Fprint(w, ret)
+		}
+		w.Write(js)
+		// log.Println(ret)
 	}
 
 } 
