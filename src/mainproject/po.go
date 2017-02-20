@@ -149,7 +149,7 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	        // panic(err)
 	        ret=`{"error_code":"-100","error_msg":"json decoder error","data":{},"reply_time":"2017-03-17 12:00:00"}`
 	    }
-	    log.Println(t.operation)
+	    log.Println(t.Operation)
 
 	    // response_data:=Response_json_data{goods_receipt_no:"GR-FR-20170226-000196",bill_type:"Goods Receipt",receive_by:"Enie Yang",company:"ReneSola France",receive_at:"2017-03-17 12:00:00"}
 	    json_ret:=&Response_json{Error_code:"200",Error_msg:"Goods received successfully at 2017-03-17 12:00:00",Data:Response_json_data{Goods_receipt_no:"GR-FR-20170226-000196",Bill_type:"Goods Receipt",Receive_by:"Enie Yang",Company:"ReneSola France",Receive_at:"2017-03-17 12:00:00"},Reply_time:"2017-03-17 12:00:00"}
