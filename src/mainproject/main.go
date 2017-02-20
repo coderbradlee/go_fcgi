@@ -15,7 +15,7 @@ import (
     "net/http/fcgi"
     "martini"
     "database/sql"
-    _"github.com/go-sql-driver/mysql")
+    _"mysql")
 type mysql_conf struct{
     Host string
     Port string
