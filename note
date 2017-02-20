@@ -1,4 +1,17 @@
-{
+1、test 1
+curl -X POST http://127.0.0.1:9888/po/deliver_goods -d '{
+   "operation":"DeliverGoodsForPO",
+   "data":{
+      "request_system":1,
+"request_time":"2017-02-16 08:00:00",
+      "purchase_order":{
+         "bill_type":"Purchase Order"}}}'
+
+
+
+         
+
+curl -X POST http://127.0.0.1:9888/po/deliver_goods -d '{
    "operation":"DeliverGoodsForPO",
    "data":{
       "request_system":1,
@@ -102,4 +115,4 @@
 }]
 }]
    }
-}
+}'
