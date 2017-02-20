@@ -137,7 +137,7 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	 // 		log.Println("ioutil.ReadAll error", err) 
  	// 	}
  	// 	sbody :=string(body)
- 	// 	var ret=""
+ 		var ret=""
 		// // log.Println(sbody)
 		// log.Printf("Started %s %s for %s:%s", r.Method, r.URL.Path, addr,sbody)
 		decoder := json.NewDecoder(r.Body)
@@ -161,6 +161,7 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	        ret=`{"error_code":"-200","error_msg":"json encoder error","data":{},"reply_time":"2017-03-17 12:00:00"}`
 	    }
 		fmt.Fprint(w, ret)
+		log.Println(ret)
 	}
 
 } 
