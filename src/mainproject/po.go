@@ -4,7 +4,7 @@
     "fmt"
     "encoding/json"
     "net/http"
-    "io/ioutil"
+    _"io/ioutil"
 )
 type Detail struct{
 	product_name string
