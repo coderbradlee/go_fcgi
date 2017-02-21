@@ -14,7 +14,7 @@ func get_item_master_id(item_no,product_name,product_code string) string{
 }
 func get_uom_id(uom string) string{
 	var uom_id string
-    err := db.QueryRow("select uom_id from t_uom where uom=?",uom).Scan(&uom_id)
+    db.QueryRow("select uom_id from t_uom where uom=?",uom).Scan(&uom_id)
 
     return uom_id
 }
