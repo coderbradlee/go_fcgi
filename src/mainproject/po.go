@@ -44,7 +44,7 @@ type Purchase_order struct{
 	Certificate string `json:"certificate"`
 	Total_quantity int32 `json:"total_quantity"`
 	Total_amount float64 `json:"total_amount"`
-	Currency string `json:"total_amount"`
+	Currency string `json:"currency"`
 	Comments string `json:"comments"`
 	Note string `json:"note"`
 	Detail []Detail `json:"detail"`
