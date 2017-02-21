@@ -51,7 +51,7 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error
         t.purchase_order_id,
         "buyer_id",//get_buyer_id(deliver_notes.buyer)
         "vendor_master_id",//get_vendor_master_id(t.vendor_basic_id)
-        t.Status,//
+        t.status,//
         deliver_notes.Loading_port,
         "trade_term_id",//get_trade_term_id(deliver_notes.Trade_term)
         "transport_term_id",
