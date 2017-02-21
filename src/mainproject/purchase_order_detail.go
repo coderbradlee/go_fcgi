@@ -4,8 +4,9 @@
     "time"
 )
 func insert_purchase_order_detail(t *purchase_order,origi *DeliverGoodsForPO)error {
+	var err error
 	for index,detail:= range origi.Data.Purchase_order.Detail{
-		_, err := db.Exec(
+		_, err = db.Exec(
         `INSERT INTO t_purchase_order_detail(detail_id,purchase_order_id,
 		item_master_id,unit_price,quantity,uom_id,sub_amount,warranty,
 		comments,note,createAt,createBy,dr,data_version) 
