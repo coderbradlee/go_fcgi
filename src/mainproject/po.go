@@ -250,7 +250,7 @@ func get_response(t *DeliverGoodsForPO) (string){
 		// return `{"Error_code":"-300","Error_msg":"insert failed","Data":"","Reply_time":"2017-03-17 12:00:00"}`,err
 		return `{"error_code":"`+error_db_insert+`","error_msg":"`+err.Error()+`","data":{},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
 	}
-	json_ret:=&Response_json{Error_code:"200",Error_msg:"Goods received successfully at "+time.Now().Format("2006-01-02 15:04:05"),Data:Response_json_data{Goods_receipt_no:t.Data.Purchase_order.Po_no,Bill_type:t.Data.Purchase_order.Bill_type,Receive_by:"ERP",Company:t.Purchase_order.Data.Company,Receive_at:time.Now().Format("2006-01-02 15:04:05")},Reply_time:time.Now().Format("2006-01-02 15:04:05")}
+	json_ret:=&Response_json{Error_code:"200",Error_msg:"Goods received successfully at "+time.Now().Format("2006-01-02 15:04:05"),Data:Response_json_data{Goods_receipt_no:t.Data.Purchase_order.Po_no,Bill_type:t.Data.Purchase_order.Bill_type,Receive_by:"ERP",Company:t.Data.Purchase_order.Company,Receive_at:time.Now().Format("2006-01-02 15:04:05")},Reply_time:time.Now().Format("2006-01-02 15:04:05")}
 		
 	var buffer bytes.Buffer
     enc := json.NewEncoder(&buffer)
