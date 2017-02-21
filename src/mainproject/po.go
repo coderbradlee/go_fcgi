@@ -159,7 +159,7 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	        return;
 	    }
 	    // log.Println(t.Operation)
-	    var err_encode error
+	    // var err_encode error
 	    ret =get_response(&t)
 	    // if err_encode != nil {
 	    // 	// ret=`{"error_code":`+error_json_encode+`,"error_msg":`+err_encode.Error()+`,"data":{},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
