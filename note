@@ -9,7 +9,7 @@ curl -X POST http://127.0.0.1:9888/po/deliver_goods -d '{
 
 
 
-         
+
 
 curl -X POST http://127.0.0.1:9888/po/deliver_goods -d '{
    "operation":"DeliverGoodsForPO",
@@ -18,7 +18,7 @@ curl -X POST http://127.0.0.1:9888/po/deliver_goods -d '{
 "request_time":"2017-02-16 08:00:00",
       "purchase_order":{
          "bill_type":"Purchase Order",
-         "po_no":"PO-FR-20170216-001014",
+         "po_no":"PO-FR-20170216-01014",
          "po_url":"/opt/renesola/apollo/file/po/PO-FR-20170216-001014.pdf",
          "po_date":"2017-02-16 18:00:00",
          "create_by":"",

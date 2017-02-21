@@ -160,16 +160,16 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	    }
 	    // log.Println(t.Operation)
 	    var err_encode error
-	    ret,err_encode=get_response(&t)
-	    if err_encode != nil {
-	    	ret=`{"error_code":`+error_json_encode+`,"error_msg":`+err_encode.Error()+`,"data":{},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
-	        // fmt.Fprint(w, ret)
-	        // fmt.Println(ret)
-	        // log.Fatal(err_encode.Error)
-	        fmt.Fprint(w,ret )
-	        log.Printf("Started %s %s for %s:%s\nrespose:%s\nerror:%s", r.Method, r.URL.Path, addr,"sbody",ret,err_encode.Error)
-	        return;
-	    }
+	    ret =get_response(&t)
+	    // if err_encode != nil {
+	    // 	// ret=`{"error_code":`+error_json_encode+`,"error_msg":`+err_encode.Error()+`,"data":{},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
+	    //     // fmt.Fprint(w, ret)
+	    //     // fmt.Println(ret)
+	    //     // log.Fatal(err_encode.Error)
+	    //     fmt.Fprint(w,ret )
+	    //     log.Printf("Started %s %s for %s:%s\nrespose:%s\nerror:%s", r.Method, r.URL.Path, addr,"sbody",ret,err_encode.Error)
+	    //     return;
+	    // }
 	    fmt.Fprint(w,ret )
 	    log.Printf("Started %s %s for %s:%s\nrespose:%s", r.Method, r.URL.Path, addr,"sbody",ret)
 	}
@@ -244,11 +244,11 @@ func insert_to_db(t_purchase_order* purchase_order)error {
 		  	t_purchase_order.data_version)
    return err
 }
-func get_response(t *DeliverGoodsForPO) (string, error){
+func get_response(t *DeliverGoodsForPO) (string){
 	err:=deal_with_database(t)
 	if err!=nil{
 		// return `{"Error_code":"-300","Error_msg":"insert failed","Data":"","Reply_time":"2017-03-17 12:00:00"}`,err
-		return `{"error_code":"`+error_db_insert+`","error_msg":`+err.Error()+`"json decoder error","data":{},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`,err
+		return `{"error_code":"`+error_db_insert+`","error_msg":"`+err.Error()+`","data":{},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
 	}
 	json_ret:=&Response_json{Error_code:"200",Error_msg:"Goods received successfully at "+time.Now().Format("2006-01-02 15:04:05"),Data:Response_json_data{Goods_receipt_no:"GR-FR-20170226-000196",Bill_type:"Goods Receipt",Receive_by:"Enie Yang",Company:"ReneSola France",Receive_at:time.Now().Format("2006-01-02 15:04:05")},Reply_time:time.Now().Format("2006-01-02 15:04:05")}
 		
@@ -256,5 +256,8 @@ func get_response(t *DeliverGoodsForPO) (string, error){
     enc := json.NewEncoder(&buffer)
 
     err_encode := enc.Encode(json_ret)
-	return buffer.String(),err_encode
+    if err_encode!=nil{
+    	return `{"error_code":"`+error_json_encode+`","error_msg":"`+err_encode.Error()+`","data":{},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
+    }
+	return buffer.String()
 }
