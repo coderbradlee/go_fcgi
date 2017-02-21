@@ -214,7 +214,8 @@ func deal_with_database(t *DeliverGoodsForPO)error {
   	return insert_to_db(&t_purchase_order,t)
 }
 func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO)error {
-    _, err := db.Exec(
+	var err error
+    _, err = db.Exec(
         `INSERT INTO t_purchase_order(
 	    purchase_order_id,po_no,po_date,status,company_id,vendor_basic_id,
 		contact_account_id,payment_terms,requested_delivery_date,
@@ -247,9 +248,12 @@ func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO)error {
     if err!=nil{
     	return err
     }else{
-    	return insert_purchase_order_detail(t_purchase_order,t)
+    	err= insert_purchase_order_detail(t_purchase_order,t)
+    	if(err_detail!=nil){
+    		err=insert_goods_delivery_note(t_purchase_order,t)
+    	}
     }
-   
+   return err
 }
 
 func get_response(t *DeliverGoodsForPO) (string){

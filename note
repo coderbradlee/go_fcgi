@@ -64,7 +64,7 @@ curl -X POST http://127.0.0.1:9888/po/deliver_goods -d '{
 },
 "deliver_notes":[{
 "supplier":"Renesola Shanghai",
-" buyer":"",
+"buyer":"",
 "loading_port":"Amsterdam",
 "trade_term":"CIF",
 "ship_via":"Sea",
