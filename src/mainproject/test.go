@@ -1,3 +1,4 @@
+package xx
 import(
 	"image"
 	"image/color"
