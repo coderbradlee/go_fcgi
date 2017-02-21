@@ -1,7 +1,5 @@
  package main
  import (
-    
-    "time"
 )
 func get_company_id(company string) string{
 	// var item_basic_id string
