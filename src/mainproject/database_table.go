@@ -1,4 +1,8 @@
  package main
+import (
+    "math/rand"
+    "time"
+)
 func rand_string(lens int)string{
     choice:="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     var ret string
