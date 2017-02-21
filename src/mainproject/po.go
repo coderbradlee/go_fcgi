@@ -209,9 +209,9 @@ func deal_with_database(t *DeliverGoodsForPO)error {
 	t_purchase_order.createBy="go_fcgi"
   	t_purchase_order.dr=0
   	t_purchase_order.data_version=1
-  	return insert_to_db(&t_purchase_order)
+  	return insert_to_db(&t_purchase_order,t)
 }
-func insert_to_db(t_purchase_order* purchase_order)error {
+func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO)error {
     _, err := db.Exec(
         `INSERT INTO t_purchase_order(
 	    purchase_order_id,po_no,po_date,status,company_id,vendor_basic_id,
@@ -242,8 +242,14 @@ func insert_to_db(t_purchase_order* purchase_order)error {
 			t_purchase_order.createBy,
 		  	t_purchase_order.dr,
 		  	t_purchase_order.data_version)
-   return err
+    if err!=nil{
+    	return err
+    }else{
+    	return insert_purchase_order_detail(t_purchase_order,t)
+    }
+   
 }
+
 func get_response(t *DeliverGoodsForPO) (string){
 	err:=deal_with_database(t)
 	if err!=nil{
