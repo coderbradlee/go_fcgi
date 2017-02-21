@@ -176,7 +176,7 @@ func deal_with_database(t *DeliverGoodsForPO)error {
 	t_purchase_order.purchase_order_id=rand_string(20)
 	t_purchase_order.po_no=t.Data.Purchase_order.Po_no
 	t_purchase_order.po_date=t.Data.Purchase_order.Po_date
-	t_purchase_order.status=t.Data.Purchase_order.status
+	t_purchase_order.status=t.Data.Purchase_order.Status
 
 	//from t.Data.Purchase_order.Company find company_id
 	t_purchase_order.company_id="company_id"
