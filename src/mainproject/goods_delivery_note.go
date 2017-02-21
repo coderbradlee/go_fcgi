@@ -35,6 +35,13 @@ type Delivery_note struct{
 func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error {
     var err error
     for _,deliver_notes:= range origi.Data.Deliver_notes{
+        //get_bill_type_id(t.Bill_type)
+        ////get_buyer_id(deliver_notes.buyer)
+        ////get_vendor_master_id(t.vendor_basic_id)
+        ////get_trade_term_id(deliver_notes.Trade_term)
+        ////get_packing_method_id(deliver_notes.Packing_method)
+        ////get_logistic_master_id(deliver_notes.Logistic)
+        ////get_logistic_contact_id(deliver_notes.Logistic_contact)
         _, err = db.Exec(
         `INSERT INTO t_goods_delivery_note(
         note_id,goods_delivery_note_no,bill_type_id,company_id,
@@ -47,18 +54,18 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
         rand_string(20),
         "goods_delivery_note_no",
-        "bill_type_id",//get_bill_type_id(t.Bill_type)
+        "bill_type_id",
         t.company_id,
         t.purchase_order_id,
-        "buyer_id",//get_buyer_id(deliver_notes.buyer)
-        "vendor_master_id",//get_vendor_master_id(t.vendor_basic_id)
-        t.status,//
+        "buyer_id",
+        "vendor_master_id",
+        t.status,
         deliver_notes.Loading_port,
-        "trade_term_id",//get_trade_term_id(deliver_notes.Trade_term)
+        "trade_term_id",
         "transport_term_id",
-        "packing_method_id",//get_packing_method_id(deliver_notes.Packing_method)
-        "logistic_provider_master_id",//get_logistic_master_id(deliver_notes.Logistic)
-        "logistic_provider_contact_id",//get_logistic_contact_id(deliver_notes.Logistic_contact)
+        "packing_method_id",
+        "logistic_provider_master_id",
+        "logistic_provider_contact_id",
         deliver_notes.Etd,
         deliver_notes.Eta,
         "atd",
