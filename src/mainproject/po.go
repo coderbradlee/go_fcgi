@@ -187,7 +187,7 @@ func deal_with_database(t *DeliverGoodsForPO)error {
 	t_purchase_order.company_id=get_company_id(t.Data.Purchase_order.Company)
 	
 	//from item_no find basic_id
-	t_purchase_order.vendor_basic_id="vendor_basic_id"
+	t_purchase_order.vendor_basic_id=get_vendor_basic_id(t.Data.Purchase_order.Supplier)
 	
 	//待确定
 	t_purchase_order.contact_account_id="contact_account_id"
