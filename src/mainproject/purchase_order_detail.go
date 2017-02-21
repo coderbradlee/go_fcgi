@@ -10,7 +10,7 @@ func insert_purchase_order_detail(t *purchase_order,origi *DeliverGoodsForPO)err
         `INSERT INTO t_purchase_order_detail(detail_id,purchase_order_id,
 		item_master_id,unit_price,quantity,uom_id,sub_amount,warranty,
 		comments,note,createAt,createBy,dr,data_version) 
-		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?.?)`,
+		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
 		rand_string(20),
 		t.purchase_order_id,
 		"item_master_id",
