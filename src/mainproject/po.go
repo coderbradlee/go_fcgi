@@ -204,9 +204,9 @@ func deal_with_database(t *DeliverGoodsForPO)error {
 	t_purchase_order.createBy="go_fcgi"
   	t_purchase_order.dr=0
   	t_purchase_order.data_version=1
-  	return insert_to_db(&t)
+  	return insert_to_db(&t_purchase_order)
 }
-func insert_to_db(p* purchase_order)error {
+func insert_to_db(t_purchase_order* purchase_order)error {
     _, err := db.Exec(
         `INSERT INTO t_purchase_order(
 	    purchase_order_id,po_no,po_date,status,company_id,vendor_basic_id,
