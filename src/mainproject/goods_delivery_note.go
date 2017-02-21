@@ -55,9 +55,9 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error
         deliver_notes.Loading_port,
         "trade_term_id",//get_trade_term_id(deliver_notes.Trade_term)
         "transport_term_id",
-        packing_method_id,//get_packing_method_id(deliver_notes.Packing_method)
-        logistic_provider_master_id,//get_logistic_master_id(deliver_notes.Logistic)
-        logistic_provider_contact_id,//get_logistic_contact_id(deliver_notes.Logistic_contact)
+        "packing_method_id",//get_packing_method_id(deliver_notes.Packing_method)
+        "logistic_provider_master_id",//get_logistic_master_id(deliver_notes.Logistic)
+        "logistic_provider_contact_id",//get_logistic_contact_id(deliver_notes.Logistic_contact)
         deliver_notes.Etd,
         deliver_notes.Eta,
         "atd",
