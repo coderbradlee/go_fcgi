@@ -33,7 +33,7 @@ type Delivery_note struct{
 }
 func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error {
     var err error
-    for _,deliver_notes:= range origi.Data.Purchase_order.Deliver_notes{
+    for _,deliver_notes:= range origi.Data.Deliver_notes{
         _, err = db.Exec(
         `INSERT INTO t_goods_delivery_note(
         note_id,goods_delivery_note_no,bill_type_id,company_id,
