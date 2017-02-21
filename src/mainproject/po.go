@@ -169,16 +169,85 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	}
 
 } 
-func deal_with_database(t *DeliverGoodsForPO) {
+func deal_with_database(t *DeliverGoodsForPO)error {
+	var t_purchase_order purchase_order
+		
+	t_purchase_order.purchase_order_id=rand_string(20)
+	t_purchase_order.po_no=t.Data.Purchase_order.Po_no
+	t_purchase_order.po_date=t.Data.Purchase_order.Po_date
+	t_purchase_order.status=t.Data.Purchase_order.status
+
+	//from t.Data.Purchase_order.Company find company_id
+	t_purchase_order.company_id="company_id"
 	
+	//from item_no find basic_id
+	t_purchase_order.vendor_basic_id="vendor_basic_id"
+	
+	//待确定
+	t_purchase_order.contact_account_id="contact_account_id"
+	t_purchase_order.payment_terms=t.Data.Purchase_order.Payment_terms
+	t_purchase_order.requested_delivery_date=t.Data.Purchase_order.Requested_delivery_date
+	// t.Data.Purchase_order.Ship_via select id
+	t_purchase_order.shipping_method_id="shipping_method_id"
+	t_purchase_order.destination_country_id=t.Data.Purchase_order.Destination_country
+	t_purchase_order.loading_port=t.Data.Purchase_order.Loading_port
+	t_purchase_order.certificate=t.Data.Purchase_order.Certificate
+	t_purchase_order.po_url=t.Data.Purchase_order.Po_url
+	t_purchase_order.total_quantity=t.Data.Purchase_order.Total_quantity
+	t_purchase_order.total_amount=t.Data.Purchase_order.Total_amount
+	t_purchase_order.currency_id=t.Data.Purchase_order.Currency
+	t_purchase_order.comments=t.Data.Purchase_order.Comments
+	t_purchase_order.note=t.Data.Purchase_order.Note
+	t_purchase_order.createAt=time.Now().Format("2006-01-02 15:04:05")
+	fmt.Println(t_purchase_order.createAt)
+	t_purchase_order.createBy="go_fcgi"
+  	t_purchase_order.dr=0
+  	t_purchase_order.data_version=1
+  	return insert_to_db(&t)
+}
+func insert_to_db(p* purchase_order)error {
+    _, err := db.Exec(
+        `INSERT INTO t_purchase_order(
+	    purchase_order_id,po_no,po_date,status,company_id,vendor_basic_id,
+		contact_account_id,payment_terms,requested_delivery_date,
+		shipping_method_id,destination_country_id,loading_port,
+		certificate,po_url,total_quantity,total_amount,currency_id,comments,
+		note,createAt,createBy,dr,data_version) 
+		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,t_purchase_order.purchase_order_id,
+			t_purchase_order.po_no,
+			t_purchase_order.po_date,
+			t_purchase_order.status,
+			t_purchase_order.company_id,
+			t_purchase_order.vendor_basic_id,
+			t_purchase_order.contact_account_id,
+			t_purchase_order.payment_terms,
+			t_purchase_order.requested_delivery_date,
+			t_purchase_order.shipping_method_id,
+			t_purchase_order.destination_country_id,
+			t_purchase_order.loading_port,
+			t_purchase_order.certificate,
+			t_purchase_order.po_url,
+			t_purchase_order.total_quantity,
+			t_purchase_order.total_amount,
+			t_purchase_order.currency_id,
+			t_purchase_order.comments,
+			t_purchase_order.note,
+			t_purchase_order.createAt,
+			t_purchase_order.createBy,
+		  	t_purchase_order.dr,
+		  	t_purchase_order.data_version)
+   return err
 }
 func get_response(t *DeliverGoodsForPO) (string, error){
-	deal_with_database(t)
+	err:=deal_with_database(t)
+	if err!=nil{
+		return `{"Error_code":"-300","Error_msg":"insert failed","Data":"","Reply_time":"2017-03-17 12:00:00"}`,err
+	}
 	json_ret:=&Response_json{Error_code:"200",Error_msg:"Goods received successfully at 2017-03-17 12:00:00",Data:Response_json_data{Goods_receipt_no:"GR-FR-20170226-000196",Bill_type:"Goods Receipt",Receive_by:"Enie Yang",Company:"ReneSola France",Receive_at:"2017-03-17 12:00:00"},Reply_time:"2017-03-17 12:00:00"}
 		
-		var buffer bytes.Buffer
-	    enc := json.NewEncoder(&buffer)
+	var buffer bytes.Buffer
+    enc := json.NewEncoder(&buffer)
 
-	    err_encode := enc.Encode(json_ret)
+    err_encode := enc.Encode(json_ret)
 	return buffer.String(),err_encode
 }
