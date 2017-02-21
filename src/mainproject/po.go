@@ -162,7 +162,7 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	        // fmt.Println(ret)
 	        // log.Fatal(err_encode.Error)
 	        fmt.Fprint(w,ret )
-	        log.Printf("Started %s %s for %s:%s\nrespose:%s", r.Method, r.URL.Path, addr,"sbody",ret)
+	        log.Printf("Started %s %s for %s:%s\nrespose:%s\nerror:%s", r.Method, r.URL.Path, addr,"sbody",ret,err_encode.Error)
 	        return;
 	    }
 	    fmt.Fprint(w,ret )
