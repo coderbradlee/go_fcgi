@@ -8,7 +8,7 @@ func get_item_master_id(item_no,product_name,product_code string) string{
     err := db.QueryRow("select item_basic_id from t_item_basic where item_no=?",item_no).Scan(&item_basic_id)
 
 	var item_master_id string
-    err := db.QueryRow("select item_master_id from t_item_master where item_basic_id=? and product_code=? and product_name=?",item_basic_id,product_code,product_name).Scan(&item_master_id)
+    err1 := db.QueryRow("select item_master_id from t_item_master where item_basic_id=? and product_code=? and product_name=?",item_basic_id,product_code,product_name).Scan(&item_master_id)
 
     return item_master_id
 }
