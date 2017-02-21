@@ -202,10 +202,12 @@ func deal_with_database(t *DeliverGoodsForPO)error {
 	t_purchase_order.total_quantity=t.Data.Purchase_order.Total_quantity
 	t_purchase_order.total_amount=t.Data.Purchase_order.Total_amount
 	t_purchase_order.currency_id=t.Data.Purchase_order.Currency
+	fmt.Println(t.Data.Purchase_order.Total_amount)
+	fmt.Println(t.Data.Purchase_order.Currency)
 	t_purchase_order.comments=t.Data.Purchase_order.Comments
 	t_purchase_order.note=t.Data.Purchase_order.Note
 	t_purchase_order.createAt=time.Now().Format("2006-01-02 15:04:05")
-	fmt.Println(t_purchase_order.createAt)
+	// fmt.Println(t_purchase_order.createAt)
 	t_purchase_order.createBy="go_fcgi"
   	t_purchase_order.dr=0
   	t_purchase_order.data_version=1
