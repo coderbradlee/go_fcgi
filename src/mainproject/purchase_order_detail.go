@@ -1,11 +1,6 @@
  package main
  import (
-    "log"
-    "fmt"
-    "encoding/json"
-    "net/http"
-    _"io/ioutil"
-    "bytes"
+    
     "time"
 )
 func insert_purchase_order_detail(t *purchase_order,origi *DeliverGoodsForPO)error {
