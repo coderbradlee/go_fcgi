@@ -16,7 +16,7 @@ func insert_purchase_order_detail(t *purchase_order,origi *DeliverGoodsForPO)err
 		detail.Unit_price,
 		detail.Quantity,
 		"detail.Uom_id",
-		detail.Sub_amount,
+		detail.Sub_total,
 		detail.Warranty,
 		detail.Comments,
 		detail.Note,
