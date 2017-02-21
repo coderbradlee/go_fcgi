@@ -1,5 +1,6 @@
  package main
  import (
+    "time"
 )
 type Delivery_note struct{
     note_id string/*主键*/
