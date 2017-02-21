@@ -6,6 +6,8 @@
     "net/http"
     _"io/ioutil"
     "bytes"
+    "math/rand"
+    "time"
 )
 type Detail struct{
 	Product_name string `json:"product_name"`
