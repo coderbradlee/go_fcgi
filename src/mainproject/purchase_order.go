@@ -23,3 +23,8 @@ func get_vendor_basic_id(supplier string)string {
     db.QueryRow("select vendor_basic_id from t_vendor_basic where short_name=?",supplier).Scan(&vendor_basic_id)
     return vendor_basic_id
 }
+func get_contact_account_id(vendor_basic_id string)string {
+	var vendor_contact_id string
+    db.QueryRow("select vendor_contact_id from t_vendor_contact where vendor_basic_id=?",vendor_basic_id).Scan(&vendor_contact_id)
+    return vendor_contact_id
+}
