@@ -6,7 +6,6 @@
     "net/http"
     _"io/ioutil"
     "bytes"
-    "math/rand"
     "time"
 )
 type Detail struct{
