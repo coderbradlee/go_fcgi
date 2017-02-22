@@ -69,7 +69,7 @@ curl -X POST http://127.0.0.1:9888/po/deliver_goods -d '{
 "trade_term":"CIF",
 "ship_via":"Sea",
 "packing_method":"Pallet",
-"logistic":"COSCO",
+"logistic":"DHL",
 "logistic_contact":"",
 "logistic_contact_email":"",
 "logistic_contact_telephone_number":"",

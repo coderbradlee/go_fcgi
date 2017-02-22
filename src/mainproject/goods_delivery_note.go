@@ -53,6 +53,11 @@ func get_packing_method_id(Packing_method string)string {
     db.QueryRow("select packing_method_id from t_packing_method where name=?",Packing_method).Scan(&packing_method_id)
     return packing_method_id
 }
+func get_logistic_master_id(Logistic string)string {
+    var logistic_master_id string
+    db.QueryRow("select logistic_provider_master_id from t_logistic_provider_master where native_name=?",Logistic).Scan(&logistic_master_id)
+    return logistic_master_id
+}
 func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error {
     var err error
     log.Println("insert_goods_delivery_note")
@@ -63,7 +68,7 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error
         vendor_master_id:=get_vendor_master_id(t.vendor_basic_id)
         trade_term_id:=get_trade_term_id(deliver_notes.Trade_term)
         packing_method_id:=get_packing_method_id(deliver_notes.Packing_method)
-        ////get_logistic_master_id(deliver_notes.Logistic)
+        logistic_master_id:=get_logistic_master_id(deliver_notes.Logistic)
         ////get_logistic_contact_id(deliver_notes.Logistic_contact)
         log.Println("for range origi.Data.Deliver_notes") 
         _, err = db.Exec(
