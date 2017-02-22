@@ -48,6 +48,11 @@ func get_trade_term_id(Trade_term string)string {
     db.QueryRow("select trade_term_id from t_trade_term where short_name=?",Trade_term).Scan(&trade_term_id)
     return trade_term_id
 }
+func get_transport_term_id(ship_via string)string {
+    var transport_term_id string
+    db.QueryRow("select ship_via_id from t_ship_via where full_name=?",ship_via).Scan(&transport_term_id)
+    return transport_term_id
+}
 func get_packing_method_id(Packing_method string)string {
     var packing_method_id string
     db.QueryRow("select packing_method_id from t_packing_method where name=?",Packing_method).Scan(&packing_method_id)
@@ -77,6 +82,7 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error
         buyer_id:=get_buyer_id(deliver_notes.Buyer)
         vendor_master_id:=get_vendor_master_id(t.vendor_basic_id)
         trade_term_id:=get_trade_term_id(deliver_notes.Trade_term)
+        transport_term_id:=get_transport_term_id(deliver_notes.Ship_via)
         packing_method_id:=get_packing_method_id(deliver_notes.Packing_method)
         logistic_master_id:=get_logistic_master_id(deliver_notes.Logistic)
         logistic_contact_id:=get_logistic_contact_id(deliver_notes.Logistic_contact)
@@ -100,7 +106,7 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error
         t.status,
         deliver_notes.Loading_port,
         trade_term_id,
-        "",//transport_term_id 待定
+        transport_term_id,//transport_term_id 待定
         packing_method_id,
         logistic_master_id,
         logistic_contact_id,
