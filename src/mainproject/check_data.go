@@ -9,6 +9,7 @@ const(
     error_db_insert="-102"
     error_check_request_system="-120"
     error_check_bill_type="-121"
+    error_check_po_no="-122"
 )
 func check_request_system(request_system int32)error {
     if request_system!=1{
@@ -18,7 +19,14 @@ func check_request_system(request_system int32)error {
 }
 func check_bill_type(bill_type string)error {
     if bill_type!="Purchase Order"{
-        return errors.New(`bill_type!="Purchase Order"`)
+        return errors.New(`bill_type!=Purchase Order`)
+    }
+    return nil
+}
+func check_po_no(po_no string)error {
+    cs:="PO-FR-20170216-00101"
+    if len(po_no)>len(cs){
+        return errors.New(`po_no is too long`)
     }
     return nil
 }
@@ -31,6 +39,10 @@ func check_data(origi *DeliverGoodsForPO)(string,error) {
     err=check_bill_type(origi.Data.Purchase_order.Bill_type)
     if err!=nil{
         return error_check_bill_type,err
+    }
+    err=check_po_no(origi.Data.Purchase_order.Po_no)
+    if err!=nil{
+        return error_check_po_no,err
     }
     return "",nil
 }
