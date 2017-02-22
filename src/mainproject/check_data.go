@@ -45,9 +45,8 @@ func check_status(status int32)error {
     return nil
 }
 func check_supplier(supplier string)error {
-    cs:="Renesola Shanghai"
-    if supplier!=cs{
-        return errors.New(`supplier is Renesola Shanghai`)
+    if supplier!="Renesola Shanghai"{
+        return errors.New(`supplier is not Renesola Shanghai`)
     }
     return nil
 }
