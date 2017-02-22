@@ -250,6 +250,8 @@ func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO)error {
     }else{
     	err= insert_purchase_order_detail(t_purchase_order,t)
     	if(err!=nil){
+    		return err
+    	}else{
     		err=insert_goods_delivery_note(t_purchase_order,t)
     	}
     }
