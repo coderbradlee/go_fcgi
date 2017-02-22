@@ -8,11 +8,7 @@
     "bytes"
     "time"
 )
- const(
-	error_json_decode="-100"
-	error_json_encode="-101"
-	error_db_insert="-102"
-)
+ 
 type Detail struct{
 	Product_name string `json:"product_name"`
 	Product_code string `json:"product_code"`
@@ -259,6 +255,10 @@ func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO)error {
 }
 
 func get_response(t *DeliverGoodsForPO) (string){
+	err_no,check_err:=check_data(t)
+	if check_err!=nil{
+		return `{"error_code":"`+err_no+`","error_msg":"`+check_err.Error()+`","data":{},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
+	}
 	err:=deal_with_database(t)
 	if err!=nil{
 		// return `{"Error_code":"-300","Error_msg":"insert failed","Data":"","Reply_time":"2017-03-17 12:00:00"}`,err
