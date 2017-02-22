@@ -91,7 +91,7 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error
         data_version) 
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
         rand_string(20),
-        "goods_delivery_note_no",
+        "",//goods_delivery_note_no
         bill_type_id,
         t.company_id,
         t.purchase_order_id,
