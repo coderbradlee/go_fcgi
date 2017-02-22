@@ -91,7 +91,7 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error
         data_version) 
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
         rand_string(20),
-        "",//goods_delivery_note_no
+        "",//goods_delivery_note_no 待定
         bill_type_id,
         t.company_id,
         t.purchase_order_id,
@@ -100,20 +100,20 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error
         t.status,
         deliver_notes.Loading_port,
         trade_term_id,
-        "transport_term_id",
+        "",//transport_term_id 待定
         packing_method_id,
         logistic_master_id,
         logistic_contact_id,
         deliver_notes.Etd,
         deliver_notes.Eta,
-        "atd",
-        "ata",
+        "",//atd
+        "",//ata
         deliver_notes.Customs_clearance_date,
-        "receiver",
+        "",//receiver 待定
         deliver_notes.Total_freight_charges,
         deliver_notes.Total_insurance_fee,
         deliver_notes.Total_excluded_tax,
-        "note",
+        "",//note
         time.Now().Format("2006-01-02 15:04:05"),
         "go_fcgi",
         0,
