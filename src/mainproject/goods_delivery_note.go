@@ -45,7 +45,7 @@ func get_vendor_master_id(vendor_basic_id string)string {
 }
 func get_trade_term_id(Trade_term string)string {
     var trade_term_id string
-    db.QueryRow("select trade_term_id from t_vendor_master where short_name=?",Trade_term).Scan(&trade_term_id)
+    db.QueryRow("select trade_term_id from t_trade_term where short_name=?",Trade_term).Scan(&trade_term_id)
     return trade_term_id
 }
 func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error {
