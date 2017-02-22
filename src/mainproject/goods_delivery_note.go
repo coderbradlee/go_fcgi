@@ -58,9 +58,14 @@ func get_logistic_master_id(Logistic string)string {
     db.QueryRow("select logistic_provider_master_id from t_logistic_provider_master where native_name=?",Logistic).Scan(&logistic_master_id)
     return logistic_master_id
 }
+func get_logistic_contact_id(Logistic_contact string)string {
+    var logistic_contact_id string
+    //db.QueryRow("select logistic_contact_id from t_logistic_provider_master where native_name=?",Logistic_contact).Scan(&logistic_contact_id)
+    return logistic_contact_id
+}
 func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error {
     var err error
-    log.Println("insert_goods_delivery_note")
+    // log.Println("insert_goods_delivery_note")
     for _,deliver_notes:= range origi.Data.Deliver_notes{
         // bill_type_id:=get_bill_type_id(t.Bill_type)
         bill_type_id:=get_bill_type_id()
@@ -69,8 +74,7 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error
         trade_term_id:=get_trade_term_id(deliver_notes.Trade_term)
         packing_method_id:=get_packing_method_id(deliver_notes.Packing_method)
         logistic_master_id:=get_logistic_master_id(deliver_notes.Logistic)
-        ////get_logistic_contact_id(deliver_notes.Logistic_contact)
-        log.Println("for range origi.Data.Deliver_notes") 
+        logistic_contact_id:=get_logistic_contact_id(deliver_notes.Logistic_contact)
         _, err = db.Exec(
         `INSERT INTO t_goods_delivery_note(
         note_id,goods_delivery_note_no,bill_type_id,company_id,
@@ -94,7 +98,7 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error
         "transport_term_id",
         packing_method_id,
         logistic_master_id,
-        "logistic_contact_id",
+        logistic_contact_id,
         deliver_notes.Etd,
         deliver_notes.Eta,
         "atd",
