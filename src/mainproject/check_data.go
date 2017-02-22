@@ -13,6 +13,7 @@ func check_request_system(request_system int32)error {
     if request_system!=1{
         return errors.New("request_system !=1")
     }
+    return nil
 }
 func check_data(origi *DeliverGoodsForPO)(string,error) {
     var err error
@@ -20,6 +21,5 @@ func check_data(origi *DeliverGoodsForPO)(string,error) {
     if err!=nil{
         return error_check_request_system,err
     }
-    
-    
+    return "",nil
 }
