@@ -13,6 +13,7 @@ const(
     error_check_po_no="-122"
     error_check_po_url="-123"
     error_check_status="-124"
+    error_check_supplier="-125"
 )
 func check_request_system(request_system int32)error {
     if request_system!=1{
@@ -43,6 +44,13 @@ func check_status(status int32)error {
     }
     return nil
 }
+func check_supplier(supplier string)error {
+    cs:="Renesola Shanghai"
+    if supplier!=cs{
+        return errors.New(`supplier is Renesola Shanghai`)
+    }
+    return nil
+}
 func check_data(origi *DeliverGoodsForPO)(string,error) {
     var err error
     err=check_request_system(origi.Data.Request_system)
@@ -64,6 +72,10 @@ func check_data(origi *DeliverGoodsForPO)(string,error) {
     err=check_status(origi.Data.Purchase_order.Status)
     if err!=nil{
         return error_check_status,err
+    }
+    err=check_supplier(origi.Data.Purchase_order.Supplier)
+    if err!=nil{
+        return error_check_supplier,err
     }
     return "",nil
 }

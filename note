@@ -22,7 +22,7 @@ curl -X POST http://127.0.0.1:9888/po/deliver_goods -d '{
          "po_url":"/root/Pebble/tools/blade/blade",
          "po_date":"2017-02-16",
          "create_by":"",
-         "status":1,
+         "status":2,
 "supplier":"Renesola Shanghai",
          "website":"France",
          "company":"ReneSola France",
