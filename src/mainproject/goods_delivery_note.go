@@ -35,6 +35,7 @@ type Delivery_note struct{
 }
 func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error {
     var err error
+    log.Println("insert_goods_delivery_note")
     for _,deliver_notes:= range origi.Data.Deliver_notes{
         //get_bill_type_id(t.Bill_type)
         ////get_buyer_id(deliver_notes.buyer)
