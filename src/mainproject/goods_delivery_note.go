@@ -93,7 +93,7 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error
         trade_term_id,
         "transport_term_id",
         packing_method_id,
-        "logistic_master_id",
+        logistic_master_id,
         "logistic_contact_id",
         deliver_notes.Etd,
         deliver_notes.Eta,
