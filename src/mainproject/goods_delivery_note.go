@@ -63,13 +63,18 @@ func get_logistic_contact_id(Logistic_contact string)string {
     //db.QueryRow("select logistic_contact_id from t_logistic_provider_master where native_name=?",Logistic_contact).Scan(&logistic_contact_id)
     return logistic_contact_id
 }
+func get_buyer_id(buyer string)string {
+    var buyer_id string
+    //db.QueryRow("select logistic_contact_id from t_logistic_provider_master where native_name=?",Logistic_contact).Scan(&logistic_contact_id)
+    return buyer_id
+}
 func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error {
     var err error
     // log.Println("insert_goods_delivery_note")
     for _,deliver_notes:= range origi.Data.Deliver_notes{
         // bill_type_id:=get_bill_type_id(t.Bill_type)
         bill_type_id:=get_bill_type_id()
-        ////get_buyer_id(deliver_notes.buyer)
+        buyer_id:=get_buyer_id(deliver_notes.buyer)
         vendor_master_id:=get_vendor_master_id(t.vendor_basic_id)
         trade_term_id:=get_trade_term_id(deliver_notes.Trade_term)
         packing_method_id:=get_packing_method_id(deliver_notes.Packing_method)
@@ -90,7 +95,7 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error
         bill_type_id,
         t.company_id,
         t.purchase_order_id,
-        "buyer_id",
+        buyer_id,
         vendor_master_id,
         t.status,
         deliver_notes.Loading_port,
