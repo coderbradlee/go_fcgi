@@ -74,7 +74,7 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error
     for _,deliver_notes:= range origi.Data.Deliver_notes{
         // bill_type_id:=get_bill_type_id(t.Bill_type)
         bill_type_id:=get_bill_type_id()
-        buyer_id:=get_buyer_id(deliver_notes.buyer)
+        buyer_id:=get_buyer_id(deliver_notes.Buyer)
         vendor_master_id:=get_vendor_master_id(t.vendor_basic_id)
         trade_term_id:=get_trade_term_id(deliver_notes.Trade_term)
         packing_method_id:=get_packing_method_id(deliver_notes.Packing_method)
