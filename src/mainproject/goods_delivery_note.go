@@ -43,7 +43,7 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error
         ////get_packing_method_id(deliver_notes.Packing_method)
         ////get_logistic_master_id(deliver_notes.Logistic)
         ////get_logistic_contact_id(deliver_notes.Logistic_contact)
-        log.Println("for _,deliver_notes:= range origi.Data.Deliver_notes") 
+        log.Println("for range origi.Data.Deliver_notes") 
         _, err = db.Exec(
         `INSERT INTO t_goods_delivery_note(
         note_id,goods_delivery_note_no,bill_type_id,company_id,
