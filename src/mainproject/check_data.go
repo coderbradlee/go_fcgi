@@ -18,7 +18,7 @@ func check_request_system(request_system int32)error {
 }
 func check_bill_type() {
     if bill_type!="Purchase Order"{
-        return errors.New("bill_type!="Purchase Order"")
+        return errors.New(`bill_type!="Purchase Order"`)
     }
     return nil
 }
