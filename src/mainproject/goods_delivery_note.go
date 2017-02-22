@@ -38,6 +38,11 @@ func get_bill_type_id()string {
     db.QueryRow("select bill_type_id from t_bill_type where code='GDN'").Scan(&bill_type_id)
     return bill_type_id
 }
+func get_vendor_master_id(vendor_basic_id string)string {
+    var vendor_master_id string
+    db.QueryRow("select vendor_master_id from t_vendor_master where vendor_basic_id=?",vendor_basic_id).Scan(&vendor_master_id)
+    return vendor_master_id
+}
 func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error {
     var err error
     log.Println("insert_goods_delivery_note")
@@ -45,7 +50,7 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error
         // bill_type_id:=get_bill_type_id(t.Bill_type)
         bill_type_id:=get_bill_type_id()
         ////get_buyer_id(deliver_notes.buyer)
-        ////get_vendor_master_id(t.vendor_basic_id)
+        vendor_master_id:=get_vendor_master_id(t.vendor_basic_id)
         ////get_trade_term_id(deliver_notes.Trade_term)
         ////get_packing_method_id(deliver_notes.Packing_method)
         ////get_logistic_master_id(deliver_notes.Logistic)
@@ -67,7 +72,7 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error
         t.company_id,
         t.purchase_order_id,
         "buyer_id",
-        "vendor_master_id",
+        vendor_master_id,
         t.status,
         deliver_notes.Loading_port,
         "trade_term_id",
