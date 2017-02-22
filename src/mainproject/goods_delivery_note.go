@@ -1,6 +1,7 @@
  package main
  import (
     "time"
+    "log"
 )
 type Delivery_note struct{
     note_id string/*主键*/
@@ -80,6 +81,9 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error
         "go_fcgi",
         0,
         1)
+    }
+    if err!=nil{
+        log.Println("insert_goods_delivery_note:", err) 
     }
     return err
 }
