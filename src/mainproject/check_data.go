@@ -11,6 +11,6 @@ const(
 )
 func check_data(origi *DeliverGoodsForPO)(string,error) {
 
-    return error_check,errors.New("can't work with -103")
+    return error_check,error.New("can't work with -103")
     
 }
