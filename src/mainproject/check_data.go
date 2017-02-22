@@ -33,7 +33,7 @@ func check_po_no(po_no string)error {
     return nil
 }
 func check_po_url(po_url string)error {
-    _.err:=os.Stat(po_url)
+    _,err:=os.Stat(po_url)
     return err
 }
 func check_data(origi *DeliverGoodsForPO)(string,error) {
