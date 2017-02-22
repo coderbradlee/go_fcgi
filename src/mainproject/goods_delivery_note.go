@@ -33,11 +33,17 @@ type Delivery_note struct{
     dr int32
     data_version int32
 }
+func get_bill_type_id()string {
+    var bill_type_id string
+    db.QueryRow("select bill_type_id from t_bill_type where code='GDN'").Scan(&bill_type_id)
+    return bill_type_id
+}
 func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error {
     var err error
     log.Println("insert_goods_delivery_note")
     for _,deliver_notes:= range origi.Data.Deliver_notes{
-        //get_bill_type_id(t.Bill_type)
+        // bill_type_id:=get_bill_type_id(t.Bill_type)
+        bill_type_id:=get_bill_type_id()
         ////get_buyer_id(deliver_notes.buyer)
         ////get_vendor_master_id(t.vendor_basic_id)
         ////get_trade_term_id(deliver_notes.Trade_term)
@@ -57,7 +63,7 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
         rand_string(20),
         "goods_delivery_note_no",
-        "bill_type_id",
+        bill_type_id,
         t.company_id,
         t.purchase_order_id,
         "buyer_id",
