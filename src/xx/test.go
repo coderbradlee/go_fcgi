@@ -15,9 +15,9 @@ import (
 	// "path/filepath"
 	// "runtime"
 	// "strconv"
-	"strings"
+	// "strings"
 	// "testing"
-	"time"
+	// "time"
 	"glog"
 )
 var palette=[]color.Color{color.White,color.Black}
