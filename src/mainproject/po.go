@@ -140,13 +140,19 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	 // 		log.Println("ioutil.ReadAll error", err) 
  	// 	}
  	// 	sbody :=string(body)
- 		var ret=""
+ 		var ret string
 		// // log.Println(sbody)
 		// log.Printf("Started %s %s for %s:%s", r.Method, r.URL.Path, addr,sbody)
-		decoder := json.NewDecoder(r.Body)
+		// decoder := json.NewDecoder(r.Body)
+		body, _:= ioutil.ReadAll(r.Body)
+	    
+	    log.Println(string(body))
+	    var t DeliverGoodsForPO  
+	    err_decode = json.Unmarshal(body, &t)
+	    
 		defer r.Body.Close()
-	    var t DeliverGoodsForPO   
-	    err_decode := decoder.Decode(&t)
+	     
+	    // err_decode := decoder.Decode(&t)
 	    if err_decode != nil {
 	        // panic(err)
 	        ret=`{"error_code":"`+error_json_decode+`","error_msg":`+err_decode.Error()+`,"data":{},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`

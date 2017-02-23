@@ -4,7 +4,14 @@
 3、t_purchase_order中的po_date是char(10)、requested_delivery_date是char(10)，json里面是19位
 4、t_purchase_order中的contact_account_id在t_vendor_contact中无法取得
 5、t_purchase_order中的payment_terms在json中是空，无法测试
-6、
+6、t_goods_delivery_note中的goods_delivery_note_no发货单号怎么获取
+7、t_goods_delivery_note中的buyer_id，json中buyer为空，无法测试
+8、t_goods_delivery_note中的logistic_contact_id，json中为空，无法获取
+9、t_goods_delivery_note中的receiver如何获取
+10、json中commercial_invoice后面的信息写到哪里
+
+
+
 
 
 1、test 1
