@@ -77,6 +77,10 @@ func get_buyer_id(buyer string)string {
     //db.QueryRow("select logistic_contact_id from t_logistic_provider_master where native_name=?",Logistic_contact).Scan(&logistic_contact_id)
     return buyer_id
 }
+type flow_no_json struct{
+    FlowNo string `json:"flowNo"`
+    ReplyTime string `json:"replyTime"`
+}
 func get_flow_no(company string)(string,error) {
     // var flow_no string
     //http://127.0.0.1:8088/flowNo/JP/SO
@@ -93,7 +97,9 @@ func get_flow_no(company string)(string,error) {
         // handle error
         return  "",err2
     }
-    i, err3 := strconv.Atoi(string(body))
+    var data flow_no_json
+    json.Unmarshal(body, &data)
+    i, err3 := strconv.Atoi(data.FlowNo))
     if err3 != nil {
         // handle error
         return  "",err3
