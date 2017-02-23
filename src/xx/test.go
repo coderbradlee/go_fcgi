@@ -19,6 +19,7 @@ import (
 	// "testing"
 	// "time"
 	"glog"
+	"flag"
 )
 var palette=[]color.Color{color.White,color.Black}
 const(
@@ -26,25 +27,23 @@ const(
 	blackIndex=1
 )
 func init() {
-	glog.CopyStandardLogTo("INFO")
+
 }
 func main() {
 	// lissajous(os.Stdout)
 	test_log()
-	glog.Info("Prepare to repel boarders")
-	
-	glog.Fatalf("Initialization failed: err")
 }
 func test_log() {
-	// logging.toStderr = false
-	// defer logging.swap(logging.newBuffers())
-	// stdLog.Print("test")
-	// if !contains(infoLog, "I", t) {
-	// 	t.Errorf("Info has wrong character: %q", contents(infoLog))
-	// }
-	// if !contains(infoLog, "test", t) {
-	// 	t.Error("Info failed")
-	// }
+	flag.Parse()    // 1
+
+    glog.Info("This is a Info log")         // 2
+    glog.Warning("This is a Warning log")
+    glog.Error("This is a Error log")
+
+    glog.V(1).Infoln("level 1")     // 3
+    glog.V(2).Infoln("level 2")
+
+    glog.Flush()    // 4
 }
 func lissajous(out io.Writer) {
 	const(
