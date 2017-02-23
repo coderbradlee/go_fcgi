@@ -38,7 +38,7 @@ func lissajous(out io.Writer) {
 		}
 		phase+=0.1
 		anim.Delay=append(anim.Delay,delay)
-		anim.image=append(anim.Image,img)
+		anim.Image=append(anim.Image,img)
 	}
 	gif.EncodeAll(out,&anim)
 }
