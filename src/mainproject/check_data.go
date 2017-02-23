@@ -5,15 +5,15 @@
     "os"
 )
 const(
-    error_json_decode="-100"
-    error_json_encode="-101"
-    error_db="-102"
-    error_check_request_system="-120"
-    error_check_bill_type="-121"
-    error_check_po_no="-122"
-    error_check_po_url="-123"
-    error_check_status="-124"
-    error_check_supplier="-125"
+    error_json_decode="-100"//json 解包错误
+    error_json_encode="-101"//json 打包错误
+    error_db="-102"//连接mysql数据库错误
+    error_check_request_system="-120"//请求系统是否为1
+    error_check_bill_type="-121"//bill_tpye是否为Purchase Order
+    error_check_po_no="-122"//po_no长度问题，数据库表里面是20位
+    error_check_po_url="-123"//是否存在文件
+    error_check_status="-124"//status是否为1
+    error_check_supplier="-125"//supplier是否为Renesola Shanghai
 )
 func check_request_system(request_system int32)error {
     if request_system!=1{
