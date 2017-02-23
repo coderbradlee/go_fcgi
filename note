@@ -1,3 +1,12 @@
+待解决问题：
+1、写入表t_purchase_order、t_purchase_order_detail、t_goods_delivery_note
+2、t_purchase_order中的po_no是char(20)，json里的是21位
+3、t_purchase_order中的po_date是char(10)、requested_delivery_date是char(10)，json里面是19位
+4、t_purchase_order中的contact_account_id在t_vendor_contact中无法取得
+5、t_purchase_order中的payment_terms在json中是空，无法测试
+6、
+
+
 1、test 1
 curl -X POST http://127.0.0.1:9888/po/deliver_goods -d '{
    "operation":"DeliverGoodsForPO",
