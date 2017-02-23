@@ -36,15 +36,15 @@ func main() {
 	glog.Fatalf("Initialization failed: err")
 }
 func test_log() {
-	logging.toStderr = false
-	defer logging.swap(logging.newBuffers())
-	stdLog.Print("test")
-	if !contains(infoLog, "I", t) {
-		t.Errorf("Info has wrong character: %q", contents(infoLog))
-	}
-	if !contains(infoLog, "test", t) {
-		t.Error("Info failed")
-	}
+	// logging.toStderr = false
+	// defer logging.swap(logging.newBuffers())
+	// stdLog.Print("test")
+	// if !contains(infoLog, "I", t) {
+	// 	t.Errorf("Info has wrong character: %q", contents(infoLog))
+	// }
+	// if !contains(infoLog, "test", t) {
+	// 	t.Error("Info failed")
+	// }
 }
 func lissajous(out io.Writer) {
 	const(
