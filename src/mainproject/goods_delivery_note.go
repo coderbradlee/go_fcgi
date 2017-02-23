@@ -4,6 +4,8 @@
     "log"
     "fmt"
     "net/http"
+    "io/ioutil"
+    "strconv"
 )
 type Delivery_note struct{
     note_id string/*主键*/
@@ -100,15 +102,19 @@ func get_flow_no(company string)(string,error) {
     str := fmt.Sprintf("%06d",i)
     return str,nil
 }
-func get_goods_delivery_note_no(company string)string {
+func get_goods_delivery_note_no(company string)(string,error) {
     goods_delivery_note_no:="PO-"
     var short string
     db.QueryRow("select note from t_company where short_name=?",company).Scan(&short)
     // QU-UK-20160930-000001
     goods_delivery_note_no+=short+"-"
     goods_delivery_note_no+=time.Now().Format("20060102")+"-"
-    goods_delivery_note_no+=get_flow_no(short)//get int,format to 6bit,then convert to string
-    return goods_delivery_note_no
+    flow,err:=get_flow_no(short)
+    if err!=nil{
+        return "",err
+    }
+    goods_delivery_note_no+=flow//get int,format to 6bit,then convert to string
+    return goods_delivery_note_no,nil
 }
 func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error {
     var err error
@@ -123,7 +129,10 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error
         packing_method_id:=get_packing_method_id(deliver_notes.Packing_method)
         logistic_master_id:=get_logistic_master_id(deliver_notes.Logistic)
         logistic_contact_id:=get_logistic_contact_id(deliver_notes.Logistic_contact)
-        goods_delivery_note_no:=get_goods_delivery_note_no(origi.Data.Purchase_order.Company)
+        goods_delivery_note_no,err:=get_goods_delivery_note_no(origi.Data.Purchase_order.Company)
+        if err!=nil{
+            return err
+        }
         _, err = db.Exec(
         `INSERT INTO t_goods_delivery_note(
         note_id,goods_delivery_note_no,bill_type_id,company_id,
