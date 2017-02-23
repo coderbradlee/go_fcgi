@@ -99,7 +99,7 @@ func get_flow_no(company string)(string,error) {
     }
     var data flow_no_json
     json.Unmarshal(body, &data)
-    i, err3 := strconv.Atoi(data.FlowNo))
+    i, err3 := strconv.Atoi(data.FlowNo)
     if err3 != nil {
         // handle error
         return  "",err3
