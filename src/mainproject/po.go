@@ -148,7 +148,7 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	    
 	    log.Println(string(body))
 	    var t DeliverGoodsForPO  
-	    err_decode: = json.Unmarshal(body, &t)
+	    err_decode := json.Unmarshal(body, &t)
 	    
 		defer r.Body.Close()
 	     
