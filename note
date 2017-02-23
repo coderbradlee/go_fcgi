@@ -9,7 +9,7 @@
 8、t_goods_delivery_note中的logistic_contact_id，json中为空，无法获取
 9、t_goods_delivery_note中的receiver如何获取
 10、json中commercial_invoice后面的信息写到哪里
-
+11、response
 
 
 
