@@ -73,6 +73,41 @@ func get_buyer_id(buyer string)string {
     //db.QueryRow("select logistic_contact_id from t_logistic_provider_master where native_name=?",Logistic_contact).Scan(&logistic_contact_id)
     return buyer_id
 }
+func get_flow_no(company string)(string,error) {
+    var flow_no string
+    //http://127.0.0.1:8088/flowNo/JP/SO
+    url:=configuration.Redis_url+"/"+company+"/PO"
+
+    resp, err1 := http.Get(url)
+    if err1 != nil {
+        return  "",err1
+    }
+
+    defer resp.Body.Close()
+    body, err2 := ioutil.ReadAll(resp.Body)
+    if err2 != nil {
+        // handle error
+        return  "",err2
+    }
+    i, err3 := strconv.Atoi(string(body))
+    if err3 != nil {
+        // handle error
+        return  "",err3
+    }
+    // str := string.format(%06d",i)
+    str := fmt.Sprintf("%06d",i)
+    return str,nil
+}
+func get_goods_delivery_note_no(company string)string {
+    goods_delivery_note_no:="PO-"
+    var short string
+    db.QueryRow("select note from t_company where short_name=?",company).Scan(&short)
+    // QU-UK-20160930-000001
+    goods_delivery_note_no+=short+"-"
+    goods_delivery_note_no+=time.Now().Format("20060102")+"-"
+    goods_delivery_note_no+=get_flow_no(short)//get int,format to 6bit,then convert to string
+    return goods_delivery_note_no
+}
 func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error {
     var err error
     // log.Println("insert_goods_delivery_note")
@@ -86,6 +121,7 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error
         packing_method_id:=get_packing_method_id(deliver_notes.Packing_method)
         logistic_master_id:=get_logistic_master_id(deliver_notes.Logistic)
         logistic_contact_id:=get_logistic_contact_id(deliver_notes.Logistic_contact)
+        goods_delivery_note_no:=get_goods_delivery_note_no(origi.Data.Purchase_order.Company)
         _, err = db.Exec(
         `INSERT INTO t_goods_delivery_note(
         note_id,goods_delivery_note_no,bill_type_id,company_id,
@@ -97,7 +133,7 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error
         data_version) 
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
         rand_string(20),
-        "",//goods_delivery_note_no 待定
+        goods_delivery_note_no,//goods_delivery_note_no 待定
         bill_type_id,
         t.company_id,
         t.purchase_order_id,

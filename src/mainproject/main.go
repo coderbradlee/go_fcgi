@@ -30,6 +30,7 @@ type Configuration struct {
     HttpPort string
     RedisNodes []string
     Mysql_conf mysql_conf
+    Redis_url string
 }
 var configuration Configuration
 var db *sql.DB
