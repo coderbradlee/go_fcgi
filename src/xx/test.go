@@ -18,6 +18,7 @@ import (
 	"strings"
 	// "testing"
 	"time"
+	"glog"
 )
 var palette=[]color.Color{color.White,color.Black}
 const(
