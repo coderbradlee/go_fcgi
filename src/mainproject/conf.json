@@ -4,5 +4,5 @@
     "Log_name":"go_fcgi.log",
     "HttpPort":":9888",
     "RedisNodes":["127.0.0.1:6380","127.0.0.1:7382","127.0.0.1:6381"],
-    "Mysql_conf":{"Host":"172.18.22.202","Port":"3307","Username":"renesola", "Password":"renes0la.xx","database":"apollo_eu_erp"}
+    "Mysql_conf":{"Host":"172.18.22.202","Port":"3306","Username":"renesola", "Password":"renes0la.xx","database":"apollo_eu_erp"}
 }
