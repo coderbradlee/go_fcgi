@@ -78,7 +78,7 @@ func get_buyer_id(buyer string)string {
     return buyer_id
 }
 func get_flow_no(company string)(string,error) {
-    var flow_no string
+    // var flow_no string
     //http://127.0.0.1:8088/flowNo/JP/SO
     url:=configuration.Redis_url+"/"+company+"/PO"
 
