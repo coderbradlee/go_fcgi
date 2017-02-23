@@ -25,11 +25,12 @@ func lissajous(out io.Writer) {
 		delay=10
 	)
 	freq:=rand.Float64()*3.0
-	anim:=gif.Gif{LoopCount:nframes}
+	anim:=gif.GIF{LoopCount: nframes}
 	phase:=0.0
 	for i:=0;i<nframes;i++{
 		rect:=image.Rect(0,0,2*size+1,2*size+1)
-		img:=image.NewPalletted(rect,palette)
+		// image.NewPalletted(rect,palette)
+		img:=image.NewPaletted(rect, palette)
 		for t:=0.0;t<cycles*2*math.Pi;t+=res{
 			x:=math.Sin(t)
 			y:=math.Sin(t*freq+phase)
