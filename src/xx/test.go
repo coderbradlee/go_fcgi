@@ -25,7 +25,7 @@ const(
 	blackIndex=1
 )
 func init() {
-	CopyStandardLogTo("INFO")
+	glog.CopyStandardLogTo("INFO")
 }
 func main() {
 	// lissajous(os.Stdout)
@@ -35,7 +35,7 @@ func main() {
 	glog.Fatalf("Initialization failed: err")
 }
 func test_log() {
-	setFlags()
+	glog.setFlags()
 	var err error
 	defer func(previous func(error)) { logExitFunc = previous }(logExitFunc)
 	logExitFunc = func(e error) {
