@@ -7,6 +7,7 @@
     "io/ioutil"
     "bytes"
     "time"
+    "strings"
 )
  
 type Detail struct{
@@ -149,7 +150,8 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	    // log.Println(string(body))
 	    var t DeliverGoodsForPO  
 	    err_decode := json.Unmarshal(body, &t)
-	    bytes.Trim(body,"\\r\\n")
+	    // bytes.Trim(body,"\\r\\n")
+	    line := strings.Trim(string(body), "\r\n")
 		defer r.Body.Close()
 	     
 	    // err_decode := decoder.Decode(&t)
@@ -157,7 +159,7 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	        // panic(err)
 	        ret=`{"error_code":"`+error_json_decode+`","error_msg":`+err_decode.Error()+`,"data":{},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
 	        fmt.Fprint(w,ret )
-	        log.Printf("Started %s %s for %s:%s\nresponse:%s", r.Method, r.URL.Path, addr,body,ret)
+	        log.Printf("Started %s %s for %s:%s\nresponse:%s", r.Method, r.URL.Path, addr,line,ret)
 	        return;
 	    }
 	    // log.Println(t.Operation)
@@ -173,7 +175,7 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	    //     return;
 	    // }
 	    fmt.Fprint(w,ret )
-	    log.Printf("Started %s %s for %s:%s\nresponse:%s", r.Method, r.URL.Path, addr,body,ret)
+	    log.Printf("Started %s %s for %s:%s\nresponse:%s", r.Method, r.URL.Path, addr,line,ret)
 	}
 
 } 
