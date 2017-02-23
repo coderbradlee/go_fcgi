@@ -6,6 +6,7 @@
     "net/http"
     "io/ioutil"
     "strconv"
+    "encoding/json"
 )
 type Delivery_note struct{
     note_id string/*主键*/
