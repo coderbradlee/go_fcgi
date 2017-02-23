@@ -261,7 +261,7 @@ func get_response(t *DeliverGoodsForPO) (string){
 	}
 	err:=deal_with_database(t)
 	if err!=nil{
-		return `{"error_code":"`+error_db_insert+`","error_msg":"`+err.Error()+`","data":{},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
+		return `{"error_code":"`+error_db+`","error_msg":"`+err.Error()+`","data":{},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
 	}
 	json_ret:=&Response_json{Error_code:"200",Error_msg:"Goods received successfully at "+time.Now().Format("2006-01-02 15:04:05"),Data:Response_json_data{Goods_receipt_no:t.Data.Purchase_order.Po_no,Bill_type:t.Data.Purchase_order.Bill_type,Receive_by:"ERP",Company:t.Data.Purchase_order.Company,Receive_at:time.Now().Format("2006-01-02 15:04:05")},Reply_time:time.Now().Format("2006-01-02 15:04:05")}
 		

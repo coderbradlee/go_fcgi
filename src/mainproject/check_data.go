@@ -7,7 +7,7 @@
 const(
     error_json_decode="-100"
     error_json_encode="-101"
-    error_db_insert="-102"
+    error_db="-102"
     error_check_request_system="-120"
     error_check_bill_type="-121"
     error_check_po_no="-122"
