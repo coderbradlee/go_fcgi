@@ -146,7 +146,7 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 		// decoder := json.NewDecoder(r.Body)
 		body, _:= ioutil.ReadAll(r.Body)
 	    
-	    log.Println(string(body))
+	    // log.Println(string(body))
 	    var t DeliverGoodsForPO  
 	    err_decode := json.Unmarshal(body, &t)
 	    
@@ -173,7 +173,7 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	    //     return;
 	    // }
 	    fmt.Fprint(w,ret )
-	    log.Printf("Started %s %s for %s:%s\nrespose:%s", r.Method, r.URL.Path, addr,"sbody",ret)
+	    log.Printf("Started %s %s for %s:%s\nrespose:%s", r.Method, r.URL.Path, addr,body,ret)
 	}
 
 } 
