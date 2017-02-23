@@ -27,54 +27,16 @@ curl -X POST http://127.0.0.1:9888/po/deliver_goods -d '{
 
 
 
-curl -X POST http://127.0.0.1:9888/po/deliver_goods -d '{
-   "operation":"DeliverGoodsForPO",
-   "data":{
-      "request_system":1,
-"request_time":"2017-02-16 08:00:00",
-      "purchase_order":{
-         "bill_type":"Purchase Order",
-         "po_no":"PO-FR-20170216-01011",
-         "po_url":"/root/Pebble/tools/blade/blade",
-         "po_date":"2017-02-16",
-         "create_by":"",
-         "status":1,
-"supplier":"Renesola Shanghai",
-         "website":"France",
-         "company":"ReneSola France",
-         "requested_delivery_date":"2017-03-20",
-"trade_term":"EXW",
-         "payment_terms":"",
-         "ship_via":"Sea",
-         "destination_country":"France",
-         "loading_port":"Amsterdam",
-         "certificate":"",
-         "total_quantity":2400,
-         "total_amount":5690.47,
-         "currency":"EUR",
-         "comments":"",
-         "note":"",
-         "detail":[{
-            "product_name":"Highbay",
-            "product_code":"RHB120X0302",
-            "item_no":"3518020400845",
-            "unit_price":3.64,
-            "quantity":1000,
-            "uom":"PCS",
-            "sub_total":3640.00,
-            "warranty":3,
-            "comments":"",
-"note":""
-},{
-            "product_name":"Flood Light",
-            "product_code":"RFL400AK01D06",
-            "item_no":"3518030601741",
-            "unit_price":6.89,
-            "quantity":200,
-            "uom":"PCS",
-            "sub_total":1378.00,
-            "warranty":3,
-            "comments":"",
+curl -X POST http://127.0.0.1:9888/po/deliver_goods -d '{"operation":"DeliverGoodsForPO","data":{"request_system":1,
+"request_time":"2017-02-16 08:00:00","purchase_order":{"bill_type":"Purchase Order","po_no":"PO-FR-20170216-01011","po_url":"/root/Pebble/tools/blade/blade","po_date":"2017-02-16","create_by":"","status":1,"supplier":"Renesola Shanghai","website":"France","company":"ReneSola France","requested_delivery_date":"2017-03-20","trade_term":"EXW","payment_terms":"","ship_via":"Sea","destination_country":"France","loading_port":"Amsterdam","certificate":"","total_quantity":2400,"total_amount":5690.47,"currency":"EUR","comments":"","note":"","detail":[{"product_name":"Highbay","product_code":"RHB120X0302","item_no":"3518020400845","unit_price":3.64,"quantity":1000,"uom":"PCS","sub_total":3640.00,"warranty":3,"comments":"","note":""},{"product_name":"Flood Light",
+"product_code":"RFL400AK01D06",
+"item_no":"3518030601741",
+"unit_price":6.89,
+"quantity":200,
+"uom":"PCS",
+"sub_total":1378.00,
+"warranty":3,
+"comments":"",
 "note":""
 }]
 },
@@ -120,15 +82,10 @@ curl -X POST http://127.0.0.1:9888/po/deliver_goods -d '{
             "quantity":500,
             "uom":"PCS",
             "sub_total":1820.00
-},{
-            "product_name":"Flood Light",
+},{"product_name":"Flood Light",
             "product_code":"RFL400AK01D06",
             "item_no":"3518030601741",
             "unit_price":6.89,
             "quantity":100,
             "uom":"PCS",
-            "sub_total":689.00
-}]
-}]
-   }
-}'
+            "sub_total":689.00}]}]}}'

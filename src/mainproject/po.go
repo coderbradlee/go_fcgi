@@ -118,7 +118,8 @@ type Response_json struct{
 	Error_code string `json:"error_code"`
 	Error_msg string `json:"error_msg"`
 	Data Response_json_data	 `json:"response_json_data"`
-	Reply_time string `json:"reply_time"`		   
+	Reply_time string `json:"reply_time"`
+	Reply_system int32 `json:"reply_system"`		   
 }
 func poHandler (w http.ResponseWriter, r *http.Request) {
 	////////////////////////////////
@@ -151,15 +152,15 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	    var t DeliverGoodsForPO  
 	    err_decode := json.Unmarshal(body, &t)
 	    // bytes.Trim(body,"\\r\\n")
-	    line := strings.Trim(string(body), "\r\n")
+	    // line := strings.Trim(string(body), "\r\n")
 		defer r.Body.Close()
 	     
 	    // err_decode := decoder.Decode(&t)
 	    if err_decode != nil {
 	        // panic(err)
-	        ret=`{"error_code":"`+error_json_decode+`","error_msg":`+err_decode.Error()+`,"data":{},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
+	        ret=`{"error_code":"`+error_json_decode+`","error_msg":`+err_decode.Error()+`,"data":{"reply_system":2},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
 	        fmt.Fprint(w,ret )
-	        log.Printf("Started %s %s for %s:%s\nresponse:%s", r.Method, r.URL.Path, addr,line,ret)
+	        log.Printf("Started %s %s for %s:%s\nresponse:%s", r.Method, r.URL.Path, addr,body,ret)
 	        return;
 	    }
 	    // log.Println(t.Operation)
@@ -175,7 +176,7 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	    //     return;
 	    // }
 	    fmt.Fprint(w,ret )
-	    log.Printf("Started %s %s for %s:%s\nresponse:%s", r.Method, r.URL.Path, addr,line,ret)
+	    log.Printf("Started %s %s for %s:%s\nresponse:%s", r.Method, r.URL.Path, addr,body,ret)
 	}
 
 } 
@@ -222,13 +223,13 @@ func deal_with_database(t *DeliverGoodsForPO)error {
 func get_response(t *DeliverGoodsForPO) (string){
 	err_no,check_err:=check_data(t)
 	if check_err!=nil{
-		return `{"error_code":"`+err_no+`","error_msg":"`+check_err.Error()+`","data":{},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
+		return `{"error_code":"`+err_no+`","error_msg":"`+check_err.Error()+`","data":{"reply_system":2},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
 	}
 	err:=deal_with_database(t)
 	if err!=nil{
-		return `{"error_code":"`+error_db+`","error_msg":"`+err.Error()+`","data":{},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
+		return `{"error_code":"`+error_db+`","error_msg":"`+err.Error()+`","data":{"reply_system":2},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
 	}
-	json_ret:=&Response_json{Error_code:"200",Error_msg:"Goods received successfully at "+time.Now().Format("2006-01-02 15:04:05"),Data:Response_json_data{Goods_receipt_no:t.Data.Purchase_order.Po_no,Bill_type:t.Data.Purchase_order.Bill_type,Receive_by:"ERP",Company:t.Data.Purchase_order.Company,Receive_at:time.Now().Format("2006-01-02 15:04:05")},Reply_time:time.Now().Format("2006-01-02 15:04:05")}
+	json_ret:=&Response_json{Error_code:"200",Error_msg:"Goods received successfully at "+time.Now().Format("2006-01-02 15:04:05"),Data:Response_json_data{Goods_receipt_no:t.Data.Purchase_order.Po_no,Bill_type:t.Data.Purchase_order.Bill_type,Receive_by:"ERP",Company:t.Data.Purchase_order.Company,Receive_at:time.Now().Format("2006-01-02 15:04:05"),Reply_system:1},Reply_time:time.Now().Format("2006-01-02 15:04:05")}
 		
 	var buffer bytes.Buffer
     enc := json.NewEncoder(&buffer)
