@@ -6,17 +6,17 @@ import(
 	"io"
 	"math"
 	"math/rand"
-	"os"
+	// "os"
 )
 import (
-	"bytes"
-	"fmt"
+	// "bytes"
+	// "fmt"
 	stdLog "log"
-	"path/filepath"
-	"runtime"
-	"strconv"
+	// "path/filepath"
+	// "runtime"
+	// "strconv"
 	"strings"
-	"testing"
+	// "testing"
 	"time"
 )
 var palette=[]color.Color{color.White,color.Black}
@@ -30,6 +30,9 @@ func init() {
 func main() {
 	// lissajous(os.Stdout)
 	test_log()
+	glog.Info("Prepare to repel boarders")
+	
+	glog.Fatalf("Initialization failed: err")
 }
 func test_log() {
 	setFlags()
