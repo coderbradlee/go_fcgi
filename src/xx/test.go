@@ -36,7 +36,7 @@ func main() {
 	glog.Fatalf("Initialization failed: err")
 }
 func test_log() {
-	glog.setFlags()
+	setFlags()
 	var err error
 	defer func(previous func(error)) { logExitFunc = previous }(logExitFunc)
 	logExitFunc = func(e error) {
