@@ -19,7 +19,10 @@ import (
 	// "testing"
 	// "time"
 	"logger"
-	"flag"
+	"runtime"
+	"strconv"
+	// "testing"
+	"time"
 )
 var palette=[]color.Color{color.White,color.Black}
 const(
