@@ -9,7 +9,7 @@ import (
 var mu sync.Mutex
 var count int
 func main() {
-	http.HandleFunc("/",handler)
+	http.HandleFunc("/h",handler)
 	http.HandleFunc("/count",counter)
 	log.Fatal(http.ListenAndServe(":8000",nil))
 }
