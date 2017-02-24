@@ -12,6 +12,11 @@ import (
 	"math"
 	"math/rand"
 )
+var palette=[]color.Color{color.White,color.Black}
+const(
+	whiteIndex=0
+	blackIndex=1
+)
 var mu sync.Mutex
 var count int
 func main() {
@@ -31,7 +36,7 @@ func counter(w http.ResponseWriter,r *http.Request) {
 	fmt.Fprintf(w,"count:%d\n",count)
 	mu.Unlock()
 }
-func counter(w http.ResponseWriter,r *http.Request) {
+func l(w http.ResponseWriter,r *http.Request) {
 	lissajous(w)
 }
 func lissajous(out io.Writer) {
