@@ -1,3 +1,17 @@
+2017.02.24待解决问题
+1、t_purchase_order的contact_account_id在t_vendor_contact中无法取得，属于数据库数据缺失
+2、t_purchase_order_detail的uom_id
+3、t_goods_delivery_note的buyer_id
+4、t_goods_delivery_note的packing_method_id
+5、logistic_provider_master_id、
+6、logistic_provider_contact_id
+7、atd
+8、ata
+9、receiver
+
+
+
+
 待解决问题：
 1、写入表t_purchase_order、t_purchase_order_detail、t_goods_delivery_note
 2、t_purchase_order中的po_no是char(20)，json里的是21位
