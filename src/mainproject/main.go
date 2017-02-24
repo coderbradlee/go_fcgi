@@ -28,7 +28,7 @@ type log_conf struct{
     Dir string
     Name string
     Console bool
-    Num int64
+    Num int32
     Size int64
     Level string
 }
