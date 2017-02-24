@@ -16,7 +16,9 @@ import (
     "martini"
     "database/sql"
     _"mysql"
-    "logger")
+    "logger"
+    "strconv"
+    "time")
 type mysql_conf struct{
     Host string
     Port string
