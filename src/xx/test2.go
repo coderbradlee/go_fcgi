@@ -5,6 +5,12 @@ import (
 	"log"
 	"net/http"
 	"sync"
+	"image"
+	"image/color"
+	"image/gif"
+	"io"
+	"math"
+	"math/rand"
 )
 var mu sync.Mutex
 var count int
