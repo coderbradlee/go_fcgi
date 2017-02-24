@@ -20,6 +20,14 @@ const(
 var mu sync.Mutex
 var count int
 func main() {
+	type Celsius float64
+	type Fahrenheit float64
+	var c Celsius
+	var f Fahrenheit
+	fmt.Println(c==0)
+	fmt.Println(f>=0)
+	fmt.Println(c==f)
+	fmt.Println(c==Celsius(f))
 	http.HandleFunc("/h",handler)
 	http.HandleFunc("/count",counter)
 	http.HandleFunc("/l",l)
