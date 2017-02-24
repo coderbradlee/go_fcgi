@@ -105,7 +105,7 @@ func log_init() {
 func main() {
     // go startHttpServer()
     go startMartini()
-    go test_log()
+    // go test_log()
     port:=fmt.Sprintf("%s",configuration.FastcgiPort)
     l, err := net.Listen("tcp", port)
     if err != nil { 
@@ -116,7 +116,7 @@ func main() {
     serveMux.HandleFunc("/pdf", pdfHandler) 
     err = fcgi.Serve(l, serveMux)
     if err != nil { 
-        log.Println("fcgi error", err) 
+        logger.Println("fcgi error", err) 
     }
     // go startHttpServer()
 }
@@ -127,7 +127,7 @@ func startHttpServer() {
     // http.HandleFunc("/po/deliver_goods",poHandler)
     err := http.ListenAndServe(port, nil)
     if err != nil {
-        log.Fatal("ListenAndServe: ", err)
+        logger.Fatal("ListenAndServe: ", err)
     }
 }
 func test_log() {
