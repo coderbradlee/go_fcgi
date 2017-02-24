@@ -53,7 +53,7 @@ func main() {
 }
 func test_log() {
 	
-	for i := 10000; i > 0; i-- {
+	for i := 1; i > 0; i-- {
 		go func() {
 			logger.Debug("Debug>>>>>>>>>>>>>>>>>>>>>>" + strconv.Itoa(i))
 			logger.Info("Info>>>>>>>>>>>>>>>>>>>>>>>>>" + strconv.Itoa(i))
