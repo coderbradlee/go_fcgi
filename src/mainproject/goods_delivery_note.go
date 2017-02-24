@@ -75,7 +75,7 @@ func get_logistic_contact_id(Logistic_contact string)string {
 }
 func get_buyer_id(buyer string)string {
     var buyer_id string
-    //db.QueryRow("select logistic_contact_id from t_logistic_provider_master where native_name=?",Logistic_contact).Scan(&logistic_contact_id)
+    db.QueryRow("select company_id from t_company where short_name=?",buyer).Scan(&buyer_id)
     return buyer_id
 }
 type flow_no_json struct{
