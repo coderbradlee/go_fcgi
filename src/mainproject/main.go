@@ -16,7 +16,6 @@ import (
     "martini"
     "database/sql"
     _"mysql"
-    "logger"
     "strconv"
     "time")
 type mysql_conf struct{
