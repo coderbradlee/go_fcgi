@@ -18,7 +18,7 @@ import (
 	// "strings"
 	// "testing"
 	// "time"
-	"glog"
+	"logger"
 	"flag"
 )
 var palette=[]color.Color{color.White,color.Black}
@@ -27,23 +27,42 @@ const(
 	blackIndex=1
 )
 func init() {
+	logger.SetConsole(true)
+	//指定日志文件备份方式为文件大小的方式
+	//第一个参数为日志文件存放目录
+	//第二个参数为日志文件命名
+	//第三个参数为备份文件最大数量
+	//第四个参数为备份文件大小
+	//第五个参数为文件大小的单位
+	logger.SetRollingFile("log", "test.log", 10, 5, logger.KB)
 
+	//指定日志文件备份方式为日期的方式
+	//第一个参数为日志文件存放目录
+	//第二个参数为日志文件命名
+	// logger.SetRollingDaily("d:/logtest", "test.log")
+
+	//指定日志级别  ALL，DEBUG，INFO，WARN，ERROR，FATAL，OFF 级别由低到高
+	//一般习惯是测试阶段为debug，生成环境为info以上
+	logger.SetLevel(logger.ERROR)
 }
 func main() {
 	// lissajous(os.Stdout)
 	test_log()
 }
 func test_log() {
-	flag.Parse()    // 1
-
-    glog.Info("This is a Info log")         // 2
-    glog.Warning("This is a Warning log")
-    glog.Error("This is a Error log")
-
-    glog.V(1).Infoln("level 1")     // 3
-    glog.V(2).Infoln("level 2")
-
-    glog.Flush()    // 4
+	
+	for i := 10000; i > 0; i-- {
+		go func {
+			logger.Debug("Debug>>>>>>>>>>>>>>>>>>>>>>" + strconv.Itoa(i))
+			logger.Info("Info>>>>>>>>>>>>>>>>>>>>>>>>>" + strconv.Itoa(i))
+			logger.Warn("Warn>>>>>>>>>>>>>>>>>>>>>>>>>" + strconv.Itoa(i))
+			logger.Error("Error>>>>>>>>>>>>>>>>>>>>>>>>>" + strconv.Itoa(i))
+			logger.Fatal("Fatal>>>>>>>>>>>>>>>>>>>>>>>>>" + strconv.Itoa(i))
+		}
+		time.Sleep(100 * time.Millisecond)
+	}
+	time.Sleep(15 * time.Second)
+	
 }
 func lissajous(out io.Writer) {
 	const(

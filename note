@@ -1,14 +1,23 @@
 2017.02.24待解决问题
 1、t_purchase_order的contact_account_id在t_vendor_contact中无法取得，属于数据库数据缺失
-3、t_goods_delivery_note的buyer_id
-4、t_goods_delivery_note的packing_method_id
-5、logistic_provider_master_id、
-6、logistic_provider_contact_id
-7、atd
-8、ata
-9、receiver
-
-
+2、t_goods_delivery_note的packing_method_id,从t_packing_method中查找不到name为Carton Box On Pallet的数据，属于数据库数据缺失
+3、t_goods_delivery_note的logistic_provider_master_id,在t_goods_delivery_note的中无法找到logistic为COSCO的数据
+4、t_goods_delivery_note的logistic_provider_contact_id,json中缺logistic_contact的数据
+5、t_goods_delivery_note的atd,json里没有此数据
+6、t_goods_delivery_note的ata,json里没有此数据
+7、t_goods_delivery_note的receiver,json里没有此数据,不知从何处拿到
+8、json中commercial_invoice后面的信息写到哪里
+9、执行失败后response的data是否填为空
+10、error_json_decode="-100"//json 解包错误
+    error_json_encode="-101"//json 打包错误
+    error_db="-102"//连接mysql数据库错误
+    error_check_request_system="-120"//请求系统是否为1
+    error_check_bill_type="-121"//bill_tpye是否为Purchase Order
+    error_check_po_no="-122"//po_no长度问题，数据库表里面是20位
+    error_check_po_url="-123"//是否存在文件
+    error_check_status="-124"//status是否为1
+    error_check_supplier="-125"//supplier是否为Renesola Shanghai
+    校验项是否还有其他
 
 
 待解决问题：
@@ -49,4 +58,4 @@ curl -X POST http://127.0.0.1:9888/po/deliver_goods -d '{
 
 
 
-curl -X POST http://127.0.0.1:9888/po/deliver_goods -d '{   "operation":"DeliverGoodsForPO",   "data":{      "request_system":1,"request_time":"2017-02-16 08:00:00",      "purchase_order":{         "bill_type":"Purchase Order",         "po_no":"PO-FR-20170216-12345",         "po_url":"/root/go_fcgi/go_fcgi",         "po_date":"2017-02-16 08:00:00",         "create_by":"",         "status":1,"supplier":"Renesola Shanghai",         "website":"France",         "company":"ReneSola France",         "requested_delivery_date":"2017-02-28 08:00:00","trade_term":"DDP",         "payment_terms":"30 Days EOM The 15",         "ship_via":"Sea",         "destination_country":"France",         "loading_port":"Shanghai",         "certificate":"CB",         "total_quantity":20,         "total_amount":640.00,         "currency":"EUR",         "comments":"",         "note":"",         "detail":[{            "product_name":"Dalle LED",            "product_code":"RLP040AF0104",            "item_no":"3518020300984",            "unit_price":32.00,            "quantity":20,            "uom":"PCS",            "sub_total":640.00,            "warranty":5,            "comments":"","note":""},{            "product_name":"Dalle LED",            "product_code":"RLP040AF0104",            "item_no":"3518020300984",            "unit_price":32.00,            "quantity":20,            "uom":"PCS",            "sub_total":640.00,            "warranty":5,            "comments":"","note":""}]},"deliver_notes":[{"supplier":"Renesola Shanghai","buyer":"ReneSola France","loading_port":"Shanghai","trade_term":"DDP","ship_via":"Sea","packing_method":"Carton Box On Pallet","logistic":"COSCO","logistic_contact":"","logistic_contact_email":"","logistic_contact_telephone_number":"","etd":"2017-02-28 17:00:00","eta":"2017-03-17 10:00:00","customs_clearance_date":"2017-03-18 10:00:00","total_freight_charges":0.00,"total_insurance_fee":10,"total_excluded_tax":128.00,"currency":"EUR","commercial_invoice":{"ci_no":"RENSH-FR-170216S-0","ci_url":"/opt/renesola/apollo/file/ci/RENSH-FR-170216S-0.pdf"},"packing_list":{"pl_no":"PKL-FR-20170216-000196","pl_url":"/opt/renesola/apollo/file/pkl/PKL-FR-20170216-000196.pdf"},"bill_of_lading":{"bl_no":"BL-FR-20170216-017","bl_url":"/opt/renesola/apollo/file/bl/BL-FR-20170216-017"},"associated_so":{"associated_so_no":"SH-FR-0821S-170216","associated_so_url":"/opt/renesola/apollo/file/sc/SH-FR-0821S-170216.pdf"},"detail":[{            "product_name":"Dalle LED",            "product_code":"RLP040AF0104",            "item_no":"3518020300984",            "unit_price":32.00,            "quantity":20,            "uom":"PCS",   "sub_total":640.00},{            "product_name":"Dalle LED",            "product_code":"RLP040AF0104",            "item_no":"3518020300984",            "unit_price":32.00,            "quantity":20,            "uom":"PCS",   "sub_total":640.00}]}]   }}'
+curl -X POST http://127.0.0.1:9888/po/deliver_goods -d '{   "operation":"DeliverGoodsForPO",   "data":{      "request_system":1,"request_time":"2017-02-16 08:00:00",      "purchase_order":{         "bill_type":"Purchase Order",         "po_no":"PO-FR-20170216-12345",         "po_url":"/root/go_fcgi/go_fcgi",         "po_date":"2017-02-16 08:00:00",         "create_by":"",         "status":1,"supplier":"Renesola Shanghai",         "website":"France",         "company":"ReneSola France",         "requested_delivery_date":"2017-02-28 08:00:00","trade_term":"DDP",         "payment_terms":"30 Days EOM The 15",         "ship_via":"Sea",         "destination_country":"France",         "loading_port":"Shanghai",         "certificate":"CB",         "total_quantity":20,         "total_amount":640.00,         "currency":"EUR",         "comments":"",         "note":"",         "detail":[{            "product_name":"Dalle LED",            "product_code":"RLP040AF0104",            "item_no":"3518020300984",            "unit_price":32.00,            "quantity":20,            "uom":"PCS",            "sub_total":640.00,            "warranty":5,            "comments":"","note":""},{            "product_name":"Dalle LED",            "product_code":"RLP040AF0104",            "item_no":"3518020300984",            "unit_price":32.00,            "quantity":20,            "uom":"PCS",            "sub_total":640.00,            "warranty":5,            "comments":"","note":""}]},"deliver_notes":[{"supplier":"Renesola Shanghai","buyer":"ReneSola France","loading_port":"Shanghai","trade_term":"DDP","ship_via":"Sea","packing_method":"Carton Box On Pallet","logistic":"DHL","logistic_contact":"","logistic_contact_email":"","logistic_contact_telephone_number":"","etd":"2017-02-28 17:00:00","eta":"2017-03-17 10:00:00","customs_clearance_date":"2017-03-18 10:00:00","total_freight_charges":0.00,"total_insurance_fee":10,"total_excluded_tax":128.00,"currency":"EUR","commercial_invoice":{"ci_no":"RENSH-FR-170216S-0","ci_url":"/opt/renesola/apollo/file/ci/RENSH-FR-170216S-0.pdf"},"packing_list":{"pl_no":"PKL-FR-20170216-000196","pl_url":"/opt/renesola/apollo/file/pkl/PKL-FR-20170216-000196.pdf"},"bill_of_lading":{"bl_no":"BL-FR-20170216-017","bl_url":"/opt/renesola/apollo/file/bl/BL-FR-20170216-017"},"associated_so":{"associated_so_no":"SH-FR-0821S-170216","associated_so_url":"/opt/renesola/apollo/file/sc/SH-FR-0821S-170216.pdf"},"detail":[{            "product_name":"Dalle LED",            "product_code":"RLP040AF0104",            "item_no":"3518020300984",            "unit_price":32.00,            "quantity":20,            "uom":"PCS",   "sub_total":640.00},{            "product_name":"Dalle LED",            "product_code":"RLP040AF0104",            "item_no":"3518020300984",            "unit_price":32.00,            "quantity":20,            "uom":"PCS",   "sub_total":640.00}]}]   }}'
