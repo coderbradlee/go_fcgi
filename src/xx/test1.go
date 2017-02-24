@@ -28,7 +28,9 @@ func fetch(url string,ch chan<-string) {
 	start:=time.Now()
 	resp,err:=http.Get(url)
 	if err!=nil{
-		ch<-fmt.Sprint(err)
+		secs:=time.Since(start).Seconds()
+		temp:=fmt.Sprintf("%.2f %s",secs,url)
+		ch<-fmt.Sprint(temp+":"+err)
 		return
 	}
 	nbytes,err:=io.Copy(ioutil.Discard,resp.Body)
