@@ -1,7 +1,7 @@
  package main
  import (
     "time"
-    "log"
+    "logger"
     "fmt"
     "net/http"
     "io/ioutil"
