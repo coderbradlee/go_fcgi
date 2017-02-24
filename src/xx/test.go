@@ -52,13 +52,13 @@ func main() {
 func test_log() {
 	
 	for i := 10000; i > 0; i-- {
-		go func {
+		go func() {
 			logger.Debug("Debug>>>>>>>>>>>>>>>>>>>>>>" + strconv.Itoa(i))
 			logger.Info("Info>>>>>>>>>>>>>>>>>>>>>>>>>" + strconv.Itoa(i))
 			logger.Warn("Warn>>>>>>>>>>>>>>>>>>>>>>>>>" + strconv.Itoa(i))
 			logger.Error("Error>>>>>>>>>>>>>>>>>>>>>>>>>" + strconv.Itoa(i))
 			logger.Fatal("Fatal>>>>>>>>>>>>>>>>>>>>>>>>>" + strconv.Itoa(i))
-		}
+		}()
 		time.Sleep(100 * time.Millisecond)
 	}
 	time.Sleep(15 * time.Second)
