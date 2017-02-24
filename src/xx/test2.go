@@ -19,7 +19,7 @@ func handler(w http.ResponseWriter,r *http.Request) {
 	mu.Unlock()
 	fmt.Fprintf(w,"path=%q\n",r.URL.Path)
 }
-func count(w http.ResponseWriter,r *http.Request) {
+func counter(w http.ResponseWriter,r *http.Request) {
 	mu.Lock()
 	fmt.Fprintf(w,"count:%d\n",count)
 	mu.Unlock()
