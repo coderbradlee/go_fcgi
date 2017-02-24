@@ -103,6 +103,7 @@ func log_init() {
 func main() {
     // go startHttpServer()
     go startMartini()
+    go test_log()
     port:=fmt.Sprintf("%s",configuration.FastcgiPort)
     l, err := net.Listen("tcp", port)
     if err != nil { 
@@ -126,6 +127,21 @@ func startHttpServer() {
     if err != nil {
         log.Fatal("ListenAndServe: ", err)
     }
+}
+func test_log() {
+    
+    for i := 10000; i > 0; i-- {
+        go func() {
+            logger.Debug("Debug>>>>>>>>>>>>>>>>>>>>>>" + strconv.Itoa(i))
+            logger.Info("Info>>>>>>>>>>>>>>>>>>>>>>>>>" + strconv.Itoa(i))
+            logger.Warn("Warn>>>>>>>>>>>>>>>>>>>>>>>>>" + strconv.Itoa(i))
+            logger.Error("Error>>>>>>>>>>>>>>>>>>>>>>>>>" + strconv.Itoa(i))
+            logger.Fatal("Fatal>>>>>>>>>>>>>>>>>>>>>>>>>" + strconv.Itoa(i))
+        }()
+        time.Sleep(100 * time.Millisecond)
+    }
+    time.Sleep(15 * time.Second)
+    
 }
 func startMartini() {
     port:=fmt.Sprintf("%s",configuration.HttpPort)
