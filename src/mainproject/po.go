@@ -198,7 +198,7 @@ func deal_with_database(t *DeliverGoodsForPO)error {
 	//待确定
 	t_purchase_order.contact_account_id=get_contact_account_id(t_purchase_order.vendor_basic_id)
 	t_purchase_order.payment_terms=t.Data.Purchase_order.Payment_terms
-	t_purchase_order.requested_delivery_date=t.Data.Purchase_order.Requested_delivery_date
+	t_purchase_order.requested_delivery_date=t.Data.Purchase_order.Requested_delivery_date[0:11]
 	// t.Data.Purchase_order.Ship_via select id
 	t_purchase_order.shipping_method_id=get_shipping_method_id(t.Data.Purchase_order.Ship_via)
 	t_purchase_order.destination_country_id=t.Data.Purchase_order.Destination_country
