@@ -1,7 +1,7 @@
 {
     "Exec_time": "11:05",
     "FastcgiPort":":8888",
-    "Log_name":"go_fcgi.log",
+    "Log":{"dir":"log","name":"go_fcgi.log","console":true,"num":1000,"size":3000000,"level":"info"},
     "HttpPort":":9888",
     "RedisNodes":["127.0.0.1:6380","127.0.0.1:7382","127.0.0.1:6381"],
     "Mysql_conf":{"Host":"172.18.22.202","Port":"3306","Username":"renesola", "Password":"renes0la.xx","database":"apollo_eu_erp"},

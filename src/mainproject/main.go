@@ -15,7 +15,8 @@ import (
     "net/http/fcgi"
     "martini"
     "database/sql"
-    _"mysql")
+    _"mysql"
+    "logger")
 type mysql_conf struct{
     Host string
     Port string
@@ -23,10 +24,18 @@ type mysql_conf struct{
     Password string
     Database string
 }
+type log_conf struct{
+    Dir string
+    Name string
+    Console bool
+    Num int32
+    Size int32
+    Level string
+}
 type Configuration struct {
     Exec_time string
     FastcgiPort string
-    Log_name string
+    Log log_conf
     HttpPort string
     RedisNodes []string
     Mysql_conf mysql_conf
@@ -66,19 +75,28 @@ func mysql_init() {
     db.Ping()
 }
 func log_init() {
-    log_name:=fmt.Sprintf("%s",configuration.Log_name)
-    logFileName := flag.String("log", log_name, "Log file name")
+    // log_name:=fmt.Sprintf("%s",configuration.Log.Name)
+    // logFileName := flag.String("log", log_name, "Log file name")
     
-    flag.Parse()
+    // flag.Parse()
 
-    //set logfile Stdout
-    logFile, logErr := os.OpenFile(*logFileName, os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
-    if logErr != nil {
-        fmt.Println("Fail to find", *logFile, "cServer start Failed")
-        os.Exit(1)
-    }
-    log.SetOutput(logFile)
-    log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
+    // //set logfile Stdout
+    // logFile, logErr := os.OpenFile(*logFileName, os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
+    // if logErr != nil {
+    //     fmt.Println("Fail to find", *logFile, "cServer start Failed")
+    //     os.Exit(1)
+    // }
+    // log.SetOutput(logFile)
+    // log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
+    logger.SetConsole(true)
+    logger.SetRollingFile(configuration.Log.Dir, configuration.Log.Name, configuration.Log.Num, configuration.Log.Size, logger.KB)
+    //ALL，DEBUG，INFO，WARN，ERROR，FATAL，OFF
+    logger.SetLevel(logger.ERROR)
+    if configuration.Log.Level=="info"{
+        logger.SetLevel(logger.INFO)
+        }else if configuration.Log.Level=="error"{
+            logger.SetLevel(logger.ERROR)
+        }
 }
 
 
