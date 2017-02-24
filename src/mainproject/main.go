@@ -9,7 +9,7 @@ import (
     _"time"
     _"strings"
     _"io/ioutil"
-    "flag"
+    // "flag"
     "runtime" 
     "net" 
     "net/http/fcgi"
@@ -28,8 +28,8 @@ type log_conf struct{
     Dir string
     Name string
     Console bool
-    Num int32
-    Size int32
+    Num int64
+    Size int64
     Level string
 }
 type Configuration struct {
@@ -54,7 +54,7 @@ func init() {
     }
     fmt.Printf("Exec_time %s\n",configuration.Exec_time)
     fmt.Printf("FastcgiPort %s\n",configuration.FastcgiPort)
-    fmt.Printf("Log_name %s\n",configuration.Log_name)
+    // fmt.Printf("Log_name %s\n",configuration.Log_name)
     fmt.Printf("HttpPort %s\n",configuration.HttpPort)
     mysql_init()
     log_init()
