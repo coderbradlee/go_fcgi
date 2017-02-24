@@ -2,7 +2,7 @@ package main
  
 import (
     "fmt"
-    "log"
+    "logger"
     "net/http"
     "os"
     "encoding/json"
@@ -116,7 +116,7 @@ func main() {
     serveMux.HandleFunc("/pdf", pdfHandler) 
     err = fcgi.Serve(l, serveMux)
     if err != nil { 
-        logger.Println("fcgi error", err) 
+        logger.Info("fcgi error:"+err.Error()) 
     }
     // go startHttpServer()
 }

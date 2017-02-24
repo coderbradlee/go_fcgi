@@ -180,7 +180,7 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error
         1)
     }
     if err!=nil{
-        logger.Println("insert_goods_delivery_note:", err) 
+        logger.Info("insert_goods_delivery_note:"+err.Error()) 
     }
     return err
 }
