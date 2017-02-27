@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"runtime"
 )
 type Optioner interface{
 	Name() string
@@ -51,13 +52,15 @@ func (place *Place)String()string {
 }
 
 func main() {
-	t:=New(1,2,"xx")
-	fmt.Println(t)
-	t.Exchange()
-	fmt.Println(t)
-	i:=IntOption{OptionCommon:OptionCommon{"s","long"},Max:10}
-	switch option:=i.(type){
-	case IntOption:
-		fmt.Println(i.Name())
-	}
+	// t:=New(1,2,"xx")
+	// fmt.Println(t)
+	// t.Exchange()
+	// fmt.Println(t)
+	// i:=IntOption{OptionCommon:OptionCommon{"s","long"},Max:10}
+	// switch option:=i.(type){
+	// case IntOption:
+	// 	fmt.Println(i.Name())
+	// }
+	fmt.Println(runtime.GOMAXPROCS(0))
+	fmt.Println(runtime.GOMAXPROCS())
 }
