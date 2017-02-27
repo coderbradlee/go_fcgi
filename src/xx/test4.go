@@ -28,7 +28,7 @@ func (j *Job)Do(reg *regexp.Regexp) {
 		// func (b *Reader) ReadBytes(delim byte) ([]byte, error)
 		line=bytes.TrimRight(line,"\r\n")
 		if reg.Match(line){
-			j.results<-Results{j.filename,lino,line}
+			j.results<-Results{j.filename,lino,string(line)}
 		}
 		if err!=nil{
 			if err!=io.EOF{
