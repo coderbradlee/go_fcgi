@@ -22,7 +22,7 @@ func addJobs(jobs chan<- Job,filename string,results chan<- Results) {
 	jobs<- Job{filename,results}
 	close(jobs)
 }
-func doJobs(done chan<- struct{},reg *regexp.Regexp,jobs chan<- Job) {
+func doJobs(done chan<- struct{},reg *regexp.Regexp,jobs <-chan Job) {
 	for job:=range jobs{
 		job.Do(reg)
 	}
