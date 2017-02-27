@@ -23,7 +23,7 @@ func (place *Place)GetLongitude()float64 {
 	return place.longitude
 }
 func (place *Place)String()string {
-	return fmt.Sprintf("%.3f,%.3f %q",place.latitude,place.longitude,place.name)
+	return fmt.Sprintf("%.3f,%.3f %q",place.latitude,place.longitude,place.Name)
 }
 
 func main() {
