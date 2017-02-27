@@ -55,7 +55,7 @@ func doJobs(done chan<- struct{},reg *regexp.Regexp,jobs <-chan Job) {
 	done<-struct{}{}
 }
 func waitCompletion(timeout int64,done <-chan struct{},results <-chan Results) {
-	finish:=time.After(time.Duration(timeout))
+	finish:=time.After(timeout* time.Second)
 
 	for i:=0;i<8;i++{
 		select{
@@ -89,7 +89,7 @@ func grep(reg *regexp.Regexp,filename string) {
 	for i:=0;i<8;i++{
 		go doJobs(done,reg,jobs)
 	}
-	waitCompletion(1000,done,results)
+	waitCompletion(10,done,results)
 }
 func main() {
 	reg:=regexp.MustCompile("flow.*")
