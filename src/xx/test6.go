@@ -2,12 +2,7 @@ package main
 
 import (
 	"fmt"
-	"regexp"
-	"bytes"
-	"bufio"
-	"os"
-	"io"
-	"time"
+	"strconv"
 )
 type SafeMap interface{
 	Insert(string,interface{})
