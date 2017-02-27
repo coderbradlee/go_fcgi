@@ -89,7 +89,7 @@ func grep(reg *regexp.Regexp,filename string) {
 	for i:=0;i<8;i++{
 		go doJobs(done,reg,jobs)
 	}
-	waitCompletion(10,done,results)
+	waitCompletion(1000,done,results)
 }
 func main() {
 	reg:=regexp.MustCompile("flow.*")
