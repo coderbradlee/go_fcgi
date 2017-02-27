@@ -28,13 +28,13 @@ func doJobs(done chan<- struct{},reg *regexp.Regexp,jobs <-chan Job) {
 	}
 	done<-struct{}{}
 }
-func waitCompletion(done chan<- struct{},results chan<- Results) {
+func waitCompletion(done <-chan struct{},results chan<- Results) {
 	for i:=0;i<8;i++{
 		<-done
 	}
 	close(results)
 }
-func processResults(results chan<- Results) {
+func processResults(results <-chan Results) {
 	for i:=range results{
 		fmt.Printf("%s:%d:%s",i.filename,i.lino,i.line)
 	}
