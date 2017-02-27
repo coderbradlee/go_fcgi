@@ -59,7 +59,7 @@ func (sm *safeMap)Close()map[string]interface{} {
 	(*sm)<-commandData{action:end,data:reply}
 	return <-reply
 }
-func New()(*safeMap) {
+func New()(safeMap) {
 	sm:=make(safeMap)
 	go sm.run()
 	return sm
