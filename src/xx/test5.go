@@ -60,7 +60,7 @@ func waitCompletion(timeout int64,done <-chan struct{},results <-chan Results) {
 	for i:=0;i<8;i++{
 		select{
 			case r:=<-results:
-				fmt.Printf("%s:%d:%s\n",r.filename,r.lino,r.line)
+				fmt.Printf("63:%s:%d:%s\n",r.filename,r.lino,r.line)
 			case <-done:
 				fmt.Printf("done:%d:::::::::::\n",i)
 			case <-finish:
@@ -72,7 +72,7 @@ func waitCompletion(timeout int64,done <-chan struct{},results <-chan Results) {
 	for{
 		select{
 		case r:=<-results:
-			fmt.Printf("%s:%d:%s\n",r.filename,r.lino,r.line)
+			fmt.Printf("75:%s:%d:%s\n",r.filename,r.lino,r.line)
 		case <-finish:
 			fmt.Printf("timeout\n")
 			return
