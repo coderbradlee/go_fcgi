@@ -62,5 +62,5 @@ func main() {
 	// 	fmt.Println(i.Name())
 	// }
 	fmt.Println(runtime.GOMAXPROCS(0))
-	fmt.Println(runtime.GOMAXPROCS())
+	fmt.Println(runtime.NumCPU())
 }
