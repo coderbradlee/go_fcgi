@@ -19,7 +19,7 @@ func (j *Job)Do(reg *regexp.Regexp) {
 		fmt.Println("error:%s",err)
 	}
 	defer file.Close()
-	reader:=bufio.NewReader(file)
+	reader := bufio.NewReader(file)
 	for lino:=1; ;lino++ {
 		line,err:=reader.ReadBytes('\n')
 		// func (b *Reader) ReadBytes(delim byte) ([]byte, error)
