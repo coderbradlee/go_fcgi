@@ -10,7 +10,7 @@ type Job struct{
 }
 func (j *Job)Do(*regexp.Regexp) {
 	fmt.Println("Do")
-	lino:=1111
+	var lino int32=1111
 	j.results<-Results{j.filename,lino,"11"}
 }
 type Results struct{
