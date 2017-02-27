@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"iota"
 )
 type SafeMap interface{
 	Insert(string,interface{})
@@ -24,7 +23,7 @@ type commandData struct{
 }
 type commandAction int
 const (
-	remove commandAction=itoa
+	remove commandAction=iota
 	end 
 	find
 	insert
