@@ -22,6 +22,7 @@ func (j *Job)Do(reg *regexp.Regexp) {
 	reader:=bufio.NewReader(file)
 	for lino:=1;;lino++{
 		line,err:=reader.ReadBytes('\n')
+		// func (b *Reader) ReadBytes(delim byte) ([]byte, error)
 		line=bytes.TrimRight(line,'\r\n')
 		if reg.Match(line){
 			j.results<-Results{j.filename,lino,line}
