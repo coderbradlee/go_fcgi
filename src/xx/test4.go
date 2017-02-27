@@ -14,9 +14,9 @@ func (j *Job)Do(reg *regexp.Regexp) {
 	// fmt.Println("Do")
 	// var lino int32=1111
 	// j.results<-Results{j.filename,lino,"11"}
-	file,err:=os.Open(j.filename)
-	if err!=nil{
-		fmt.Println("error:%s",err)
+	file,err_open:=os.Open(j.filename)
+	if err_open!=nil{
+		fmt.Println("error:%s",err_open)
 	}
 	defer file.Close()
 	reader := bufio.NewReader(file)
