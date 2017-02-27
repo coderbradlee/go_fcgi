@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"regexp"
+	"bytes"
+	"bufio"
 )
 type Job struct{
 	filename string
