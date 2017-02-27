@@ -3,9 +3,15 @@ package main
 import (
 	"fmt"
 )
+type Exchanger interface{
+	Exchange()
+}
 type Place struct{
 	latitude,longitude float64
 	Name string
+}
+func (place *Place)Exchange() {
+	place.latitude,place.longitude=place.longitude,place.latitude
 }
 func New(latitude,longitude float64,name string)(*Place) {
 	return &Place{latitude,longitude,name}
@@ -28,5 +34,7 @@ func (place *Place)String()string {
 
 func main() {
 	t:=New(1,2,"xx")
+	fmt.Println(t)
+	t.Exchange()
 	fmt.Println(t)
 }
