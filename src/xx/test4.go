@@ -12,7 +12,7 @@ type Job struct{
 	filename string
 	results chan<- Results
 }
-func (j Job)Do(reg *regexp.Regexp) {
+func (j *Job)Do(reg *regexp.Regexp) {
 	// fmt.Println("Do")
 	// var lino int32=1111
 	// j.results<-Results{j.filename,lino,"11"}
@@ -76,6 +76,6 @@ func grep(reg *regexp.Regexp,filename string) {
 	processResults(results)
 }
 func main() {
-	reg,_:=regexp.Compile("*flow*")
+	reg,_:=regexp.MustCompile("*flow*")
 	grep(reg,"/root/redisRenesola-cluster-debug/cache_20170224_00208.log")
 }
