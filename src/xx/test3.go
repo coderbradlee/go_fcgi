@@ -55,6 +55,6 @@ func main() {
 	fmt.Println(t)
 	t.Exchange()
 	fmt.Println(t)
-	IntOption i{OptionCommon:OptionCommon{"s","long"},Max:10}
+	i:=IntOption{OptionCommon:OptionCommon{"s","long"},Max:10}
 	fmt.Println(i.(type))
 }
