@@ -5,6 +5,7 @@ import (
 	"regexp"
 	"bytes"
 	"bufio"
+	"os"
 )
 type Job struct{
 	filename string
