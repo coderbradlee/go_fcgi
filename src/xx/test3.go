@@ -3,6 +3,24 @@ package main
 import (
 	"fmt"
 )
+type Optioner interface{
+	Name() string
+	IsValid() bool
+}
+type OptionCommon struct{
+	ShortName string "short option name"
+	LongName string "long option name"
+}
+type IntOption struct{
+	OptionCommon
+	Value,Min,Max int
+}
+func (i *IntOption)Name()string {
+	return i.ShortName+":"+i.LongName
+}
+func (i *IntOption)IsValid()bool {
+	return i.Min<i.Max
+}
 type Exchanger interface{
 	Exchange()
 }
@@ -37,4 +55,6 @@ func main() {
 	fmt.Println(t)
 	t.Exchange()
 	fmt.Println(t)
+	IntOption i{OptionCommon:OptionCommon{"s","long"},Max:10}
+	fmt.Println(i.(type))
 }
