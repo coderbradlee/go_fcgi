@@ -43,7 +43,7 @@ type findResult struct{
 func (sm *safeMap)Find(key string)(value interface{},found bool) {
 	reply:=make(chan interface{})
 	(*sm)<-commandData{action:find,key:key,result:reply}
-	result:=(<-reply),(findResult)
+	result:=(<-reply).(findResult)
 	return result.value,result.found
 }
 func (sm *safeMap)Len()int {
