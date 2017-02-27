@@ -28,5 +28,5 @@ func (place *Place)String()string {
 
 func main() {
 	t:=New(1,2,"xx")
-	fmt.Println(t
+	fmt.Println(t)
 }
