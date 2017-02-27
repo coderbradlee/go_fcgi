@@ -64,7 +64,7 @@ func New()(safeMap) {
 	go sm.run()
 	return sm
 }
-func (sm *safeMap)run() {
+func (sm safeMap)run() {
 	store:=make(map[string]interface{})
 	for command:=range sm{
 		switch command.action{
@@ -82,7 +82,7 @@ func (sm *safeMap)run() {
 			store[command.key]=command.updater(value,found)
 		case end:
 			close(sm)
-			command<-data<-store
+			command.data<-store
 		}
 	}
 }
