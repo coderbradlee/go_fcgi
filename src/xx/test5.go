@@ -7,6 +7,7 @@ import (
 	"bufio"
 	"os"
 	"io"
+	"time"
 )
 type Job struct{
 	filename string
@@ -53,7 +54,7 @@ func doJobs(done chan<- struct{},reg *regexp.Regexp,jobs <-chan Job) {
 	}
 	done<-struct{}{}
 }
-func waitCompletion(timeout int64,done chan<- struct{},results <-chan Results) {
+func waitCompletion(timeout int64,done <-chan struct{},results <-chan Results) {
 	finish:=time.After(time.Duration(timeout))
 
 	for i:=0;i<8;i++{
