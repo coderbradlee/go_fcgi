@@ -76,6 +76,6 @@ func grep(reg *regexp.Regexp,filename string) {
 	processResults(results)
 }
 func main() {
-	reg,_:=regexp.MustCompile("*flow*")
+	reg:=regexp.MustCompile("*flow*")
 	grep(reg,"/root/redisRenesola-cluster-debug/cache_20170224_00208.log")
 }
