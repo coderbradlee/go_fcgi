@@ -61,7 +61,7 @@ func waitCompletion(done <-chan struct{},results chan<- Results) {
 }
 func processResults(results <-chan Results) {
 	for i:=range results{
-		fmt.Printf("%s:%d:%s",i.filename,i.lino,i.line)
+		fmt.Printf("%s:%d:%s\n",i.filename,i.lino,i.line)
 	}
 }
 func grep(reg *regexp.Regexp,filename string) {
