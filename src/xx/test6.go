@@ -88,8 +88,8 @@ func (sm safeMap)run() {
 }
 func main() {
 	test :=New()
-	test.insert("1",2)
-	if data,found:=test.find("1");found{
+	test.Insert("1",2)
+	if data,found:=test.Find("1");found{
 		fmt.Println(data)
 	}
 }
