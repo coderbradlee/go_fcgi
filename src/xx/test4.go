@@ -8,10 +8,29 @@ type Job struct{
 	filename string
 	results chan<- Results
 }
-func (j *Job)Do(*regexp.Regexp) {
-	fmt.Println("Do")
-	var lino int32=1111
-	j.results<-Results{j.filename,lino,"11"}
+func (j *Job)Do(reg *regexp.Regexp) {
+	// fmt.Println("Do")
+	// var lino int32=1111
+	// j.results<-Results{j.filename,lino,"11"}
+	file,err:=os.Open(j.filename)
+	if err!=nil{
+		fmt.Println("error:%s",err)
+	}
+	defer file.Close()
+	reader:=bufio.NewReader(file)
+	for lino:=1;;lino++{
+		line,err:=reader.ReadBytes('\n')
+		line=bytes.TrimRight(line,'\r\n')
+		if reg.Match(line){
+			j.results<-Results{j.filename,lino,line}
+		}
+		if err!=nil{
+			if err!=io.EOF{
+				fmt.Println("err:%d:%s",lino,err)
+			}
+			break;
+		}
+	}
 }
 type Results struct{
 	filename string
