@@ -30,33 +30,33 @@ const (
 	length
 	update
 )
-func (sm *safeMap)Insert(key string,value interface{}) {
-	(*sm)<-commandData{action:insert,key:key,value:value}
+func (sm safeMap)Insert(key string,value interface{}) {
+	(sm)<-commandData{action:insert,key:key,value:value}
 }
-func (sm *safeMap)Delete(key string) {
-	(*sm)<-commandData{action:remove,key:key}
+func (sm safeMap)Delete(key string) {
+	(sm)<-commandData{action:remove,key:key}
 }
 type findResult struct{
 	value interface{}
 	found bool
 }
-func (sm *safeMap)Find(key string)(value interface{},found bool) {
+func (sm safeMap)Find(key string)(value interface{},found bool) {
 	reply:=make(chan interface{})
-	(*sm)<-commandData{action:find,key:key,result:reply}
+	(sm)<-commandData{action:find,key:key,result:reply}
 	result:=(<-reply).(findResult)
 	return result.value,result.found
 }
-func (sm *safeMap)Len()int {
+func (sm safeMap)Len()int {
 	reply:=make(chan interface{})
-	(*sm)<-commandData{action:length,result:reply}
+	(sm)<-commandData{action:length,result:reply}
 	return (<-reply).(int)
 }
-func (sm *safeMap)Update(key string,updater UpdateFunc){
-	(*sm)<-commandData{action:update,key:key,updater:updater}
+func (sm safeMap)Update(key string,updater UpdateFunc){
+	(sm)<-commandData{action:update,key:key,updater:updater}
 }
-func (sm *safeMap)Close()map[string]interface{} {
+func (sm safeMap)Close()map[string]interface{} {
 	reply:=make(chan map[string]interface{})
-	(*sm)<-commandData{action:end,data:reply}
+	(sm)<-commandData{action:end,data:reply}
 	return <-reply
 }
 func New()(safeMap) {
