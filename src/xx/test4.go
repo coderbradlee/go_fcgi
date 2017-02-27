@@ -20,7 +20,7 @@ func (j *Job)Do(reg *regexp.Regexp) {
 	}
 	defer file.Close()
 	reader:=bufio.NewReader(file)
-	for lino:=1;;lino++{
+	for lino:=1;;lino++ {
 		line,err:=reader.ReadBytes('\n')
 		// func (b *Reader) ReadBytes(delim byte) ([]byte, error)
 		line=bytes.TrimRight(line,'\r\n')
