@@ -31,7 +31,7 @@ const (
 	update
 )
 func (sm *safeMap)Insert(key string,value interface{}) {
-	sm<-commandData{action:insert,key:key,value:value}
+	(*sm)<-commandData{action:insert,key:key,value:value}
 }
 func (sm *safeMap)Delete(key string) {
 	sm<-commandData{action:remove,key:key}
