@@ -56,5 +56,8 @@ func main() {
 	t.Exchange()
 	fmt.Println(t)
 	i:=IntOption{OptionCommon:OptionCommon{"s","long"},Max:10}
-	fmt.Println(i.(type))
+	switch option:=i.(type){
+	case IntOption:
+		fmt.Println(i.Name())
+	}
 }
