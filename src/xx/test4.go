@@ -12,7 +12,7 @@ type Job struct{
 	filename string
 	results chan<- Results
 }
-func (j *Job)Do(reg *regexp.Regexp) {
+func (j Job)Do(reg *regexp.Regexp) {
 	// fmt.Println("Do")
 	// var lino int32=1111
 	// j.results<-Results{j.filename,lino,"11"}
