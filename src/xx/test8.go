@@ -97,12 +97,12 @@ func main() {
 	// if data,found:=test.Find("1");found{
 	// 	fmt.Println(data)
 	// }
-	filename:="/root/redisRenesola-cluster-debug/logs/cache_20170224_00208.log"
+	// filename:="/root/redisRenesola-cluster-debug/logs/cache_20170224_00208.log"
 	var workers=runtime.NumCPU()
 	fmt.Println(workers)
 	// runtime.GOMAXPROCS(workers)
-	lines:=make(chan string,workers)
-	done:=make(chan struct{},workers)
+	// lines:=make(chan string,workers)
+	// done:=make(chan struct{},workers)
 	pageMap:=New()
 	pageMap.Insert("1",2)
 	pageMap.Insert("2",4)
