@@ -5,6 +5,8 @@ import (
 	"regexp"
 	"os"
 	"bufio"
+	"runtime"
+	"io"
 )
 type SafeMap interface{
 	Insert(string,interface{})
