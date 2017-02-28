@@ -8,15 +8,6 @@ import (
 	"runtime"
 	"io"
 )
-type SafeMap interface{
-	Insert(string,interface{})
-	Delete(string)
-	Find(string)(interface{},bool)
-	Len()int32
-	Update(string,UpdateFunc)
-	Close()map[string]interface{}
-}
-type UpdateFunc func(interface{},bool)interface{}
 type safeMap chan commandData
 type commandData struct{
 	action commandAction
@@ -35,36 +26,20 @@ const (
 	length
 	update
 )
-func (sm safeMap)Insert(key string,value interface{}) {
-	(sm)<-commandData{action:insert,key:key,value:value}
-}
-func (sm safeMap)Delete(key string) {
-	(sm)<-commandData{action:remove,key:key}
-}
 type findResult struct{
 	value interface{}
 	found bool
 }
-func (sm safeMap)Find(key string)(value interface{},found bool) {
-	reply:=make(chan interface{})
-	(sm)<-commandData{action:find,key:key,result:reply}
-	result:=(<-reply).(findResult)
-	return result.value,result.found
+type SafeMap interface{
+	Insert(string,interface{})
+	Delete(string)
+	Find(string)(interface{},bool)
+	Len()int
+	Update(string,UpdateFunc)
+	Close()map[string]interface{}
 }
-func (sm safeMap)Len()int {
-	reply:=make(chan interface{})
-	(sm)<-commandData{action:length,result:reply}
-	return (<-reply).(int)
-}
-func (sm safeMap)Update(key string,updater UpdateFunc){
-	(sm)<-commandData{action:update,key:key,updater:updater}
-}
-func (sm safeMap)Close()map[string]interface{} {
-	reply:=make(chan map[string]interface{})
-	(sm)<-commandData{action:end,data:reply}
-	return <-reply
-}
-func New()(safeMap) {
+type UpdateFunc func(interface{},bool)interface{}
+func New()(SafeMap) {
 	sm:=make(safeMap)
 	go sm.run()
 	return sm
@@ -91,6 +66,33 @@ func (sm safeMap)run() {
 		}
 	}
 }
+func (sm safeMap)Insert(key string,value interface{}) {
+	(sm)<-commandData{action:insert,key:key,value:value}
+}
+func (sm safeMap)Delete(key string) {
+	(sm)<-commandData{action:remove,key:key}
+}
+
+func (sm safeMap)Find(key string)(value interface{},found bool) {
+	reply:=make(chan interface{})
+	(sm)<-commandData{action:find,key:key,result:reply}
+	result:=(<-reply).(findResult)
+	return result.value,result.found
+}
+func (sm safeMap)Len()int {
+	reply:=make(chan interface{})
+	(sm)<-commandData{action:length,result:reply}
+	return (<-reply).(int)
+}
+func (sm safeMap)Update(key string,updater UpdateFunc){
+	(sm)<-commandData{action:update,key:key,updater:updater}
+}
+func (sm safeMap)Close()map[string]interface{} {
+	reply:=make(chan map[string]interface{})
+	(sm)<-commandData{action:end,data:reply}
+	return <-reply
+}
+
 func main() {
 	// test :=New()
 	// test.Insert("1",2)
