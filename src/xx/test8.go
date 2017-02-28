@@ -2,6 +2,9 @@ package main
 
 import (
 	"fmt"
+	"regexp"
+	"os"
+	"bufio"
 )
 type SafeMap interface{
 	Insert(string,interface{})
