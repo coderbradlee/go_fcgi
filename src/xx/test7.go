@@ -8,7 +8,7 @@ func print_s(key,value interface{}){
 	fmt.Printf("%v->%v\n",key,value)
 }
 func main() {
-	var omap map
+	var omap map[string]string
 	words:=[]string{"a","B","c","D"}
 	ww:=omap.NewCaseFoldedKeyed()
 	for _,w :=range words{
