@@ -146,7 +146,7 @@ func processLines(done chan<- struct{},pageMap safeMap,lines <-chan string){
 			for line:=range lines{
 				if matches:=reg.FindStringSubmatch(line);matches!=nil{
 					pageMap.Update(matches[0],incrementer)
-					fmt.Println(matches)
+					// fmt.Println(matches)
 				}
 			}
 			done<-struct{}{}
@@ -157,6 +157,7 @@ func processLines(done chan<- struct{},pageMap safeMap,lines <-chan string){
 func waitUntil(done <-chan struct{}) {
 	for i:=0;i<8;i++{
 		<-done
+		fmt.Printf("160:%d\n",i)
 	}
 }
 func show(pm safeMap) {
