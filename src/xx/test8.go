@@ -105,7 +105,7 @@ func main() {
 	// done:=make(chan struct{},workers)
 	pageMap:=New()
 	for i:=0;i<20;i++{
-		pageMap.Insert(fmt.Sprintf("%s",i),i)
+		pageMap.Insert(fmt.Sprintf("%d",i),i)
 	}
 	
 	show(pageMap)
