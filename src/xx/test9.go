@@ -103,7 +103,7 @@ func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 	lines := make(chan string, workers*4)
     done := make(chan struct{}, workers)
-    pageMap := safemap.New()
+    pageMap := New()
     go readLines(os.Args[1], lines)
     processLines(done, pageMap, lines)
     waitUntil(done)
@@ -112,7 +112,7 @@ func main() {
 func readLines(filename string, lines chan<- string) {
     file, err := os.Open(filename)
     if err != nil {
-        log.Fatal("failed to open the file:", err)
+        fmt.Println("failed to open the file:", err)
     }
     defer file.Close()
     reader := bufio.NewReader(file)
@@ -123,7 +123,7 @@ func readLines(filename string, lines chan<- string) {
         }
         if err != nil {
             if err != io.EOF {
-                log.Println("failed to finish reading the file:", err)
+                fmt.Println("failed to finish reading the file:", err)
             }
             break
         }
@@ -131,7 +131,7 @@ func readLines(filename string, lines chan<- string) {
     close(lines)
 }
 
-func processLines(done chan<- struct{}, pageMap safemap.SafeMap,
+func processLines(done chan<- struct{}, pageMap SafeMap,
     lines <-chan string) {
     getRx := regexp.MustCompile(`GET[ \t]+([^ \t\n]+[.]html?)`)
     incrementer := func(value interface{}, found bool) interface{} {
