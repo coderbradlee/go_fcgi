@@ -24,7 +24,7 @@ func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 	lines := make(chan string, workers*4)
     done := make(chan struct{}, workers)
-    pageMap := PageMap{make(map[string]int,new(sync.RWMutex))}
+    pageMap := PageMap{make(map[string]int),new(sync.RWMutex)}
     go readLines(filename, lines)
     processLines(done, pageMap, lines)
     waitUntil(done)
