@@ -101,8 +101,8 @@ func main() {
 	var workers=runtime.NumCPU()
 	fmt.Println(workers)
 	// runtime.GOMAXPROCS(workers)
-	lines:=make(chan string,workers)
-	done:=make(chan struct{},workers)
+	lines:=make(chan string,32)
+	done:=make(chan struct{},8)
 	pageMap:=New()
 	// for i:=0;i<20;i++{
 	// 	pageMap.Insert(fmt.Sprintf("%d",i),i)
