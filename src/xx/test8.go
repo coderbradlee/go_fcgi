@@ -135,12 +135,12 @@ func readlines(filename string,lines chan<- string) {
 }
 func processLines(done chan<- struct{},pageMap safeMap,lines <-chan string){
 	reg:=regexp.MustCompile("flow.?")
-	incrementer:=func(value interface{},found bool)interface{} {
-		if found{
-			return value.(int)+1
-		}
-		return 1
-	}
+	// incrementer:=func(value interface{},found bool)interface{} {
+	// 	if found{
+	// 		return value.(int)+1
+	// 	}
+	// 	return 1
+	// }
 	for i:=0;i<8;i++{
 		go func(){
 			for line:=range lines{
