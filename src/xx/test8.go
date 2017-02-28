@@ -134,6 +134,7 @@ func readlines(filename string,lines chan<- string) {
 			break
 		}
 	}
+	close(lines)
 }
 func processLines(done chan<- struct{},pageMap SafeMap,lines <-chan string){
 	reg:=regexp.MustCompile("GET /flowNo/.?")
