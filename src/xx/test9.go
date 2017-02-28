@@ -159,7 +159,7 @@ func waitUntil(done <-chan struct{}) {
     }
 }
 
-func showResults(pageMap safemap.SafeMap) {
+func showResults(pageMap SafeMap) {
     pages := pageMap.Close()
     for page, count := range pages {
         fmt.Printf("%8d %s\n", count, page)
