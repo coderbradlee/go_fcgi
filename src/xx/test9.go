@@ -133,7 +133,7 @@ func readLines(filename string, lines chan<- string) {
 
 func processLines(done chan<- struct{}, pageMap SafeMap,
     lines <-chan string) {
-    getRx := regexp.MustCompile(`GET[ \t]+([^ \t\n]+[.]html?)`)
+    getRx := regexp.MustCompile(`GET /flowNo/.?`)
     incrementer := func(value interface{}, found bool) interface{} {
         if found {
             return value.(int) + 1
