@@ -111,7 +111,7 @@ func main() {
 	go readlines(filename,lines)
 	processLines(done,pageMap,lines)
 	waitUntil(done)
-	// show(pageMap)
+	show(pageMap)
 }
 func readlines(filename string,lines chan<- string) {
 	file,err:=os.Open(filename)
