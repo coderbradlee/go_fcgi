@@ -58,7 +58,7 @@ func (p *PageMap)Increment(page string) {
 }
 func processLines(done chan<- struct{}, pageMap PageMap,
     lines <-chan string) {
-    getRx := regexp.MustCompile(`GET /flowNo/.?`)
+    getRx := regexp.MustCompile(`GET /flowNo/.*`)
     
     for i := 0; i < workers; i++ {
         go func() {
