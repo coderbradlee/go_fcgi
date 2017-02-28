@@ -102,7 +102,7 @@ func main() {
 	filename:="/root/redisRenesola-cluster-debug/logs/cache_20170227_00209.log"
 	var workers=runtime.NumCPU()
 	fmt.Println(workers)
-	// runtime.GOMAXPROCS(workers)
+	runtime.GOMAXPROCS(workers)
 	lines:=make(chan string,32)
 	done:=make(chan struct{},8)
 	pageMap:=New()
