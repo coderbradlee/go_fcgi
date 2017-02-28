@@ -20,7 +20,7 @@ func main() {
 	// if data,found:=test.Find("1");found{
 	// 	fmt.Println(data)
 	// }
-	filename:="/root/redisRenesola-cluster-debug/logs/cache_20170227_00209.log"
+	filename:="/root/redisRenesola-cluster-debug/cache_20161222_00168.log"
 	runtime.GOMAXPROCS(runtime.NumCPU())
 	lines := make(chan string, workers*4)
     done := make(chan struct{}, workers)
