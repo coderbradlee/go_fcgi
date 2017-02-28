@@ -99,7 +99,7 @@ func main() {
 	// if data,found:=test.Find("1");found{
 	// 	fmt.Println(data)
 	// }
-	filename:="/root/redisRenesola-cluster-debug/logs/cache_20170224_00208.log"
+	filename:="/root/redisRenesola-cluster-debug/logs/cache_20170227_00209.log"
 	var workers=runtime.NumCPU()
 	fmt.Println(workers)
 	// runtime.GOMAXPROCS(workers)
