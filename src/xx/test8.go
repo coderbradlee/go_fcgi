@@ -162,7 +162,7 @@ func waitUntil(done <-chan struct{}) {
 		fmt.Printf("160:%d\n",i)
 	}
 }
-func show(pm safeMap) {
+func show(pm SafeMap) {
 	pages:=pm.Close()
 	for page,count:=range pages{
 		fmt.Printf("%8d %s\n",count,page)
