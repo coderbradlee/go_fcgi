@@ -134,7 +134,7 @@ func readlines(filename string,lines chan<- string) {
 	}
 }
 func processLines(done chan<- struct{},pageMap safeMap,lines <-chan string){
-	reg:=regexp.MustCompile("flow.?")
+	reg:=regexp.MustCompile("GET /flowNo/.?")
 	// incrementer:=func(value interface{},found bool)interface{} {
 	// 	if found{
 	// 		return value.(int)+1
