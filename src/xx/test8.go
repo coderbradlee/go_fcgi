@@ -103,7 +103,7 @@ func main() {
 	// runtime.GOMAXPROCS(workers)
 	lines:=make(chan string,workers)
 	// done:=make(chan struct{},workers)
-	pageMap:=New()
+	// pageMap:=New()
 	// for i:=0;i<20;i++{
 	// 	pageMap.Insert(fmt.Sprintf("%d",i),i)
 	// }
