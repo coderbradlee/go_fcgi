@@ -103,6 +103,7 @@ func main() {
 	lines:=make(chan string,workers*4)
 	done:=make(chan struct{},workers)
 	pageMap:=New()
+	pageMap.Insert("1",2)
 	go readlines(filename,lines)
 	processLines(done,pageMap,lines)
 	waitUntil(done)
