@@ -129,7 +129,7 @@ func readlines(filename string,lines chan<- string) {
 			if err!=io.EOF{
 				fmt.Println(err)
 			}
-			break;
+			break
 		}
 	}
 }
