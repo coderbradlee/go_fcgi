@@ -110,7 +110,7 @@ func main() {
 	// show(pageMap)
 	go readlines(filename,lines)
 	processLines(done,pageMap,lines)
-	// waitUntil(done)
+	waitUntil(done)
 	// show(pageMap)
 }
 func readlines(filename string,lines chan<- string) {
