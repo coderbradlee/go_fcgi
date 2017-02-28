@@ -105,10 +105,12 @@ func main() {
 	done:=make(chan struct{},workers)
 	pageMap:=New()
 	pageMap.Insert("1",2)
-	go readlines(filename,lines)
-	processLines(done,pageMap,lines)
-	waitUntil(done)
+	pageMap.Insert("2",4)
 	show(pageMap)
+	// go readlines(filename,lines)
+	// processLines(done,pageMap,lines)
+	// waitUntil(done)
+	// show(pageMap)
 }
 func readlines(filename string,lines chan<- string) {
 	file,err:=os.Open(filename)
