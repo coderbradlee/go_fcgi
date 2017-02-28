@@ -138,7 +138,7 @@ func processLines(done chan<- struct{},pageMap safeMap,lines <-chan string){
 	}
 	for i:=0;i<8;i++{
 		go func(){
-			for line:=lines{
+			for line:=range lines{
 				if matches:=reg.FindStringSubmatch(line);matches!=nil{
 					pageMap.Update(matches[1],incrementer)
 				}
