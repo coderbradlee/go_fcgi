@@ -7,6 +7,7 @@ import (
 	"bufio"
 	"runtime"
 	"io"
+	"sync"
 )
 type PageMap struct{
 	count map[string]int
