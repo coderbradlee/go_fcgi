@@ -104,7 +104,7 @@ func main() {
 	lines := make(chan string, workers*4)
     done := make(chan struct{}, workers)
     pageMap := New()
-    go readLines(os.Args[1], lines)
+    go readLines(filename, lines)
     processLines(done, pageMap, lines)
     waitUntil(done)
     showResults(pageMap)
