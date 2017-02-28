@@ -104,8 +104,10 @@ func main() {
 	// lines:=make(chan string,workers)
 	// done:=make(chan struct{},workers)
 	pageMap:=New()
-	pageMap.Insert("1",2)
-	pageMap.Insert("2",4)
+	for i:=0;i<20;i++{
+		pageMap.Insert(fmt.Sprintf("%s",i),i)
+	}
+	
 	show(pageMap)
 	// go readlines(filename,lines)
 	// processLines(done,pageMap,lines)
