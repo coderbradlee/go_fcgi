@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	var omap Map
+	var omap map
 	words:=[]string{"a","B","c","D"}
 	ww:=omap.NewCaseFoldedKeyed()
 	for _,w :=range words{
