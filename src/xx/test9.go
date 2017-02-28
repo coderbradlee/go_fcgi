@@ -145,7 +145,7 @@ func processLines(done chan<- struct{}, pageMap SafeMap,
             for line := range lines {
                 if matches := getRx.FindStringSubmatch(line);
                     matches != nil {
-                    pageMap.Update(matches[1], incrementer)
+                    pageMap.Update(matches[0], incrementer)
                 }
             }
             done <- struct{}{}
