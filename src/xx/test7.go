@@ -2,9 +2,8 @@ package main
 
 import (
 	"fmt"
+	"strings"
 )
-words:=[]string{"a","B","c","D"}
-ww:=omap.NewCaseFoldedKeyed()
 
 func main() {
 	var omap Map
