@@ -102,14 +102,14 @@ func main() {
 	fmt.Println(workers)
 	// runtime.GOMAXPROCS(workers)
 	lines:=make(chan string,workers)
-	// done:=make(chan struct{},workers)
-	// pageMap:=New()
+	done:=make(chan struct{},workers)
+	pageMap:=New()
 	// for i:=0;i<20;i++{
 	// 	pageMap.Insert(fmt.Sprintf("%d",i),i)
 	// }
 	// show(pageMap)
 	go readlines(filename,lines)
-	// processLines(done,pageMap,lines)
+	processLines(done,pageMap,lines)
 	// waitUntil(done)
 	// show(pageMap)
 }
