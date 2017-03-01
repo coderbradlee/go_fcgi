@@ -57,7 +57,12 @@ func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO)error {
 		var err error
 		 err=check_po_exist(t_purchase_order.po_no)
 		 if err!=nil{
-	    		return insert_goods_delivery_note(t_purchase_order,t)
+		 	err=insert_goods_delivery_note(t_purchase_order,t)
+    		if err!=nil{
+    			return err
+    		}else{
+    			err=insert_note_attachment(t_purchase_order,t)
+    		}
 		 }
 	
     _, err = db.Exec(
@@ -98,6 +103,12 @@ func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO)error {
 	    		return err
 	    	}else{
 	    		err=insert_goods_delivery_note(t_purchase_order,t)
+	    		if err!=nil{
+	    			return err
+	    		}else{
+	    			err=insert_note_attachment(t_purchase_order,t)
+	    		}
+
 	    	}
 	    }
    return err
