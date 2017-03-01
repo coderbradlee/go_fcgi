@@ -17,6 +17,7 @@ const(
     error_check_status="-124"//status是否为1
     error_check_supplier="-125"//supplier是否为Renesola Shanghai
     error_check_packing_method="-126"//t_packing_method表里没有此packing_method
+    error_check_logistic_provider="-127"//物流提供商信息缺失
 )
 func check_request_system(request_system int32)error {
     if request_system!=1{
@@ -65,6 +66,18 @@ func check_packing_method(deliver_notes []Deliver_notes)error {
     }
     return nil
 }
+func check_logistic_provider(deliver_notes []Deliver_notes)error {
+    // fmt.Println(deliver_notes[0].Packing_method)
+    for _,d:=range deliver_notes{
+        // fmt.Println(reflect.TypeOf(d))
+        var logistic_provider_basic_id string
+        db.QueryRow("select logistic_provider_basic_id from t_logistic_provider_basic where name=?",d.Logistic).Scan(&logistic_provider_basic_id)
+        if logistic_provider_basic_id== ""{
+            return errors.New(`logistic_provider_basic_id missed`)
+        }
+    }
+    return nil
+}
 func check_data(origi *DeliverGoodsForPO)(string,error) {
     var err error
     err=check_request_system(origi.Data.Request_system)
@@ -95,5 +108,10 @@ func check_data(origi *DeliverGoodsForPO)(string,error) {
     if err!=nil{
         return error_check_packing_method,err
     }
+    err=check_logistic_provider(origi.Data.Deliver_notes)
+    if err!=nil{
+        return error_check_logistic_provider,err
+    }
+    
     return "",nil
 }
