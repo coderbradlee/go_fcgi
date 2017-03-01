@@ -4,6 +4,7 @@
     "errors"
     "os"
     "fmt"
+    "reflect"
 )
 const(
     error_json_decode="-100"//json 解包错误
@@ -55,7 +56,7 @@ func check_supplier(supplier string)error {
 func check_packing_method(deliver_notes []Deliver_notes)error {
     fmt.Println(deliver_notes[0].Packing_method)
     for d:=range deliver_notes{
-        fmt.Println(d.(type))
+        fmt.Println(reflect.TypeOf(d))
         // var packing_method string
         // db.QueryRow("select packing_method_id from t_packing_method where native_name=?",d.Packing_method).Scan(&packing_method)
         // if packing_method== ""{
