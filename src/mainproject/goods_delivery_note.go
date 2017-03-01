@@ -60,7 +60,7 @@ func get_transport_term_id(ship_via string)string {
 }
 func get_packing_method_id(Packing_method string)string {
     var packing_method_id string
-    db.QueryRow("select packing_method_id from t_packing_method where name=?",Packing_method).Scan(&packing_method_id)
+    db.QueryRow("select packing_method_id from t_packing_method where native_name=?",Packing_method).Scan(&packing_method_id)
     return packing_method_id
 }
 func get_logistic_master_id(Logistic string)string {
