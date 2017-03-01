@@ -24,7 +24,7 @@
     error_check_status="-124"//status是否为1
     error_check_supplier="-125"//supplier是否为Renesola Shanghai
     校验项是否还有其他
-
+po_no已经存在时,直接跳过t_purchase_order、t_purchase_order_detail的插入
 
 待解决问题：
 1、写入表t_purchase_order、t_purchase_order_detail、t_goods_delivery_note
@@ -48,7 +48,7 @@
     error_check_status="-124"//status是否为1
     error_check_supplier="-125"//supplier是否为Renesola Shanghai
     校验项是否还有其他
-
+po_no已经存在时,直接跳过t_purchase_order、t_purchase_order_detail的插入
 
 
 1、test 1
