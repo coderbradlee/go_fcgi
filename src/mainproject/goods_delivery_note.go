@@ -137,7 +137,7 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error
         logistic_master_id:=get_logistic_master_id(deliver_notes.Logistic)
         logistic_contact_id:=get_logistic_contact_id(deliver_notes.Logistic_contact)
         goods_delivery_note_no,err:=get_goods_delivery_note_no(origi.Data.Purchase_order.Company)
-        t.Data.Purchase_order.Po_no=goods_delivery_note_no
+        origi.Data.Purchase_order.Po_no=goods_delivery_note_no
         if err!=nil{
             return err
         }
