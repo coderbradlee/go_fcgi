@@ -200,7 +200,7 @@ func deal_with_database(t *DeliverGoodsForPO)error {
 	t_purchase_order.vendor_basic_id=get_vendor_basic_id(t.Data.Purchase_order.Supplier)
 	
 	//待确定
-	t_purchase_order.contact_account_id=get_contact_account_id(t_purchase_order.vendor_basic_id)
+	t_purchase_order.contact_account_id=get_contact_account_id(t_purchase_order.company_id)
 	t_purchase_order.payment_terms=t.Data.Purchase_order.Payment_terms
 	t_purchase_order.requested_delivery_date=t.Data.Purchase_order.Requested_delivery_date[0:11]
 	// t.Data.Purchase_order.Ship_via select id
