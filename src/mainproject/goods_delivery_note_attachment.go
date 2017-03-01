@@ -3,7 +3,7 @@
     "time"
     "logger"
 )
-func insert_goods_delivery_note_attachment(po_no,file_name,url string)error {
+func insert_goods_delivery_note_attachment(po_no,file_name,url,language string)error {
     var err error
     _, err = db.Exec(
         `INSERT INTO t_goods_delivery_note_attachment(
@@ -12,7 +12,7 @@ func insert_goods_delivery_note_attachment(po_no,file_name,url string)error {
         rand_string(20),
         po_no,
         file_name,
-        "language_id",
+        language,
         1,
         0,
         url,
@@ -23,19 +23,24 @@ func insert_goods_delivery_note_attachment(po_no,file_name,url string)error {
         1)
     return err
 }
+func get_language_id(company string) {
+    var language_id string
+    db.QueryRow("select default_language_id from t_company where short_name=?",company).Scan(&language_id)
+    return language_id
+}
 func insert_note_attachment(
     t *purchase_order,
     origi *DeliverGoodsForPO)error {
     var err error
-
+    language:=get_language_id(t.Data.Purchase_order.Company)
     for _,d:= range origi.Data.Deliver_notes{
-        err= insert_goods_delivery_note_attachment(t.po_no,d.Commercial_invoice.Ci_no,d.Commercial_invoice.Ci_url)
+        err= insert_goods_delivery_note_attachment(t.po_no,d.Commercial_invoice.Ci_no,d.Commercial_invoice.Ci_url,language)
         
-        err= insert_goods_delivery_note_attachment(t.po_no,d.Packing_list.Pl_no,d.Packing_list.Pl_url)
+        err= insert_goods_delivery_note_attachment(t.po_no,d.Packing_list.Pl_no,d.Packing_list.Pl_url,language)
        
-        err= insert_goods_delivery_note_attachment(t.po_no,d.Bill_of_lading.Bl_no,d.Bill_of_lading.Bl_url)
+        err= insert_goods_delivery_note_attachment(t.po_no,d.Bill_of_lading.Bl_no,d.Bill_of_lading.Bl_url,language)
        
-        err= insert_goods_delivery_note_attachment(t.po_no,d.Associated_so.Associated_so_no,d.Associated_so.Associated_so_url)
+        err= insert_goods_delivery_note_attachment(t.po_no,d.Associated_so.Associated_so_no,d.Associated_so.Associated_so_url,language)
 
         if err!=nil{
             logger.Info("insert to goods_delivery_note_attachment:"+err.Error()) 
