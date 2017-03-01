@@ -1,13 +1,19 @@
 2017.02.24待解决问题
 1、t_purchase_order的contact_account_id在t_vendor_contact中无法取得，属于数据库数据缺失
+已知vendor_basic_id,无法获取contact_account_id,t_vendor_contact中没有数据
+
 2、t_goods_delivery_note的packing_method_id,从t_packing_method中查找不到name为Carton Box On Pallet的数据，属于数据库数据缺失
-3、t_goods_delivery_note的logistic_provider_master_id,在t_goods_delivery_note的中无法找到logistic为COSCO的数据
+已知packing_method为Carton Box On Pallet,无法获取packing_method_id
+3、t_goods_delivery_note的logistic_provider_master_id,在t_logistic_provider_basic的中无法找到logistic为COSCO的数据
+已知logistic为COSCO,无法取得logistic_provider_master_id
 4、t_goods_delivery_note的logistic_provider_contact_id,json中缺logistic_contact的数据
 5、t_goods_delivery_note的atd,json里没有此数据
 6、t_goods_delivery_note的ata,json里没有此数据
 7、t_goods_delivery_note的receiver,json里没有此数据,不知从何处拿到
 8、json中commercial_invoice后面的信息写到哪里
-9、执行失败后response的data是否填为空
+9、执行失败后response的data是否填为空,即如下格式:
+{"error_code":"-120","error_msg":"request_system !=1","data":{"reply_system":2},"reply_time":"2017-03-01 09:43:09"}
+
 10、error_json_decode="-100"//json 解包错误
     error_json_encode="-101"//json 打包错误
     error_db="-102"//连接mysql数据库错误
