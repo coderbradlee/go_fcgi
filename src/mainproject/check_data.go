@@ -87,7 +87,7 @@ func check_data(origi *DeliverGoodsForPO)(string,error) {
     if err!=nil{
         return error_check_supplier,err
     }
-    err=check_packing_method(origi.Data.deliver_notes)
+    err=check_packing_method(origi.Data.Deliver_notes)
     if err!=nil{
         return error_check_packing_method,err
     }
