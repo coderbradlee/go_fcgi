@@ -17,7 +17,7 @@ func insert_goods_delivery_note_attachment(po_no,file_name,url string) {
         po_no,
         file_name,
         "language_id",
-        "sort_no",
+        1,
         0,
         url,
         "",
