@@ -4,6 +4,7 @@
     "logger"
 )
 func insert_goods_delivery_note_attachment(po_no,file_name,url string) {
+    var err error
     _, err = db.Exec(
         `INSERT INTO t_goods_delivery_note_attachment(
         attachment_id,goods_delivery_note_id,file_name,language_id,sort_no,format,url,note,createAt,createBy,dr,data_version) 
