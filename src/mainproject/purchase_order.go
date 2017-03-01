@@ -39,11 +39,12 @@ func check_po_exist(po_no string)error {
     return nil
 }
 func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO)error {
-	 check_po_exist:=check_po_exist(t_purchase_order.po_no)
-	 if check_po_exist!=nil{
-	 	return check_po_exist
-	 }
-	var err error
+		var err error
+		 err=check_po_exist(t_purchase_order.po_no)
+		 if err!=nil{
+	    		return insert_goods_delivery_note(t_purchase_order,t)
+		 }
+	
     _, err = db.Exec(
         `INSERT INTO t_purchase_order(
 	    purchase_order_id,po_no,po_date,status,company_id,vendor_basic_id,
@@ -74,18 +75,16 @@ func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO)error {
 			t_purchase_order.createBy,
 		  	t_purchase_order.dr,
 		  	t_purchase_order.data_version)
-    if err!=nil{
-    	if strings.EqualFold(err.Error(),"po_no"){
-    		err=insert_goods_delivery_note(t_purchase_order,t)
-    	}
-    	return err
-    }else{
-    	err= insert_purchase_order_detail(t_purchase_order,t)
-    	if(err!=nil){
-    		return err
-    	}else{
-    		err=insert_goods_delivery_note(t_purchase_order,t)
-    	}
-    }
+	    if err!=nil{
+	    	
+	    	return err
+	    }else{
+	    	err= insert_purchase_order_detail(t_purchase_order,t)
+	    	if(err!=nil){
+	    		return err
+	    	}else{
+	    		err=insert_goods_delivery_note(t_purchase_order,t)
+	    	}
+	    }
    return err
 }
