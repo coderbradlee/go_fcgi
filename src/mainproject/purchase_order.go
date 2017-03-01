@@ -75,7 +75,7 @@ func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO)error {
 		  	t_purchase_order.dr,
 		  	t_purchase_order.data_version)
     if err!=nil{
-    	if strings.EqualFold(err.Error(),""){
+    	if strings.EqualFold(err.Error(),"po_no"){
     		err=insert_goods_delivery_note(t_purchase_order,t)
     	}
     	return err
