@@ -12,7 +12,7 @@ const(
     error_db="-102"//连接mysql数据库错误
     error_check_request_system="-120"//请求系统是否为1
     error_check_bill_type="-121"//bill_tpye是否为Purchase Order
-    error_check_po_no="-122"//po_no长度问题，数据库表里面是20位
+    // error_check_po_no="-122"//po_no长度问题，数据库表里面是20位
     error_check_po_url="-123"//是否存在文件
     error_check_status="-124"//status是否为1
     error_check_supplier="-125"//supplier是否为Renesola Shanghai
@@ -88,10 +88,10 @@ func check_data(origi *DeliverGoodsForPO)(string,error) {
     if err!=nil{
         return error_check_bill_type,err
     }
-    err=check_po_no(origi.Data.Purchase_order.Po_no)
-    if err!=nil{
-        return error_check_po_no,err
-    }
+    // err=check_po_no(origi.Data.Purchase_order.Po_no)
+    // if err!=nil{
+    //     return error_check_po_no,err
+    // }
     err=check_po_url(origi.Data.Purchase_order.Po_url)
     if err!=nil{
         return error_check_po_url,err

@@ -189,7 +189,7 @@ func deal_with_database(t *DeliverGoodsForPO)error {
 		
 	t_purchase_order.purchase_order_id=rand_string(20)
 	t_purchase_order.po_no=t.Data.Purchase_order.Po_no
-	t_purchase_order.po_date=t.Data.Purchase_order.Po_date[0:11]
+	t_purchase_order.po_date=t.Data.Purchase_order.Po_date//[0:11]
 
 	t_purchase_order.status=t.Data.Purchase_order.Status
 
@@ -202,7 +202,7 @@ func deal_with_database(t *DeliverGoodsForPO)error {
 	//待确定
 	t_purchase_order.contact_account_id=get_contact_account_id(t_purchase_order.company_id)
 	t_purchase_order.payment_terms=t.Data.Purchase_order.Payment_terms
-	t_purchase_order.requested_delivery_date=t.Data.Purchase_order.Requested_delivery_date[0:11]
+	t_purchase_order.requested_delivery_date=t.Data.Purchase_order.Requested_delivery_date//[0:11]
 	// t.Data.Purchase_order.Ship_via select id
 	t_purchase_order.shipping_method_id=get_shipping_method_id(t.Data.Purchase_order.Ship_via)
 	t_purchase_order.destination_country_id=t.Data.Purchase_order.Destination_country
