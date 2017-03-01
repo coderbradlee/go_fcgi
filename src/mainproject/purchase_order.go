@@ -28,7 +28,19 @@ func get_contact_account_id(vendor_basic_id string)string {
     db.QueryRow("select vendor_contact_id from t_vendor_contact where vendor_basic_id=?",vendor_basic_id).Scan(&vendor_contact_id)
     return vendor_contact_id
 }
+func check_po_exist(po_no string)error {
+	var get_po_no string
+    db.QueryRow("select po_no from t_purchase_order where po_no=?",po_no).Scan(&get_po_no)
+    if get_po_no!=""{
+    	return errors.New("po_no")
+    }
+    return nil
+}
 func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO)error {
+	 check_po_exist:=check_po_exist(t_purchase_order.po_no)
+	 if check_po_exist!=nil{
+	 	return check_po_exist
+	 }
 	var err error
     _, err = db.Exec(
         `INSERT INTO t_purchase_order(
@@ -61,6 +73,9 @@ func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO)error {
 		  	t_purchase_order.dr,
 		  	t_purchase_order.data_version)
     if err!=nil{
+    	if strings.EqualFold(err.Error(),""){
+    		err=insert_goods_delivery_note(t_purchase_order,t)
+    	}
     	return err
     }else{
     	err= insert_purchase_order_detail(t_purchase_order,t)
