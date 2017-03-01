@@ -14,6 +14,7 @@ const(
     error_check_po_url="-123"//是否存在文件
     error_check_status="-124"//status是否为1
     error_check_supplier="-125"//supplier是否为Renesola Shanghai
+    check_packing_method="-126"//t_packing_method表里没有此packing_method
 )
 func check_request_system(request_system int32)error {
     if request_system!=1{
@@ -50,6 +51,16 @@ func check_supplier(supplier string)error {
     }
     return nil
 }
+func check_packing_method(deliver_notes []Deliver_notes)error {
+    for d:=range deliver_notes{
+        var packing_method string
+        db.QueryRow("select packing_method_id from t_packing_method where native_name=?",d.Packing_method).Scan(&packing_method)
+        if packing_method== ""{
+            return errors.New(`packing_method_id missed`)
+        }
+    }
+    return nil
+}
 func check_data(origi *DeliverGoodsForPO)(string,error) {
     var err error
     err=check_request_system(origi.Data.Request_system)
@@ -75,6 +86,10 @@ func check_data(origi *DeliverGoodsForPO)(string,error) {
     err=check_supplier(origi.Data.Purchase_order.Supplier)
     if err!=nil{
         return error_check_supplier,err
+    }
+    err=check_packing_method(origi.Data.deliver_notes)
+    if err!=nil{
+        return error_packing_method,err
     }
     return "",nil
 }
