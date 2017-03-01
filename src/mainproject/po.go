@@ -224,7 +224,29 @@ func deal_with_database(t *DeliverGoodsForPO)error {
   	return insert_to_db(&t_purchase_order,t)
 }
 
+func get_contact_account_id_sh(company string)string {
+	var company_id string//来自采购主动发起方公司的运营经理
+    db.QueryRow(`select company_id from t_company where short_name=?`,company).Scan(&company_id)
 
+	var contact_account_id string//来自采购主动发起方公司的运营经理
+    db.QueryRow(`select  
+		c.system_account_id
+		from  
+		(select *  from t_wf_role_def
+		where dr=0
+		and alias='Operation Manager'
+		) a
+		inner join 
+		(select  *  from t_wf_role_resolve
+		where dr=0
+		and master_file_obj_id=?
+		) b
+		on a.wf_role_def_id=b.wf_role_def_id
+		inner join  (select *  from t_system_account where dr=0) c
+		on b.employee_id=c.employee_no
+		order by a.alias`,company_id).Scan(&contact_account_id)
+    return contact_account_id
+}
 func get_response(t *DeliverGoodsForPO) (string){
 	err_no,check_err:=check_data(t)
 	if check_err!=nil{
@@ -234,7 +256,8 @@ func get_response(t *DeliverGoodsForPO) (string){
 	if err!=nil{
 		return `{"error_code":"`+error_db+`","error_msg":"`+err.Error()+`","data":{"reply_system":2},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
 	}
-	json_ret:=&Response_json{Error_code:"200",Error_msg:"Goods received successfully at "+time.Now().Format("2006-01-02 15:04:05"),Data:Response_json_data{Goods_receipt_no:t.Data.Purchase_order.Po_no,Bill_type:t.Data.Purchase_order.Bill_type,Receive_by:"ERP",Company:t.Data.Purchase_order.Company,Receive_at:time.Now().Format("2006-01-02 15:04:05"),Reply_system:2},Reply_time:time.Now().Format("2006-01-02 15:04:05")}
+	received:=get_contact_account_id_sh(t.Data.Purchase_order.Supplier)
+	json_ret:=&Response_json{Error_code:"200",Error_msg:"Goods received successfully at "+time.Now().Format("2006-01-02 15:04:05"),Data:Response_json_data{Goods_receipt_no:t.Data.Purchase_order.Po_no,Bill_type:t.Data.Purchase_order.Bill_type,Receive_by:received,Company:t.Data.Purchase_order.Company,Receive_at:time.Now().Format("2006-01-02 15:04:05"),Reply_system:2},Reply_time:time.Now().Format("2006-01-02 15:04:05")}
 		
 	var buffer bytes.Buffer
     enc := json.NewEncoder(&buffer)
