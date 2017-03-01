@@ -23,7 +23,7 @@ func insert_goods_delivery_note_attachment(po_no,file_name,url,language string)e
         1)
     return err
 }
-func get_language_id(company string) {
+func get_language_id(company string)string{
     var language_id string
     db.QueryRow("select default_language_id from t_company where short_name=?",company).Scan(&language_id)
     return language_id
