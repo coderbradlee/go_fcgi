@@ -1,7 +1,7 @@
  package main
  import (
 	"errors"
-	"strings"
+	// "strings"
 )
 func get_company_id(company string) string{
 	// var item_basic_id string
@@ -76,7 +76,6 @@ func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO)error {
 		  	t_purchase_order.dr,
 		  	t_purchase_order.data_version)
 	    if err!=nil{
-	    	
 	    	return err
 	    }else{
 	    	err= insert_purchase_order_detail(t_purchase_order,t)
