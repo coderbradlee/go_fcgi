@@ -32,7 +32,7 @@ func insert_note_attachment(
     t *purchase_order,
     origi *DeliverGoodsForPO)error {
     var err error
-    language:=get_language_id(t.Data.Purchase_order.Company)
+    language:=get_language_id(origi.Data.Purchase_order.Company)
     for _,d:= range origi.Data.Deliver_notes{
         err= insert_goods_delivery_note_attachment(t.po_no,d.Commercial_invoice.Ci_no,d.Commercial_invoice.Ci_url,language)
         
