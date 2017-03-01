@@ -14,7 +14,7 @@ const(
     error_check_po_url="-123"//是否存在文件
     error_check_status="-124"//status是否为1
     error_check_supplier="-125"//supplier是否为Renesola Shanghai
-    check_packing_method="-126"//t_packing_method表里没有此packing_method
+    error_check_packing_method="-126"//t_packing_method表里没有此packing_method
 )
 func check_request_system(request_system int32)error {
     if request_system!=1{
@@ -89,7 +89,7 @@ func check_data(origi *DeliverGoodsForPO)(string,error) {
     }
     err=check_packing_method(origi.Data.deliver_notes)
     if err!=nil{
-        return error_packing_method,err
+        return error_check_packing_method,err
     }
     return "",nil
 }
