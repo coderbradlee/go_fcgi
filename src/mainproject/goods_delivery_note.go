@@ -70,7 +70,7 @@ func get_logistic_master_id(Logistic string)string {
 }
 func get_logistic_contact_id(Logistic_contact string)string {
     var logistic_contact_id string
-    //db.QueryRow("select logistic_contact_id from t_logistic_provider_master where native_name=?",Logistic_contact).Scan(&logistic_contact_id)
+    db.QueryRow("select logistic_contact_id from t_logistic_provider_master where native_name=?",Logistic_contact).Scan(&logistic_contact_id)
     return logistic_contact_id
 }
 func get_buyer_id(buyer string)string {
@@ -158,7 +158,7 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error
         t.purchase_order_id,
         buyer_id,
         vendor_master_id,
-        t.status,
+        0,
         deliver_notes.Loading_port,
         trade_term_id,
         transport_term_id,//transport_term_id 待定
@@ -170,7 +170,7 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error
         "",//atd
         "",//ata
         deliver_notes.Customs_clearance_date,
-        "",//receiver 待定
+        t.contact_account_id,//receiver 待定
         deliver_notes.Total_freight_charges,
         deliver_notes.Total_insurance_fee,
         deliver_notes.Total_excluded_tax,
