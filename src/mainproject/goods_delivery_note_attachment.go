@@ -2,11 +2,6 @@
  import (
     "time"
     "logger"
-    "fmt"
-    "net/http"
-    "io/ioutil"
-    "strconv"
-    "encoding/json"
 )
 func insert_goods_delivery_note_attachment(po_no,file_name,url string) {
     _, err = db.Exec(
