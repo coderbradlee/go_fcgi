@@ -10,7 +10,7 @@
     // "strings"
 )
  
-var company_time_zone time.Duration
+var company_time_zone int
 func poHandler (w http.ResponseWriter, r *http.Request) {
 	////////////////////////////////
 	addr := r.Header.Get("X-Real-IP")
@@ -74,8 +74,8 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	}
 
 } 
-func get_company_time_zone_chan(company_time_zone_chan chan<- time.Duration,company string) {
-    var company_time_zone time.Duration
+func get_company_time_zone_chan(company_time_zone_chan chan<- int,company string) {
+    var company_time_zone int
     db.QueryRow("select time_zone from t_company where short_name=?",company).Scan(&company_time_zone)
      company_time_zone_chan<-company_time_zone
  }
@@ -90,7 +90,7 @@ func deal_with_database(t *DeliverGoodsForPO)error {
 
 	//from t.Data.Purchase_order.Company find company_id
 	t_purchase_order.company_id=get_company_id(t.Data.Purchase_order.Company)
-	company_time_zone_chan :=make(chan time.Duration)
+	company_time_zone_chan :=make(chan int)
     go get_company_time_zone_chan(company_time_zone_chan,t.Data.Purchase_order.Company)
     company_time_zone:=<-company_time_zone_chan
 	fmt.Println(company_time_zone)
@@ -114,7 +114,7 @@ func deal_with_database(t *DeliverGoodsForPO)error {
 	fmt.Println(t.Data.Purchase_order.Currency)
 	t_purchase_order.comments=t.Data.Purchase_order.Comments
 	t_purchase_order.note=t.Data.Purchase_order.Note
-	t_purchase_order.createAt=time.Now().Add((company_time_zone-8) * time.Hour).Format("2006-01-02 15:04:05")
+	t_purchase_order.createAt=time.Now().Add(time.Duration((company_time_zone-8) * time.Hour)).Format("2006-01-02 15:04:05")
 	// fmt.Println(t_purchase_order.createAt)
 	t_purchase_order.createBy="go_fcgi"
   	t_purchase_order.dr=0
