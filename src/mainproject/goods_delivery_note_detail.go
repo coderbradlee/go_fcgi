@@ -19,7 +19,7 @@ func insert_goods_delivery_note_detail(item_master_id,uom_id string,
         data_version) 
         VALUES (?,?,?,?,?,?,?,?,?)`,
         rand_string(20),
-        goods_delivery_note_id,
+        sd.goods_delivery_note_id,
         item_master_id,
         delivery_qty,
         uom_id,
