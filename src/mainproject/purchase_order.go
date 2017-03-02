@@ -68,7 +68,6 @@ func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO)error {
     				err=insert_note_detail(t_purchase_order,t)
     				return err
     			}
-    			
     		}
 		 }
 	
@@ -114,8 +113,12 @@ func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO)error {
 	    			return err
 	    		}else{
 	    			err=insert_note_attachment(t_purchase_order,t)
+	    			if err!=nil{
+    					return err
+	    			}else{
+	    				err=insert_note_detail(t_purchase_order,t)
+	    			}
 	    		}
-
 	    	}
 	    }
    return err
