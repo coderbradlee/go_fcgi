@@ -11,7 +11,7 @@ func insert_ci(ci *Commercial_invoice)error {
     var err error
     company_id_chan :=make(chan string)
     go get_company_id_chan(company_id_chan,"ReneSola UK")
-    company_id<-company_id_chan
+    company_id:=<-company_id_chan
     fmt.Println(company_id)
     // _, err = db.Exec(
     //     `INSERT INTO t_goods_delivery_note_attachment(
