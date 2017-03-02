@@ -17,7 +17,7 @@ func insert_goods_delivery_note_attachment(file_name,url,language string,sort_no
         0,
         url,
         "",
-        time.Now().Add(time.Duration((sd.company_time_zone-8)) * time.Hour).Format("2006-01-02 15:04:05"),
+        time.Now().Add(sd.company_time_zone).Format("2006-01-02 15:04:05"),
         "go_fcgi",
         0,
         1)
