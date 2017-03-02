@@ -38,12 +38,12 @@ func insert_ci(ci *Commercial_invoice,t *purchase_order,
         company_id,
         ci.Ci_no,
         ci.Ci_date,
-        "sales_order_id",
+        "",//sales_order_id
         purchase_order_id,
-        "outbound_note_id",
+        "",//outbound_note_id
         ci.Status,
         ci.Invoice_type,//pending
-        0,//payment_dead_line//pending
+        "",//payment_dead_line//pending
         0,//payment_received//pending
         0,//payment_due//pending
         0,//shipping_cost_total,//pending
@@ -52,7 +52,7 @@ func insert_ci(ci *Commercial_invoice,t *purchase_order,
         0,//sub_total,//pending
         ci.Total_amount,
         ci.Approved_by,
-        "approvedAt",//pending
+        "",//pending approvedAt
         ci.Note,
         time.Now().Format("2006-01-02 15:04:05"),
         "go_fcgi",
