@@ -1,6 +1,6 @@
  package main
  import (
-    
+    "fmt"
     "time"
 )
 func get_item_master_id(item_no,product_name,product_code string) string{
