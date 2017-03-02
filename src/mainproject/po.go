@@ -79,7 +79,15 @@ func get_company_time_zone_chan(company_time_zone_chan chan<- int,company string
     db.QueryRow("select time_zone from t_company where short_name=?",company).Scan(&company_time_zone)
      company_time_zone_chan<-company_time_zone
  }
+ func set_company_time_zone(company string){
+ 	company_time_zone_chan :=make(chan int)
+    go get_company_time_zone_chan(company_time_zone_chan,company)
+    company_time_zone:=<-company_time_zone_chan
+	fmt.Println(company_time_zone)
+ }
 func deal_with_database(t *DeliverGoodsForPO)error {
+	set_company_time_zone(t.Data.Purchase_order.Company)
+	
 	var t_purchase_order purchase_order
 		
 	t_purchase_order.purchase_order_id=rand_string(20)
@@ -90,10 +98,7 @@ func deal_with_database(t *DeliverGoodsForPO)error {
 
 	//from t.Data.Purchase_order.Company find company_id
 	t_purchase_order.company_id=get_company_id(t.Data.Purchase_order.Company)
-	company_time_zone_chan :=make(chan int)
-    go get_company_time_zone_chan(company_time_zone_chan,t.Data.Purchase_order.Company)
-    company_time_zone:=<-company_time_zone_chan
-	fmt.Println(company_time_zone)
+	
 	//from item_no find basic_id
 	t_purchase_order.vendor_basic_id=get_vendor_basic_id(t.Data.Purchase_order.Supplier)
 	
