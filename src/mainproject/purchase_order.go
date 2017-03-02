@@ -49,19 +49,20 @@ func check_po_exist(po_no string)error {
 	var get_po_no string
     db.QueryRow("select po_no from t_purchase_order where po_no=?",po_no).Scan(&get_po_no)
     if get_po_no!=""{
-    	return errors.New("po_no")
+    	return errors.New("po_no")//存在po_no
     }
     return nil
 }
 func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO)error {
 		var err error
 		 err=check_po_exist(t_purchase_order.po_no)
-		 if err!=nil{
+		 if err!=nil{//存在po_no
 		 	err=insert_goods_delivery_note(t_purchase_order,t)
     		if err!=nil{
     			return err
     		}else{
     			err=insert_note_attachment(t_purchase_order,t)
+    			return err
     		}
 		 }
 	
