@@ -114,7 +114,7 @@ func deal_with_database(t *DeliverGoodsForPO)error {
 	fmt.Println(t.Data.Purchase_order.Currency)
 	t_purchase_order.comments=t.Data.Purchase_order.Comments
 	t_purchase_order.note=t.Data.Purchase_order.Note
-	t_purchase_order.createAt=time.Now().Add(time.Duration((company_time_zone-8) * time.Hour)).Format("2006-01-02 15:04:05")
+	t_purchase_order.createAt=time.Now().Add(time.Duration((company_time_zone-8)) * time.Hour).Format("2006-01-02 15:04:05")
 	// fmt.Println(t_purchase_order.createAt)
 	t_purchase_order.createBy="go_fcgi"
   	t_purchase_order.dr=0
