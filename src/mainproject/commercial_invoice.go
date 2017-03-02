@@ -1,6 +1,6 @@
  package main
  import (
-    // "time"
+    "time"
     // "logger"
     "fmt"
 )
@@ -53,7 +53,7 @@ func insert_ci(ci *Commercial_invoice,t *purchase_order,
         ci.Total_amount,
         ci.Approved_by,
         "approvedAt",//pending
-        ci.note,
+        ci.Note,
         time.Now().Format("2006-01-02 15:04:05"),
         "go_fcgi",
         0,
