@@ -4,8 +4,15 @@
     // "logger"
     "fmt"
 )
+ func get_company_id_chan(company_id_chan chan<- string,company string) {
+     company_id_chan<-"test"
+ }
 func insert_ci(ci *Commercial_invoice)error {
     var err error
+    company_id_chan :=make(chan string)
+    go get_company_id_chan(company_id_chan,"ReneSola UK")
+    company_id<-company_id_chan
+    fmt.Println(company_id)
     // _, err = db.Exec(
     //     `INSERT INTO t_goods_delivery_note_attachment(
     //     attachment_id,goods_delivery_note_id,file_name,language_id,sort_no,format,url,note,createAt,createBy,dr,data_version) 
