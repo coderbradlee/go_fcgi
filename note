@@ -4,6 +4,10 @@ notice：
 2、为了在t_goods_delivery_note_detail插入时插入goods_delivery_note_id，设置全局变量goods_delivery_note_id，在goods_delivery_note.go文件中
 3、定义全局变量company_time_zone，并根据公司确定时间,在po.go中
 time.Now().Add(5 * time.Hour)
+
+以上多个请求同时发生时可能会有竞争关系
+new共享变量来代替
+
 SELECT * from t_purchase_order where createBy='go_fcgi'
 SELECT * from t_purchase_order_detail where createBy='go_fcgi'
 SELECT * from t_goods_delivery_note where createBy='go_fcgi'

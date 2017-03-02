@@ -4,7 +4,7 @@
     "logger"
 )
 func insert_goods_delivery_note_detail(item_master_id,uom_id string,
-        delivery_qty int32)error {
+        delivery_qty int32,sd *shared_data)error {
     var err error
     _, err = db.Exec(
         `INSERT INTO t_goods_delivery_note_detail(
@@ -23,7 +23,7 @@ func insert_goods_delivery_note_detail(item_master_id,uom_id string,
         item_master_id,
         delivery_qty,
         uom_id,
-        time.Now().Add(time.Duration((company_time_zone-8)) * time.Hour).Format("2006-01-02 15:04:05"),
+        time.Now().Add(time.Duration((sd.company_time_zone-8)) * time.Hour).Format("2006-01-02 15:04:05"),
         "go_fcgi",
         0,
         1)
@@ -32,13 +32,13 @@ func insert_goods_delivery_note_detail(item_master_id,uom_id string,
 
 func insert_note_detail(
     t *purchase_order,
-    origi *DeliverGoodsForPO)error {
+    origi *DeliverGoodsForPO,sd *shared_data)error {
     var err error
     for _,d:= range origi.Data.Deliver_notes{
         for _,detail:=range d.Detail{
             item_master_id:=get_item_master_id(detail.Item_no,detail.Product_name,detail.Product_code)
             uom_id:=get_uom_id(detail.Uom)
-            err= insert_goods_delivery_note_detail(item_master_id,uom_id,detail.Quantity)
+            err= insert_goods_delivery_note_detail(item_master_id,uom_id,detail.Quantity,sd)
             if err!=nil{
             logger.Info("insert to insert_goods_delivery_note_detail:"+err.Error()) 
             }

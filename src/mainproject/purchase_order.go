@@ -53,23 +53,23 @@ func check_po_exist(po_no string)error {
     }
     return nil
 }
-func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO)error {
+func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shared_data)error {
 		var err error
 		 err=check_po_exist(t_purchase_order.po_no)
 		 if err!=nil{//存在po_no
-		 	err=insert_goods_delivery_note(t_purchase_order,t)
+		 	err=insert_goods_delivery_note(t_purchase_order,t,sd)
     		if err!=nil{
     			return err
     		}else{
-    			err=insert_note_attachment(t_purchase_order,t)
+    			err=insert_note_attachment(t_purchase_order,t,sd)
     			if err!=nil{
     				return err
     			}else{
-    				err=insert_note_detail(t_purchase_order,t)
+    				err=insert_note_detail(t_purchase_order,t,sd)
     				if err!=nil{
 	    					return err
 	    				}else{
-	    					err=insert_commercial_invoice(t_purchase_order,t)
+	    					err=insert_commercial_invoice(t_purchase_order,t,sd)
 	    					return err
 	    				}
     			}
@@ -109,23 +109,23 @@ func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO)error {
 	    if err!=nil{
 	    	return err
 	    }else{
-	    	err= insert_purchase_order_detail(t_purchase_order,t)
+	    	err= insert_purchase_order_detail(t_purchase_order,t,sd)
 	    	if(err!=nil){
 	    		return err
 	    	}else{
-	    		err=insert_goods_delivery_note(t_purchase_order,t)
+	    		err=insert_goods_delivery_note(t_purchase_order,t,sd)
 	    		if err!=nil{
 	    			return err
 	    		}else{
-	    			err=insert_note_attachment(t_purchase_order,t)
+	    			err=insert_note_attachment(t_purchase_order,t,sd)
 	    			if err!=nil{
     					return err
 	    			}else{
-	    				err=insert_note_detail(t_purchase_order,t)
+	    				err=insert_note_detail(t_purchase_order,t,sd)
 	    				if err!=nil{
 	    					return err
 	    				}else{
-	    					err=insert_commercial_invoice(t_purchase_order,t)
+	    					err=insert_commercial_invoice(t_purchase_order,t,sd)
 	    				}
 	    			}
 	    		}

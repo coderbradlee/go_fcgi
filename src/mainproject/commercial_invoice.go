@@ -15,7 +15,7 @@
      purchase_order_id_chan<-purchase_order_id
  }
 func insert_ci(ci *Commercial_invoice,t *purchase_order,
-    origi *DeliverGoodsForPO)error {
+    origi *DeliverGoodsForPO,sd *shared_data)error {
     var err error
     ////////////////////////////
     company_id_chan :=make(chan string)
@@ -54,7 +54,7 @@ func insert_ci(ci *Commercial_invoice,t *purchase_order,
         ci.Approved_by,
         "",//pending approvedAt
         ci.Note,
-        time.Now().Add(time.Duration((company_time_zone-8)) * time.Hour).Format("2006-01-02 15:04:05"),
+        time.Now().Add(time.Duration((sd.company_time_zone-8)) * time.Hour).Format("2006-01-02 15:04:05"),
         "go_fcgi",
         0,
         1)
@@ -64,11 +64,11 @@ func insert_ci(ci *Commercial_invoice,t *purchase_order,
 
 func insert_commercial_invoice(
     t *purchase_order,
-    origi *DeliverGoodsForPO)error {
+    origi *DeliverGoodsForPO,sd *shared_data)error {
     var err error
    
     for _,d:= range origi.Data.Deliver_notes{
-        err= insert_ci(&d.Commercial_invoice,t,origi)
+        err= insert_ci(&d.Commercial_invoice,t,origi,sd)
         if err!=nil{
             return err
         }   

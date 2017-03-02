@@ -3,21 +3,21 @@
     "time"
     "logger"
 )
-func insert_goods_delivery_note_attachment(file_name,url,language string,sort_no int)error {
+func insert_goods_delivery_note_attachment(file_name,url,language string,sort_no int,sd *shared_data)error {
     var err error
     _, err = db.Exec(
         `INSERT INTO t_goods_delivery_note_attachment(
         attachment_id,goods_delivery_note_id,file_name,language_id,sort_no,format,url,note,createAt,createBy,dr,data_version) 
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`,
         rand_string(20),
-        goods_delivery_note_id,
+        sd.goods_delivery_note_id,
         file_name,
         language,
         sort_no,
         0,
         url,
         "",
-        time.Now().Add(time.Duration((company_time_zone-8)) * time.Hour).Format("2006-01-02 15:04:05"),
+        time.Now().Add(time.Duration((sd.company_time_zone-8)) * time.Hour).Format("2006-01-02 15:04:05"),
         "go_fcgi",
         0,
         1)
@@ -35,18 +35,18 @@ func get_sort_no()int {
 }
 func insert_note_attachment(
     t *purchase_order,
-    origi *DeliverGoodsForPO)error {
+    origi *DeliverGoodsForPO,sd *shared_data)error {
     var err error
     language:=get_language_id(origi.Data.Purchase_order.Company)
     sort_no:=get_sort_no()
     for _,d:= range origi.Data.Deliver_notes{
-        err= insert_goods_delivery_note_attachment(d.Commercial_invoice.Ci_no,d.Commercial_invoice.Ci_url,language,sort_no+1)
+        err= insert_goods_delivery_note_attachment(d.Commercial_invoice.Ci_no,d.Commercial_invoice.Ci_url,language,sort_no+1,sd)
         
-        err= insert_goods_delivery_note_attachment(d.Packing_list.Pl_no,d.Packing_list.Pl_url,language,sort_no+2)
+        err= insert_goods_delivery_note_attachment(d.Packing_list.Pl_no,d.Packing_list.Pl_url,language,sort_no+2,sd)
        
-        err= insert_goods_delivery_note_attachment(d.Bill_of_lading.Bl_no,d.Bill_of_lading.Bl_url,language,sort_no+3)
+        err= insert_goods_delivery_note_attachment(d.Bill_of_lading.Bl_no,d.Bill_of_lading.Bl_url,language,sort_no+3,sd)
        
-        err= insert_goods_delivery_note_attachment(d.Associated_so.Associated_so_no,d.Associated_so.Associated_so_url,language,sort_no+4)
+        err= insert_goods_delivery_note_attachment(d.Associated_so.Associated_so_no,d.Associated_so.Associated_so_url,language,sort_no+4,sd)
 
         if err!=nil{
             logger.Info("insert to goods_delivery_note_attachment:"+err.Error()) 

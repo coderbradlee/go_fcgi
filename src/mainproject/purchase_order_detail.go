@@ -18,7 +18,7 @@ func get_uom_id(uom string) string{
 
     return uom_id
 }
-func insert_purchase_order_detail(t *purchase_order,origi *DeliverGoodsForPO)error {
+func insert_purchase_order_detail(t *purchase_order,origi *DeliverGoodsForPO,sd *shared_data)error {
 	var err error
 	for _,detail:= range origi.Data.Purchase_order.Detail{
 		item_master_id:=get_item_master_id(detail.Item_no,detail.Product_name,detail.Product_code)
@@ -39,7 +39,7 @@ func insert_purchase_order_detail(t *purchase_order,origi *DeliverGoodsForPO)err
 		detail.Warranty,
 		detail.Comments,
 		detail.Note,
-		time.Now().Add(time.Duration((company_time_zone-8)) * time.Hour).Format("2006-01-02 15:04:05"),
+		time.Now().Add(time.Duration((sd.company_time_zone-8)) * time.Hour).Format("2006-01-02 15:04:05"),
 		"go_fcgi",
 		0,
 		1)
