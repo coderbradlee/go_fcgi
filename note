@@ -8,7 +8,7 @@ SELECT * from t_purchase_order_detail where createBy='go_fcgi'
 SELECT * from t_goods_delivery_note where createBy='go_fcgi'
 SELECT * from t_goods_delivery_note_attachment where createBy='go_fcgi'
 SELECT * from t_goods_delivery_note_detail where createBy='go_fcgi'
-
+增加Approved_by的作用？
 
 
 2017.02.24待解决问题

@@ -1,4 +1,4 @@
- package main
+package main
 import (
     "math/rand"
     "time"
@@ -59,6 +59,7 @@ type Purchase_order struct{
 	Po_url string `json:"po_url"`
 	Po_date string `json:"po_date"`
 	Create_by string `json:"create_by"`
+	Approved_by string `json:"approved_by"`
 	Status int32 `json:"status"`
 	Supplier string `json:"supplier"`
 	Website string `json:"website"`
@@ -80,6 +81,15 @@ type Purchase_order struct{
 type Commercial_invoice struct{
 	Ci_no string `json:"ci_no"`
 	Ci_url string `json:"ci_url"`
+	Ci_date string `json:"ci_date"`
+	Status int32 `json:"status"`
+	Company string `json:"company"`
+	Invoice_type int32 `json:"invoice_type"`
+	Total_amount float64 `json:"total_amount"`
+	Currency string `json:"currency"`
+	Created_by string `json:"created_by"`
+	Approved_by string `json:"approved_by"`
+	Note string `json:"note"`
 }
 type Packing_list struct{
 	Pl_no string `json:"pl_no"`
