@@ -10,7 +10,7 @@
     // "strings"
 )
  
-var company_time_zone int
+var company_time_zone time.Duration
 func poHandler (w http.ResponseWriter, r *http.Request) {
 	////////////////////////////////
 	addr := r.Header.Get("X-Real-IP")
@@ -74,8 +74,8 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	}
 
 } 
-func get_company_time_zone_chan(company_time_zone_chan chan<- int,company string) {
-    var company_time_zone int
+func get_company_time_zone_chan(company_time_zone_chan chan<- time.Duration,company string) {
+    var company_time_zone time.Duration
     db.QueryRow("select time_zone from t_company where short_name=?",company).Scan(&company_time_zone)
      company_time_zone_chan<-company_time_zone
  }
@@ -90,7 +90,7 @@ func deal_with_database(t *DeliverGoodsForPO)error {
 
 	//from t.Data.Purchase_order.Company find company_id
 	t_purchase_order.company_id=get_company_id(t.Data.Purchase_order.Company)
-	company_time_zone_chan :=make(chan int)
+	company_time_zone_chan :=make(chan time.Duration)
     go get_company_time_zone_chan(company_time_zone_chan,t.Data.Purchase_order.Company)
     company_time_zone:=<-company_time_zone_chan
 	
