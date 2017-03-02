@@ -19,11 +19,11 @@ func insert_ci(ci *Commercial_invoice,t *purchase_order,
     var err error
     ////////////////////////////
     company_id_chan :=make(chan string)
-    go get_company_id_chan(company_id_chan,t.Company)
+    go get_company_id_chan(company_id_chan,origi.Data.Purchase_order.Company)
     company_id:=<-company_id_chan
     //////////////////////
     purchase_order_id_chan :=make(chan string)
-    go get_purchase_order_id_chan(purchase_order_id_chan,t.Po_no)
+    go get_purchase_order_id_chan(purchase_order_id_chan,company_id_chan,origi.Data.Purchase_order.Po_no)
     purchase_order_id:=<-purchase_order_id_chan
 
 /////////////////////////////////////////////////////////////////
