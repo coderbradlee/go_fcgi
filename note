@@ -1,3 +1,16 @@
+2017.03.02
+notice：
+1、//为了在response中回传发货号，设置全局变量goods_receipt_no，在goods_delivery_note.go文件中
+2、为了在t_goods_delivery_note_detail插入时插入goods_delivery_note_id，设置全局变量goods_delivery_note_id
+
+SELECT * from t_purchase_order where createBy='go_fcgi'
+SELECT * from t_purchase_order_detail where createBy='go_fcgi'
+SELECT * from t_goods_delivery_note where createBy='go_fcgi'
+SELECT * from t_goods_delivery_note_attachment where createBy='go_fcgi'
+SELECT * from t_goods_delivery_note_detail where createBy='go_fcgi'
+
+
+
 2017.02.24待解决问题
 1、t_purchase_order的contact_account_id在t_vendor_contact中无法取得，属于数据库数据缺失
 已知vendor_basic_id,无法获取contact_account_id,t_vendor_contact中没有数据

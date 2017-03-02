@@ -123,6 +123,9 @@ func get_goods_delivery_note_no(company string)(string,error) {
     goods_delivery_note_no+=flow//get int,format to 6bit,then convert to string
     return goods_delivery_note_no,nil
 }
+//为了在response中回传发货号，设置全局变量goods_receipt_no
+var goods_receipt_no string
+var goods_delivery_note_id string
 func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error {
     var err error
     // log.Println("insert_goods_delivery_note")
@@ -137,10 +140,11 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error
         logistic_master_id:=get_logistic_master_id(deliver_notes.Logistic)
         logistic_contact_id:=get_logistic_contact_id(deliver_notes.Logistic_contact)
         goods_delivery_note_no,err:=get_goods_delivery_note_no(origi.Data.Purchase_order.Company)
-        origi.Data.Purchase_order.Po_no=goods_delivery_note_no
+        goods_receipt_no=goods_delivery_note_no
         if err!=nil{
             return err
         }
+        goods_delivery_note_id=rand_string(20)
         _, err = db.Exec(
         `INSERT INTO t_goods_delivery_note(
         note_id,goods_delivery_note_no,bill_type_id,company_id,
@@ -151,7 +155,7 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error
         total_insurance_fee,total_excluded_tax,note,createAt,createBy,dr,
         data_version) 
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
-        rand_string(20),
+        goods_delivery_note_id,
         goods_delivery_note_no,//goods_delivery_note_no 待定
         bill_type_id,
         t.company_id,
