@@ -23,6 +23,7 @@ func insert_purchase_order_detail(t *purchase_order,origi *DeliverGoodsForPO)err
 	for _,detail:= range origi.Data.Purchase_order.Detail{
 		item_master_id:=get_item_master_id(detail.Item_no,detail.Product_name,detail.Product_code)
 		uom_id:=get_uom_id(detail.Uom)
+		fmt.Println(company_time_zone)
 		_, err = db.Exec(
         `INSERT INTO t_purchase_order_detail(detail_id,purchase_order_id,
 		item_master_id,unit_price,quantity,uom_id,sub_amount,warranty,
