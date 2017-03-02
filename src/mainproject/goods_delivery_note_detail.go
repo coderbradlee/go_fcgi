@@ -4,7 +4,7 @@
     "logger"
 )
 func insert_goods_delivery_note_detail(item_master_id,uom_id string,
-        delivery_qty int)error {
+        delivery_qty int32)error {
     var err error
     _, err = db.Exec(
         `INSERT INTO t_goods_delivery_note_detail(
