@@ -1,7 +1,7 @@
  package main
  import (
-    "time"
-    "logger"
+    // "time"
+    // "logger"
     "fmt"
 )
 func insert_ci(ci *Commercial_invoice)error {
