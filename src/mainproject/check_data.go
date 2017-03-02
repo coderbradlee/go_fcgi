@@ -59,7 +59,7 @@ func check_packing_method(deliver_notes []Deliver_notes)error {
     for _,d:=range deliver_notes{
         // fmt.Println(reflect.TypeOf(d))
         var packing_method string
-        db.QueryRow("select packing_method_id from t_packing_method where native_name=?",d.Packing_method).Scan(&packing_method)
+        db.QueryRow("select packing_method_id from t_packing_method where name=?",d.Packing_method).Scan(&packing_method)
         if packing_method== ""{
             return errors.New(`packing_method_id missed`)
         }
