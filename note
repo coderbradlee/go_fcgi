@@ -1,8 +1,8 @@
 2017.03.02
 notice：
 1、//为了在response中回传发货号，设置全局变量goods_receipt_no，在goods_delivery_note.go文件中
-2、为了在t_goods_delivery_note_detail插入时插入goods_delivery_note_id，设置全局变量goods_delivery_note_id
-3、定义全局变量company_time_zone，并根据公司确定时间
+2、为了在t_goods_delivery_note_detail插入时插入goods_delivery_note_id，设置全局变量goods_delivery_note_id，在goods_delivery_note.go文件中
+3、定义全局变量company_time_zone，并根据公司确定时间,在po.go中
 time.Now().Add(5 * time.Hour)
 SELECT * from t_purchase_order where createBy='go_fcgi'
 SELECT * from t_purchase_order_detail where createBy='go_fcgi'
