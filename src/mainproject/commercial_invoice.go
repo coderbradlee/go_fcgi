@@ -32,7 +32,7 @@ func insert_ci(ci *Commercial_invoice,t *purchase_order,
         `INSERT INTO t_commercial_invoice(
         invoice_id,company_id,invoice_no,invoice_date,sales_order_id,
         purchase_order_id,outbound_note_id,status,process_type,
-        payment_dead_line,payment_received,payment_due,shipping_cost_total,markup_total,tax_total,sub_total,grand_total,approvedBy,approvedAt,note,createAt,createBydr,data_version) 
+        payment_dead_line,payment_received,payment_due,shipping_cost_total,markup_total,tax_total,sub_total,grand_total,approvedBy,approvedAt,note,createAt,createBy,dr,data_version) 
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
         rand_string(20),
         company_id,
