@@ -179,7 +179,7 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO)error
         deliver_notes.Total_insurance_fee,
         deliver_notes.Total_excluded_tax,
         "",//note
-        time.Now().Format("2006-01-02 15:04:05"),
+        time.Now().Add((company_time_zone-8) * time.Hour).Format("2006-01-02 15:04:05"),
         "go_fcgi",
         0,
         1)
