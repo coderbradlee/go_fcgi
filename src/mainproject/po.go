@@ -93,7 +93,7 @@ func deal_with_database(t *DeliverGoodsForPO)error {
 	company_time_zone_chan :=make(chan time.Duration)
     go get_company_time_zone_chan(company_time_zone_chan,t.Data.Purchase_order.Company)
     company_time_zone:=<-company_time_zone_chan
-	
+	fmt.Println(company_time_zone)
 	//from item_no find basic_id
 	t_purchase_order.vendor_basic_id=get_vendor_basic_id(t.Data.Purchase_order.Supplier)
 	
