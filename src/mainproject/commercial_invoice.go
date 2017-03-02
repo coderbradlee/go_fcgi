@@ -32,7 +32,7 @@ func insert_commercial_invoice(
     var err error
    
     for _,d:= range origi.Data.Deliver_notes{
-        err= insert_ci(d.Commercial_invoice)
+        err= insert_ci(&d.Commercial_invoice)
         if err!=nil{
             return err
         }   
