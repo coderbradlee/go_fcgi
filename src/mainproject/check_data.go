@@ -81,7 +81,7 @@ func check_data(origi *DeliverGoodsForPO)(string,error) {
     check_request_system(origi.Data.Request_system,error_chan)
     for err:=range error_chan{
         all_error<-err
-        s,e=all_error
+        s,e:=all_error
         return s,e
     }
     close(error_chan)
