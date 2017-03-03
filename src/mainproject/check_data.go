@@ -30,10 +30,10 @@ func check_request_system(request_system int32,error_chan chan<- check_struct) {
     }
     error_chan<- t
 }
-func check_bill_type(bill_type string,error_chan chan<- map[string]error) {
-    t:=make(map[string]error)
+func check_bill_type(bill_type string,error_chan chan<- check_struct) {
+    var t check_struct
     if bill_type!="Purchase Order"{
-        t[error_check_bill_type]=errors.New(`bill_type!=Purchase Order`)
+        t=check_struct{errors.New(`bill_type!=Purchase Order`)
     }
     error_chan<- t
 }
@@ -45,46 +45,46 @@ func check_bill_type(bill_type string,error_chan chan<- map[string]error) {
 //     }
 //     error_chan<- t
 // }
-func check_po_url(po_url string,error_chan chan<- map[string]error) {
-    t:=make(map[string]error)
+func check_po_url(po_url string,error_chan chan<- check_struct) {
+    var t check_struct
     _,err:=os.Stat(po_url)
     t[error_check_po_url]=err
     error_chan<- t
 }
-func check_status(status int32,error_chan chan<- map[string]error) {
-    t:=make(map[string]error)
+func check_status(status int32,error_chan chan<- check_struct) {
+    var t check_struct
     if status!=1{
-        t[error_check_status]= errors.New(`status!=1`)
+        t=check_struct{ errors.New(`status!=1`)
     }
     error_chan<- t
 }
-func check_supplier(supplier string,error_chan chan<- map[string]error) {
-    t:=make(map[string]error)
+func check_supplier(supplier string,error_chan chan<- check_struct) {
+    var t check_struct
     if supplier!="Renesola Shanghai"{
-        t[error_check_supplier]= errors.New(`supplier is not Renesola Shanghai`)
+        t=check_struct{ errors.New(`supplier is not Renesola Shanghai`)
     }
     error_chan<- t
 }
-func check_packing_method(deliver_notes []Deliver_notes,error_chan chan<- map[string]error) {
-    t:=make(map[string]error)
+func check_packing_method(deliver_notes []Deliver_notes,error_chan chan<- check_struct) {
+    var t check_struct
     for _,d:=range deliver_notes{
         // fmt.Println(reflect.TypeOf(d))
         var packing_method string
         db.QueryRow("select packing_method_id from t_packing_method where name=?",d.Packing_method).Scan(&packing_method)
         if packing_method== ""{
-            t[error_check_packing_method]=errors.New(`packing_method_id missed`)
+            t=check_struct{errors.New(`packing_method_id missed`)
         }
     }
     error_chan<- t
 }
-func check_logistic_provider(deliver_notes []Deliver_notes,error_chan chan<- map[string]error) {
-    t:=make(map[string]error)
+func check_logistic_provider(deliver_notes []Deliver_notes,error_chan chan<- check_struct) {
+    var t check_struct
     for _,d:=range deliver_notes{
         // fmt.Println(reflect.TypeOf(d))
         var logistic_provider_basic_id string
         db.QueryRow("select logistic_provider_basic_id from t_logistic_provider_basic where name=?",d.Logistic).Scan(&logistic_provider_basic_id)
         if logistic_provider_basic_id== ""{
-            t[error_check_logistic_provider]=errors.New(`logistic_provider_basic_id missed`)
+            t=check_struct{error_check_logistic_provider]=errors.New(`logistic_provider_basic_id missed`)
         }
     }
     error_chan<- t
