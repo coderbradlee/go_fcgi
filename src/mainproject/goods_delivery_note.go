@@ -24,7 +24,7 @@
 //     db.QueryRow("select vendor_master_id from t_vendor_master where vendor_basic_id=?",vendor_basic_id).Scan(&vendor_master_id)
 //     return vendor_master_id
 // }
-func get_vendor_master_id_chan(vendor_master_id_chan chan<- string,vendor_basic_id string)string {
+func get_vendor_master_id_chan(vendor_master_id_chan chan<- string,vendor_basic_id string) {
     var vendor_master_id string
     db.QueryRow("select vendor_master_id from t_vendor_master where vendor_basic_id=?",vendor_basic_id).Scan(&vendor_master_id)
     vendor_master_id_chan<-vendor_master_id
