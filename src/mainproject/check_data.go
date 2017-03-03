@@ -91,7 +91,7 @@ func check_logistic_provider(deliver_notes []Deliver_notes,error_chan chan<- che
 }
 func check_data(origi *DeliverGoodsForPO)(string,error) {
     // var all_error map[string]error
-    error_chan:=make(chan check_struct,1)
+    error_chan:=make(chan check_struct)
     go check_request_system(origi.Data.Request_system,error_chan)
     go check_bill_type(origi.Data.Purchase_order.Bill_type,error_chan)
     go check_po_url(origi.Data.Purchase_order.Po_url,error_chan)
