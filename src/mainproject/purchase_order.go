@@ -74,7 +74,12 @@ func level3(level12_chan chan<- error,t_purchase_order* purchase_order,t *Delive
 	var level4_chan chan error
 	go level4(level4_chan,t_purchase_order,t,sd)
 	temp:=<-level4_chan
-	level12_chan<- temp
+	if temp!=nil{
+		level12_chan<- temp
+	}else{
+		level12_chan<-nil
+	}
+	
 }
 func level4(level3_chan chan<- error,t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shared_data) {
 	var level4_chan chan error
@@ -88,6 +93,7 @@ func level4(level3_chan chan<- error,t_purchase_order* purchase_order,t *Deliver
 			level3_chan<- t
 		}
 	}
+	level3_chan<-nil
 }
 func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shared_data)error {
 		var err error
