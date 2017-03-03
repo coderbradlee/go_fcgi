@@ -45,7 +45,7 @@ func get_vendor_basic_id_chan(vendor_basic_id_chan chan<- string,supplier string
 // 		order by a.alias`,company_id).Scan(&contact_account_id)
 //     return contact_account_id
 // }
-func check_po_exist(po_no string)int,error {
+func check_po_exist(po_no string)(int,error) {
 	var get_po_no string
     _, err =db.QueryRow("select po_no from t_purchase_order where po_no=?",po_no).Scan(&get_po_no)
     if err!=nil{
