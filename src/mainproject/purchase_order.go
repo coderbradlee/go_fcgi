@@ -159,11 +159,13 @@ func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shar
 	    }else{
 	    	fmt.Println("purchase_order.go:155")
 	    	err= insert_purchase_order_detail(t_purchase_order,t,sd)
-	    	if(err!=nil){
+	    	if err!=nil{
+	    		fmt.Println("purchase_order.go:163")
 	    		return err
 	    	}else{
 	    		level3(level3_chan,t_purchase_order,t,sd)
 		 		err= <-level3_chan
+		 		fmt.Println("purchase_order.go:168")
 	    	}
 	    }
    return err
