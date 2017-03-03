@@ -74,7 +74,7 @@ func level3(level12_chan chan<- error,t_purchase_order* purchase_order,t *Delive
 		t:=<-level3_chan
 		fmt.Println("purchase_order.go 75")
 		if t!=nil{
-			level12_chan<- t
+			level12_chan<-t
 		}
 	}
 	fmt.Println("purchase_order.go 78")
@@ -82,7 +82,7 @@ func level3(level12_chan chan<- error,t_purchase_order* purchase_order,t *Delive
 	go level4(level4_chan,t_purchase_order,t,sd)
 	temp:=<-level4_chan
 	if temp!=nil{
-		level12_chan<- temp
+		level12_chan<-temp
 	}else{
 		level12_chan<-nil
 	}
@@ -98,7 +98,7 @@ func level4(level3_chan chan<- error,t_purchase_order* purchase_order,t *Deliver
 	for i:=0;i<3;i++{
 		t:=<-level4_chan
 		if t!=nil{
-			level3_chan<- t
+			level3_chan<-t
 		}
 	}
 	level3_chan<-nil
@@ -118,6 +118,7 @@ func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shar
 		 	if exist==1{
 		 		fmt.Println("exist")
 		 		level3(level3_chan,t_purchase_order,t,sd)
+		 		fmt.Println("purchase_order.go:121")
 		 		t:=<-level3_chan
 		 		fmt.Println("purchase_order.go:122")
 		 		return t
