@@ -5,7 +5,7 @@
 )
 func get_bill_type_id_chan(bill_type_id_chan chan<- string,bill_type string) {
     var bill_type_id string
-    db.QueryRow("select bill_type_id_chan from t_bill_type where name=?",bill_type).Scan(&bill_type_id)
+    db.QueryRow("select bill_type_id from t_bill_type where name=?",bill_type).Scan(&bill_type_id)
      bill_type_id_chan<-bill_type_id
 }
 // func get_company_id_chan(company_id_chan chan<- string,company string) {
