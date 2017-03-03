@@ -71,7 +71,7 @@ func insert_commercial_invoice(
     for _,d:= range origi.Data.Deliver_notes{
         err= insert_ci(&d.Commercial_invoice,t,origi,sd)
         if err!=nil{
-            return err
+            level3_chan<- err
         }   
     }
     level3_chan<-err
