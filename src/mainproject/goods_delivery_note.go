@@ -61,10 +61,10 @@ func get_logistic_master_id_chan(logistic_master_id_chan chan<- string,Logistic 
     db.QueryRow("select logistic_provider_master_id from t_logistic_provider_master where native_name=?",Logistic).Scan(&logistic_master_id)
     logistic_master_id_chan<-logistic_master_id
 }
-func get_logistic_contact_id(Logistic_contact string)string {
+func get_logistic_contact_id_chan(logistic_contact_id_chan chan<- string,Logistic_contact string) {
     var logistic_contact_id string
     db.QueryRow("select logistic_contact_id from t_logistic_provider_master where native_name=?",Logistic_contact).Scan(&logistic_contact_id)
-    return logistic_contact_id
+    logistic_contact_id_chan<-logistic_contact_id
 }
 
 type flow_no_json struct{
@@ -156,9 +156,12 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO,sd *s
         logistic_master_id_chan :=make(chan string)
         go get_logistic_master_id_chan(logistic_master_id_chan,deliver_notes.Logistic)
         logistic_master_id:=<-logistic_master_id_chan
-
-
-        logistic_contact_id:=get_logistic_contact_id(deliver_notes.Logistic_contact)
+////////////////////////////////////////////////////////////////////
+        // logistic_contact_id:=get_logistic_contact_id(deliver_notes.Logistic_contact)
+        logistic_contact_id_chan :=make(chan string)
+        go get_logistic_contact_id_chan(logistic_contact_id_chan,deliver_notes.Logistic_contact)
+        logistic_contact_id:=<-logistic_contact_id_chan
+        
         goods_delivery_note_no,err:=get_goods_delivery_note_no(origi.Data.Purchase_order.Company)
         sd.goods_receipt_no=goods_delivery_note_no
         if err!=nil{
