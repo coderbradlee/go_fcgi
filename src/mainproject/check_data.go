@@ -101,7 +101,7 @@ func check_data(origi *DeliverGoodsForPO)(string,error) {
     go check_logistic_provider(origi.Data.Deliver_notes,error_chan)
     for i:=0;i<7;i++{
         err:=<-error_chan
-        // fmt.Println(err.error_code)
+        fmt.Println(err.error_code)
         return err.error_code,err.err
         } 
 
