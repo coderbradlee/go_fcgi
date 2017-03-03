@@ -56,7 +56,7 @@ func get_packing_method_id_chan(packing_method_id_chan chan<- string,Packing_met
     db.QueryRow("select packing_method_id from t_packing_method where name=?",Packing_method).Scan(&packing_method_id)
     packing_method_id_chan<- packing_method_id
 }
-func get_logistic_master_id_chan(logistic_master_id_chan chan<- string,Logistic string)string {
+func get_logistic_master_id_chan(logistic_master_id_chan chan<- string,Logistic string) {
     var logistic_master_id string
     db.QueryRow("select logistic_provider_master_id from t_logistic_provider_master where native_name=?",Logistic).Scan(&logistic_master_id)
     logistic_master_id_chan<-logistic_master_id
