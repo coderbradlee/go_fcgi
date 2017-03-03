@@ -33,7 +33,7 @@ func check_request_system(request_system int32,error_chan chan<- check_struct) {
 func check_bill_type(bill_type string,error_chan chan<- check_struct) {
     var t check_struct
     if bill_type!="Purchase Order"{
-        t=check_struct{error_check_bill_type,errors.New(`bill_type!=Purchase Order`)}
+        t=check_struct{error_check_bill_type,errors.New("bill_type!=Purchase Order")}
     }
     error_chan<- t
 }
