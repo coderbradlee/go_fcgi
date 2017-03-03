@@ -25,26 +25,26 @@ func get_vendor_basic_id(supplier string)string {
     db.QueryRow("select vendor_basic_id from t_vendor_basic where short_name=?",supplier).Scan(&vendor_basic_id)
     return vendor_basic_id
 }
-func get_contact_account_id(company_id string)string {
-	var contact_account_id string//来自采购主动发起方公司的运营经理
-    db.QueryRow(`select  
-		c.system_account_id
-		from  
-		(select *  from t_wf_role_def
-		where dr=0
-		and alias='Operation Manager'
-		) a
-		inner join 
-		(select  *  from t_wf_role_resolve
-		where dr=0
-		and master_file_obj_id=?
-		) b
-		on a.wf_role_def_id=b.wf_role_def_id
-		inner join  (select *  from t_system_account where dr=0) c
-		on b.employee_id=c.employee_no
-		order by a.alias`,company_id).Scan(&contact_account_id)
-    return contact_account_id
-}
+// func get_contact_account_id(company_id string)string {
+// 	var contact_account_id string//来自采购主动发起方公司的运营经理
+//     db.QueryRow(`select  
+// 		c.system_account_id
+// 		from  
+// 		(select *  from t_wf_role_def
+// 		where dr=0
+// 		and alias='Operation Manager'
+// 		) a
+// 		inner join 
+// 		(select  *  from t_wf_role_resolve
+// 		where dr=0
+// 		and master_file_obj_id=?
+// 		) b
+// 		on a.wf_role_def_id=b.wf_role_def_id
+// 		inner join  (select *  from t_system_account where dr=0) c
+// 		on b.employee_id=c.employee_no
+// 		order by a.alias`,company_id).Scan(&contact_account_id)
+//     return contact_account_id
+// }
 func check_po_exist(po_no string)error {
 	var get_po_no string
     db.QueryRow("select po_no from t_purchase_order where po_no=?",po_no).Scan(&get_po_no)
