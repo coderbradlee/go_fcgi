@@ -34,7 +34,7 @@ func get_sort_no_chan(sort_no_chan chan<- int) {
     sort_no_chan<-sortno
 }
 func insert_note_attachment(
-    level4_chan chan error,
+    level4_chan chan<- error,
     t *purchase_order,
     origi *DeliverGoodsForPO,sd *shared_data) {
     var err error
