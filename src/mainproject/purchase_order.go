@@ -45,41 +45,60 @@ func get_vendor_basic_id_chan(vendor_basic_id_chan chan<- string,supplier string
 // 		order by a.alias`,company_id).Scan(&contact_account_id)
 //     return contact_account_id
 // }
-func check_po_exist(po_no string)error {
+func check_po_exist(po_no string)int,error {
 	var get_po_no string
-    db.QueryRow("select po_no from t_purchase_order where po_no=?",po_no).Scan(&get_po_no)
-    if get_po_no!=""{
-    	return errors.New("po_no")//存在po_no
+    _, err =db.QueryRow("select po_no from t_purchase_order where po_no=?",po_no).Scan(&get_po_no)
+    if err!=nil{
+    	return 0,err
     }
-    return nil
+    if get_po_no!=""{
+    	return 1,nil//存在po_no
+    }
+    return 0,nil
+}
+//1、t_purchase_order 2、t_purchase_order_detail
+//3、t_goods_delivery_note 3、t_commercial_invoice
+//4、t_goods_delivery_note_detail 4、t_goods_delivery_note_attachment
+//4、t_goods_receipt
+func level3(level12_chan chan<- error) {
+	var level3_chan chan error
+	go insert_goods_delivery_note(level3_chan,t_purchase_order,t,sd)
+	go insert_commercial_invoice(level3_chan,t_purchase_order,t,sd)
+	for i:=0;i<2;i++{
+		t:=<-level3_chan
+		if t!=nil{
+			level12_chan<- t
+		}
+	}
+	var level4_chan chan error
+	level4(level4_chan)
+	level12_chan<-level4_chan
+}
+func level4(level3_chan chan<- error) {
+	var level4_chan chan error
+	go insert_note_attachment(level4_chan,t_purchase_order,t,sd)
+    go insert_note_detail(level4_chan,t_purchase_order,t,sd)   
+	go insert_goods_receipt(level4_chan,t_purchase_order,t,sd)
+
+	for i:=0;i<3;i++{
+		t:=<-level4_chan
+		if t!=nil{
+			level3_chan<- t
+		}
+	}
 }
 func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shared_data)error {
 		var err error
-		 err=check_po_exist(t_purchase_order.po_no)
+		var exist int
+		var level3_chan chan error
+		 exist,err=check_po_exist(t_purchase_order.po_no)
 		 if err!=nil{//存在po_no
-		 	err=insert_goods_delivery_note(t_purchase_order,t,sd)
-    		if err!=nil{
-    			return err
-    		}else{
-    			err=insert_note_attachment(t_purchase_order,t,sd)
-    			if err!=nil{
-    				return err
-    			}else{
-    				err=insert_note_detail(t_purchase_order,t,sd)
-    				if err!=nil{
-	    					return err
-	    				}else{
-	    					err=insert_commercial_invoice(t_purchase_order,t,sd)
-	    					if err!=nil{
-	    						return err
-	    						}else{
-	    							err=insert_goods_receipt(t_purchase_order,t,sd)
-	    							return err
-	    						}
-	    					
-	    				}
-    			}
-    		}
+		 	return err
+		 }else{
+		 	if exist==1{
+		 		level3(level3_chan)
+		 		return <-level3_chan
+		 	}
 		 }
 	
     _, err = db.Exec(
@@ -119,27 +138,8 @@ func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shar
 	    	if(err!=nil){
 	    		return err
 	    	}else{
-	    		err=insert_goods_delivery_note(t_purchase_order,t,sd)
-	    		if err!=nil{
-	    			return err
-	    		}else{
-	    			err=insert_note_attachment(t_purchase_order,t,sd)
-	    			if err!=nil{
-    					return err
-	    			}else{
-	    				err=insert_note_detail(t_purchase_order,t,sd)
-	    				if err!=nil{
-	    					return err
-	    				}else{
-	    					err=insert_commercial_invoice(t_purchase_order,t,sd)
-	    					if err!=nil{
-	    						return err
-	    						}else{
-	    							err=insert_goods_receipt(t_purchase_order,t,sd)
-	    						}
-	    				}
-	    			}
-	    		}
+	    		level3(level3_chan)
+		 		err= <-level3_chan
 	    	}
 	    }
    return err

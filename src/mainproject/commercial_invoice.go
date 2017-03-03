@@ -63,6 +63,7 @@ func insert_ci(ci *Commercial_invoice,t *purchase_order,
 }
 
 func insert_commercial_invoice(
+    level3_chan chan error,
     t *purchase_order,
     origi *DeliverGoodsForPO,sd *shared_data)error {
     var err error
@@ -73,5 +74,5 @@ func insert_commercial_invoice(
             return err
         }   
     }
-    return err
+    level3_chan<-err
 }

@@ -13,8 +13,8 @@ func get_bill_type_id_chan(bill_type_id_chan chan<- string,bill_type string) {
 // db.QueryRow("select company_id from t_company where short_name=?",company).Scan(&company_id)
 //  company_id_chan<-company_id
 // }
-func insert_goods_receipt(t *purchase_order,
-    origi *DeliverGoodsForPO,sd *shared_data)error {
+func insert_goods_receipt(level4_chan chan error,t *purchase_order,
+    origi *DeliverGoodsForPO,sd *shared_data) {
     var err error
     ////////////////////////////
     bill_type_id_chan :=make(chan string)
@@ -58,6 +58,6 @@ func insert_goods_receipt(t *purchase_order,
         "go_fcgi",
         0,
         1)
-    return err
+    level4_chan<-err
 }
 

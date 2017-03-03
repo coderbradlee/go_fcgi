@@ -31,8 +31,9 @@ func insert_goods_delivery_note_detail(item_master_id,uom_id string,
 }
 
 func insert_note_detail(
+    level4_chan chan error,
     t *purchase_order,
-    origi *DeliverGoodsForPO,sd *shared_data)error {
+    origi *DeliverGoodsForPO,sd *shared_data) {
     var err error
     for _,d:= range origi.Data.Deliver_notes{
         for _,detail:=range d.Detail{
@@ -54,5 +55,5 @@ func insert_note_detail(
             }
         }
     }    
-    return err
+    level4_chan<-err
 }

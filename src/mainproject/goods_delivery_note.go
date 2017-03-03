@@ -115,7 +115,7 @@ func get_goods_delivery_note_no(company string)(string,error) {
 //为了在response中回传发货号，设置全局变量goods_receipt_no
 // var goods_receipt_no string
 // var goods_delivery_note_id string
-func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO,sd *shared_data)error {
+func insert_goods_delivery_note(level3_chan chan error,t *purchase_order,origi *DeliverGoodsForPO,sd *shared_data) {
     var err error
     // log.Println("insert_goods_delivery_note")
     for _,deliver_notes:= range origi.Data.Deliver_notes{
@@ -220,5 +220,5 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO,sd *s
     if err!=nil{
         logger.Info("insert_goods_delivery_note:"+err.Error()) 
     }
-    return err
+    level3_chan<-err
 }
