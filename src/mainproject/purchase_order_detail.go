@@ -1,6 +1,6 @@
  package main
  import (
-    "fmt"
+    // "fmt"
     "time"
 )
 func get_item_master_id_chan(item_master_id_chan chan<- string,item_no,product_name,product_code string){
