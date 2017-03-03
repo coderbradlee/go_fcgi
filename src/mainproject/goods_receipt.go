@@ -1,18 +1,18 @@
  package main
  import (
     "time"
-    "logger"
+    // "logger"
 )
 func get_bill_type_id_chan(bill_type_id_chan chan<- string,bill_type string) {
-var bill_type_id string
-db.QueryRow("select bill_type_id_chan from t_bill_type where name=?",bill_type).Scan(&bill_type_id)
- bill_type_id_chan<-bill_type_id
+    var bill_type_id string
+    db.QueryRow("select bill_type_id_chan from t_bill_type where name=?",bill_type).Scan(&bill_type_id)
+     bill_type_id_chan<-bill_type_id
 }
-func get_company_id_chan(company_id_chan chan<- string,company string) {
-var company_id string
-db.QueryRow("select company_id from t_company where short_name=?",company).Scan(&company_id)
- company_id_chan<-company_id
-}
+// func get_company_id_chan(company_id_chan chan<- string,company string) {
+// var company_id string
+// db.QueryRow("select company_id from t_company where short_name=?",company).Scan(&company_id)
+//  company_id_chan<-company_id
+// }
 func insert_goods_receipt(t *purchase_order,
     origi *DeliverGoodsForPO,sd *shared_data)error {
     var err error
