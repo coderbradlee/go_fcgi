@@ -102,8 +102,9 @@ func check_data(origi *DeliverGoodsForPO)(string,error) {
     for i:=0;i<7;i++{
         err:=<-error_chan
         fmt.Println("104:",err.error_code,err.err)
-        return err.error_code,err.err
+        if err.err!=nil{
+            return err.error_code,err.err
+        }
     } 
-
     return "",nil
 }
