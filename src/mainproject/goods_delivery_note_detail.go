@@ -36,8 +36,18 @@ func insert_note_detail(
     var err error
     for _,d:= range origi.Data.Deliver_notes{
         for _,detail:=range d.Detail{
-            item_master_id:=get_item_master_id(detail.Item_no,detail.Product_name,detail.Product_code)
-            uom_id:=get_uom_id(detail.Uom)
+            // item_master_id:=get_item_master_id(detail.Item_no,detail.Product_name,detail.Product_code)
+            item_master_id_chan :=make(chan string)
+            go get_item_master_id_chan(item_master_id_chan,detail.Item_no,detail.Product_name,detail.Product_code)
+            // item_master_id:=<-item_master_id_chan
+            ////////////////////////////////////////
+            // uom_id:=get_uom_id(detail.Uom)
+
+            uom_id_chan :=make(chan string)
+            go get_uom_id_chan(uom_id_chan,detail.Uom)
+            uom_id:=<-uom_id_chan
+            item_master_id:=<-item_master_id_chan
+            
             err= insert_goods_delivery_note_detail(item_master_id,uom_id,detail.Quantity,sd)
             if err!=nil{
             logger.Info("insert to insert_goods_delivery_note_detail:"+err.Error()) 
