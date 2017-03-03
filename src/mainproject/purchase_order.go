@@ -20,10 +20,10 @@ func get_shipping_method_id_chan(shipping_method_id_chan chan<- string,Ship_via 
     db.QueryRow("select ship_via_id from t_ship_via where full_name=?",Ship_via).Scan(&shipping_via_id)
     shipping_method_id_chan<- shipping_via_id
 }
-func get_vendor_basic_id(supplier string)string {
+func get_vendor_basic_id_chan(vendor_basic_id_chan chan<- string,supplier string) {
 	var vendor_basic_id string
     db.QueryRow("select vendor_basic_id from t_vendor_basic where short_name=?",supplier).Scan(&vendor_basic_id)
-    return vendor_basic_id
+    vendor_basic_id_chan<-vendor_basic_id
 }
 // func get_contact_account_id(company_id string)string {
 // 	var contact_account_id string//来自采购主动发起方公司的运营经理
