@@ -67,7 +67,7 @@ func level3(level12_chan chan<- error,t_purchase_order* purchase_order,t *Delive
 	var level3_chan chan error
 	go insert_goods_delivery_note(level3_chan,t_purchase_order,t,sd)
 	go insert_commercial_invoice(level3_chan,t_purchase_order,t,sd)
-	pc,file,line,ok := runtime.Caller(2)
+	_,file,line,_ := runtime.Caller(2)
 	fmt.Println(file,line)
 	for i:=0;i<2;i++{
 		t:=<-level3_chan
