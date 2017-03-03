@@ -65,7 +65,7 @@ func insert_ci(ci *Commercial_invoice,t *purchase_order,
 func insert_commercial_invoice(
     level3_chan chan error,
     t *purchase_order,
-    origi *DeliverGoodsForPO,sd *shared_data)error {
+    origi *DeliverGoodsForPO,sd *shared_data) {
     var err error
    
     for _,d:= range origi.Data.Deliver_notes{

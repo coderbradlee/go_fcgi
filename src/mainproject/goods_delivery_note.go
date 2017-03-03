@@ -175,7 +175,7 @@ func insert_goods_delivery_note(level3_chan chan error,t *purchase_order,origi *
         goods_delivery_note_no,err:=get_goods_delivery_note_no(origi.Data.Purchase_order.Company)
         sd.goods_receipt_no=goods_delivery_note_no
         if err!=nil{
-            return err
+            level3_chan<-err
         }
         sd.goods_delivery_note_id=rand_string(20)
         _, err = db.Exec(

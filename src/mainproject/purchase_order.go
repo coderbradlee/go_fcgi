@@ -1,6 +1,6 @@
  package main
  import (
-	"errors"
+	// "errors"
 	// "strings"
 )
 // func get_company_id(company string) string{
@@ -47,6 +47,7 @@ func get_vendor_basic_id_chan(vendor_basic_id_chan chan<- string,supplier string
 // }
 func check_po_exist(po_no string)(int,error) {
 	var get_po_no string
+	var err error
     _, err =db.QueryRow("select po_no from t_purchase_order where po_no=?",po_no).Scan(&get_po_no)
     if err!=nil{
     	return 0,err
