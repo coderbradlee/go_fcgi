@@ -3,7 +3,7 @@
     // "time"
     "errors"
     _"os"
-    "fmt"
+    _"fmt"
     // "reflect"
 )
 const(
