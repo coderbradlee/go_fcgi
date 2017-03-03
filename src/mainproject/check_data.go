@@ -80,9 +80,9 @@ func check_data(origi *DeliverGoodsForPO)(string,error) {
 
     for i:=0;i<1;i++{
         err:=<-error_chan
-        s,e:=err
+        // s,e:=err
         fmt.Printf("%T",err)
-        return s,e
+        // return s,e
         
     }
     // for err:=range error_chan{
