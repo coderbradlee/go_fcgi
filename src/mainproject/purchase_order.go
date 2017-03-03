@@ -70,7 +70,9 @@ func level3(level12_chan chan<- error,t_purchase_order* purchase_order,t *Delive
 	
 	fmt.Println("purchase_order.go 71")
 	for i:=0;i<2;i++{
+		fmt.Println("purchase_order.go 73")
 		t:=<-level3_chan
+		fmt.Println("purchase_order.go 75")
 		if t!=nil{
 			level12_chan<- t
 		}
