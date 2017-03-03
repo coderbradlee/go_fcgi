@@ -77,14 +77,16 @@ func level3(level12_chan chan<- error,t_purchase_order* purchase_order,t *Delive
 			level12_chan<-t
 		}
 	}
-	fmt.Println("purchase_order.go 78")
+	fmt.Println("purchase_order.go 80")
 	var level4_chan=make(chan error) 
 	go level4(level4_chan,t_purchase_order,t,sd)
 	temp:=<-level4_chan
-	if temp!=nil{
+	if temp!=nil{		
 		level12_chan<-temp
+		fmt.Println("purchase_order.go 86")
 	}else{
 		level12_chan<-nil
+		fmt.Println("purchase_order.go 89")
 	}
 	
 }
