@@ -152,6 +152,7 @@ func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shar
 	    	fmt.Println("purchase_order.go:152")
 	    	return err
 	    }else{
+	    	fmt.Println("purchase_order.go:155")
 	    	err= insert_purchase_order_detail(t_purchase_order,t,sd)
 	    	if(err!=nil){
 	    		return err
