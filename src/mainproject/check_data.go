@@ -22,9 +22,9 @@ const(
 )
 func check_request_system(request_system int32,error_chan chan<- map[string]error) {
     if request_system!=1{
-        key:=string(error_check_request_system)
+        // key:=string(error_check_request_system)
         var t map[string]error
-        t[key]=errors.New("request_system !=1")
+        t[error_check_request_system]=errors.New("request_system !=1")
         error_chan<- t
     }
 }
