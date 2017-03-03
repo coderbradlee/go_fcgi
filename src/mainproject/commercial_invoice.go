@@ -58,12 +58,12 @@ func insert_ci(ci *Commercial_invoice,t *purchase_order,
         "go_fcgi",
         0,
         1)
-    fmt.Println("ci")
+    fmt.Println("Commercial_invoice.go 61")
     return err
 }
 
 func insert_commercial_invoice(
-    level3_chan chan error,
+    level3_chan chan<- error,
     t *purchase_order,
     origi *DeliverGoodsForPO,sd *shared_data) {
     var err error
@@ -75,4 +75,5 @@ func insert_commercial_invoice(
         }   
     }
     level3_chan<-err
+    fmt.Println("Commercial_invoice.go 78")
 }
