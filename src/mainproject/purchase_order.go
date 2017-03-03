@@ -64,7 +64,7 @@ func check_po_exist(po_no string)(int,error) {
 //4、t_goods_delivery_note_detail 4、t_goods_delivery_note_attachment
 //4、t_goods_receipt
 func level3(level12_chan chan<- error,t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shared_data) {
-	var level3_chan chan error
+	var level3_chan=make(chan error) 
 	go insert_goods_delivery_note(level3_chan,t_purchase_order,t,sd)
 	go insert_commercial_invoice(level3_chan,t_purchase_order,t,sd)
 	
@@ -78,7 +78,7 @@ func level3(level12_chan chan<- error,t_purchase_order* purchase_order,t *Delive
 		}
 	}
 	fmt.Println("purchase_order.go 78")
-	var level4_chan chan error
+	var level4_chan=make(chan error) 
 	go level4(level4_chan,t_purchase_order,t,sd)
 	temp:=<-level4_chan
 	if temp!=nil{
@@ -89,7 +89,7 @@ func level3(level12_chan chan<- error,t_purchase_order* purchase_order,t *Delive
 	
 }
 func level4(level3_chan chan<- error,t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shared_data) {
-	var level4_chan chan error
+	var level4_chan=make(chan error)
 	go insert_note_attachment(level4_chan,t_purchase_order,t,sd)
     go insert_note_detail(level4_chan,t_purchase_order,t,sd)   
 	go insert_goods_receipt(level4_chan,t_purchase_order,t,sd)
@@ -105,7 +105,7 @@ func level4(level3_chan chan<- error,t_purchase_order* purchase_order,t *Deliver
 func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shared_data)error {
 		var err error
 		var exist int
-		var level3_chan chan error
+		var level3_chan=make(chan error) 
 		 exist,err=check_po_exist(t_purchase_order.po_no)
 		 if err!=nil{//存在po_no
 		 	return err

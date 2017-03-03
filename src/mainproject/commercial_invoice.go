@@ -74,6 +74,6 @@ func insert_commercial_invoice(
             level3_chan<-err
         }   
     }
-    level3_chan<-nil
+    level3_chan<-err
     fmt.Println("Commercial_invoice.go 78")
 }
