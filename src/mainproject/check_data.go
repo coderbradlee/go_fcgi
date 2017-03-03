@@ -19,10 +19,14 @@ const(
     error_check_packing_method="-126"//t_packing_method表里没有此packing_method
     error_check_logistic_provider="-127"//物流提供商信息缺失
 )
-func check_request_system(request_system int32,error_chan chan<- map[string]error) {
-    t:=make(map[string]error)
+type check_struct struct{
+    error_code string
+    err error
+}
+func check_request_system(request_system int32,error_chan chan<- check_struct) {
+    t:=make(check_struct)
     if request_system!=1{
-        t[error_check_request_system]=errors.New("request_system !=1") 
+        t=check_struct{error_check_request_system,errors.New("request_system !=1")}
     }
     error_chan<- t
 }
@@ -87,20 +91,18 @@ func check_logistic_provider(deliver_notes []Deliver_notes,error_chan chan<- map
 }
 func check_data(origi *DeliverGoodsForPO)(string,error) {
     // var all_error map[string]error
-    var error_chan=make(chan map[string]error)
+    error_chan:=make(chan check_struct,1)
     go check_request_system(origi.Data.Request_system,error_chan)
-    go check_bill_type(origi.Data.Purchase_order.Bill_type,error_chan)
-    // go check_po_no(origi.Data.Purchase_order.Po_no,error_chan)
-    go check_po_url(origi.Data.Purchase_order.Po_url,error_chan)
-    go check_status(origi.Data.Purchase_order.Status,error_chan)
-    go check_supplier(origi.Data.Purchase_order.Supplier,error_chan)
-    go check_packing_method(origi.Data.Deliver_notes,error_chan)
-    go check_logistic_provider(origi.Data.Deliver_notes,error_chan)
+    // go check_bill_type(origi.Data.Purchase_order.Bill_type,error_chan)
+    // go check_po_url(origi.Data.Purchase_order.Po_url,error_chan)
+    // go check_status(origi.Data.Purchase_order.Status,error_chan)
+    // go check_supplier(origi.Data.Purchase_order.Supplier,error_chan)
+    // go check_packing_method(origi.Data.Deliver_notes,error_chan)
+    // go check_logistic_provider(origi.Data.Deliver_notes,error_chan)
     for i:=0;i<7;i++{
         err:=<-error_chan
-        for s,e:=range err{
-            fmt.Println(s)
-            return s,e
+        fmt.Println(err.error_code)
+        return err.error_code,err.err
         } 
     }
    
