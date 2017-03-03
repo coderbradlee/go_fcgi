@@ -2,9 +2,8 @@
  import (
     // "time"
     "errors"
-    
     _"os"
-    // "fmt"
+    "fmt"
     // "reflect"
 )
 const(
@@ -80,8 +79,9 @@ func check_data(origi *DeliverGoodsForPO)(string,error) {
     var error_chan=make(chan map[string]error)
     check_request_system(origi.Data.Request_system,error_chan)
     for err:=range error_chan{
-        s,e:=err
-        return s,e
+        // s,e:=err
+        // return s,e
+        fmt.Printf("%T",err)
     }
     close(error_chan)
     // check_bill_type(origi.Data.Purchase_order.Bill_type)
