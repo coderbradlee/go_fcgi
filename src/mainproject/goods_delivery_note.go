@@ -29,10 +29,15 @@ func get_vendor_master_id_chan(vendor_master_id_chan chan<- string,vendor_basic_
     db.QueryRow("select vendor_master_id from t_vendor_master where vendor_basic_id=?",vendor_basic_id).Scan(&vendor_master_id)
     vendor_master_id_chan<-vendor_master_id
 }
-func get_trade_term_id(Trade_term string)string {
+// func get_trade_term_id(Trade_term string)string {
+//     var trade_term_id string
+//     db.QueryRow("select trade_term_id from t_trade_term where short_name=?",Trade_term).Scan(&trade_term_id)
+//     return trade_term_id
+// }
+func get_trade_term_id_chan(trade_term_id_chan chan<- string,Trade_term string) {
     var trade_term_id string
     db.QueryRow("select trade_term_id from t_trade_term where short_name=?",Trade_term).Scan(&trade_term_id)
-    return trade_term_id
+    trade_term_id_chan<-trade_term_id
 }
 func get_transport_term_id(ship_via string)string {
     var transport_term_id string
@@ -122,6 +127,11 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO,sd *s
         vendor_master_id_chan :=make(chan string)
         go get_vendor_master_id_chan(vendor_master_id_chan,t.vendor_basic_id)
         vendor_master_id:=<-vendor_master_id_chan
+////////////////////////////////////////////////////////////
+// trade_term_id:=get_trade_term_id(deliver_notes.Trade_term)
+        trade_term_id_chan :=make(chan string)
+        go get_trade_term_id_chan(trade_term_id_chan,deliver_notes.Trade_term)
+        trade_term_id:=<-trade_term_id_chan
 
 ///////////////////////////////////////////////////////////
         buyer_id:=get_buyer_id(deliver_notes.Buyer)
@@ -129,7 +139,7 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO,sd *s
 
 
 
-        trade_term_id:=get_trade_term_id(deliver_notes.Trade_term)
+        
         transport_term_id:=get_transport_term_id(deliver_notes.Ship_via)
         packing_method_id:=get_packing_method_id(deliver_notes.Packing_method)
         logistic_master_id:=get_logistic_master_id(deliver_notes.Logistic)
