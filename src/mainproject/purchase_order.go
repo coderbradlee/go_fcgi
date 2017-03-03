@@ -117,7 +117,7 @@ func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shar
 		 		return t
 		 	}
 		 }
-	
+	fmt.Println("purchase_order.go:120")
     _, err = db.Exec(
         `INSERT INTO t_purchase_order(
 	    purchase_order_id,po_no,po_date,status,company_id,vendor_basic_id,
