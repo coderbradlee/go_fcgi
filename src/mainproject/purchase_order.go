@@ -104,6 +104,7 @@ func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shar
 		 	return err
 		 }else{
 		 	if exist==1{
+		 		fmt.Println("exist")
 		 		level3(level3_chan,t_purchase_order,t,sd)
 		 		t:=<-level3_chan
 		 		return t
