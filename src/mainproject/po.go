@@ -141,6 +141,7 @@ func deal_with_database(t *DeliverGoodsForPO,sd *shared_data,contact_account_id 
 	t_purchase_order.createBy="go_fcgi"
   	t_purchase_order.dr=0
   	t_purchase_order.data_version=1
+  	fmt.Println("po.go:144")
   	return insert_to_db(&t_purchase_order,t,sd)
 }
 
