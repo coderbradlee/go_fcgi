@@ -3,7 +3,7 @@
 	// "errors"
 	// "strings"
 	"fmt"
-	"runtime"
+	// "runtime"
 )
 // func get_company_id(company string) string{
 // 	// var item_basic_id string
@@ -67,15 +67,15 @@ func level3(level12_chan chan<- error,t_purchase_order* purchase_order,t *Delive
 	var level3_chan chan error
 	go insert_goods_delivery_note(level3_chan,t_purchase_order,t,sd)
 	go insert_commercial_invoice(level3_chan,t_purchase_order,t,sd)
-	_,file,line,_ := runtime.Caller(2)
-	fmt.Println(file,line)
+	
+	fmt.Println("purchase_order.go 71")
 	for i:=0;i<2;i++{
 		t:=<-level3_chan
 		if t!=nil{
 			level12_chan<- t
 		}
 	}
-	fmt.Println(file,line)
+	fmt.Println("purchase_order.go 78")
 	var level4_chan chan error
 	go level4(level4_chan,t_purchase_order,t,sd)
 	temp:=<-level4_chan
