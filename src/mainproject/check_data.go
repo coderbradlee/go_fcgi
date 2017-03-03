@@ -76,9 +76,15 @@ func check_request_system(request_system int32,error_chan chan<- map[string]erro
 //     }
 // }
 func check_data(origi *DeliverGoodsForPO)(string,error) {
-    var err error
+    var all_error map[string]error
     var error_chan=make(chan map[string]error)
     check_request_system(origi.Data.Request_system,error_chan)
+    for err:=range error_chan{
+        all_error<-err
+        s,e=all_error
+        return s,e
+    }
+    close(error_chan)
     // check_bill_type(origi.Data.Purchase_order.Bill_type)
     // if err!=nil{
     //     return error_check_bill_type,err
