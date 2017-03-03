@@ -51,10 +51,10 @@ func get_transport_term_id_chan(transport_term_id_chan chan<- string,ship_via st
     db.QueryRow("select ship_via_id from t_ship_via where full_name=?",ship_via).Scan(&transport_term_id)
     transport_term_id_chan<-transport_term_id
 }
-func get_packing_method_id(Packing_method string)string {
+func get_packing_method_id_chan(packing_method_id_chan chan<- string,Packing_method string) {
     var packing_method_id string
     db.QueryRow("select packing_method_id from t_packing_method where name=?",Packing_method).Scan(&packing_method_id)
-    return packing_method_id
+    packing_method_id_chan<- packing_method_id
 }
 func get_logistic_master_id(Logistic string)string {
     var logistic_master_id string
@@ -146,9 +146,13 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO,sd *s
         transport_term_id_chan :=make(chan string)
         go get_transport_term_id_chan(transport_term_id_chan,deliver_notes.Ship_via)
         transport_term_id:=<-transport_term_id_chan
-        
-        
-        packing_method_id:=get_packing_method_id(deliver_notes.Packing_method)
+/////////////////////////////////////////////////////////////////         
+        //packing_method_id:=get_packing_method_id(deliver_notes.Packing_method)
+        packing_method_id_chan :=make(chan string)
+        go get_packing_method_id_chan(packing_method_id_chan,deliver_notes.Packing_method)
+        packing_method_id:=<-packing_method_id_chan
+
+
         logistic_master_id:=get_logistic_master_id(deliver_notes.Logistic)
         logistic_contact_id:=get_logistic_contact_id(deliver_notes.Logistic_contact)
         goods_delivery_note_no,err:=get_goods_delivery_note_no(origi.Data.Purchase_order.Company)
