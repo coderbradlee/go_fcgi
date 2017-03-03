@@ -80,9 +80,14 @@ func check_data(origi *DeliverGoodsForPO)(string,error) {
 
     for i:=0;i<1;i++{
         err:=<-error_chan
-        for s,e:=range err{
-            return s,e
-        }   
+        if len(err)==0{
+            return "",nil
+        }else{
+            for s,e:=range err{
+                return s,e
+            } 
+        }
+          
     }
     // for err:=range error_chan{
     //     // s,e:=err
