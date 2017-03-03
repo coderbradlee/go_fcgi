@@ -168,3 +168,33 @@ type Response_json struct{
 	Data Response_json_data	 `json:"response_json_data"`
 	Reply_time string `json:"reply_time"`		   
 }
+type Delivery_note struct{
+    note_id string/*主键*/
+    goods_delivery_note_no string/*发货单号*/
+    bill_type_id string/*单据类型id*/
+    company_id string/*公司id*/
+    purchase_order_id string/*采购订单id*/
+    buyer_id string/*采购员id*/
+    vendor_master_id string/*供应商管理档案id*/
+    fulfill_status int32/*履行状态, 0:pending(待处理); 1:scheduled(已调度); 2:received(已收货);*/
+    destination_port string/*目的地港口*/
+    trade_term_id string/*贸易方式id*/
+    transport_term_id string/*运输方式id*/
+    packing_method_id string/*包装方式id*/
+    logistic_provider_master_id string/*物流商id*/
+    logistic_provider_contact_id string/*物流商联系人id*/
+    etd string/*预计离港时间*/
+    eta string/*预计到港时间*/
+    atd string/*实际离港时间*/
+    ata string/*实际到港时间*/
+    customs_clearance_date string/*海关清关时间*/
+    receiver string/*通知接收人id*/
+    total_freight_charges float64/*总运费金额*/
+    total_insurance_fee float64/*总保险费*/
+    total_excluded_tax float64/*商品总金额（不含税）*/
+    note string/*备注*/
+    createAt string
+    createBy string
+    dr int32
+    data_version int32
+}

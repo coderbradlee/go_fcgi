@@ -8,36 +8,7 @@
     "strconv"
     "encoding/json"
 )
-type Delivery_note struct{
-    note_id string/*主键*/
-    goods_delivery_note_no string/*发货单号*/
-    bill_type_id string/*单据类型id*/
-    company_id string/*公司id*/
-    purchase_order_id string/*采购订单id*/
-    buyer_id string/*采购员id*/
-    vendor_master_id string/*供应商管理档案id*/
-    fulfill_status int32/*履行状态, 0:pending(待处理); 1:scheduled(已调度); 2:received(已收货);*/
-    destination_port string/*目的地港口*/
-    trade_term_id string/*贸易方式id*/
-    transport_term_id string/*运输方式id*/
-    packing_method_id string/*包装方式id*/
-    logistic_provider_master_id string/*物流商id*/
-    logistic_provider_contact_id string/*物流商联系人id*/
-    etd string/*预计离港时间*/
-    eta string/*预计到港时间*/
-    atd string/*实际离港时间*/
-    ata string/*实际到港时间*/
-    customs_clearance_date string/*海关清关时间*/
-    receiver string/*通知接收人id*/
-    total_freight_charges float64/*总运费金额*/
-    total_insurance_fee float64/*总保险费*/
-    total_excluded_tax float64/*商品总金额（不含税）*/
-    note string/*备注*/
-    createAt string
-    createBy string
-    dr int32
-    data_version int32
-}
+
 // func get_bill_type_id()string {
 //     var bill_type_id string
 //     db.QueryRow("select bill_type_id from t_bill_type where code='GDN'").Scan(&bill_type_id)
@@ -48,10 +19,15 @@ type Delivery_note struct{
 //     db.QueryRow("select company_id from t_company where short_name=?",company).Scan(&company_id)
 //      company_id_chan<-company_id
 //  }
-func get_vendor_master_id(vendor_basic_id string)string {
+// func get_vendor_master_id(vendor_basic_id string)string {
+//     var vendor_master_id string
+//     db.QueryRow("select vendor_master_id from t_vendor_master where vendor_basic_id=?",vendor_basic_id).Scan(&vendor_master_id)
+//     return vendor_master_id
+// }
+func get_vendor_master_id_chan(vendor_master_id_chan chan<- string,vendor_basic_id string)string {
     var vendor_master_id string
     db.QueryRow("select vendor_master_id from t_vendor_master where vendor_basic_id=?",vendor_basic_id).Scan(&vendor_master_id)
-    return vendor_master_id
+    vendor_master_id_chan<-vendor_master_id
 }
 func get_trade_term_id(Trade_term string)string {
     var trade_term_id string
@@ -141,10 +117,18 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO,sd *s
         bill_type_id_chan :=make(chan string)
         go get_bill_type_id_chan(bill_type_id_chan,origi.Data.Purchase_order.Bill_type)
         bill_type_id:=<-bill_type_id_chan
+        /////////////////////////////////////////////
+        // vendor_master_id:=get_vendor_master_id(t.vendor_basic_id)
+        vendor_master_id_chan :=make(chan string)
+        go get_vendor_master_id_chan(vendor_master_id_chan,t.vendor_basic_id)
+        vendor_master_id:=<-vendor_master_id_chan
 
-
+///////////////////////////////////////////////////////////
         buyer_id:=get_buyer_id(deliver_notes.Buyer)
-        vendor_master_id:=get_vendor_master_id(t.vendor_basic_id)
+        
+
+
+
         trade_term_id:=get_trade_term_id(deliver_notes.Trade_term)
         transport_term_id:=get_transport_term_id(deliver_notes.Ship_via)
         packing_method_id:=get_packing_method_id(deliver_notes.Packing_method)
