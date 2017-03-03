@@ -174,8 +174,11 @@ func insert_goods_delivery_note(level3_chan chan<- error,t *purchase_order,origi
         ///////////////////////////////////////////////
         goods_delivery_note_no,err:=get_goods_delivery_note_no(origi.Data.Purchase_order.Company)
         sd.goods_receipt_no=goods_delivery_note_no
+        fmt.Println("goods_delivery_note.go 177")
         if err!=nil{
+            fmt.Println("goods_delivery_note.go 179")
             level3_chan<-err
+            fmt.Println("goods_delivery_note.go 181")
         }
         sd.goods_delivery_note_id=rand_string(20)
         _, err = db.Exec(
@@ -221,5 +224,5 @@ func insert_goods_delivery_note(level3_chan chan<- error,t *purchase_order,origi
         logger.Info("insert_goods_delivery_note:"+err.Error()) 
     }
     level3_chan<-err
-    fmt.Println("goods_delivery_note.go 224")
+
 }
