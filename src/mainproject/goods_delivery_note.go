@@ -34,11 +34,20 @@ func get_vendor_master_id_chan(vendor_master_id_chan chan<- string,vendor_basic_
 //     db.QueryRow("select trade_term_id from t_trade_term where short_name=?",Trade_term).Scan(&trade_term_id)
 //     return trade_term_id
 // }
+
 func get_trade_term_id_chan(trade_term_id_chan chan<- string,Trade_term string) {
     var trade_term_id string
     db.QueryRow("select trade_term_id from t_trade_term where short_name=?",Trade_term).Scan(&trade_term_id)
     trade_term_id_chan<-trade_term_id
 }
+func get_buyer_id(buyer_id_chan chan<- string,buyer string) {
+    var buyer_id string
+    db.QueryRow("select company_id from t_company where short_name=?",buyer).Scan(&buyer_id)
+    buyer_id_chan<-buyer_id
+}
+
+
+
 func get_transport_term_id(ship_via string)string {
     var transport_term_id string
     db.QueryRow("select ship_via_id from t_ship_via where full_name=?",ship_via).Scan(&transport_term_id)
@@ -59,11 +68,7 @@ func get_logistic_contact_id(Logistic_contact string)string {
     db.QueryRow("select logistic_contact_id from t_logistic_provider_master where native_name=?",Logistic_contact).Scan(&logistic_contact_id)
     return logistic_contact_id
 }
-func get_buyer_id(buyer string)string {
-    var buyer_id string
-    db.QueryRow("select company_id from t_company where short_name=?",buyer).Scan(&buyer_id)
-    return buyer_id
-}
+
 type flow_no_json struct{
     FlowNo string `json:"flowNo"`
     ReplyTime string `json:"replyTime"`
@@ -134,8 +139,10 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO,sd *s
         trade_term_id:=<-trade_term_id_chan
 
 ///////////////////////////////////////////////////////////
-        buyer_id:=get_buyer_id(deliver_notes.Buyer)
-        
+        // buyer_id:=get_buyer_id(deliver_notes.Buyer)
+        buyer_id_chan :=make(chan string)
+        go get_buyer_id_chan(buyer_id_chan,deliver_notes.Buyer)
+        buyer_id:=<-buyer_id_chan
 
 
 
