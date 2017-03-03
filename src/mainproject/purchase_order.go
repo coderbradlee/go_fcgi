@@ -12,13 +12,13 @@
 
 //     return company_id
 // }
-func get_shipping_method_id(Ship_via string) string{
+func get_shipping_method_id_chan(shipping_method_id_chan chan<- string,Ship_via string) {
 	//cannot find the way to shipping_method_id
 	// var shipping_method_id string
  //    db.QueryRow("select shipping_method_id from t_company where short_name=?",company).Scan(&shipping_method_id)
 	var shipping_via_id string
     db.QueryRow("select ship_via_id from t_ship_via where full_name=?",Ship_via).Scan(&shipping_via_id)
-    return shipping_via_id
+    shipping_method_id_chan<- shipping_via_id
 }
 func get_vendor_basic_id(supplier string)string {
 	var vendor_basic_id string
