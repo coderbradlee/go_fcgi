@@ -79,8 +79,9 @@ func check_data(origi *DeliverGoodsForPO)(string,error) {
     go check_request_system(origi.Data.Request_system,error_chan)
 
     for i:=0;i<1;i++{
-        s,e:=error_chan
+        s,e:=<-error_chan
         return s,e
+        // fmt.Printf("%T",err)
     }
     // for err:=range error_chan{
     //     // s,e:=err
