@@ -46,12 +46,10 @@ func get_buyer_id_chan(buyer_id_chan chan<- string,buyer string) {
     buyer_id_chan<-buyer_id
 }
 
-
-
-func get_transport_term_id(ship_via string)string {
+func get_transport_term_id_chan(transport_term_id_chan chan<- string,ship_via string)string {
     var transport_term_id string
     db.QueryRow("select ship_via_id from t_ship_via where full_name=?",ship_via).Scan(&transport_term_id)
-    return transport_term_id
+    transport_term_id_chan<-transport_term_id
 }
 func get_packing_method_id(Packing_method string)string {
     var packing_method_id string
@@ -143,11 +141,13 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO,sd *s
         buyer_id_chan :=make(chan string)
         go get_buyer_id_chan(buyer_id_chan,deliver_notes.Buyer)
         buyer_id:=<-buyer_id_chan
-
-
-
+///////////////////////////////////////////////////
+// transport_term_id:=get_transport_term_id(deliver_notes.Ship_via)
+        transport_term_id_chan :=make(chan string)
+        go get_transport_term_id_chan(transport_term_id_chan,deliver_notes.Ship_via)
+        transport_term_id:=<-transport_term_id_chan
         
-        transport_term_id:=get_transport_term_id(deliver_notes.Ship_via)
+        
         packing_method_id:=get_packing_method_id(deliver_notes.Packing_method)
         logistic_master_id:=get_logistic_master_id(deliver_notes.Logistic)
         logistic_contact_id:=get_logistic_contact_id(deliver_notes.Logistic_contact)
