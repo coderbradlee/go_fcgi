@@ -20,12 +20,11 @@ const(
     error_check_logistic_provider="-127"//物流提供商信息缺失
 )
 func check_request_system(request_system int32,error_chan chan<- map[string]error) {
+    var t map[string]error
     if request_system!=1{
-        // key:=string(error_check_request_system)
-        var t map[string]error
-        t[error_check_request_system]=errors.New("request_system !=1")
-        error_chan<- t
+        t[error_check_request_system]=errors.New("request_system !=1") 
     }
+    error_chan<- t
 }
 // func check_bill_type(bill_type string,error_chan chan<- map[string]error) {
 //     if bill_type!="Purchase Order"{
@@ -78,12 +77,16 @@ func check_data(origi *DeliverGoodsForPO)(string,error) {
     // var all_error map[string]error
     var error_chan=make(chan map[string]error)
     go check_request_system(origi.Data.Request_system,error_chan)
-    for err:=range error_chan{
-        // s,e:=err
-        // return s,e
-        fmt.Printf("%T",err)
+
+    for i:=0;i<1;i++{
+        s,e:=error_chan
+        return s,e
     }
-    close(error_chan)
+    // for err:=range error_chan{
+    //     // s,e:=err
+    //     // return s,e
+    //     fmt.Printf("%T",err)
+    // }
     // check_bill_type(origi.Data.Purchase_order.Bill_type)
     // if err!=nil{
     //     return error_check_bill_type,err
