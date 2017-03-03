@@ -180,6 +180,7 @@ func insert_goods_delivery_note(level3_chan chan<- error,t *purchase_order,origi
             level3_chan<-err
             fmt.Println("goods_delivery_note.go 181")
         }
+        fmt.Println("goods_delivery_note.go 183")
         sd.goods_delivery_note_id=rand_string(20)
         _, err = db.Exec(
         `INSERT INTO t_goods_delivery_note(
