@@ -23,7 +23,7 @@ func insert_goods_delivery_note_attachment(file_name,url,language string,sort_no
         1)
     return err
 }
-func get_language_id_chan(language_id_chan chan<- string,company string)string{
+func get_language_id_chan(language_id_chan chan<- string,company string){
     var language_id string
     db.QueryRow("select default_language_id from t_company where short_name=?",company).Scan(&language_id)
     language_id_chan<- language_id
@@ -47,7 +47,7 @@ func insert_note_attachment(
     go get_sort_no_chan(sort_no_chan)
     sort_no:=<-sort_no_chan
     language:=<-language_chan
-    
+
     for _,d:= range origi.Data.Deliver_notes{
         err= insert_goods_delivery_note_attachment(d.Commercial_invoice.Ci_no,d.Commercial_invoice.Ci_url,language,sort_no+1,sd)
         
