@@ -2,7 +2,8 @@
  import (
     // "time"
     "errors"
-    "os"
+    
+    _"os"
     // "fmt"
     // "reflect"
 )
@@ -21,7 +22,7 @@ const(
 )
 func check_request_system(request_system int32,error_chan chan<- map[string]error) {
     if request_system!=1{
-        error_chan<- map[error_check_request_system]errors.New("request_system !=1")
+        error_chan<- map[string(error_check_request_system)]errors.New("request_system !=1")
     }
 }
 // func check_bill_type(bill_type string,error_chan chan<- map[string]error) {
