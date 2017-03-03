@@ -75,7 +75,7 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 func get_company_time_zone_chan(company_time_zone_chan chan<- float64,company string) {
     var company_time_zone float64
     db.QueryRow("select time_zone from t_company where short_name=?",company).Scan(&company_time_zone)
-     company_time_zone_chan<-company_time_zone
+    company_time_zone_chan<-company_time_zone
  }
  func set_company_time_zone(company string,sd *shared_data){
  	company_time_zone_chan :=make(chan float64)
@@ -132,8 +132,8 @@ func deal_with_database(t *DeliverGoodsForPO,sd *shared_data,contact_account_id 
 	t_purchase_order.total_quantity=t.Data.Purchase_order.Total_quantity
 	t_purchase_order.total_amount=t.Data.Purchase_order.Total_amount
 	t_purchase_order.currency_id=t.Data.Purchase_order.Currency
-	fmt.Println(t.Data.Purchase_order.Total_amount)
-	fmt.Println(t.Data.Purchase_order.Currency)
+	fmt.Println("po.go:135",t.Data.Purchase_order.Total_amount)
+	fmt.Println("po.go:136",t.Data.Purchase_order.Currency)
 	t_purchase_order.comments=t.Data.Purchase_order.Comments
 	t_purchase_order.note=t.Data.Purchase_order.Note
 	t_purchase_order.createAt=time.Now().Add(sd.company_time_zone).Format("2006-01-02 15:04:05")
