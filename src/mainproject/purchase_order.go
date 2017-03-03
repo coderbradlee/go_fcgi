@@ -140,7 +140,7 @@ func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shar
 	    	if(err!=nil){
 	    		return err
 	    	}else{
-	    		level3(level3_chan)
+	    		level3(level3_chan,t_purchase_order,t,sd)
 		 		err= <-level3_chan
 	    	}
 	    }
