@@ -21,8 +21,9 @@ const(
 )
 func check_request_system(request_system int32,error_chan chan<- map[string]error) {
     var t map[string]error
+    key:=string(error_check_request_system)
     if request_system!=1{
-        t[error_check_request_system]=errors.New("request_system !=1") 
+        t[key]=errors.New("request_system !=1") 
     }
     error_chan<- t
 }
@@ -80,14 +81,9 @@ func check_data(origi *DeliverGoodsForPO)(string,error) {
 
     for i:=0;i<1;i++{
         err:=<-error_chan
-        if len(err)==0{
-            return "",nil
-        }else{
-            for s,e:=range err{
-                return s,e
-            } 
-        }
-          
+        for s,e:=range err{
+            return s,e
+        } 
     }
     // for err:=range error_chan{
     //     // s,e:=err
