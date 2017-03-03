@@ -28,7 +28,7 @@ func insert_goods_receipt(t *purchase_order,
 
 
     _, err = db.Exec(
-        `INSERT INTO t_goods_delivery_note_detail(
+        `INSERT INTO t_goods_receipt(
             receipt_id,
             goods_receipt_no,
             bill_type_id,
