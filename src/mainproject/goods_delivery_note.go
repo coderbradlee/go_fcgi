@@ -124,44 +124,54 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO,sd *s
 
         bill_type_id_chan :=make(chan string)
         go get_bill_type_id_chan(bill_type_id_chan,origi.Data.Purchase_order.Bill_type)
-        bill_type_id:=<-bill_type_id_chan
+        // bill_type_id:=<-bill_type_id_chan
         /////////////////////////////////////////////
         // vendor_master_id:=get_vendor_master_id(t.vendor_basic_id)
         vendor_master_id_chan :=make(chan string)
         go get_vendor_master_id_chan(vendor_master_id_chan,t.vendor_basic_id)
-        vendor_master_id:=<-vendor_master_id_chan
+        // vendor_master_id:=<-vendor_master_id_chan
 ////////////////////////////////////////////////////////////
 // trade_term_id:=get_trade_term_id(deliver_notes.Trade_term)
         trade_term_id_chan :=make(chan string)
         go get_trade_term_id_chan(trade_term_id_chan,deliver_notes.Trade_term)
-        trade_term_id:=<-trade_term_id_chan
+        // trade_term_id:=<-trade_term_id_chan
 
 ///////////////////////////////////////////////////////////
         // buyer_id:=get_buyer_id(deliver_notes.Buyer)
         buyer_id_chan :=make(chan string)
         go get_buyer_id_chan(buyer_id_chan,deliver_notes.Buyer)
-        buyer_id:=<-buyer_id_chan
+        // buyer_id:=<-buyer_id_chan
 ///////////////////////////////////////////////////
 // transport_term_id:=get_transport_term_id(deliver_notes.Ship_via)
         transport_term_id_chan :=make(chan string)
         go get_transport_term_id_chan(transport_term_id_chan,deliver_notes.Ship_via)
-        transport_term_id:=<-transport_term_id_chan
+        // transport_term_id:=<-transport_term_id_chan
 /////////////////////////////////////////////////////////////////         
         //packing_method_id:=get_packing_method_id(deliver_notes.Packing_method)
         packing_method_id_chan :=make(chan string)
         go get_packing_method_id_chan(packing_method_id_chan,deliver_notes.Packing_method)
-        packing_method_id:=<-packing_method_id_chan
+        // packing_method_id:=<-packing_method_id_chan
 //////////////////////////////////////////////////////////////
         // logistic_master_id:=get_logistic_master_id(deliver_notes.Logistic)
         logistic_master_id_chan :=make(chan string)
         go get_logistic_master_id_chan(logistic_master_id_chan,deliver_notes.Logistic)
-        logistic_master_id:=<-logistic_master_id_chan
+        // logistic_master_id:=<-logistic_master_id_chan
 ////////////////////////////////////////////////////////////////////
         // logistic_contact_id:=get_logistic_contact_id(deliver_notes.Logistic_contact)
         logistic_contact_id_chan :=make(chan string)
         go get_logistic_contact_id_chan(logistic_contact_id_chan,deliver_notes.Logistic_contact)
         logistic_contact_id:=<-logistic_contact_id_chan
+/////////////////////////////////////////////////////////////////////// 
+///     在这里集中同步
+        logistic_master_id:=<-logistic_master_id_chan
+        packing_method_id:=<-packing_method_id_chan
+        transport_term_id:=<-transport_term_id_chan
+        buyer_id:=<-buyer_id_chan
+        trade_term_id:=<-trade_term_id_chan
+        vendor_master_id:=<-vendor_master_id_chan
+        bill_type_id:=<-bill_type_id_chan
         
+        ///////////////////////////////////////////////
         goods_delivery_note_no,err:=get_goods_delivery_note_no(origi.Data.Purchase_order.Company)
         sd.goods_receipt_no=goods_delivery_note_no
         if err!=nil{
