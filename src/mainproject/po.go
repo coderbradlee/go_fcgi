@@ -98,7 +98,10 @@ func deal_with_database(t *DeliverGoodsForPO,sd *shared_data)error {
 	t_purchase_order.status=t.Data.Purchase_order.Status
 
 	//from t.Data.Purchase_order.Company find company_id
-	t_purchase_order.company_id=get_company_id(t.Data.Purchase_order.Company)
+	company_id_chan :=make(chan string)
+    go get_company_id_chan(company_id_chan,origi.Data.Purchase_order.Company)
+    t_purchase_order.company_id:=<-company_id_chan
+	// t_purchase_order.company_id=get_company_id(t.Data.Purchase_order.Company)
 	
 	//from item_no find basic_id
 	t_purchase_order.vendor_basic_id=get_vendor_basic_id(t.Data.Purchase_order.Supplier)

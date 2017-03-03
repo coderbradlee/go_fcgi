@@ -21,11 +21,9 @@ func insert_goods_receipt(t *purchase_order,
     go get_bill_type_id_chan(bill_type_id_chan,origi.Data.Purchase_order.Bill_type)
     bill_type_id:=<-bill_type_id_chan
     ///////////////////////////////
-    company_id_chan :=make(chan string)
-    go get_company_id_chan(company_id_chan,origi.Data.Purchase_order.Company)
-    company_id:=<-company_id_chan
-
-
+    // company_id_chan :=make(chan string)
+    // go get_company_id_chan(company_id_chan,origi.Data.Purchase_order.Company)
+    // company_id:=<-company_id_chan
 
     _, err = db.Exec(
         `INSERT INTO t_goods_receipt(
@@ -48,7 +46,7 @@ func insert_goods_receipt(t *purchase_order,
         rand_string(20),
         sd.goods_receipt_no,
         bill_type_id,
-        company_id,
+        t.company_id,
         t.purchase_order_id,
         sd.goods_delivery_note_id,
         0,//status

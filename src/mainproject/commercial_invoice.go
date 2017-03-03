@@ -9,22 +9,22 @@
     db.QueryRow("select company_id from t_company where short_name=?",company).Scan(&company_id)
      company_id_chan<-company_id
  }
- func get_purchase_order_id_chan(purchase_order_id_chan chan<- string,po_no string) {
-    var purchase_order_id string
-    db.QueryRow("select purchase_order_id from t_purchase_order where po_no=?",po_no).Scan(&purchase_order_id)
-     purchase_order_id_chan<-purchase_order_id
- }
+ // func get_purchase_order_id_chan(purchase_order_id_chan chan<- string,po_no string) {
+ //    var purchase_order_id string
+ //    db.QueryRow("select purchase_order_id from t_purchase_order where po_no=?",po_no).Scan(&purchase_order_id)
+ //     purchase_order_id_chan<-purchase_order_id
+ // }
 func insert_ci(ci *Commercial_invoice,t *purchase_order,
     origi *DeliverGoodsForPO,sd *shared_data)error {
     var err error
     ////////////////////////////
-    company_id_chan :=make(chan string)
-    go get_company_id_chan(company_id_chan,origi.Data.Purchase_order.Company)
-    company_id:=<-company_id_chan
+    // company_id_chan :=make(chan string)
+    // go get_company_id_chan(company_id_chan,origi.Data.Purchase_order.Company)
+    // company_id:=<-company_id_chan
     //////////////////////
-    purchase_order_id_chan :=make(chan string)
-    go get_purchase_order_id_chan(purchase_order_id_chan,origi.Data.Purchase_order.Po_no)
-    purchase_order_id:=<-purchase_order_id_chan
+    // purchase_order_id_chan :=make(chan string)
+    // go get_purchase_order_id_chan(purchase_order_id_chan,origi.Data.Purchase_order.Po_no)
+    // purchase_order_id:=<-purchase_order_id_chan
 
 /////////////////////////////////////////////////////////////////
 
@@ -35,11 +35,11 @@ func insert_ci(ci *Commercial_invoice,t *purchase_order,
         payment_dead_line,payment_received,payment_due,shipping_cost_total,markup_total,tax_total,sub_total,grand_total,approvedBy,approvedAt,note,createAt,createBy,dr,data_version) 
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
         rand_string(20),
-        company_id,
+        t.company_id,
         ci.Ci_no,
         ci.Ci_date,
         "",//sales_order_id
-        purchase_order_id,
+        t.purchase_order_id,
         "",//outbound_note_id
         ci.Status,
         ci.Invoice_type,//pending
