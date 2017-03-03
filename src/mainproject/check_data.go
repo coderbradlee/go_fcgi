@@ -99,6 +99,7 @@ func check_data(origi *DeliverGoodsForPO)(string,error) {
     for i:=0;i<7;i++{
         err:=<-error_chan
         for s,e:=range err{
+            fmt.Println(s)
             return s,e
         } 
     }
