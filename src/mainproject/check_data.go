@@ -20,7 +20,7 @@ const(
     error_check_logistic_provider="-127"//物流提供商信息缺失
 )
 func check_request_system(request_system int32,error_chan chan<- map[string]error) {
-    var t map[string]error
+    t:=make(map[string]error) 
     key:=string(error_check_request_system)
     if request_system!=1{
         t[key]=errors.New("request_system !=1") 
