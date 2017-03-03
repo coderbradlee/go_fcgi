@@ -38,11 +38,16 @@ type Delivery_note struct{
     dr int32
     data_version int32
 }
-func get_bill_type_id()string {
-    var bill_type_id string
-    db.QueryRow("select bill_type_id from t_bill_type where code='GDN'").Scan(&bill_type_id)
-    return bill_type_id
-}
+// func get_bill_type_id()string {
+//     var bill_type_id string
+//     db.QueryRow("select bill_type_id from t_bill_type where code='GDN'").Scan(&bill_type_id)
+//     return bill_type_id
+// }
+// func get_bill_type_id_chan(company_id_chan chan<- string,company string) {
+//     var company_id string
+//     db.QueryRow("select company_id from t_company where short_name=?",company).Scan(&company_id)
+//      company_id_chan<-company_id
+//  }
 func get_vendor_master_id(vendor_basic_id string)string {
     var vendor_master_id string
     db.QueryRow("select vendor_master_id from t_vendor_master where vendor_basic_id=?",vendor_basic_id).Scan(&vendor_master_id)
@@ -131,7 +136,13 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO,sd *s
     // log.Println("insert_goods_delivery_note")
     for _,deliver_notes:= range origi.Data.Deliver_notes{
         // bill_type_id:=get_bill_type_id(t.Bill_type)
-        bill_type_id:=get_bill_type_id()
+        // bill_type_id:=get_bill_type_id()
+
+        bill_type_id_chan :=make(chan string)
+        go get_bill_type_id_chan(bill_type_id_chan,origi.Data.Purchase_order.Bill_type)
+        bill_type_id:=<-bill_type_id_chan
+
+
         buyer_id:=get_buyer_id(deliver_notes.Buyer)
         vendor_master_id:=get_vendor_master_id(t.vendor_basic_id)
         trade_term_id:=get_trade_term_id(deliver_notes.Trade_term)
