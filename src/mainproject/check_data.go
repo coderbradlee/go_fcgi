@@ -104,7 +104,6 @@ func check_data(origi *DeliverGoodsForPO)(string,error) {
         fmt.Println(err.error_code)
         return err.error_code,err.err
         } 
-    }
-   
+
     return "",nil
 }
