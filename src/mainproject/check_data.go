@@ -77,7 +77,7 @@ func check_request_system(request_system int32,error_chan chan<- map[string]erro
 func check_data(origi *DeliverGoodsForPO)(string,error) {
     // var all_error map[string]error
     var error_chan=make(chan map[string]error)
-    check_request_system(origi.Data.Request_system,error_chan)
+    go check_request_system(origi.Data.Request_system,error_chan)
     for err:=range error_chan{
         // s,e:=err
         // return s,e
