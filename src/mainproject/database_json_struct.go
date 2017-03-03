@@ -15,7 +15,8 @@ func rand_string(lens int)string{
 type shared_data struct{
 	goods_receipt_no string//在response中回传发货号
 	goods_delivery_note_id string//在插入t_goods_delivery_note时生成，在插入t_goods_delivery_note_detail和t_goods_delivery_note_attachment的时候用到
-	company_time_zone time.Duration //获取后用于在各个表中的createAt字段                     
+	company_time_zone time.Duration //获取后用于在各个表中的createAt字段
+	                  
 }
 type purchase_order struct{
 	purchase_order_id string/*主键*/

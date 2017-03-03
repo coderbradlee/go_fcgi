@@ -70,7 +70,13 @@ func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shar
 	    					return err
 	    				}else{
 	    					err=insert_commercial_invoice(t_purchase_order,t,sd)
-	    					return err
+	    					if err!=nil{
+	    						return err
+	    						}else{
+	    							err=insert_goods_receipt(t_purchase_order,t,sd)
+	    							return err
+	    						}
+	    					
 	    				}
     			}
     		}
@@ -126,6 +132,11 @@ func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shar
 	    					return err
 	    				}else{
 	    					err=insert_commercial_invoice(t_purchase_order,t,sd)
+	    					if err!=nil{
+	    						return err
+	    						}else{
+	    							err=insert_goods_receipt(t_purchase_order,t,sd)
+	    						}
 	    				}
 	    			}
 	    		}
