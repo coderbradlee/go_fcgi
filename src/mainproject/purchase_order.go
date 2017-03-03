@@ -106,7 +106,9 @@ func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shar
 		var err error
 		var exist int
 		var level3_chan=make(chan error) 
+		fmt.Println("purchase_order.go:109")
 		 exist,err=check_po_exist(t_purchase_order.po_no)
+		 fmt.Println("purchase_order.go:111")
 		 if err!=nil{//存在po_no
 		 	return err
 		 }else{
