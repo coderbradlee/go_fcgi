@@ -225,5 +225,5 @@ func insert_goods_delivery_note(level3_chan chan<- error,t *purchase_order,origi
         logger.Info("insert_goods_delivery_note:"+err.Error()) 
     }
     level3_chan<-err
-
+    fmt.Println("goods_delivery_note.go 228")
 }
