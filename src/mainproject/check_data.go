@@ -84,7 +84,7 @@ func check_logistic_provider(deliver_notes []Deliver_notes,error_chan chan<- che
         var logistic_provider_basic_id string
         db.QueryRow("select logistic_provider_basic_id from t_logistic_provider_basic where name=?",d.Logistic).Scan(&logistic_provider_basic_id)
         if logistic_provider_basic_id== ""{
-            t=check_struct{error_check_logistic_provider],errors.New(`logistic_provider_basic_id missed`)}
+            t=check_struct{error_check_logistic_provider,errors.New(`logistic_provider_basic_id missed`)}
         }
     }
     error_chan<- t
