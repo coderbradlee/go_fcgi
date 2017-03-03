@@ -40,7 +40,7 @@ func get_trade_term_id_chan(trade_term_id_chan chan<- string,Trade_term string) 
     db.QueryRow("select trade_term_id from t_trade_term where short_name=?",Trade_term).Scan(&trade_term_id)
     trade_term_id_chan<-trade_term_id
 }
-func get_buyer_id(buyer_id_chan chan<- string,buyer string) {
+func get_buyer_id_chan(buyer_id_chan chan<- string,buyer string) {
     var buyer_id string
     db.QueryRow("select company_id from t_company where short_name=?",buyer).Scan(&buyer_id)
     buyer_id_chan<-buyer_id
