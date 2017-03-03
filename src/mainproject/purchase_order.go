@@ -111,7 +111,7 @@ func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shar
 		 fmt.Println("purchase_order.go:111")
 		 if err!=nil{//存在po_no
 		 	fmt.Println("purchase_order.go:113")
-		 	return err
+		 	// return err
 		 }else{
 		 	if exist==1{
 		 		fmt.Println("exist")
