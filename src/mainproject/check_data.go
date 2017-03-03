@@ -24,7 +24,7 @@ type check_struct struct{
     err error
 }
 func check_request_system(request_system int32,error_chan chan<- check_struct) {
-    t:=make(check_struct)
+    var t check_struct
     if request_system!=1{
         t=check_struct{error_check_request_system,errors.New("request_system !=1")}
     }
