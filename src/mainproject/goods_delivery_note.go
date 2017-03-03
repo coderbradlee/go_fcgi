@@ -46,7 +46,7 @@ func get_buyer_id_chan(buyer_id_chan chan<- string,buyer string) {
     buyer_id_chan<-buyer_id
 }
 
-func get_transport_term_id_chan(transport_term_id_chan chan<- string,ship_via string)string {
+func get_transport_term_id_chan(transport_term_id_chan chan<- string,ship_via string) {
     var transport_term_id string
     db.QueryRow("select ship_via_id from t_ship_via where full_name=?",ship_via).Scan(&transport_term_id)
     transport_term_id_chan<-transport_term_id
