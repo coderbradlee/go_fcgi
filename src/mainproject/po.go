@@ -131,7 +131,7 @@ func deal_with_database(t *DeliverGoodsForPO,sd *shared_data)error {
   	return insert_to_db(&t_purchase_order,t,sd)
 }
 
-func get_contact_account_id_sh(company string)string {
+func get_contact_account_id_sh_chan(contact_account_id_sh_chan chan<- string,company string) {
 	var company_id string//来自采购主动发起方公司的运营经理
     db.QueryRow(`select company_id from t_company where short_name=?`,company).Scan(&company_id)
 
@@ -164,7 +164,12 @@ func get_response(t *DeliverGoodsForPO) (string){
 	if err!=nil{
 		return `{"error_code":"`+error_db+`","error_msg":"`+err.Error()+`","data":{"po_no":"`+t.Data.Purchase_order.Po_no+`","reply_system":2},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
 	}
-	received:=get_contact_account_id_sh(t.Data.Purchase_order.Supplier)
+	// received:=get_contact_account_id_sh(t.Data.Purchase_order.Supplier)
+	received_chan :=make(chan string)
+    go get_contact_account_id_sh_chan(received_chan,t.Data.Purchase_order.Supplier)
+    received:=<-received_chan
+
+        
 	json_ret:=&Response_json{Error_code:"200",Error_msg:"Goods received successfully at "+time.Now().Format("2006-01-02 15:04:05"),Data:Response_json_data{Goods_receipt_no:sd.goods_receipt_no,Bill_type:t.Data.Purchase_order.Bill_type,Receive_by:received,Company:t.Data.Purchase_order.Company,Receive_at:time.Now().Format("2006-01-02 15:04:05"),Reply_system:2},Reply_time:time.Now().Format("2006-01-02 15:04:05")}
 		
 	var buffer bytes.Buffer
