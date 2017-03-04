@@ -2,6 +2,7 @@
  import (
     "time"
     "logger"
+    "fmt"
 )
 func insert_goods_delivery_note_detail(item_master_id,uom_id string,
         delivery_qty int32,sd *shared_data)error {
@@ -56,4 +57,5 @@ func insert_note_detail(
         }
     }    
     level4_chan<-err
+    fmt.Println("goods_delivery_note_detail.go:59")
 }

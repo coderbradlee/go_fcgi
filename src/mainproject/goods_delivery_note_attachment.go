@@ -2,6 +2,7 @@
  import (
     "time"
     "logger"
+    "fmt"
 )
 func insert_goods_delivery_note_attachment(file_name,url,language string,sort_no int,sd *shared_data)error {
     var err error
@@ -63,4 +64,5 @@ func insert_note_attachment(
         }
     }
     level4_chan<- err
+    fmt.Println("goods_delivery_note_attachment.go:66")
 }
