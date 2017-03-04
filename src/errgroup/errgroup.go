@@ -3,7 +3,7 @@ package errgroup
 import (
 	"sync"
 
-	"golang.org/x/net/context"
+	"context"
 )
 
 // A Group is a collection of goroutines working on subtasks that are part of
