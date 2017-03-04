@@ -49,7 +49,7 @@ func (g *errgroup) Go(f func(t_purchase_order* purchase_order,t *DeliverGoodsFor
 	go func() {
 		defer g.wg.Done()
 
-		if err := f(); err != nil {
+		if err := f(t_purchase_order,t,sd); err != nil {
 			g.errOnce.Do(func() {
 				g.err = err
 				if g.cancel != nil {
