@@ -24,14 +24,14 @@ type errgroup struct {
 // The derived Context is canceled the first time a function passed to Go
 // returns a non-nil error or the first time Wait returns, whichever occurs
 // first.
-func WithContext(ctx context.Context) (*Group, context.Context) {
+func WithContext(ctx context.Context) (*errgroup, context.Context) {
 	ctx, cancel := context.WithCancel(ctx)
-	return &Group{cancel: cancel}, ctx
+	return &errgroup{cancel: cancel}, ctx
 }
 
 // Wait blocks until all function calls from the Go method have returned, then
 // returns the first non-nil error (if any) from them.
-func (g *Group) Wait() error {
+func (g *errgroup) Wait() error {
 	g.wg.Wait()
 	if g.cancel != nil {
 		g.cancel()
@@ -43,7 +43,7 @@ func (g *Group) Wait() error {
 //
 // The first call to return a non-nil error cancels the group; its error will be
 // returned by Wait.
-func (g *Group) Go(f func(t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shared_data) error) {
+func (g *errgroup) Go(f func(t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shared_data) error) {
 	g.wg.Add(1)
 
 	go func() {
