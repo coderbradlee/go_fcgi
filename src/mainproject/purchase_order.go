@@ -2,7 +2,7 @@
  import (
 	"errors"
 	// "strings"
-	"errgroup"
+	// "errgroup"
 )
 // func get_company_id(company string) string{
 // 	// var item_basic_id string
@@ -60,8 +60,8 @@ func check_po_exist(po_no string)error {
 //4、t_goods_delivery_note_detail 4、t_goods_delivery_note_attachment
 //4、t_goods_receipt
 func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shared_data)error {
-	var level3_group errgroup.Group
-	var level4_group errgroup.Group
+	var level3_group errgroup
+	var level4_group errgroup
 		var err error
 		 err=check_po_exist(t_purchase_order.po_no)
 		 if err!=nil{//存在po_no
