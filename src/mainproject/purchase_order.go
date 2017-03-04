@@ -94,11 +94,11 @@ func level3(level12_chan chan<- error,t_purchase_order* purchase_order,t *Delive
 }
 func level4(level3_chan chan<- error,t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shared_data) {
 	var level4_chan=make(chan error)
-	fmt.Println("purchase_order.go 93")
+	fmt.Println("purchase_order.go 97")
 	go insert_note_attachment(level4_chan,t_purchase_order,t,sd)
     go insert_note_detail(level4_chan,t_purchase_order,t,sd)   
 	go insert_goods_receipt(level4_chan,t_purchase_order,t,sd)
-	fmt.Println("purchase_order.go 97")
+	fmt.Println("purchase_order.go 101")
 	var temp error
 	for i:=0;i<3;i++{
 		temp=<-level4_chan
@@ -107,29 +107,29 @@ func level4(level3_chan chan<- error,t_purchase_order* purchase_order,t *Deliver
 		}
 	}
 	level3_chan<-temp
-	fmt.Println("purchase_order.go 105")
+	fmt.Println("purchase_order.go 110")
 }
 func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shared_data)error {
 		var err error
 		var exist int
 		var level3_chan=make(chan error) 
-		fmt.Println("purchase_order.go:109")
+		fmt.Println("purchase_order.go:116")
 		 exist,err=check_po_exist(t_purchase_order.po_no)
-		 fmt.Println("purchase_order.go:111")
+		 fmt.Println("purchase_order.go:118")
 		 if err!=nil{//存在po_no
-		 	fmt.Println("purchase_order.go:113")
+		 	fmt.Println("purchase_order.go:120")
 		 	// return err
 		 }else{
 		 	if exist==1{
 		 		fmt.Println("exist")
 		 		level3(level3_chan,t_purchase_order,t,sd)
-		 		fmt.Println("purchase_order.go:121")
+		 		fmt.Println("purchase_order.go:126")
 		 		t:=<-level3_chan
-		 		fmt.Println("purchase_order.go:122")
+		 		fmt.Println("purchase_order.go:128")
 		 		return t
 		 	}
 		 }
-	fmt.Println("purchase_order.go:120")
+	fmt.Println("purchase_order.go:132")
     _, err = db.Exec(
         `INSERT INTO t_purchase_order(
 	    purchase_order_id,po_no,po_date,status,company_id,vendor_basic_id,
@@ -161,18 +161,18 @@ func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shar
 		  	t_purchase_order.dr,
 		  	t_purchase_order.data_version)
 	    if err!=nil{
-	    	fmt.Println("purchase_order.go:152")
+	    	fmt.Println("purchase_order.go:164")
 	    	return err
 	    }else{
-	    	fmt.Println("purchase_order.go:155")
+	    	fmt.Println("purchase_order.go:167")
 	    	err= insert_purchase_order_detail(t_purchase_order,t,sd)
 	    	if err!=nil{
-	    		fmt.Println("purchase_order.go:163")
+	    		fmt.Println("purchase_order.go:170")
 	    		return err
 	    	}else{
 	    		level3(level3_chan,t_purchase_order,t,sd)
 		 		err= <-level3_chan
-		 		fmt.Println("purchase_order.go:168")
+		 		fmt.Println("purchase_order.go:175")
 	    	}
 	    }
    return err
