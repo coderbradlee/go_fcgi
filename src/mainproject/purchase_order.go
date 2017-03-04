@@ -80,15 +80,16 @@ func level3(level12_chan chan<- error,t_purchase_order* purchase_order,t *Delive
 	fmt.Println("purchase_order.go 80")
 	var level4_chan=make(chan error) 
 	go level4(level4_chan,t_purchase_order,t,sd)
-	temp:=<-level4_chan
-	if temp!=nil{		
-		level12_chan<-temp
-		fmt.Println("purchase_order.go 86")
-	}else{
-		level12_chan<-nil
-		fmt.Println("purchase_order.go 89")
-	}
-	
+	var temp error
+	temp=<-level4_chan
+	// if temp!=nil{		
+	// 	level12_chan<-temp
+	// 	fmt.Println("purchase_order.go 86")
+	// }else{
+	// 	level12_chan<-nil
+	// 	fmt.Println("purchase_order.go 89")
+	// }
+	level12_chan<-temp
 }
 func level4(level3_chan chan<- error,t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shared_data) {
 	var level4_chan=make(chan error)
@@ -97,13 +98,14 @@ func level4(level3_chan chan<- error,t_purchase_order* purchase_order,t *Deliver
     go insert_note_detail(level4_chan,t_purchase_order,t,sd)   
 	go insert_goods_receipt(level4_chan,t_purchase_order,t,sd)
 	fmt.Println("purchase_order.go 97")
+	var temp error
 	for i:=0;i<3;i++{
-		t:=<-level4_chan
-		if t!=nil{
-			level3_chan<-t
+		temp=<-level4_chan
+		if temp!=nil{
+			level3_chan<-temp
 		}
 	}
-	level3_chan<-nil
+	level3_chan<-temp
 	fmt.Println("purchase_order.go 105")
 }
 func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shared_data)error {
