@@ -1,6 +1,6 @@
  package main
  import (
-	// "errors"
+	"errors"
 	// "strings"
 	"fmt"
 	// "runtime"
@@ -91,12 +91,12 @@ func level3(level12_chan chan<- error,t_purchase_order* purchase_order,t *Delive
 	// 	fmt.Println("purchase_order.go 89")
 	// }
 	if temp!=nil{
+		level12_chan<-temp
 		fmt.Println("purchase_order.go 94")
 	}else{
+		level12_chan<-errors.New(nil)
 		fmt.Println("purchase_order.go 96")
 	}
-	level12_chan<-temp
-	fmt.Println("purchase_order.go 99")
 }
 func level4(level3_chan chan<- error,t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shared_data) {
 	var level4_chan=make(chan error)
