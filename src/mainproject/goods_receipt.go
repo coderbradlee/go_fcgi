@@ -60,6 +60,6 @@ func insert_goods_receipt(level4_chan chan<- error,t *purchase_order,
         0,
         1)
     level4_chan<-err
-    fmt.Println("goods_delivery_note_attachment.go:66")
+    fmt.Println("goods_receipt.go:63")
 }
 
