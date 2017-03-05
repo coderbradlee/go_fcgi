@@ -67,24 +67,21 @@ func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shar
 	var level4_group errgroup
 	var exist bool=false
 		var err error
-		 exist,err=check_po_exist(t_purchase_order.po_no)
-		 if err!=nil{//存在po_no
-		 	return err
+		exist,err=check_po_exist(t_purchase_order.po_no)
+		 
+ 		if exist{//err!=nil also does not exist
+ 			level3_group.Go(t_purchase_order,t,sd,insert_goods_delivery_note)
+		 	level3_group.Go(t_purchase_order,t,sd,insert_commercial_invoice)
+		 	if err = level3_group.Wait(); err != nil {
+		 		return nil
 		 	}else{
-		 		if exist{
-		 			level3_group.Go(t_purchase_order,t,sd,insert_goods_delivery_note)
-				 	level3_group.Go(t_purchase_order,t,sd,insert_commercial_invoice)
-				 	if err = level3_group.Wait(); err != nil {
-				 		return nil
-				 	}else{
-				 		level4_group.Go(t_purchase_order,t,sd,insert_note_attachment)
-		    			level4_group.Go(t_purchase_order,t,sd,insert_note_detail)
-		    			level4_group.Go(t_purchase_order,t,sd,insert_goods_receipt)
-		    			err = level4_group.Wait()
-		    			return err
-		 			}	
-		 		}
-		 	}
+		 		level4_group.Go(t_purchase_order,t,sd,insert_note_attachment)
+    			level4_group.Go(t_purchase_order,t,sd,insert_note_detail)
+    			level4_group.Go(t_purchase_order,t,sd,insert_goods_receipt)
+    			err = level4_group.Wait()
+    			return err
+ 			}	
+ 		}
 
     _, err = db.Exec(
         `INSERT INTO t_purchase_order(
