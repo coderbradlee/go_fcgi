@@ -65,15 +65,14 @@ func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shar
 		var err error
 		 err=check_po_exist(t_purchase_order.po_no)
 		 if err!=nil{//存在po_no
-		 	igdn:=insert_goods_delivery_note(t_purchase_order,t,sd)
-		 	level3_group.Go(igdn)
-		 	level3_group.Go(insert_commercial_invoice(t_purchase_order,t,sd))
+		 	level3_group.Go(t_purchase_order,t,sd,insert_goods_delivery_note)
+		 	level3_group.Go(t_purchase_order,t,sd,insert_commercial_invoice)
 		 	if err = level3_group.Wait(); err != nil {
 		 		return nil
 		 	}else{
-		 		level4_group.Go(insert_note_attachment(t_purchase_order,t,sd))
-    			level4_group.Go(insert_note_detail(t_purchase_order,t,sd))
-    			level4_group.Go(insert_goods_receipt(t_purchase_order,t,sd))
+		 		level4_group.Go(t_purchase_order,t,sd,insert_note_attachment)
+    			level4_group.Go(t_purchase_order,t,sd,insert_note_detail)
+    			level4_group.Go(t_purchase_order,t,sd,insert_goods_receipt)
     			err = level4_group.Wait()
     			return err
 		 	}	
