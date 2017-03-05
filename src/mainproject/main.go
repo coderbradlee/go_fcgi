@@ -147,9 +147,12 @@ func test_log() {
 func startMartini() {
     port:=fmt.Sprintf("%s",configuration.HttpPort)
     m := martini.Classic()
-    m.Use(auth_BasicFunc(func(username, password string) bool {
-    return auth_SecureCompare(username, "admin") && auth_SecureCompare(password, "guessme")
+    // m.Use(auth_BasicFunc(func(username, password string) bool {
+    // return auth_SecureCompare(username, "admin") && auth_SecureCompare(password, "admin")
     
+    // }))
+    m.Use(auth.BasicFunc(func(username, password string) bool {
+        return username == "admin" && password == "admin"
     }))
     m.Post("/po/deliver_goods",poHandler)
     m.RunOnAddr(port)
