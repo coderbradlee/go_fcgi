@@ -111,6 +111,10 @@ func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shar
 	    if err!=nil{
 	    	return err
 	    }else{
+	    	err= insert_purchase_order_detail(t_purchase_order,t,sd)
+	    	if err!=nil{
+	    		return err
+	    	}else{
 	    	level3_group.Go(t_purchase_order,t,sd,insert_goods_delivery_note)
 		 	level3_group.Go(t_purchase_order,t,sd,insert_commercial_invoice)
 		 	if err = level3_group.Wait(); err != nil {
@@ -123,4 +127,5 @@ func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shar
     			return err
 		 	}
 		}
+	}
 }
