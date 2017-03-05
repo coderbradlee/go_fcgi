@@ -1,3 +1,9 @@
+2017.3.5
+tag goroutinepartialok2017.3.5
+改造并行插入，用errgroup完成，需要更改check_po_exist返回是否存在及错误码
+需要增加oauth认证
+
+
 2017.03.02
 notice：
 1、//为了在response中回传发货号，设置全局变量goods_receipt_no，在goods_delivery_note.go文件中
