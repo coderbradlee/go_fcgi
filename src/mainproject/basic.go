@@ -28,7 +28,7 @@ func Basic(username string, password string) martini.Handler {
 	var siteAuth = base64.StdEncoding.EncodeToString([]byte(username + ":" + password))
 	return func(res http.ResponseWriter, req *http.Request, c martini.Context) {
 		auth := req.Header.Get("Authorization")
-		if !SecureCompare(auth, "Basic "+siteAuth) {
+		if !auth_SecureCompare(auth, "Basic "+siteAuth) {
 			unauthorized(res)
 			return
 		}
