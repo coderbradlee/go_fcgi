@@ -18,7 +18,7 @@ import (
     _"mysql"
     "strconv"
     "time"
-    "net/http/pprof")
+    _"net/http/pprof")
 type mysql_conf struct{
     Host string
     Port string
@@ -105,10 +105,7 @@ func log_init() {
 
 
 func main() {
-    go func() {
-        logger.Info(http.ListenAndServe("0.0.0.0:6060", nil))
-    }()
-
+    
     // go startHttpServer()
     go startMartini()
     // go test_log()
