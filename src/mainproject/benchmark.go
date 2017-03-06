@@ -4,6 +4,7 @@ import (
     "fmt"
     // "logger"
     "net/http"
+    "bytes"
     )
 func benchmark() {
     
