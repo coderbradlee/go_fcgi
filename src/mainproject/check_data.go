@@ -96,7 +96,7 @@ func check_packing_method(deliver_notes []Deliver_notes,error_chan chan<- check_
         var packing_method string
         db.QueryRow("select packing_method_id from t_packing_method where name=?",d.Packing_method).Scan(&packing_method)
         if packing_method== ""{
-            t=check_struct{error_check_packing_method,errors.New(`deliver_notes packing_method_id missed`)}
+            t=check_struct{error_deliver_notes_packing_method_id,errors.New(`deliver_notes packing_method_id missed`)}
         }
     }
     error_chan<- t
