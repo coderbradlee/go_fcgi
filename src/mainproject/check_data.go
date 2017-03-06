@@ -19,8 +19,8 @@ const(
     error_check_packing_method="-126"//t_packing_method表里没有此packing_method
     error_check_logistic_provider="-127"//物流提供商信息缺失
     //add more error
-    error_logistic_master_id="-128"
-    error_packing_method_id="-129"
+    error_check_ship_via="-128"
+    // error_packing_method_id="-129"
     error_transport_term_id="-130"
     error_buyer_id="-131"
     error_trade_term_id="-132"
@@ -108,6 +108,21 @@ func check_logistic_provider(deliver_notes []Deliver_notes,error_chan chan<- che
     }
     error_chan<- t
 }
+// func check_ship_via(ship_via string,error_chan chan<- check_struct) {
+//     var transport_term_id string
+//     db.QueryRow("select ship_via_id from t_ship_via where full_name=?",ship_via).Scan(&transport_term_id)
+//     transport_term_id_chan<-transport_term_id
+// }
+func check_ship_via(ship_via string,error_chan chan<- check_struct) {
+    var t check_struct
+    var transport_term_id string
+    db.QueryRow("select ship_via_id from t_ship_via where full_name=?",ship_via).Scan(&transport_term_id)
+    if transport_term_id== ""{
+        t=check_struct{error_check_ship_via,errors.New(`ship_via missed`)}
+    }
+    }
+    error_chan<- t
+}
 func check_data(origi *DeliverGoodsForPO)(string,error) {
     // var all_error map[string]error
     error_chan:=make(chan check_struct)
@@ -118,7 +133,8 @@ func check_data(origi *DeliverGoodsForPO)(string,error) {
     go check_supplier(origi.Data.Purchase_order.Supplier,error_chan)
     go check_packing_method(origi.Data.Deliver_notes,error_chan)
     go check_logistic_provider(origi.Data.Deliver_notes,error_chan)
-    for i:=0;i<7;i++{
+    go check_ship_via(origi.Data.Purchase_order.Ship_via,error_chan)
+    for i:=0;i<8;i++{
         err:=<-error_chan
         fmt.Println("104:",err.error_code,err.err)
         if err.err!=nil{
