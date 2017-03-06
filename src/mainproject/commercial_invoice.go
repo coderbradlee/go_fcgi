@@ -61,7 +61,7 @@ func insert_ci(ci *Commercial_invoice,t *purchase_order,
         "go_fcgi",
         0,
         1)
-    fmt.Println("ci")
+    // fmt.Println("ci")
     return error_insert_commercial_invoice,err
 }
 

@@ -152,7 +152,7 @@ func check_data(origi *DeliverGoodsForPO)(string,error) {
     go check_trade_term(origi.Data.Purchase_order.Trade_term,error_chan)
     for i:=0;i<9;i++{
         err:=<-error_chan
-        fmt.Println("104:",err.error_code,err.err)
+        // fmt.Println("104:",err.error_code,err.err)
         if err.err!=nil{
             return err.error_code,err.err
         }
