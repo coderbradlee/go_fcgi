@@ -109,18 +109,18 @@ func main() {
     // go startHttpServer()
     go startMartini()
     // go test_log()
-    port:=fmt.Sprintf("%s",configuration.FastcgiPort)
-    l, err := net.Listen("tcp", port)
-    if err != nil { 
-        panic(err) 
-    } 
-    serveMux := http.NewServeMux() 
-    serveMux.HandleFunc("/redis", redisHandler) 
-    serveMux.HandleFunc("/pdf", pdfHandler) 
-    err = fcgi.Serve(l, serveMux)
-    if err != nil { 
-        logger.Info("fcgi error:"+err.Error()) 
-    }
+    // port:=fmt.Sprintf("%s",configuration.FastcgiPort)
+    // l, err := net.Listen("tcp", port)
+    // if err != nil { 
+    //     panic(err) 
+    // } 
+    // serveMux := http.NewServeMux() 
+    // serveMux.HandleFunc("/redis", redisHandler) 
+    // serveMux.HandleFunc("/pdf", pdfHandler) 
+    // err = fcgi.Serve(l, serveMux)
+    // if err != nil { 
+    //     logger.Info("fcgi error:"+err.Error()) 
+    // }
     // go startHttpServer()
     go benchmark()
 }
