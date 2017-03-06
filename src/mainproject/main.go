@@ -122,6 +122,7 @@ func main() {
         logger.Info("fcgi error:"+err.Error()) 
     }
     // go startHttpServer()
+    go benchmark()
 }
 func startHttpServer() {
     port:=fmt.Sprintf("%s",configuration.HttpPort)
@@ -133,6 +134,7 @@ func startHttpServer() {
         logger.Fatal("ListenAndServe: ", err)
     }
 }
+
 func test_log() {
     
     for i := 1; i > 0; i-- {
