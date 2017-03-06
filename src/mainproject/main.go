@@ -105,7 +105,7 @@ func log_init() {
 
 
 func main() {
-    f, err := os.Create(*cpuprofile)
+    f, err := os.Create(cpuprofile)
         if err != nil {
             // log.Fatal(err)
         }
