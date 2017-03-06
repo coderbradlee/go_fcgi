@@ -16,7 +16,7 @@ const(
     error_check_po_url="-123"//是否存在文件
     error_check_status="-124"//status是否为1
     error_check_supplier="-125"//supplier是否为Renesola Shanghai
-    error_check_packing_method="-126"//t_packing_method表里没有此packing_method
+    // error_check_packing_method="-126"//t_packing_method表里没有此packing_method
     error_check_logistic_provider="-127"//物流提供商信息缺失
     //add more error
     error_check_ship_via="-128"
@@ -96,7 +96,7 @@ func check_packing_method(deliver_notes []Deliver_notes,error_chan chan<- check_
         var packing_method string
         db.QueryRow("select packing_method_id from t_packing_method where name=?",d.Packing_method).Scan(&packing_method)
         if packing_method== ""{
-            t=check_struct{error_check_packing_method,errors.New(`packing_method_id missed`)}
+            t=check_struct{error_check_packing_method,errors.New(`deliver_notes packing_method_id missed`)}
         }
     }
     error_chan<- t

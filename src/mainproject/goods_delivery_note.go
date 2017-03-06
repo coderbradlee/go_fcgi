@@ -172,22 +172,22 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO,sd *s
         vendor_master_id:=<-vendor_master_id_chan
         bill_type_id:=<-bill_type_id_chan
         if logistic_master_id==""{
-            return error_deliver_notes_logistic_master_id,errors.New("logistic_master_id is missed")
+            return error_deliver_notes_logistic_master_id,errors.New("deliver_notes logistic_master_id is missed")
         }
-        if packing_method_id==""{
-            return error_deliver_notes_packing_method_id,errors.New("packing_method_id is missed")
-        }
+        // if packing_method_id==""{
+        //     return error_deliver_notes_packing_method_id,errors.New("deliver_notes packing_method_id is missed")
+        // }
         if transport_term_id==""{
-            return error_deliver_notes_transport_term_id,errors.New("transport_term_id is missed")
+            return error_deliver_notes_transport_term_id,errors.New("deliver_notes transport_term_id is missed")
         }
         if buyer_id==""{
             //return error_buyer_id,errors.New("buyer_id is missed")
         }
         if trade_term_id==""{
-            return error_deliver_notes_trade_term_id,errors.New("trade_term_id is missed")
+            return error_deliver_notes_trade_term_id,errors.New("deliver_notes trade_term_id is missed")
         }
         if vendor_master_id==""{
-            return error_deliver_notes_vendor_master_id,errors.New("vendor_master_id is missed")
+            return error_deliver_notes_vendor_master_id,errors.New("deliver_notes vendor_master_id is missed")
         }
         if bill_type_id==""{
             // return error_bill_type_id,errors.New("bill_type_id is missed")
