@@ -17,7 +17,8 @@ import (
     "database/sql"
     _"mysql"
     "strconv"
-    "time")
+    "time"
+    "pprof")
 type mysql_conf struct{
     Host string
     Port string
@@ -44,6 +45,7 @@ type Configuration struct {
 }
 var configuration Configuration
 var db *sql.DB
+var cpuprofile ="go_fcgi.prof"
 func init() {
     runtime.GOMAXPROCS(runtime.NumCPU())
     file, _ := os.Open("src/mainproject/conf.json")
@@ -62,6 +64,9 @@ func init() {
     //fmt.Println(configuration.exec_time) // output: [UserA, UserB]
 }
 func mysql_init() {
+    pprof.StartCPUProfile(f)
+    defer pprof.StopCPUProfile()
+
     var conn_string string
     conn_string=configuration.Mysql_conf.Username+":"+configuration.Mysql_conf.Password+"@tcp("+configuration.Mysql_conf.Host+":"+configuration.Mysql_conf.Port+")/"+configuration.Mysql_conf.Database+"?charset=utf8"
     // db, _ = sql.Open("mysql", "renesola:renes0la.xx@tcp(172.18.22.202:3306)/apollo_eu_erp?charset=utf8")
