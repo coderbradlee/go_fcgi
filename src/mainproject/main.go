@@ -109,7 +109,7 @@ func main() {
     // go startHttpServer()
     go startMartini()
     // go test_log()
-    
+    time.Sleep(2000 * time.Millisecond)
     // go startHttpServer()
     go benchmark()
 
