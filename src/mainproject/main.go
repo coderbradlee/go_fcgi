@@ -18,7 +18,7 @@ import (
     _"mysql"
     "strconv"
     "time"
-    "pprof")
+    "net/http/pprof")
 type mysql_conf struct{
     Host string
     Port string
