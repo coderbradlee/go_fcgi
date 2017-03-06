@@ -20,17 +20,20 @@ const(
     error_check_logistic_provider="-127"//物流提供商信息缺失
     //add more error
     error_check_ship_via="-128"
-    error_packing_method_id="-129"
-    error_transport_term_id="-130"
-    error_buyer_id="-131"
-    error_trade_term_id="-132"
-    error_vendor_master_id="-133"
-    error_bill_type_id="-134"
+    error_check_trade_term="-129"
+    error_check_payment_terms="-130"
 
-    error_uom_id="-135"
-    error_item_master_id="-136"
+    error_packing_method_id="-140"
+    error_transport_term_id="-141"
+    error_buyer_id="-142"
+    error_trade_term_id="-143"
+    error_vendor_master_id="-144"
+    error_bill_type_id="-145"
 
-    error_logistic_master_id="-137"
+    error_uom_id="-146"
+    error_item_master_id="-147"
+
+    error_logistic_master_id="-148"
 
     error_insert_purchase_order="-150"
     error_insert_purchase_order_detail="-151"
@@ -124,6 +127,16 @@ func check_ship_via(ship_via string,error_chan chan<- check_struct) {
     }
     error_chan<- t
 }
+func check_trade_term(Trade_term string,error_chan chan<- check_struct) {
+    var t check_struct
+    var trade_term_id string
+    db.QueryRow("select trade_term_id from t_trade_term where short_name=?",Trade_term).Scan(&trade_term_id)
+    if trade_term_id== ""{
+        t=check_struct{error_check_trade_term,errors.New(`trade_term_id missed`)}
+    }
+    error_chan<- t
+}
+
 func check_data(origi *DeliverGoodsForPO)(string,error) {
     // var all_error map[string]error
     error_chan:=make(chan check_struct)
@@ -135,7 +148,8 @@ func check_data(origi *DeliverGoodsForPO)(string,error) {
     go check_packing_method(origi.Data.Deliver_notes,error_chan)
     go check_logistic_provider(origi.Data.Deliver_notes,error_chan)
     go check_ship_via(origi.Data.Purchase_order.Ship_via,error_chan)
-    for i:=0;i<8;i++{
+    go check_trade_term(origi.Data.Purchase_order.Trade_term,error_chan)
+    for i:=0;i<9;i++{
         err:=<-error_chan
         fmt.Println("104:",err.error_code,err.err)
         if err.err!=nil{
