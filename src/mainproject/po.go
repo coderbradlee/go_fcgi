@@ -8,6 +8,7 @@
     "bytes"
     "time"
     "errors"
+    "runtime/pprof"
 )
 func poHandler (w http.ResponseWriter, r *http.Request) {
 	////////////////////////////////
@@ -68,7 +69,8 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	    fmt.Fprint(w,ret )
 	    // log.Printf("Started %s %s for %s:%s\nresponse:%s", r.Method, r.URL.Path, addr,body,ret)
 	    log_str:=fmt.Sprintf("Started %s %s for %s:%s\nresponse:%s", r.Method, r.URL.Path, addr,body,ret)
-	        logger.Info(log_str)
+        logger.Info(log_str)
+        pprof.StopCPUProfile()
 	}
 
 } 
