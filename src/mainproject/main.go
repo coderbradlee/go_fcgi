@@ -109,11 +109,11 @@ func main() {
     // go startHttpServer()
     go startMartini()
     // go test_log()
-    go fcgi()
+    go startfcgi()
     // go startHttpServer()
     go benchmark()
 }
-func fcgi() {
+func startfcgi() {
     port:=fmt.Sprintf("%s",configuration.FastcgiPort)
     l, err := net.Listen("tcp", port)
     if err != nil { 
