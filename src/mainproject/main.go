@@ -151,9 +151,9 @@ func startMartini() {
     // return auth_SecureCompare(username, "admin") && auth_SecureCompare(password, "admin")
     
     // }))
-    m.Use(auth_BasicFunc(func(username, password string) bool {
-        return username == "admin" && password == "admin"
-    }))
+    // m.Use(auth_BasicFunc(func(username, password string) bool {
+    //     return username == "admin" && password == "admin"
+    // }))
     m.Post("/po/deliver_goods",poHandler)
     m.RunOnAddr(port)
     ////////////////////
