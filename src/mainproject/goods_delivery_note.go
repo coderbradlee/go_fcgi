@@ -115,7 +115,7 @@ func get_goods_delivery_note_no(company string)(string,error) {
 //为了在response中回传发货号，设置全局变量goods_receipt_no
 // var goods_receipt_no string
 // var goods_delivery_note_id string
-func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO,sd *shared_data)error {
+func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO,sd *shared_data)(string,error) {
     var err error
     // log.Println("insert_goods_delivery_note")
     for _,deliver_notes:= range origi.Data.Deliver_notes{
@@ -170,12 +170,32 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO,sd *s
         trade_term_id:=<-trade_term_id_chan
         vendor_master_id:=<-vendor_master_id_chan
         bill_type_id:=<-bill_type_id_chan
-        
+        if logistic_master_id==""{
+            return error_logistic_master_id,errors.New("logistic_master_id is missed")
+        }
+        if packing_method_id==""{
+            return error_packing_method_id,errors.New("packing_method_id is missed")
+        }
+        if transport_term_id==""{
+            return error_transport_term_id,errors.New("transport_term_id is missed")
+        }
+        if buyer_id==""{
+            return error_buyer_id,errors.New("buyer_id is missed")
+        }
+        if trade_term_id==""{
+            return error_trade_term_id,errors.New("trade_term_id is missed")
+        }
+        if vendor_master_id==""{
+            return error_vendor_master_id,errors.New("vendor_master_id is missed")
+        }
+        if bill_type_id==""{
+            return error_bill_type_id,errors.New("bill_type_id is missed")
+        }
         ///////////////////////////////////////////////
         goods_delivery_note_no,err:=get_goods_delivery_note_no(origi.Data.Purchase_order.Company)
         sd.goods_receipt_no=goods_delivery_note_no
         if err!=nil{
-            return err
+            return "",err
         }
         sd.goods_delivery_note_id=rand_string(20)
         _, err = db.Exec(
@@ -219,6 +239,7 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO,sd *s
     }
     if err!=nil{
         logger.Info("insert_goods_delivery_note:"+err.Error()) 
+        return error_insert_goods_delivery_note,err
     }
-    return err
+    return "",err
 }

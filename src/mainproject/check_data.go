@@ -18,6 +18,24 @@ const(
     error_check_supplier="-125"//supplier是否为Renesola Shanghai
     error_check_packing_method="-126"//t_packing_method表里没有此packing_method
     error_check_logistic_provider="-127"//物流提供商信息缺失
+    //add more error
+    error_logistic_master_id="-128"
+    error_packing_method_id="-129"
+    error_transport_term_id="-130"
+    error_buyer_id="-131"
+    error_trade_term_id="-132"
+    error_vendor_master_id="-133"
+    error_bill_type_id="-134"
+
+    error_uom_id="-135"
+    error_item_master_id="-136"
+
+    error_insert_purchase_order="-137"
+    error_insert_purchase_order_detail="-138"
+    error_insert_goods_delivery_note="-139"
+    error_insert_goods_delivery_note_attachment="-140"
+    error_insert_goods_delivery_note_detail="-141"
+    error_insert_goods_receipt="-142"
 )
 type check_struct struct{
     error_code string

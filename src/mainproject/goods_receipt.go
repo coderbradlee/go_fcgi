@@ -14,7 +14,7 @@ func get_bill_type_id_chan(bill_type_id_chan chan<- string,bill_type string) {
 //  company_id_chan<-company_id
 // }
 func insert_goods_receipt(t *purchase_order,
-    origi *DeliverGoodsForPO,sd *shared_data)error {
+    origi *DeliverGoodsForPO,sd *shared_data)(string,error) {
     var err error
     ////////////////////////////
     bill_type_id_chan :=make(chan string)
@@ -58,6 +58,6 @@ func insert_goods_receipt(t *purchase_order,
         "go_fcgi",
         0,
         1)
-    return err
+    return error_insert_goods_receipt,err
 }
 

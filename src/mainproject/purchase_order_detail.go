@@ -17,7 +17,7 @@ func get_uom_id_chan(uom_id_chan chan<- string,uom string){
     db.QueryRow("select uom_id from t_uom where name=?",uom).Scan(&uom_id)
     uom_id_chan<-uom_id
 }
-func insert_purchase_order_detail(t *purchase_order,origi *DeliverGoodsForPO,sd *shared_data)error {
+func insert_purchase_order_detail(t *purchase_order,origi *DeliverGoodsForPO,sd *shared_data)(string,error) {
 	var err error
 	for _,detail:= range origi.Data.Purchase_order.Detail{
 		// item_master_id:=get_item_master_id(detail.Item_no,detail.Product_name,detail.Product_code)
@@ -34,6 +34,12 @@ func insert_purchase_order_detail(t *purchase_order,origi *DeliverGoodsForPO,sd 
             go get_uom_id_chan(uom_id_chan,detail.Uom)
             uom_id:=<-uom_id_chan
             item_master_id:=<-item_master_id_chan
+            if uom_id==""{
+            	return error_uom_id,errors.New("uom_id is missed")
+            }
+            if item_master_id==""{
+            	return error_item_master_id,errors.New("item_master_id is missed")
+            }
 		_, err = db.Exec(
         `INSERT INTO t_purchase_order_detail(detail_id,purchase_order_id,
 		item_master_id,unit_price,quantity,uom_id,sub_amount,warranty,
@@ -54,5 +60,8 @@ func insert_purchase_order_detail(t *purchase_order,origi *DeliverGoodsForPO,sd 
 		0,
 		1)
 	}
-	return err
+	if err!=nil{
+		return error_insert_purchase_order_detail,err
+	}
+	return "",nil
 }

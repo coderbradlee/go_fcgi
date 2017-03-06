@@ -62,24 +62,25 @@ func check_po_exist(po_no string)(bool,error) {
 //3、t_goods_delivery_note 3、t_commercial_invoice
 //4、t_goods_delivery_note_detail 4、t_goods_delivery_note_attachment
 //4、t_goods_receipt
-func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shared_data)error {
+func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shared_data)(string,error) {
 	var level3_group errgroup
 	var level4_group errgroup
 	var exist bool=false
 		var err error
+		var s string
 		exist,err=check_po_exist(t_purchase_order.po_no)
 		 
  		if exist{//err!=nil also does not exist
  			level3_group.Go(t_purchase_order,t,sd,insert_goods_delivery_note)
 		 	level3_group.Go(t_purchase_order,t,sd,insert_commercial_invoice)
-		 	if err = level3_group.Wait(); err != nil {
-		 		return nil
+		 	if s,err = level3_group.Wait(); err != nil {
+		 		return s,err
 		 	}else{
 		 		level4_group.Go(t_purchase_order,t,sd,insert_note_attachment)
     			level4_group.Go(t_purchase_order,t,sd,insert_note_detail)
     			level4_group.Go(t_purchase_order,t,sd,insert_goods_receipt)
-    			err = level4_group.Wait()
-    			return err
+    			s,err = level4_group.Wait()
+    			return s,err
  			}	
  		}
 
@@ -114,22 +115,22 @@ func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shar
 		  	t_purchase_order.dr,
 		  	t_purchase_order.data_version)
 	    if err!=nil{
-	    	return err
+	    	return error_insert_purchase_order,err
 	    }else{
-	    	err= insert_purchase_order_detail(t_purchase_order,t,sd)
+	    	s,err= insert_purchase_order_detail(t_purchase_order,t,sd)
 	    	if err!=nil{
-	    		return err
+	    		return s,err
 	    	}else{
 	    	level3_group.Go(t_purchase_order,t,sd,insert_goods_delivery_note)
 		 	level3_group.Go(t_purchase_order,t,sd,insert_commercial_invoice)
-		 	if err = level3_group.Wait(); err != nil {
-		 		return nil
+		 	if s,err = level3_group.Wait(); err != nil {
+		 		return s,err
 		 	}else{
 		 		level4_group.Go(t_purchase_order,t,sd,insert_note_attachment)
     			level4_group.Go(t_purchase_order,t,sd,insert_note_detail)
     			level4_group.Go(t_purchase_order,t,sd,insert_goods_receipt)
-    			err = level4_group.Wait()
-    			return err
+    			s,err = level4_group.Wait()
+    			return s,err
 		 	}
 		}
 	}

@@ -3,7 +3,7 @@
     "time"
     "logger"
 )
-func insert_goods_delivery_note_attachment(file_name,url,language string,sort_no int,sd *shared_data)error {
+func insert_goods_delivery_note_attachment(file_name,url,language string,sort_no int,sd *shared_data)(string,error) {
     var err error
     _, err = db.Exec(
         `INSERT INTO t_goods_delivery_note_attachment(
@@ -21,7 +21,10 @@ func insert_goods_delivery_note_attachment(file_name,url,language string,sort_no
         "go_fcgi",
         0,
         1)
-    return err
+    if err!=nil{
+        return error_insert_goods_delivery_note_attachment,err
+    }
+    return "",err
 }
 func get_language_id_chan(language_id_chan chan<- string,company string){
     var language_id string
@@ -35,7 +38,7 @@ func get_sort_no_chan(sort_no_chan chan<- int) {
 }
 func insert_note_attachment(
     t *purchase_order,
-    origi *DeliverGoodsForPO,sd *shared_data)error {
+    origi *DeliverGoodsForPO,sd *shared_data)(string,error) {
     var err error
     // language:=get_language_id(origi.Data.Purchase_order.Company)
     language_chan :=make(chan string)
@@ -59,9 +62,10 @@ func insert_note_attachment(
 
         if err!=nil{
             logger.Info("insert to goods_delivery_note_attachment:"+err.Error()) 
+            return error_insert_goods_delivery_note_attachment,err
         }
     }
     
     
-    return err
+    return error_insert_goods_delivery_note_attachment,err
 }
