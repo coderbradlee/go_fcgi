@@ -23,17 +23,17 @@ const(
     error_check_trade_term="-129"
     error_check_payment_terms="-130"
 
-    error_packing_method_id="-140"
-    error_transport_term_id="-141"
-    error_buyer_id="-142"
-    error_trade_term_id="-143"
-    error_vendor_master_id="-144"
-    error_bill_type_id="-145"
+    error_deliver_notes_packing_method_id="-140"
+    error_deliver_notes_transport_term_id="-141"
+    error_deliver_notes_buyer_id="-142"
+    error_deliver_notes_trade_term_id="-143"
+    error_deliver_notes_vendor_master_id="-144"
+    // error_deliver_notes_bill_type_id="-145"
 
-    error_uom_id="-146"
-    error_item_master_id="-147"
+    error_deliver_notes_uom_id="-146"
+    error_deliver_notes_item_master_id="-147"
 
-    error_logistic_master_id="-148"
+    error_deliver_notes_logistic_master_id="-148"
 
     error_insert_purchase_order="-150"
     error_insert_purchase_order_detail="-151"
