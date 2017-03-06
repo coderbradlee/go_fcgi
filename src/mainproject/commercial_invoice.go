@@ -3,6 +3,7 @@
     "time"
     // "logger"
     "fmt"
+    "errors"
 )
  func get_company_id_chan(company_id_chan chan<- string,company string) {
     var company_id string
@@ -28,7 +29,7 @@ func insert_ci(ci *Commercial_invoice,t *purchase_order,
 
 /////////////////////////////////////////////////////////////////
     if ci.Status!=1{
-        return error_commercial_invoice_status,err.New("commercial_invoice.status!=1")
+        return error_commercial_invoice_status,errors.New("commercial_invoice.status!=1")
     }
     _, err = db.Exec(
         `INSERT INTO t_commercial_invoice(
