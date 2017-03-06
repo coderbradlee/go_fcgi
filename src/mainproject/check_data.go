@@ -33,7 +33,7 @@ const(
     error_purchase_order_detail_uom_id="-146"
     error_purchase_order_detail_item_master_id="-147"
 
-    error_deliver_notes_logistic_master_id="-148"
+    // error_deliver_notes_logistic_master_id="-148"
 
     error_insert_purchase_order="-150"
     error_insert_purchase_order_detail="-151"
@@ -108,7 +108,7 @@ func check_logistic_provider(deliver_notes []Deliver_notes,error_chan chan<- che
         var logistic_provider_basic_id string
         db.QueryRow("select logistic_provider_basic_id from t_logistic_provider_basic where name=?",d.Logistic).Scan(&logistic_provider_basic_id)
         if logistic_provider_basic_id== ""{
-            t=check_struct{error_check_logistic_provider,errors.New(`logistic_provider_basic_id missed`)}
+            t=check_struct{error_check_logistic_provider,errors.New(`Deliver_notes logistic_provider_basic_id missed`)}
         }
     }
     error_chan<- t

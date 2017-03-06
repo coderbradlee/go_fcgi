@@ -171,9 +171,9 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO,sd *s
         trade_term_id:=<-trade_term_id_chan
         vendor_master_id:=<-vendor_master_id_chan
         bill_type_id:=<-bill_type_id_chan
-        if logistic_master_id==""{
-            return error_deliver_notes_logistic_master_id,errors.New("deliver_notes logistic_master_id is missed")
-        }
+        // if logistic_master_id==""{
+        //     return error_deliver_notes_logistic_master_id,errors.New("deliver_notes logistic_master_id is missed")
+        // }
         // if packing_method_id==""{
         //     return error_deliver_notes_packing_method_id,errors.New("deliver_notes packing_method_id is missed")
         // }
