@@ -12,8 +12,8 @@ func client_req() {
 
     var jsonStr = []byte(post_json)
     req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
-    req.Header.Set("X-Custom-Header", "myvalue")
-    req.Header.Set("Content-Type", "application/json")
+    // req.Header.Set("X-Custom-Header", "myvalue")
+    // req.Header.Set("Content-Type", "application/json")
 
     client := &http.Client{}
     resp, err := client.Do(req)
@@ -31,7 +31,8 @@ func benchmark() {
     start := time.Now()
     
     for i := 50; i > 0; i-- {
-        go client_req()
+        // go client_req()
+        client_req()
     }
     // seconds := 10
     // fmt.Print(time.Duration(seconds)*time.Second) // prints 10s

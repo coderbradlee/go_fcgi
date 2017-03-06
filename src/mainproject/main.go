@@ -112,7 +112,7 @@ func main() {
     // go test_log()
     time.Sleep(2000 * time.Millisecond)
     // go startHttpServer()
-    // go benchmark()
+    go benchmark()
 
     startfcgi()
 }
