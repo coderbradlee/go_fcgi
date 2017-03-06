@@ -18,7 +18,7 @@ import (
     _"mysql"
     "strconv"
     "time"
-    "runtime/pprof")
+    "net/http/pprof")
 type mysql_conf struct{
     Host string
     Port string
@@ -105,12 +105,9 @@ func log_init() {
 
 
 func main() {
-    f, err := os.Create(cpuprofile)
-        if err != nil {
-            // log.Fatal(err)
-        }
-    pprof.StartCPUProfile(f)
-    defer pprof.StopCPUProfile()
+    go func() {
+        logger.Info(http.ListenAndServe("0.0.0.0:6060", nil))
+    }()
 
     // go startHttpServer()
     go startMartini()
