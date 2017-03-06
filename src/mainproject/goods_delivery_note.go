@@ -7,6 +7,7 @@
     "io/ioutil"
     "strconv"
     "encoding/json"
+    "errors"
 )
 
 // func get_bill_type_id()string {
