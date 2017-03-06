@@ -5,6 +5,7 @@ import (
     // "logger"
     "net/http"
     "bytes"
+    "time"
     )
 func benchmark() {
     start := time.Nanoseconds()
