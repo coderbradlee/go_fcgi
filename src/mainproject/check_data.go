@@ -36,6 +36,7 @@ const(
     error_insert_goods_delivery_note_attachment="-140"
     error_insert_goods_delivery_note_detail="-141"
     error_insert_goods_receipt="-142"
+    error_insert_commercial_invoice="-143"
 )
 type check_struct struct{
     error_code string

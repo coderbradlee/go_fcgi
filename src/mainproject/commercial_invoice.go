@@ -15,7 +15,7 @@
  //     purchase_order_id_chan<-purchase_order_id
  // }
 func insert_ci(ci *Commercial_invoice,t *purchase_order,
-    origi *DeliverGoodsForPO,sd *shared_data)error {
+    origi *DeliverGoodsForPO,sd *shared_data)(string,error) {
     var err error
     ////////////////////////////
     // company_id_chan :=make(chan string)
@@ -59,19 +59,19 @@ func insert_ci(ci *Commercial_invoice,t *purchase_order,
         0,
         1)
     fmt.Println("ci")
-    return err
+    return error_insert_commercial_invoice,err
 }
 
 func insert_commercial_invoice(
     t *purchase_order,
-    origi *DeliverGoodsForPO,sd *shared_data)error {
+    origi *DeliverGoodsForPO,sd *shared_data)(string,error) {
     var err error
-   
+    var s string
     for _,d:= range origi.Data.Deliver_notes{
-        err= insert_ci(&d.Commercial_invoice,t,origi,sd)
+        s,err= insert_ci(&d.Commercial_invoice,t,origi,sd)
         if err!=nil{
-            return err
+            return s,err
         }   
     }
-    return err
+    return error_insert_commercial_invoice,err
 }
