@@ -86,7 +86,7 @@ func get_company_time_zone_chan(company_time_zone_chan chan<- float64,company st
 	// fmt.Println(company_time_zone)
 	//  ParseDuration
  }
-func deal_with_database(t *DeliverGoodsForPO,sd *shared_data,contact_account_id string)error {
+func deal_with_database(t *DeliverGoodsForPO,sd *shared_data,contact_account_id string)(string,error) {
 	set_company_time_zone(t.Data.Purchase_order.Company,sd)
 
 	var t_purchase_order purchase_order
@@ -179,9 +179,9 @@ func get_response(t *DeliverGoodsForPO) (string){
 	if check_err!=nil{
 		return `{"error_code":"`+err_no+`","error_msg":"`+check_err.Error()+`","data":{"po_no":"`+t.Data.Purchase_order.Po_no+`","reply_system":2},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
 	}
-	err:=deal_with_database(t,&sd,received)
+	s,err:=deal_with_database(t,&sd,received)
 	if err!=nil{
-		return `{"error_code":"`+error_db+`","error_msg":"`+err.Error()+`","data":{"po_no":"`+t.Data.Purchase_order.Po_no+`","reply_system":2},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
+		return `{"error_code":"`+s+`","error_msg":"`+err.Error()+`","data":{"po_no":"`+t.Data.Purchase_order.Po_no+`","reply_system":2},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
 	}
 	
 	json_ret:=&Response_json{Error_code:"200",Error_msg:"Goods received successfully at "+time.Now().Format("2006-01-02 15:04:05"),Data:Response_json_data{Goods_receipt_no:sd.goods_receipt_no,Bill_type:t.Data.Purchase_order.Bill_type,Receive_by:received,Company:t.Data.Purchase_order.Company,Receive_at:time.Now().Format("2006-01-02 15:04:05"),Reply_system:2},Reply_time:time.Now().Format("2006-01-02 15:04:05")}

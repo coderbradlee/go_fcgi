@@ -34,6 +34,7 @@ func insert_note_detail(
     t *purchase_order,
     origi *DeliverGoodsForPO,sd *shared_data)(string,error) {
     var err error
+    var s string
     for _,d:= range origi.Data.Deliver_notes{
         for _,detail:=range d.Detail{
             // item_master_id:=get_item_master_id(detail.Item_no,detail.Product_name,detail.Product_code)
