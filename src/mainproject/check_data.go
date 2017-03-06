@@ -20,7 +20,7 @@ const(
     error_check_logistic_provider="-127"//物流提供商信息缺失
     //add more error
     error_check_ship_via="-128"
-    // error_packing_method_id="-129"
+    error_packing_method_id="-129"
     error_transport_term_id="-130"
     error_buyer_id="-131"
     error_trade_term_id="-132"
@@ -29,6 +29,8 @@ const(
 
     error_uom_id="-135"
     error_item_master_id="-136"
+
+    error_logistic_master_id="-111"
 
     error_insert_purchase_order="-137"
     error_insert_purchase_order_detail="-138"
