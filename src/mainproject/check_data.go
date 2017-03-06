@@ -120,7 +120,6 @@ func check_ship_via(ship_via string,error_chan chan<- check_struct) {
     if transport_term_id== ""{
         t=check_struct{error_check_ship_via,errors.New(`ship_via missed`)}
     }
-    }
     error_chan<- t
 }
 func check_data(origi *DeliverGoodsForPO)(string,error) {
