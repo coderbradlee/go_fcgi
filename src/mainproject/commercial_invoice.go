@@ -27,7 +27,7 @@ func insert_ci(ci *Commercial_invoice,t *purchase_order,
     // purchase_order_id:=<-purchase_order_id_chan
 
 /////////////////////////////////////////////////////////////////
-    if ci.status!=1{
+    if ci.Status!=1{
         return error_commercial_invoice_status,err.New("commercial_invoice.status!=1")
     }
     _, err = db.Exec(
