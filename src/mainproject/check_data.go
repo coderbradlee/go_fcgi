@@ -28,14 +28,14 @@ const(
     error_deliver_notes_buyer_id="-142"
     error_deliver_notes_trade_term_id="-143"
     error_deliver_notes_vendor_master_id="-144"
-    // error_deliver_notes_bill_type_id="-145"
-
+    
+    error_purchase_order_currency="-145"
     error_purchase_order_detail_uom_id="-146"
     error_purchase_order_detail_item_master_id="-147"
 
     // error_deliver_notes_logistic_master_id="-148"
     error_commercial_invoice_status="-148"
-    
+
     error_insert_purchase_order="-150"
     error_insert_purchase_order_detail="-151"
     error_insert_goods_delivery_note="-152"

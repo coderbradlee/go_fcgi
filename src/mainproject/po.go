@@ -131,7 +131,15 @@ func deal_with_database(t *DeliverGoodsForPO,sd *shared_data,contact_account_id 
 	t_purchase_order.po_url=t.Data.Purchase_order.Po_url
 	t_purchase_order.total_quantity=t.Data.Purchase_order.Total_quantity
 	t_purchase_order.total_amount=t.Data.Purchase_order.Total_amount
-	t_purchase_order.currency_id=t.Data.Purchase_order.Currency
+	// t_purchase_order.currency_id=t.Data.Purchase_order.Currency
+	// ()
+	currency_id_chan :=make(chan string)
+    go get_currency_id(currency_id_chan,t.Data.Purchase_order.Currency)
+    t_purchase_order.currency_id=<-currency_id_chan
+    if t_purchase_order.currency_id==""{
+    	return error_purchase_order_currency,errors.New("purchase_order currency_id missed")
+    }
+////////////////////////////////////////////////////////
 	fmt.Println(t.Data.Purchase_order.Total_amount)
 	fmt.Println(t.Data.Purchase_order.Currency)
 	t_purchase_order.comments=t.Data.Purchase_order.Comments

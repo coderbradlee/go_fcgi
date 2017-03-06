@@ -67,7 +67,11 @@ func get_logistic_contact_id_chan(logistic_contact_id_chan chan<- string,Logisti
     db.QueryRow("select logistic_contact_id from t_logistic_provider_master where native_name=?",Logistic_contact).Scan(&logistic_contact_id)
     logistic_contact_id_chan<-logistic_contact_id
 }
-
+func get_currency_id(currency_id_chan chan<- string,currency string) {
+    var currency_id string
+    db.QueryRow("select currency_id from t_currency where code=?",currency).Scan(&currency_id)
+    currency_id_chan<-currency_id
+}
 type flow_no_json struct{
     FlowNo string `json:"flowNo"`
     ReplyTime string `json:"replyTime"`
@@ -161,7 +165,11 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO,sd *s
         // logistic_contact_id:=get_logistic_contact_id(deliver_notes.Logistic_contact)
         logistic_contact_id_chan :=make(chan string)
         go get_logistic_contact_id_chan(logistic_contact_id_chan,deliver_notes.Logistic_contact)
-        logistic_contact_id:=<-logistic_contact_id_chan
+        // logistic_contact_id:=<-logistic_contact_id_chan
+        ////////////////////////////////////////////////////
+        // currency_id_chan :=make(chan string)
+        // go get_currency_id(currency_id_chan,deliver_notes.Currency)
+    // t_purchase_order.currency_id=<-currency_id_chan
 /////////////////////////////////////////////////////////////////////// 
 ///     在这里集中同步
         logistic_master_id:=<-logistic_master_id_chan
@@ -171,6 +179,8 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO,sd *s
         trade_term_id:=<-trade_term_id_chan
         vendor_master_id:=<-vendor_master_id_chan
         bill_type_id:=<-bill_type_id_chan
+        logistic_contact_id:=<-logistic_contact_id_chan
+        // t_purchase_order.currency_id=<-currency_id_chan
         // if logistic_master_id==""{
         //     return error_deliver_notes_logistic_master_id,errors.New("deliver_notes logistic_master_id is missed")
         // }
