@@ -181,7 +181,7 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO,sd *s
             return error_transport_term_id,errors.New("transport_term_id is missed")
         }
         if buyer_id==""{
-            return error_buyer_id,errors.New("buyer_id is missed")
+            //return error_buyer_id,errors.New("buyer_id is missed")
         }
         if trade_term_id==""{
             return error_trade_term_id,errors.New("trade_term_id is missed")
