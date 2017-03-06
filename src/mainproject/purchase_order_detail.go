@@ -36,10 +36,10 @@ func insert_purchase_order_detail(t *purchase_order,origi *DeliverGoodsForPO,sd 
             uom_id:=<-uom_id_chan
             item_master_id:=<-item_master_id_chan
             if uom_id==""{
-            	return error_uom_id,errors.New("uom_id is missed")
+            	return error_purchase_order_detail_uom_id,errors.New("uom_id is missed")
             }
             if item_master_id==""{
-            	return error_item_master_id,errors.New("item_master_id is missed")
+            	return error_purchase_order_detail_item_master_id,errors.New("item_master_id is missed")
             }
 		_, err = db.Exec(
         `INSERT INTO t_purchase_order_detail(detail_id,purchase_order_id,

@@ -30,8 +30,8 @@ const(
     error_deliver_notes_vendor_master_id="-144"
     // error_deliver_notes_bill_type_id="-145"
 
-    error_deliver_notes_uom_id="-146"
-    error_deliver_notes_item_master_id="-147"
+    error_purchase_order_detail_uom_id="-146"
+    error_purchase_order_detail_item_master_id="-147"
 
     error_deliver_notes_logistic_master_id="-148"
 
