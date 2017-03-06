@@ -30,15 +30,15 @@ const(
     error_uom_id="-135"
     error_item_master_id="-136"
 
-    error_logistic_master_id="-111"
+    error_logistic_master_id="-137"
 
-    error_insert_purchase_order="-137"
-    error_insert_purchase_order_detail="-138"
-    error_insert_goods_delivery_note="-139"
-    error_insert_goods_delivery_note_attachment="-140"
-    error_insert_goods_delivery_note_detail="-141"
-    error_insert_goods_receipt="-142"
-    error_insert_commercial_invoice="-143"
+    error_insert_purchase_order="-150"
+    error_insert_purchase_order_detail="-151"
+    error_insert_goods_delivery_note="-152"
+    error_insert_goods_delivery_note_attachment="-153"
+    error_insert_goods_delivery_note_detail="-154"
+    error_insert_goods_receipt="-155"
+    error_insert_commercial_invoice="-156"
 )
 type check_struct struct{
     error_code string
