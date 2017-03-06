@@ -10,6 +10,10 @@
     "errors"
     // "runtime/pprof"
 )
+ func pdfHandler (w http.ResponseWriter, r *http.Request) {
+	
+	    fmt.Fprint(w,"pdfHandler")
+} 
 func poHandler (w http.ResponseWriter, r *http.Request) {
 	////////////////////////////////
 	addr := r.Header.Get("X-Real-IP")

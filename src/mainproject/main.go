@@ -112,7 +112,7 @@ func main() {
     // go test_log()
     time.Sleep(2000 * time.Millisecond)
     // go startHttpServer()
-    go benchmark()
+    // go benchmark()
 
     startfcgi()
 }
@@ -167,6 +167,7 @@ func startMartini() {
     //     return username == "admin" && password == "admin"
     // }))
     m.Post("/po/deliver_goods",poHandler)
+    m.Post("/pdf",pdfHandler)
 
     m.Get("/debug/pprof", pprof.Index)
     m.Get("/debug/pprof/cmdline", pprof.Cmdline)
