@@ -64,8 +64,6 @@ func init() {
     //fmt.Println(configuration.exec_time) // output: [UserA, UserB]
 }
 func mysql_init() {
-    pprof.StartCPUProfile(f)
-    defer pprof.StopCPUProfile()
 
     var conn_string string
     conn_string=configuration.Mysql_conf.Username+":"+configuration.Mysql_conf.Password+"@tcp("+configuration.Mysql_conf.Host+":"+configuration.Mysql_conf.Port+")/"+configuration.Mysql_conf.Database+"?charset=utf8"
@@ -107,6 +105,13 @@ func log_init() {
 
 
 func main() {
+    f, err := os.Create(*cpuprofile)
+        if err != nil {
+            // log.Fatal(err)
+        }
+    pprof.StartCPUProfile(f)
+    defer pprof.StopCPUProfile()
+
     // go startHttpServer()
     go startMartini()
     // go test_log()
