@@ -10,7 +10,7 @@ tag goroutinepartialok2017.3.5
 需要增加oauth认证
 
 
-
+curl -X GET http://127.0.0.1:9888/pdf
 
 
 2017.03.02
