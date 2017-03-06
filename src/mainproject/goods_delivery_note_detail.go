@@ -48,10 +48,10 @@ func insert_note_detail(
             uom_id:=<-uom_id_chan
             item_master_id:=<-item_master_id_chan
             
-            err= insert_goods_delivery_note_detail(item_master_id,uom_id,detail.Quantity,sd)
+            s,err= insert_goods_delivery_note_detail(item_master_id,uom_id,detail.Quantity,sd)
             if err!=nil{
                 logger.Info("insert to insert_goods_delivery_note_detail:"+err.Error()) 
-                return error_insert_goods_delivery_note_detail,err
+                return s,err
             }
         }
     }    

@@ -2,7 +2,7 @@
  import (
     "time"
     "logger"
-    "errors"
+    // "errors"
 )
 func insert_goods_delivery_note_attachment(file_name,url,language string,sort_no int,sd *shared_data)(string,error) {
     var err error
@@ -53,17 +53,17 @@ func insert_note_attachment(
     language:=<-language_chan
 
     for _,d:= range origi.Data.Deliver_notes{
-        err= insert_goods_delivery_note_attachment(d.Commercial_invoice.Ci_no,d.Commercial_invoice.Ci_url,language,sort_no+1,sd)
+        s,err= insert_goods_delivery_note_attachment(d.Commercial_invoice.Ci_no,d.Commercial_invoice.Ci_url,language,sort_no+1,sd)
         
-        err= insert_goods_delivery_note_attachment(d.Packing_list.Pl_no,d.Packing_list.Pl_url,language,sort_no+2,sd)
+        s,err= insert_goods_delivery_note_attachment(d.Packing_list.Pl_no,d.Packing_list.Pl_url,language,sort_no+2,sd)
        
-        err= insert_goods_delivery_note_attachment(d.Bill_of_lading.Bl_no,d.Bill_of_lading.Bl_url,language,sort_no+3,sd)
+        s,err= insert_goods_delivery_note_attachment(d.Bill_of_lading.Bl_no,d.Bill_of_lading.Bl_url,language,sort_no+3,sd)
        
-        err= insert_goods_delivery_note_attachment(d.Associated_so.Associated_so_no,d.Associated_so.Associated_so_url,language,sort_no+4,sd)
+        s,err= insert_goods_delivery_note_attachment(d.Associated_so.Associated_so_no,d.Associated_so.Associated_so_url,language,sort_no+4,sd)
 
         if err!=nil{
             logger.Info("insert to goods_delivery_note_attachment:"+err.Error()) 
-            return error_insert_goods_delivery_note_attachment,err
+            return s,err
         }
     }
     
