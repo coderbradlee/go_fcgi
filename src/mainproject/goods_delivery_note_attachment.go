@@ -6,6 +6,7 @@
 )
 func insert_goods_delivery_note_attachment(file_name,url,language string,sort_no int,sd *shared_data)(string,error) {
     var err error
+
     _, err = db.Exec(
         `INSERT INTO t_goods_delivery_note_attachment(
         attachment_id,goods_delivery_note_id,file_name,language_id,sort_no,format,url,note,createAt,createBy,dr,data_version) 
@@ -51,7 +52,7 @@ func insert_note_attachment(
     go get_sort_no_chan(sort_no_chan)
     sort_no:=<-sort_no_chan
     language:=<-language_chan
-
+    var s string
     for _,d:= range origi.Data.Deliver_notes{
         s,err= insert_goods_delivery_note_attachment(d.Commercial_invoice.Ci_no,d.Commercial_invoice.Ci_url,language,sort_no+1,sd)
         
