@@ -2,6 +2,7 @@
  import (
     // "fmt"
     "time"
+    "errors"
 )
 func get_item_master_id_chan(item_master_id_chan chan<- string,item_no,product_name,product_code string){
 	var item_basic_id string
