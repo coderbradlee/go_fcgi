@@ -92,7 +92,8 @@ func log_init() {
     // }
     // log.SetOutput(logFile)
     // log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
-    logger.SetConsole(true)
+    // logger.SetConsole(true)
+    logger.SetConsole(configuration.Log.Console)
     logger.SetRollingFile(configuration.Log.Dir, configuration.Log.Name, configuration.Log.Num, configuration.Log.Size, logger.KB)
     //ALL，DEBUG，INFO，WARN，ERROR，FATAL，OFF
     logger.SetLevel(logger.ERROR)
