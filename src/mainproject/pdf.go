@@ -1,61 +1,19 @@
 package main
-// #include <stdbool.h>
-// #include <stdio.h>
-// #include "../wkhtmltox/include/pdf.h"
-// #include "runtime.h"
-// void progress_changed(wkhtmltopdf_converter * c, int p) {
-// 	printf("%3d%%\r",p);
-// 	fflush(stdout);
-// }
+/*
+#include "stdio.h"
 
-// void phase_changed(wkhtmltopdf_converter * c) {
-// 	int phase = wkhtmltopdf_current_phase(c);
-// 	printf("%s\n", wkhtmltopdf_phase_description(c, phase));
-// }
+void test(int n) {
+  char dummy[10240];
 
-// void error(wkhtmltopdf_converter * c, const char * msg) {
-// 	fprintf(stderr, "Error: %s\n", msg);
-// }
-
-// void warning(wkhtmltopdf_converter * c, const char * msg) {
-// 	fprintf(stderr, "Warning: %s\n", msg);
-// }
-
-// void Convert() {
-// 	wkhtmltopdf_global_settings * gs;
-// 	wkhtmltopdf_object_settings * os;
-// 	wkhtmltopdf_converter * c;
-
-// 	wkhtmltopdf_init(false);
-
-// 	gs = wkhtmltopdf_create_global_settings();
-// 	wkhtmltopdf_set_global_setting(gs, "out", "test.pdf");
-
-// 	os = wkhtmltopdf_create_object_settings();
-// 	wkhtmltopdf_set_object_setting(os, "page", "http://doc.trolltech.com/4.6/qstring.html");
-
-// 	c = wkhtmltopdf_create_converter(gs);
-
-// 	wkhtmltopdf_set_progress_changed_callback(c, progress_changed);
-
-// 	wkhtmltopdf_set_phase_changed_callback(c, phase_changed);
-
-// 	wkhtmltopdf_set_error_callback(c, error);
-
-// 	wkhtmltopdf_set_warning_callback(c, warning);
-
-// 	wkhtmltopdf_add_object(c, os, NULL);
-
-// 	if (!wkhtmltopdf_convert(c))
-// 		fprintf(stderr, "Conversion failed!");
-
-// 	printf("httpErrorCode: %d\n", wkhtmltopdf_http_error_code(c));
-
-// 	wkhtmltopdf_destroy_converter(c);
-
-// 	wkhtmltopdf_deinit();
-
-// }
+  printf("in c test func iterator %d\n", n);
+  if(n <= 0) {
+    return;
+  }
+  dummy[n] = '\a';
+  test(n-1);
+}
+#cgo CFLAGS: -g
+*/
 //#cgo LDFLAGS: -lwkhtmltox
 //#cgo CFLAGS: -I../wkhtmltox/include -L../wkhtmltox
 import "C"
@@ -67,5 +25,5 @@ import (
 
 func pdfHandler (w http.ResponseWriter, r *http.Request) {
   fmt.Fprint(w, "pdf!")
-  C.Convert()
+  C.test(C.int(2))
 } 
