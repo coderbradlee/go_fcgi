@@ -1,7 +1,6 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include "../wkhtmltox/include/pdf.h"
-#include "runtime.h"
 /* Print out loading progress information */
 void progress_changed(wkhtmltopdf_converter * c, int p) {
 	printf("%3d%%\r",p);
