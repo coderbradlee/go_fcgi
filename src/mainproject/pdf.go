@@ -5,7 +5,7 @@ package main
 //#include <stdio.h>
 //#include <string.h>
 //#include <stdlib.h>
-//#include "wkhtmltox/pdf.h"
+//#include "../wkhtmltox/pdf.h"
 //extern void finished_cb(void*, const int);
 //extern void progress_changed_cb(void*, const int);
 //extern void error_cb(void*, char *msg);
