@@ -52,7 +52,7 @@ void Convert() {
 	 */
 	os = wkhtmltopdf_create_object_settings();
 	/* We want to convert to convert the qstring documentation page */
-	wkhtmltopdf_set_object_setting(os, "page", "http://doc.trolltech.com/4.6/qstring.html");
+	wkhtmltopdf_set_object_setting(os, "page", "src/wkhtmltox/test.html");
 
 	/* Create the actual converter object used to convert the pages */
 	c = wkhtmltopdf_create_converter(gs);
