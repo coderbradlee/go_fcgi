@@ -22,8 +22,9 @@ import "C"
 import (
     _"log"
     "fmt"
-    "net/http"
+    // "net/http"
     "unsafe"
+    "martini"
 )
 type GlobalSettings struct {
 	s *C.wkhtmltopdf_global_settings
@@ -122,7 +123,7 @@ func convert() {
 func pdfHandler (params martini.Params)string {
   convert()
   // fmt.Fprint(w, "ok!")
-  return params["src"],params["dst"]
+  return params["src"]+params["dst"]
 } 
 
 
