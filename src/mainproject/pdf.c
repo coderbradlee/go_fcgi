@@ -28,7 +28,7 @@ void warning(wkhtmltopdf_converter * c, const char * msg) {
 //     ret = a + b;
 //     FLUSH(&ret);
 // }
-void .Convert() {
+void Convert() {
 	wkhtmltopdf_global_settings * gs;
 	wkhtmltopdf_object_settings * os;
 	wkhtmltopdf_converter * c;
