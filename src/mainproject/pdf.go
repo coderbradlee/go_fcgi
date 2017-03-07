@@ -87,7 +87,7 @@ func convert() {
 	//gs.Set("load.cookieJar", "myjar.jar")
 	// object settings: http://www.cs.au.dk/~jakobt/libwkhtmltox_0.10.0_doc/pagesettings.html#pagePdfObject
 	os := NewObjectSettings()
-	os.Set("page", "src/wkhtmltox/test.html")
+	os.Set("page", "https://www.baidu.com/")
 	// os.Set("load.debugJavascript", "false")
 	//os.Set("load.jsdelay", "1000") // wait max 1s
 	// os.Set("web.enableJavascript", "false")
