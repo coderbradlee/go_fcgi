@@ -1,7 +1,6 @@
 package main
-//#cgo CFLAGS: -g
-//#cgo CFLAGS: -I../wkhtmltox/include -L../wkhtmltox
-//#cgo LDFLAGS: -lwkhtmltox
+//#cgo CFLAGS: -I../wkhtmltox/include 
+//#cgo LDFLAGS: -L../wkhtmltox -lwkhtmltox
 import "C"
 import (
     _"log"
