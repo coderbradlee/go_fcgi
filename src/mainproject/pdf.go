@@ -25,13 +25,61 @@ import (
     "net/http"
     "unsafe"
 )
-func pdfHandler (w http.ResponseWriter, r *http.Request) {
-  convert()
-  fmt.Fprint(w, "pdf!")
-} 
+type GlobalSettings struct {
+	s *C.wkhtmltopdf_global_settings
+}
+
+type ObjectSettings struct {
+	s *C.wkhtmltopdf_object_settings
+}
+
+type Converter struct {
+	c               *C.wkhtmltopdf_converter
+	Finished        func(*Converter, int)
+	ProgressChanged func(*Converter, int)
+	Error           func(*Converter, string)
+	Warning         func(*Converter, string)
+	Phase           func(*Converter)
+}
+
+var converter_map map[unsafe.Pointer]*Converter
+
+func NewGolbalSettings() *GlobalSettings {
+	return &GlobalSettings{s: C.wkhtmltopdf_create_global_settings()}
+}
+
+func (self *GlobalSettings) Set(name, value string) {
+	c_name := C.CString(name)
+	c_value := C.CString(value)
+	defer C.free(unsafe.Pointer(c_name))
+	defer C.free(unsafe.Pointer(c_value))
+	C.wkhtmltopdf_set_global_setting(self.s, c_name, c_value)
+}
+
+func NewObjectSettings() *ObjectSettings {
+	return &ObjectSettings{s: C.wkhtmltopdf_create_object_settings()}
+}
+
+func (self *ObjectSettings) Set(name, value string) {
+	c_name := C.CString(name)
+	c_value := C.CString(value)
+	defer C.free(unsafe.Pointer(c_name))
+	defer C.free(unsafe.Pointer(c_value))
+	C.wkhtmltopdf_set_object_setting(self.s, c_name, c_value)
+}
+func (self *GlobalSettings) NewConverter() *Converter {
+	c := &Converter{c: C.wkhtmltopdf_create_converter(self.s)}
+	C.setup_callbacks(c.c)
+
+	return c
+}
+
 func convert() {
+	converter_map = map[unsafe.Pointer]*Converter{}
+	C.wkhtmltopdf_init(C.false)
+
 	gs := NewGolbalSettings()
-	gs.Set("outputFormat", "pdf")
+	// gs.Set("outputFormat", "pdf")
 	gs.Set("out", "test.pdf")
 	// gs.Set("orientation", "Portrait")
 	// gs.Set("colorMode", "Color")
@@ -69,62 +117,17 @@ func convert() {
 	c.Convert()
 
 	fmt.Printf("Got error code: %d\n", c.ErrorCode())
+	c.Destroy()
 }
 
-type GlobalSettings struct {
-	s *C.wkhtmltopdf_global_settings
-}
+func pdfHandler (w http.ResponseWriter, r *http.Request) {
+  convert()
+  fmt.Fprint(w, "pdf!")
+} 
 
-type ObjectSettings struct {
-	s *C.wkhtmltopdf_object_settings
-}
 
-type Converter struct {
-	c               *C.wkhtmltopdf_converter
-	Finished        func(*Converter, int)
-	ProgressChanged func(*Converter, int)
-	Error           func(*Converter, string)
-	Warning         func(*Converter, string)
-	Phase           func(*Converter)
-}
 
-var converter_map map[unsafe.Pointer]*Converter
 
-func init() {
-	converter_map = map[unsafe.Pointer]*Converter{}
-	C.wkhtmltopdf_init(C.false)
-}
-
-func NewGolbalSettings() *GlobalSettings {
-	return &GlobalSettings{s: C.wkhtmltopdf_create_global_settings()}
-}
-
-func (self *GlobalSettings) Set(name, value string) {
-	c_name := C.CString(name)
-	c_value := C.CString(value)
-	defer C.free(unsafe.Pointer(c_name))
-	defer C.free(unsafe.Pointer(c_value))
-	C.wkhtmltopdf_set_global_setting(self.s, c_name, c_value)
-}
-
-func NewObjectSettings() *ObjectSettings {
-	return &ObjectSettings{s: C.wkhtmltopdf_create_object_settings()}
-}
-
-func (self *ObjectSettings) Set(name, value string) {
-	c_name := C.CString(name)
-	c_value := C.CString(value)
-	defer C.free(unsafe.Pointer(c_name))
-	defer C.free(unsafe.Pointer(c_value))
-	C.wkhtmltopdf_set_object_setting(self.s, c_name, c_value)
-}
-
-func (self *GlobalSettings) NewConverter() *Converter {
-	c := &Converter{c: C.wkhtmltopdf_create_converter(self.s)}
-	C.setup_callbacks(c.c)
-
-	return c
-}
 
 //export finished_cb
 func finished_cb(c unsafe.Pointer, s C.int) {
@@ -195,4 +198,5 @@ func (self *Converter) ErrorCode() int {
 
 func (self *Converter) Destroy() {
 	C.wkhtmltopdf_destroy_converter(self.c)
+	C.wkhtmltopdf_deinit()
 }
