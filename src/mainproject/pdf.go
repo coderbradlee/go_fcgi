@@ -73,11 +73,12 @@ func (self *GlobalSettings) NewConverter() *Converter {
 
 	return c
 }
-
-func convert() {
+func init() {
 	converter_map = map[unsafe.Pointer]*Converter{}
 	C.wkhtmltopdf_init(C.false)
-
+}
+func convert() {
+	
 	gs := NewGolbalSettings()
 	gs.Set("outputFormat", "pdf")
 	gs.Set("out", "test.pdf")
@@ -198,5 +199,5 @@ func (self *Converter) ErrorCode() int {
 
 func (self *Converter) Destroy() {
 	C.wkhtmltopdf_destroy_converter(self.c)
-	C.wkhtmltopdf_deinit()
+	// C.wkhtmltopdf_deinit()
 }
