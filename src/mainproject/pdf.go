@@ -119,9 +119,10 @@ func convert() {
 	c.Destroy()
 }
 
-func pdfHandler (w http.ResponseWriter, r *http.Request) {
+func pdfHandler (params martini.Params)string {
   convert()
-  fmt.Fprint(w, "pdf!")
+  // fmt.Fprint(w, "ok!")
+  return params["src"],params["dst"]
 } 
 
 

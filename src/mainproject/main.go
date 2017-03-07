@@ -168,8 +168,8 @@ func startMartini() {
     //     return username == "admin" && password == "admin"
     // }))
     m.Post("/po/deliver_goods",poHandler)
-    m.Post("/pdf",pdfHandler)
-
+    //m.Post("/pdf",pdfHandler)
+    m.Get("/pdf/:src/:dst",pdfHandler)
     // m.Get("/debug/pprof", pprof.Index)
     // m.Get("/debug/pprof/cmdline", pprof.Cmdline)
     // m.Get("/debug/pprof/profile", pprof.Profile)
