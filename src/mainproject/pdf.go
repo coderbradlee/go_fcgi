@@ -55,7 +55,6 @@ package main
 
 // 	wkhtmltopdf_deinit();
 
-// 	return 0;
 // }
 //#cgo LDFLAGS: -lwkhtmltox
 //#cgo CFLAGS: -I../wkhtmltox/include -L../wkhtmltox
