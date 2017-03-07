@@ -1,5 +1,4 @@
 package main
-
 //#cgo CFLAGS: -g
 //#cgo CFLAGS: -I../wkhtmltox/include -L../wkhtmltox
 //#cgo LDFLAGS: -lwkhtmltox
