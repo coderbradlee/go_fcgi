@@ -1,6 +1,6 @@
 package main
-//#cgo CFLAGS: -I/root/go_fcgi/src/wkhtmltox/include 
-//#cgo LDFLAGS: -L/root/go_fcgi/src/wkhtmltox -lwkhtmltox
+//#cgo CFLAGS: -I../wkhtmltox/include 
+//#cgo LDFLAGS: -L../wkhtmltox -lwkhtmltox
 //#include "pdf.h"
 import "C"
 import (
