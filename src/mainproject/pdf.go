@@ -14,8 +14,9 @@ void test(int n) {
 }
 #cgo CFLAGS: -g
 */
-//#cgo LDFLAGS: -lwkhtmltox
 //#cgo CFLAGS: -I../wkhtmltox/include -L../wkhtmltox
+//#cgo LDFLAGS: -lwkhtmltox
+
 import "C"
 import (
     _"log"

@@ -89,6 +89,4 @@ void Convert() {
 
 	/* We will no longer be needing wkhtmltopdf funcionality */
 	wkhtmltopdf_deinit();
-
-	return 0;
 }
