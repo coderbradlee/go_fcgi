@@ -1,6 +1,7 @@
 package main
 //#cgo CFLAGS: -I../wkhtmltox/include 
 //#cgo LDFLAGS: -L../wkhtmltox -lwkhtmltox
+//void Test(int n);
 import "C"
 import (
     _"log"
