@@ -110,11 +110,11 @@ func get_goods_delivery_note_no(company string)(string,error) {
     // QU-UK-20160930-000001
     goods_delivery_note_no+=short+"-"
     goods_delivery_note_no+=time.Now().Format("20060102")+"-"
-    // flow,err:=get_flow_no(short)
-    // if err!=nil{
-    //     return "",err
-    // }
-    flow:="000001"
+    flow,err:=get_flow_no(short)
+    if err!=nil{
+        return "",err
+    }
+    // flow:="000001"
     goods_delivery_note_no+=flow//get int,format to 6bit,then convert to string
     return goods_delivery_note_no,nil
 }
