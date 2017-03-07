@@ -18,7 +18,8 @@ import (
     _"mysql"
     "strconv"
     "time"
-    "net/http/pprof")
+    // "net/http/pprof"
+    )
 type mysql_conf struct{
     Host string
     Port string
@@ -169,15 +170,15 @@ func startMartini() {
     m.Post("/po/deliver_goods",poHandler)
     m.Get("/pdf",pdfHandler)
 
-    m.Get("/debug/pprof", pprof.Index)
-    m.Get("/debug/pprof/cmdline", pprof.Cmdline)
-    m.Get("/debug/pprof/profile", pprof.Profile)
-    m.Get("/debug/pprof/symbol", pprof.Symbol)
-    m.Post("/debug/pprof/symbol", pprof.Symbol)
-    m.Get("/debug/pprof/block", pprof.Handler("block").ServeHTTP)
-    m.Get("/debug/pprof/heap", pprof.Handler("heap").ServeHTTP)
-    m.Get("/debug/pprof/goroutine", pprof.Handler("goroutine").ServeHTTP)
-    m.Get("/debug/pprof/threadcreate", pprof.Handler("threadcreate").ServeHTTP)
+    // m.Get("/debug/pprof", pprof.Index)
+    // m.Get("/debug/pprof/cmdline", pprof.Cmdline)
+    // m.Get("/debug/pprof/profile", pprof.Profile)
+    // m.Get("/debug/pprof/symbol", pprof.Symbol)
+    // m.Post("/debug/pprof/symbol", pprof.Symbol)
+    // m.Get("/debug/pprof/block", pprof.Handler("block").ServeHTTP)
+    // m.Get("/debug/pprof/heap", pprof.Handler("heap").ServeHTTP)
+    // m.Get("/debug/pprof/goroutine", pprof.Handler("goroutine").ServeHTTP)
+    // m.Get("/debug/pprof/threadcreate", pprof.Handler("threadcreate").ServeHTTP)
 
 
 

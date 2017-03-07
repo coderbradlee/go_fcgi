@@ -1,3 +1,7 @@
+2017.3.7
+export GODEBUG="memprofilerate=1"
+去掉性能检测，再测试下响应时间
+
 2017.3.6
 增加返回error
 tag addmoreerror2017.3.6
