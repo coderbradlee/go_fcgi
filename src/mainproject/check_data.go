@@ -36,6 +36,7 @@ const(
     // error_deliver_notes_logistic_master_id="-148"
     error_commercial_invoice_status="-148"
 
+    //以下为插入数据库表时报错
     error_insert_purchase_order="-150"
     error_insert_purchase_order_detail="-151"
     error_insert_goods_delivery_note="-152"
