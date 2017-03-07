@@ -1,7 +1,4 @@
-#include <stdbool.h>
-#include <stdio.h>
-#include "../wkhtmltox/include/pdf.h"
-
+#include "pdf.h"
 void Test(int n) {
   char dummy[10240];
 
@@ -10,7 +7,7 @@ void Test(int n) {
     return;
   }
   dummy[n] = '\a';
-  test(n-1);
+  Test(n-1);
 }
 /* Print out loading progress information */
 void progress_changed(wkhtmltopdf_converter * c, int p) {
