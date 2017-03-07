@@ -181,13 +181,25 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO,sd *s
         vendor_master_id:=<-vendor_master_id_chan
         bill_type_id:=<-bill_type_id_chan
         logistic_contact_id:=<-logistic_contact_id_chan
-        // t_purchase_order.currency_id=<-currency_id_chan
-        // if logistic_master_id==""{
-        //     return error_deliver_notes_logistic_master_id,errors.New("deliver_notes logistic_master_id is missed")
-        // }
-        // if packing_method_id==""{
-        //     return error_deliver_notes_packing_method_id,errors.New("deliver_notes packing_method_id is missed")
-        // }
+        var exist bool
+        exist=check_deliver_notes_commercial_invoice(deliver_notes.Commercial_invoice.Ci_url)
+        if !exist{
+             return error_check_deliver_notes_commercial_invoice,errors.New("deliver_notes commercial_invoice file is missed")
+        }
+        exist=check_deliver_notes_packing_list(deliver_notes.Packing_list.Pl_url)
+        if !exist{
+             return error_check_deliver_notes_packing_list,errors.New("deliver_notes packing_list file is missed")
+        }
+        exist=check_deliver_notes_bill_of_lading(deliver_notes.Bill_of_lading.Bl_url)
+        if !exist{
+             return error_check_deliver_notes_bill_of_lading,errors.New("deliver_notes bill_of_lading file is missed")
+        }
+        exist=check_deliver_notes_associated_so(deliver_notes.Associated_so.Associated_so_url)
+        if !exist{
+             return error_check_deliver_notes_associated_so,errors.New("deliver_notes associated_so file is missed")
+        }
+
+
         if transport_term_id==""{
             return error_deliver_notes_transport_term_id,errors.New("deliver_notes transport_term_id is missed")
         }

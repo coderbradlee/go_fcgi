@@ -23,6 +23,12 @@ const(
     error_check_trade_term="-129"
     error_check_payment_terms="-130"
 
+    error_check_deliver_notes_commercial_invoice="-131"
+    error_check_deliver_notes_packing_list="-132"
+    error_check_deliver_notes_bill_of_lading="-133"
+    error_check_deliver_notes_associated_so="-134"
+
+
     error_deliver_notes_packing_method_id="-140"
     error_deliver_notes_transport_term_id="-141"
     error_deliver_notes_buyer_id="-142"
@@ -138,7 +144,34 @@ func check_trade_term(Trade_term string,error_chan chan<- check_struct) {
     }
     error_chan<- t
 }
-
+func check_deliver_notes_commercial_invoice(path string) bool{
+    _,err:=os.Stat(path)
+    if err!=nil{
+        return false
+    }
+    return true
+}
+func check_deliver_notes_packing_list(path string) bool{
+    _,err:=os.Stat(path)
+    if err!=nil{
+        return false
+    }
+    return true
+}
+func check_deliver_notes_bill_of_lading(path string) bool{
+    _,err:=os.Stat(path)
+    if err!=nil{
+        return false
+    }
+    return true
+}
+func check_deliver_notes_associated_so(path string) bool{
+    _,err:=os.Stat(path)
+    if err!=nil{
+        return false
+    }
+    return true
+}
 func check_data(origi *DeliverGoodsForPO)(string,error) {
     // var all_error map[string]error
     error_chan:=make(chan check_struct)

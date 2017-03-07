@@ -1,3 +1,6 @@
+2017.3.7
+新环境安装：
+1、yum install go
 
 curl -X POST http://127.0.0.1:9888/po/deliver_goods -d '{"xx":"xxxx"}'
 
