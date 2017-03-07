@@ -1,6 +1,6 @@
 package main
-//#cgo CFLAGS: -I../wkhtmltox/include 
-//#cgo LDFLAGS: -L../wkhtmltox -lwkhtmltox
+//#cgo CFLAGS: -Isrc/wkhtmltox/include 
+//#cgo LDFLAGS: -Lsrc/wkhtmltox -lwkhtmltox
 //#include "pdf.h"
 import "C"
 import (
