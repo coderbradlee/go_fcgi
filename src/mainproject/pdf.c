@@ -1,6 +1,6 @@
 #include <stdbool.h>
 #include <stdio.h>
-#include "wkhtmltox/pdf.h"
+#include "../wkhtmltox/pdf.h"
 #include "runtime.h"
 /* Print out loading progress information */
 void progress_changed(wkhtmltopdf_converter * c, int p) {
