@@ -1,8 +1,5 @@
- package main
-/*
-#include "wkhtmltox/pdf.h"
-*/
-import "C"
+package main
+
 import (
     _"log"
     "fmt"
