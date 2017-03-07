@@ -1,14 +1,5 @@
 #include "pdf.h"
-void Test(int n) {
-  char dummy[10240];
 
-  printf("in c test func iterator %d\n", n);
-  if(n <= 0) {
-    return;
-  }
-  dummy[n] = '\a';
-  Test(n-1);
-}
 /* Print out loading progress information */
 void progress_changed(wkhtmltopdf_converter * c, int p) {
 	printf("%3d%%\r",p);
