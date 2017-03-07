@@ -13,5 +13,5 @@ import (
 
 func pdfHandler (w http.ResponseWriter, r *http.Request) {
   fmt.Fprint(w, "pdf!")
-  C.test(C.int(2))
+  C.Test(C.int(2))
 } 

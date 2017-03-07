@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "../wkhtmltox/include/pdf.h"
 
-void test(int n) {
+void Test(int n) {
   char dummy[10240];
 
   printf("in c test func iterator %d\n", n);
