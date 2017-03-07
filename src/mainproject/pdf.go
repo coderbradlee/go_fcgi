@@ -51,19 +51,19 @@ func convert() {
 	c.Add(os)
 	//c.AddHtml(os, "<html><body><h3>HELLO</h3><p>World</p></body></html>")
 
-	c.ProgressChanged = func(c *wkhtmltopdf.Converter, b int) {
+	c.ProgressChanged = func(c *Converter, b int) {
 		fmt.Printf("Progress: %d\n", b)
 	}
-	c.Error = func(c *wkhtmltopdf.Converter, msg string) {
+	c.Error = func(c *Converter, msg string) {
 		fmt.Printf("error: %s\n", msg)
 	}
-	c.Warning = func(c *wkhtmltopdf.Converter, msg string) {
+	c.Warning = func(c *Converter, msg string) {
 		fmt.Printf("error: %s\n", msg)
 	}
-	c.Phase = func(c *wkhtmltopdf.Converter) {
+	c.Phase = func(c *Converter) {
 		fmt.Printf("Phase\n")
 	}
-	c.Finished = func(c *wkhtmltopdf.Converter, s int) {
+	c.Finished = func(c *Converter, s int) {
 		fmt.Printf("Finished: %d\n", s)
 	}
 	c.Convert()
