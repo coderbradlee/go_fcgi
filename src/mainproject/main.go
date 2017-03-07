@@ -125,7 +125,7 @@ func startfcgi() {
     } 
     serveMux := http.NewServeMux() 
     serveMux.HandleFunc("/redis", redisHandler) 
-    serveMux.HandleFunc("/pdf", pdfHandler) 
+    // serveMux.HandleFunc("/pdf", pdfHandler) 
     err = fcgi.Serve(l, serveMux)
     if err != nil { 
         logger.Info("fcgi error:"+err.Error()) 
@@ -134,7 +134,7 @@ func startfcgi() {
 func startHttpServer() {
     port:=fmt.Sprintf("%s",configuration.HttpPort)
     http.HandleFunc("/redis", redisHandler) 
-    http.HandleFunc("/pdf", pdfHandler) 
+    // http.HandleFunc("/pdf", pdfHandler) 
     // http.HandleFunc("/po/deliver_goods",poHandler)
     err := http.ListenAndServe(port, nil)
     if err != nil {
