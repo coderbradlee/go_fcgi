@@ -90,8 +90,8 @@ func convert() {
 	os.Set("page", "http://news.baidu.com/")
 	os.Set("load.debugJavascript", "false")
 	//os.Set("load.jsdelay", "1000") // wait max 1s
-	os.Set("web.enableJavascript", "false")
-	os.Set("web.enablePlugins", "false")
+	os.Set("web.enableJavascript", "true")
+	os.Set("web.enablePlugins", "true")
 	os.Set("web.loadImages", "true")
 	os.Set("web.background", "true")
 
