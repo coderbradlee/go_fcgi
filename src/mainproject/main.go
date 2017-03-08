@@ -109,13 +109,13 @@ func log_init() {
 func main() {
     
     // go startHttpServer()
-    go startMartini()
+    go startfcgi()
     // go test_log()
     time.Sleep(2000 * time.Millisecond)
     // go startHttpServer()
     // go benchmark()
 
-    startfcgi()
+    startMartini()
 }
 func startfcgi() {
     port:=fmt.Sprintf("%s",configuration.FastcgiPort)
