@@ -125,7 +125,8 @@ func convert(src,dst string) error {
 	err:=c.Convert()
 	temp:=c.ErrorCode()
 	logger.Info("Got error code: " + strconv.Itoa(temp))
-	c.Destroy()
+	// c.Destroy()
+	C.wkhtmltopdf_deinit()	
 	if err!=nil{
 		return err
 	}
@@ -249,5 +250,4 @@ func (self *Converter) ErrorCode() int {
 
 func (self *Converter) Destroy() {
 	C.wkhtmltopdf_destroy_converter(self.c)
-	C.wkhtmltopdf_deinit()
 }
