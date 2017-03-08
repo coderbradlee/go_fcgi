@@ -143,6 +143,7 @@ func pdfHandler (w http.ResponseWriter, r *http.Request) {
 	}
   
 	body, _:= ioutil.ReadAll(r.Body)
+	logger.Info(fmt.Sprintf("%s",body))
 	defer r.Body.Close()
     var ret string
     var t src_dst  
@@ -152,7 +153,12 @@ func pdfHandler (w http.ResponseWriter, r *http.Request) {
 	    fmt.Fprint(w,ret )
 	    return
     }
-    logger.Info(t.Src+" "+t.Dst)
+    logger.Info(t.Src+": "+t.Dst)
+    if t.Src==""||t.Dst==""{
+    	ret="empty src or dst"
+    	fmt.Fprint(w,ret )
+	    return
+    }
     error_int:=convert(t.Src,t.Dst)
 	ret=fmt.Sprintf("%d",error_int)
 	fmt.Fprint(w,ret )
