@@ -79,7 +79,7 @@ func convert() {
 	converter_map = map[unsafe.Pointer]*Converter{}
 	C.wkhtmltopdf_init(C.false)
 	gs := NewGolbalSettings()
-	gs.Set("outputFormat", "pdf")
+	// gs.Set("outputFormat", "pdf")
 	gs.Set("out", "test.pdf")
 	gs.Set("orientation", "Portrait")
 	gs.Set("colorMode", "Color")
@@ -90,8 +90,8 @@ func convert() {
 	os.Set("page", "/root/Newshop_International/WEB-INF/quotation_pdf.html")
 	os.Set("load.debugJavascript", "false")
 	//os.Set("load.jsdelay", "1000") // wait max 1s
-	os.Set("web.enableJavascript", "true")
-	os.Set("web.enablePlugins", "true")
+	os.Set("web.enableJavascript", "false")
+	os.Set("web.enablePlugins", "false")
 	os.Set("web.loadImages", "true")
 	os.Set("web.background", "true")
 
@@ -100,19 +100,23 @@ func convert() {
 	//c.AddHtml(os, "<html><body><h3>HELLO</h3><p>World</p></body></html>")
 
 	c.ProgressChanged = func(c *Converter, b int) {
-		fmt.Printf("Progress: %d\n", b)
+		// fmt.Printf("Progress: %d\n", b)
 	}
 	c.Error = func(c *Converter, msg string) {
-		fmt.Printf("error: %s\n", msg)
+		// fmt.Printf("error: %s\n", msg)
+		logger.Error("error: "+msg)
+            
 	}
 	c.Warning = func(c *Converter, msg string) {
-		fmt.Printf("error: %s\n", msg)
+		// fmt.Printf("warning: %s\n", msg)
+		logger.Warn("warning: " + msg)
 	}
 	c.Phase = func(c *Converter) {
-		fmt.Printf("Phase\n")
+		// fmt.Printf("Phase\n")
 	}
 	c.Finished = func(c *Converter, s int) {
-		fmt.Printf("Finished: %d\n", s)
+		// fmt.Printf("Finished: %d\n", s)
+		logger.Info("Finished:" + strconv.Itoa(s))
 	}
 	c.Convert()
 

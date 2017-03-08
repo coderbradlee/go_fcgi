@@ -3,6 +3,8 @@
 1、yum install go
 cp src/wkhtmltox/libwkhtmltox.so /usr/lib
 ln -s /usr/lib/libwkhtmltox.so /usr/lib/libwkhtmltox.so.0
+或
+yum install wkhtmltopdf* 不能正常工作
 
 curl -X GET http://127.0.0.1:9888/pdf
 
