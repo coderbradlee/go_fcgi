@@ -125,9 +125,10 @@ func convert(src,dst string) int {
 	c.Convert()
 
 	// fmt.Printf("Got error code: %d\n", c.ErrorCode())
-	logger.Info("Got error code: " + strconv.Itoa(c.ErrorCode()))
+	temp:=c.ErrorCode()
+	logger.Info("Got error code: " + strconv.Itoa(temp))
 	c.Destroy()
-	return c.ErrorCode()
+	return temp
 }
 type src_dst struct{
 	Src string
@@ -143,7 +144,7 @@ func pdfHandler (w http.ResponseWriter, r *http.Request) {
 	}
   
 	body, _:= ioutil.ReadAll(r.Body)
-	logger.Info(fmt.Sprintf("%s",body))
+	// logger.Info(fmt.Sprintf("%s",body))
 	defer r.Body.Close()
     var ret string
     var t src_dst  
@@ -153,7 +154,7 @@ func pdfHandler (w http.ResponseWriter, r *http.Request) {
 	    fmt.Fprint(w,ret )
 	    return
     }
-    logger.Info(t.Src+": "+t.Dst)
+    // logger.Info(t.Src+": "+t.Dst)
     if t.Src==""||t.Dst==""{
     	ret="empty src or dst"
     	fmt.Fprint(w,ret )
