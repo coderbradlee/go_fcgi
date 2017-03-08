@@ -26,6 +26,7 @@ import (
     "unsafe"
     "martini"
     "logger"
+    "strconv"
 )
 type GlobalSettings struct {
 	s *C.wkhtmltopdf_global_settings
