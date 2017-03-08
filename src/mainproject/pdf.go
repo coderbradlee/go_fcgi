@@ -130,8 +130,8 @@ func convert(src,dst string) int {
 	return c.ErrorCode()
 }
 type src_dst struct{
-	src string
-	dst string
+	Src string
+	Dst string
 }
 func pdfHandler (w http.ResponseWriter, r *http.Request) {
   	addr := r.Header.Get("X-Real-IP")
@@ -152,7 +152,7 @@ func pdfHandler (w http.ResponseWriter, r *http.Request) {
 	    fmt.Fprint(w,ret )
 	    return
     }
-    error_int:=convert(t.src,t.dst)
+    error_int:=convert(t.Src,t.Dst)
 	ret=fmt.Sprintf("%d",error_int)
 	fmt.Fprint(w,ret )
 
