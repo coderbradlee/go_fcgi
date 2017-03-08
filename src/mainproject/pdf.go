@@ -77,19 +77,19 @@ func (self *GlobalSettings) NewConverter() *Converter {
 	return c
 }
 
-func convert() {
+func convert(src,dst string) {
 	converter_map = make(map[unsafe.Pointer]*Converter)
 	C.wkhtmltopdf_init(C.false)
 	gs := NewGolbalSettings()
 	// gs.Set("outputFormat", "pdf")
-	gs.Set("out", "test.pdf")
+	gs.Set("out", dst)
 	// gs.Set("orientation", "Portrait")
 	// gs.Set("colorMode", "Color")
 	// gs.Set("size.paperSize", "A4")
 	//gs.Set("load.cookieJar", "myjar.jar")
 	// object settings: http://www.cs.au.dk/~jakobt/libwkhtmltox_0.10.0_doc/pagesettings.html#pagePdfObject
 	os := NewObjectSettings()
-	os.Set("page", "/root/Newshop_International/WEB-INF/quotation_pdf.html")
+	os.Set("page", src)
 	os.Set("load.debugJavascript", "false")
 	//os.Set("load.jsdelay", "1000") // wait max 1s
 	os.Set("web.enableJavascript", "false")
@@ -126,11 +126,24 @@ func convert() {
 	logger.Info("Got error code: " + strconv.Itoa(c.ErrorCode()))
 	c.Destroy()
 }
-
-func pdfHandler (params martini.Params)string {
-  convert()
-  // fmt.Fprint(w, "ok!")
-  return params["src"]+params["dst"]
+type src_dst struct{
+	src string
+	des string
+}
+func pdfHandler (w http.ResponseWriter, r *http.Request)string {
+  	
+  	var ret string
+	
+	body, _:= ioutil.ReadAll(r.Body)
+    
+    var t src_dst  
+    err_decode := json.Unmarshal(body, &t)
+    convert(src_dst.src,src_dst.dst)
+	defer r.Body.Close()
+	fmt.Fprint(w,ret )
+	
+    log_str:=fmt.Sprintf("Started %s %s for %s:%s\nresponse:%s", r.Method, r.URL.Path, addr,body,ret)
+    logger.Info(log_str)
 } 
 
 
