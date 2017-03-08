@@ -104,22 +104,22 @@ func convert(src,dst string) error {
 	//c.AddHtml(os, "<html><body><h3>HELLO</h3><p>World</p></body></html>")
 
 	c.ProgressChanged = func(c *Converter, b int) {
-		// fmt.Printf("Progress: %d\n", b)
+		fmt.Printf("Progress: %d\n", b)
 	}
 	c.Error = func(c *Converter, msg string) {
-		// fmt.Printf("error: %s\n", msg)
+		fmt.Printf("error: %s\n", msg)
 		logger.Error("error: "+msg)
             
 	}
 	c.Warning = func(c *Converter, msg string) {
-		// fmt.Printf("warning: %s\n", msg)
+		fmt.Printf("warning: %s\n", msg)
 		logger.Warn("warning: " + msg)
 	}
 	c.Phase = func(c *Converter) {
-		// fmt.Printf("Phase\n")
+		fmt.Printf("Phase\n")
 	}
 	c.Finished = func(c *Converter, s int) {
-		// fmt.Printf("Finished: %d\n", s)
+		fmt.Printf("Finished: %d\n", s)
 		logger.Info("Finished:" + strconv.Itoa(s))
 	}
 	err:=c.Convert()
