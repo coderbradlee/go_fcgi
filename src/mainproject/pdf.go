@@ -79,7 +79,7 @@ func (self *GlobalSettings) NewConverter() *Converter {
 	return c
 }
 
-func convert(src,dst string) int {
+func convert(src,dst string) error {
 	converter_map = make(map[unsafe.Pointer]*Converter)
 	C.wkhtmltopdf_init(C.false)
 	gs := NewGolbalSettings()
@@ -92,12 +92,12 @@ func convert(src,dst string) int {
 	// object settings: http://www.cs.au.dk/~jakobt/libwkhtmltox_0.10.0_doc/pagesettings.html#pagePdfObject
 	os := NewObjectSettings()
 	os.Set("page", src)
-	os.Set("load.debugJavascript", "false")
+	// os.Set("load.debugJavascript", "false")
 	//os.Set("load.jsdelay", "1000") // wait max 1s
-	os.Set("web.enableJavascript", "false")
-	os.Set("web.enablePlugins", "false")
-	os.Set("web.loadImages", "true")
-	os.Set("web.background", "true")
+	// os.Set("web.enableJavascript", "false")
+	// os.Set("web.enablePlugins", "false")
+	// os.Set("web.loadImages", "true")
+	// os.Set("web.background", "true")
 
 	c := gs.NewConverter()
 	c.Add(os)
@@ -122,13 +122,16 @@ func convert(src,dst string) int {
 		// fmt.Printf("Finished: %d\n", s)
 		logger.Info("Finished:" + strconv.Itoa(s))
 	}
-	c.Convert()
-
-	// fmt.Printf("Got error code: %d\n", c.ErrorCode())
-	temp:=c.ErrorCode()
-	logger.Info("Got error code: " + strconv.Itoa(temp))
+	err:=c.Convert()
 	c.Destroy()
-	return temp
+	if err!=nil{
+		return err
+	}
+	// fmt.Printf("Got error code: %d\n", c.ErrorCode())
+	// temp:=c.ErrorCode()
+	// logger.Info("Got error code: " + strconv.Itoa(temp))
+	
+	return nil
 }
 type src_dst struct{
 	Src string
@@ -160,11 +163,13 @@ func pdfHandler (w http.ResponseWriter, r *http.Request) {
     	fmt.Fprint(w,ret )
 	    return
     }
-    error_int:=convert(t.Src,t.Dst)
-	ret=fmt.Sprintf("%d",error_int)
-	fmt.Fprint(w,ret )
-
-    log_str:=fmt.Sprintf("Started %s %s for %s:%s\nresponse:%s", r.Method, r.URL.Path, addr,body,ret)
+    var err error
+    err=convert(t.Src,t.Dst)
+    if err!=nil{
+		fmt.Fprint(w,err.Error())
+    }
+	
+    log_str:=fmt.Sprintf("Started %s %s for %s:%s\nresponse:%s", r.Method, r.URL.Path, addr,body,err.Error())
     logger.Info(log_str)
 } 
 
