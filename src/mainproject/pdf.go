@@ -133,17 +133,23 @@ type src_dst struct{
 	des string
 }
 func pdfHandler (w http.ResponseWriter, r *http.Request)string {
-  	
+  	addr := r.Header.Get("X-Real-IP")
+	if addr == "" {
+		addr = r.Header.Get("X-Forwarded-For")
+		if addr == "" {
+			addr = r.RemoteAddr
+		}
+	}
   	var ret string
 	
 	body, _:= ioutil.ReadAll(r.Body)
     
     var t src_dst  
     err_decode := json.Unmarshal(body, &t)
-    convert(src_dst.src,src_dst.dst)
+    convert(t.src,t.dst)
 	defer r.Body.Close()
 	fmt.Fprint(w,ret )
-	
+
     log_str:=fmt.Sprintf("Started %s %s for %s:%s\nresponse:%s", r.Method, r.URL.Path, addr,body,ret)
     logger.Info(log_str)
 } 
