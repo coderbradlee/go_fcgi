@@ -79,7 +79,7 @@ func (self *GlobalSettings) NewConverter() *Converter {
 	return c
 }
 
-func convert(src,dst string) {
+func convert(src,dst string) int {
 	converter_map = make(map[unsafe.Pointer]*Converter)
 	C.wkhtmltopdf_init(C.false)
 	gs := NewGolbalSettings()
@@ -127,6 +127,7 @@ func convert(src,dst string) {
 	// fmt.Printf("Got error code: %d\n", c.ErrorCode())
 	logger.Info("Got error code: " + strconv.Itoa(c.ErrorCode()))
 	c.Destroy()
+	return c.ErrorCode()
 }
 type src_dst struct{
 	src string
@@ -140,17 +141,16 @@ func pdfHandler (w http.ResponseWriter, r *http.Request)string {
 			addr = r.RemoteAddr
 		}
 	}
-  	var ret string
-	
+  
 	body, _:= ioutil.ReadAll(r.Body)
     
     var t src_dst  
     err_decode := json.Unmarshal(body, &t)
-    convert(t.src,t.dst)
+    ret:=convert(t.src,t.dst)
 	defer r.Body.Close()
 	fmt.Fprint(w,ret )
 
-    log_str:=fmt.Sprintf("Started %s %s for %s:%s\nresponse:%s", r.Method, r.URL.Path, addr,body,ret)
+    log_str:=fmt.Sprintf("Started %s %s for %s:%s\nresponse:%d", r.Method, r.URL.Path, addr,body,ret)
     logger.Info(log_str)
 } 
 
