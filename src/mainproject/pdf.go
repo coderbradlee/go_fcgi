@@ -1,6 +1,6 @@
 package main
 //#cgo CFLAGS: -I../wkhtmltox/include 
-//#cgo LDFLAGS: -lwkhtmltox
+//#cgo LDFLAGS: -L/usr/lib -lwkhtmltox -Wall -ansi -pedantic -ggdb
 //#include <stdbool.h>
 //#include <stdio.h>
 //#include <string.h>
@@ -83,9 +83,9 @@ func convert() {
 	gs := NewGolbalSettings()
 	// gs.Set("outputFormat", "pdf")
 	gs.Set("out", "test.pdf")
-	gs.Set("orientation", "Portrait")
-	gs.Set("colorMode", "Color")
-	gs.Set("size.paperSize", "A4")
+	// gs.Set("orientation", "Portrait")
+	// gs.Set("colorMode", "Color")
+	// gs.Set("size.paperSize", "A4")
 	//gs.Set("load.cookieJar", "myjar.jar")
 	// object settings: http://www.cs.au.dk/~jakobt/libwkhtmltox_0.10.0_doc/pagesettings.html#pagePdfObject
 	os := NewObjectSettings()
