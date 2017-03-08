@@ -152,6 +152,7 @@ func pdfHandler (w http.ResponseWriter, r *http.Request) {
 	    fmt.Fprint(w,ret )
 	    return
     }
+    logger.Info(t.Src+" "+t.Dst)
     error_int:=convert(t.Src,t.Dst)
 	ret=fmt.Sprintf("%d",error_int)
 	fmt.Fprint(w,ret )
