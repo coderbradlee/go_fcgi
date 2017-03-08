@@ -78,7 +78,7 @@ func (self *GlobalSettings) NewConverter() *Converter {
 }
 
 func convert() {
-	converter_map = make(map[unsafe.Pointer]*Converter{})
+	converter_map = make(map[unsafe.Pointer]*Converter)
 	C.wkhtmltopdf_init(C.false)
 	gs := NewGolbalSettings()
 	// gs.Set("outputFormat", "pdf")
