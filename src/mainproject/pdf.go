@@ -131,9 +131,9 @@ func convert(src,dst string) int {
 }
 type src_dst struct{
 	src string
-	des string
+	dst string
 }
-func pdfHandler (w http.ResponseWriter, r *http.Request)string {
+func pdfHandler (w http.ResponseWriter, r *http.Request) {
   	addr := r.Header.Get("X-Real-IP")
 	if addr == "" {
 		addr = r.Header.Get("X-Forwarded-For")
