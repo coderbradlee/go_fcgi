@@ -78,7 +78,7 @@ func (self *GlobalSettings) NewConverter() *Converter {
 }
 
 func convert() {
-	converter_map = map[unsafe.Pointer]*Converter{}
+	converter_map = make(map[unsafe.Pointer]*Converter{})
 	C.wkhtmltopdf_init(C.false)
 	gs := NewGolbalSettings()
 	// gs.Set("outputFormat", "pdf")
@@ -122,7 +122,8 @@ func convert() {
 	}
 	c.Convert()
 
-	fmt.Printf("Got error code: %d\n", c.ErrorCode())
+	// fmt.Printf("Got error code: %d\n", c.ErrorCode())
+	logger.Info("Got error code: " + strconv.Itoa(c.ErrorCode()))
 	c.Destroy()
 }
 
