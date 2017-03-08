@@ -123,13 +123,14 @@ func convert(src,dst string) error {
 		logger.Info("Finished:" + strconv.Itoa(s))
 	}
 	err:=c.Convert()
+	temp:=c.ErrorCode()
+	logger.Info("Got error code: " + strconv.Itoa(temp))
 	c.Destroy()
 	if err!=nil{
 		return err
 	}
 	// fmt.Printf("Got error code: %d\n", c.ErrorCode())
-	// temp:=c.ErrorCode()
-	// logger.Info("Got error code: " + strconv.Itoa(temp))
+	
 	
 	return nil
 }
