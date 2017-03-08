@@ -143,14 +143,20 @@ func pdfHandler (w http.ResponseWriter, r *http.Request) {
 	}
   
 	body, _:= ioutil.ReadAll(r.Body)
-    
+	defer r.Body.Close()
+    var ret string
     var t src_dst  
     err_decode := json.Unmarshal(body, &t)
-    ret:=convert(t.src,t.dst)
-	defer r.Body.Close()
+    if err_decode!=nil{
+    	ret=`decode failed`
+	    fmt.Fprint(w,ret )
+	    return
+    }
+    error_int:=convert(t.src,t.dst)
+	ret=fmt.Sprintf("%d",error_int)
 	fmt.Fprint(w,ret )
 
-    log_str:=fmt.Sprintf("Started %s %s for %s:%s\nresponse:%d", r.Method, r.URL.Path, addr,body,ret)
+    log_str:=fmt.Sprintf("Started %s %s for %s:%s\nresponse:%s", r.Method, r.URL.Path, addr,body,ret)
     logger.Info(log_str)
 } 
 
