@@ -28,7 +28,7 @@ import (
     "net/http"
     "io/ioutil"
     "logger"
-    // "strconv"
+    "strconv"
     "errors"
 )
 type GlobalSettings struct {
@@ -96,11 +96,11 @@ func convert(src,dst string) error {
 	converter_map = make(map[unsafe.Pointer]*Converter)
 	C.wkhtmltopdf_init(C.false)
 	gs := NewGolbalSettings()
-	// gs.Set("outputFormat", "pdf")
+	gs.Set("outputFormat", "pdf")
 	gs.Set("out", dst)
-	// gs.Set("orientation", "Portrait")
-	// gs.Set("colorMode", "Color")
-	// gs.Set("size.paperSize", "A4")
+	gs.Set("orientation", "Portrait")
+	gs.Set("colorMode", "Color")
+	gs.Set("size.paperSize", "A4")
 	//gs.Set("load.cookieJar", "myjar.jar")
 	// object settings: http://www.cs.au.dk/~jakobt/libwkhtmltox_0.10.0_doc/pagesettings.html#pagePdfObject
 	os := NewObjectSettings()
@@ -136,7 +136,7 @@ func convert(src,dst string) error {
 	}
 	c.Finished = func(c *Converter, s int) {
 		// fmt.Printf("Finished: %d\n", s)
-		// logger.Info("Finished:" + strconv.Itoa(s))
+		logger.Info("Finished:" + strconv.Itoa(s))
 	}
 	err:=c.Convert()
 	// temp:=c.ErrorCode()
