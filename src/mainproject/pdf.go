@@ -29,6 +29,7 @@ import (
     "io/ioutil"
     "logger"
     "strconv"
+    "errors"
 )
 type GlobalSettings struct {
 	s *C.wkhtmltopdf_global_settings
@@ -232,7 +233,7 @@ func (self *Converter) Convert() error {
 	status := C.wkhtmltopdf_convert(self.c)
 	delete(converter_map, unsafe.Pointer(self.c))
 	if status != C.int(1) {
-		return fmt.Errorf("Convert failed")
+		return errors.New("Convert failed")
 	}
 	fmt.Printf("status: %d\n", status)
 	return nil
