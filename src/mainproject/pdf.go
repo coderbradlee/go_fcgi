@@ -86,7 +86,7 @@ func (self *Converter) Convert() error {
 	// to the converter object, base on the pointer.
 	converter_map[unsafe.Pointer(self.c)] = self
 	// status := C.wkhtmltopdf_convert(self.c)
-	status :=0
+	status :=C.int(1)
 	delete(converter_map, unsafe.Pointer(self.c))
 	if status != C.int(1) {
 		return errors.New("Convert failed")
