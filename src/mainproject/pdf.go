@@ -79,7 +79,19 @@ func (self *GlobalSettings) NewConverter() *Converter {
 
 	return c
 }
+func (self *Converter) Convert() error {
 
+	// To route callbacks right, we need to save a reference
+	// to the converter object, base on the pointer.
+	converter_map[unsafe.Pointer(self.c)] = self
+	status := C.wkhtmltopdf_convert(self.c)
+	delete(converter_map, unsafe.Pointer(self.c))
+	if status != C.int(1) {
+		return errors.New("Convert failed")
+	}
+	// fmt.Printf("status: %d\n", status)
+	return nil
+}
 func convert(src,dst string) error {
 	converter_map = make(map[unsafe.Pointer]*Converter)
 	C.wkhtmltopdf_init(C.false)
@@ -108,22 +120,22 @@ func convert(src,dst string) error {
 	//c.AddHtml(os, "<html><body><h3>HELLO</h3><p>World</p></body></html>")
 
 	c.ProgressChanged = func(c *Converter, b int) {
-		// fmt.Printf("Progress: %d\n", b)
+		fmt.Printf("Progress: %d\n", b)
 	}
 	c.Error = func(c *Converter, msg string) {
-		// fmt.Printf("error: %s\n", msg)
+		fmt.Printf("error: %s\n", msg)
 		logger.Error("error: "+msg)
             
 	}
 	c.Warning = func(c *Converter, msg string) {
-		// fmt.Printf("warning: %s\n", msg)
+		fmt.Printf("warning: %s\n", msg)
 		logger.Warn("warning: " + msg)
 	}
 	c.Phase = func(c *Converter) {
-		// fmt.Printf("Phase\n")
+		fmt.Printf("Phase\n")
 	}
 	c.Finished = func(c *Converter, s int) {
-		// fmt.Printf("Finished: %d\n", s)
+		fmt.Printf("Finished: %d\n", s)
 		logger.Info("Finished:" + strconv.Itoa(s))
 	}
 	err:=c.Convert()
@@ -185,6 +197,29 @@ func pdfHandler (w http.ResponseWriter, r *http.Request) {
 
 
 
+
+
+
+
+///////////////////////////////////////////////////
+func (self *Converter) Add(settings *ObjectSettings) {
+	C.wkhtmltopdf_add_object(self.c, settings.s, nil)
+}
+
+func (self *Converter) AddHtml(settings *ObjectSettings, data string) {
+	c_data := C.CString(data)
+	defer C.free(unsafe.Pointer(c_data))
+	C.wkhtmltopdf_add_object(self.c, settings.s, c_data)
+}
+
+func (self *Converter) ErrorCode() int {
+	return int(C.wkhtmltopdf_http_error_code(self.c))
+}
+
+func (self *Converter) Destroy() {
+	C.wkhtmltopdf_destroy_converter(self.c)
+}
+
 //export finished_cb
 func finished_cb(c unsafe.Pointer, s C.int) {
 	conv := converter_map[c]
@@ -223,36 +258,4 @@ func phase_changed_cb(c unsafe.Pointer) {
 	if conv.Phase != nil {
 		conv.Phase(conv)
 	}
-}
-
-func (self *Converter) Convert() error {
-
-	// To route callbacks right, we need to save a reference
-	// to the converter object, base on the pointer.
-	converter_map[unsafe.Pointer(self.c)] = self
-	status := C.wkhtmltopdf_convert(self.c)
-	delete(converter_map, unsafe.Pointer(self.c))
-	if status != C.int(1) {
-		return errors.New("Convert failed")
-	}
-	fmt.Printf("status: %d\n", status)
-	return nil
-}
-
-func (self *Converter) Add(settings *ObjectSettings) {
-	C.wkhtmltopdf_add_object(self.c, settings.s, nil)
-}
-
-func (self *Converter) AddHtml(settings *ObjectSettings, data string) {
-	c_data := C.CString(data)
-	defer C.free(unsafe.Pointer(c_data))
-	C.wkhtmltopdf_add_object(self.c, settings.s, c_data)
-}
-
-func (self *Converter) ErrorCode() int {
-	return int(C.wkhtmltopdf_http_error_code(self.c))
-}
-
-func (self *Converter) Destroy() {
-	C.wkhtmltopdf_destroy_converter(self.c)
 }
