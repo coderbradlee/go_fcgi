@@ -84,12 +84,12 @@ func (self *Converter) Convert() error {
 
 	// To route callbacks right, we need to save a reference
 	// to the converter object, base on the pointer.
-	converter_map[unsafe.Pointer(self.c)] = self
-	status := C.wkhtmltopdf_convert(self.c)
-	delete(converter_map, unsafe.Pointer(self.c))
-	if status != C.int(1) {
-		return errors.New("Convert failed")
-	}
+	// converter_map[unsafe.Pointer(self.c)] = self
+	// status := C.wkhtmltopdf_convert(self.c)
+	// delete(converter_map, unsafe.Pointer(self.c))
+	// if status != C.int(1) {
+	// 	return errors.New("Convert failed")
+	// }
 	// fmt.Printf("status: %d\n", status)
 	return nil
 }
@@ -203,14 +203,6 @@ func pdfHandler (w http.ResponseWriter, r *http.Request) {
 	log_str:=fmt.Sprintf("Started %s %s for %s:%s response:%s", r.Method, r.URL.Path, addr,body,"ok")
     logger.Info(log_str)
 } 
-
-
-
-
-
-
-
-
 
 ///////////////////////////////////////////////////
 func (self *Converter) Add(settings *ObjectSettings) {
