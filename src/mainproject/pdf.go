@@ -231,10 +231,10 @@ func (self *Converter) Convert() error {
 	converter_map[unsafe.Pointer(self.c)] = self
 	status := C.wkhtmltopdf_convert(self.c)
 	delete(converter_map, unsafe.Pointer(self.c))
-	if status != C.int(0) {
-		fmt.Printf("status: %d\n", status)
+	if status != C.int(1) {
 		return fmt.Errorf("Convert failed")
 	}
+	fmt.Printf("status: %d\n", status)
 	return nil
 }
 
