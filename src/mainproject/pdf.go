@@ -84,12 +84,13 @@ func (self *Converter) Convert() error {
 
 	// To route callbacks right, we need to save a reference
 	// to the converter object, base on the pointer.
-	// converter_map[unsafe.Pointer(self.c)] = self
+	converter_map[unsafe.Pointer(self.c)] = self
 	// status := C.wkhtmltopdf_convert(self.c)
-	// delete(converter_map, unsafe.Pointer(self.c))
-	// if status != C.int(1) {
-	// 	return errors.New("Convert failed")
-	// }
+	status :=0
+	delete(converter_map, unsafe.Pointer(self.c))
+	if status != C.int(1) {
+		return errors.New("Convert failed")
+	}
 	// fmt.Printf("status: %d\n", status)
 	return nil
 }
