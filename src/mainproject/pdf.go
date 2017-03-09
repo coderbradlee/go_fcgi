@@ -113,35 +113,35 @@ func convert(src,dst string) error {
 	os.Set("web.background", "true")
 	os.Set("web.defaultEncoding", "utf-8")
 	// os.Set("web.userStyleSheet", "utf-8")
-	os.Set("load.blockLocalFileAccess", "false")
-
+	os.Set("load.blockLocalFileAccess","false")
+	os.Set("load.loadErrorHandling","skip")
 	c := gs.NewConverter()
 	c.Add(os)
 	//c.AddHtml(os, "<html><body><h3>HELLO</h3><p>World</p></body></html>")
 
 	c.ProgressChanged = func(c *Converter, b int) {
-		fmt.Printf("Progress: %d\n", b)
+		// fmt.Printf("Progress: %d\n", b)
 	}
 	c.Error = func(c *Converter, msg string) {
-		fmt.Printf("error: %s\n", msg)
+		// fmt.Printf("error: %s\n", msg)
 		logger.Error("error: "+msg)
             
 	}
 	c.Warning = func(c *Converter, msg string) {
-		fmt.Printf("warning: %s\n", msg)
+		// fmt.Printf("warning: %s\n", msg)
 		logger.Warn("warning: " + msg)
 	}
 	c.Phase = func(c *Converter) {
-		fmt.Printf("Phase\n")
+		// fmt.Printf("Phase\n")
 	}
 	c.Finished = func(c *Converter, s int) {
-		fmt.Printf("Finished: %d\n", s)
+		// fmt.Printf("Finished: %d\n", s)
 		logger.Info("Finished:" + strconv.Itoa(s))
 	}
 	err:=c.Convert()
 	temp:=c.ErrorCode()
 	logger.Info("Got error code: " + strconv.Itoa(temp))
-	fmt.Printf("Got error code: %d\n", temp)
+	// fmt.Printf("Got error code: %d\n", temp)
 
 	c.Destroy()
 	C.wkhtmltopdf_deinit()	
