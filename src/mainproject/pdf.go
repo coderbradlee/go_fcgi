@@ -61,11 +61,7 @@ func (self *GlobalSettings) Set(name, value string) {
 	defer C.free(unsafe.Pointer(c_value))
 	C.wkhtmltopdf_set_global_setting(self.s, c_name, c_value)
 }
-func (self *GlobalSettings) SetBool(name string, value bool) {
-	c_name := C.CString(name)
-	defer C.free(unsafe.Pointer(c_name))
-	C.wkhtmltopdf_set_global_setting(self.s, c_name,value)
-}
+
 func NewObjectSettings() *ObjectSettings {
 	return &ObjectSettings{s: C.wkhtmltopdf_create_object_settings()}
 }
@@ -77,11 +73,7 @@ func (self *ObjectSettings) Set(name, value string) {
 	defer C.free(unsafe.Pointer(c_value))
 	C.wkhtmltopdf_set_object_setting(self.s, c_name, c_value)
 }
-func (self *ObjectSettings) SetBool(name string, value bool) {
-	c_name := C.CString(name)
-	defer C.free(unsafe.Pointer(c_name))
-	C.wkhtmltopdf_set_object_setting(self.s, c_name,value)
-}
+
 func (self *GlobalSettings) NewConverter() *Converter {
 	c := &Converter{c: C.wkhtmltopdf_create_converter(self.s)}
 	C.setup_callbacks(c.c)
@@ -123,8 +115,14 @@ func convert(src,dst string) error {
 	os.Set("web.defaultEncoding", "utf-8")
 	// os.Set("web.userStyleSheet", "utf-8")
 	// os.Set("load.blockLocalFileAccess","false")
-	os.SetBool("load.blockLocalFileAccess",false) 
+	os.Set("load.blockLocalFileAccess","false") 
 	os.Set("load.loadErrorHandling","skip")
+
+	os.Set("toc.forwardLinks","true")
+	os.Set("useLocalLinks", "true")
+	os.Set("produceForms", "true")
+
+
 	c := gs.NewConverter()
 	c.Add(os)
 	//c.AddHtml(os, "<html><body><h3>HELLO</h3><p>World</p></body></html>")
