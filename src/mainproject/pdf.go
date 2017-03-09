@@ -29,7 +29,7 @@ import (
     "io/ioutil"
     "logger"
     "strconv"
-    // "errors"
+    "errors"
 )
 type GlobalSettings struct {
 	s *C.wkhtmltopdf_global_settings
