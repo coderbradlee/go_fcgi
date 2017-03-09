@@ -129,7 +129,7 @@ func convert(src,dst string) error {
 	temp:=c.ErrorCode()
 	logger.Info("Got error code: " + strconv.Itoa(temp))
 	fmt.Printf("Got error code: %d\n", temp)
-	
+
 	c.Destroy()
 	C.wkhtmltopdf_deinit()	
 	if err!=nil{
@@ -232,6 +232,7 @@ func (self *Converter) Convert() error {
 	status := C.wkhtmltopdf_convert(self.c)
 	delete(converter_map, unsafe.Pointer(self.c))
 	if status != C.int(0) {
+		fmt.Printf("status: %d\n", status)
 		return fmt.Errorf("Convert failed")
 	}
 	return nil
