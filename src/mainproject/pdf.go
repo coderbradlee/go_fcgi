@@ -94,11 +94,14 @@ func convert(src,dst string) error {
 	os.Set("page", src)
 	// os.Set("load.debugJavascript", "false")
 	//os.Set("load.jsdelay", "1000") // wait max 1s
-	// os.Set("web.enableJavascript", "false")
-	// os.Set("web.enablePlugins", "false")
-	// os.Set("web.loadImages", "true")
-	// os.Set("web.background", "true")
+	os.Set("web.enableJavascript", "true")
+	os.Set("web.enablePlugins", "true")
+	os.Set("web.loadImages", "true")
+	os.Set("web.background", "true")
+	os.Set("web.defaultEncoding", "utf-8")
+	// os.Set("web.userStyleSheet", "utf-8")
 
+	
 	c := gs.NewConverter()
 	c.Add(os)
 	//c.AddHtml(os, "<html><body><h3>HELLO</h3><p>World</p></body></html>")
