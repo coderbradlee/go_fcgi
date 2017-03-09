@@ -100,8 +100,8 @@ func convert(src,dst string) error {
 	os.Set("web.background", "true")
 	os.Set("web.defaultEncoding", "utf-8")
 	// os.Set("web.userStyleSheet", "utf-8")
+	os.Set("load.blockLocalFileAccess", "false")
 
-	
 	c := gs.NewConverter()
 	c.Add(os)
 	//c.AddHtml(os, "<html><body><h3>HELLO</h3><p>World</p></body></html>")
