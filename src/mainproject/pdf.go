@@ -118,8 +118,8 @@ func convert(src,dst string) error {
 	os.Set("load.blockLocalFileAccess","false") 
 	os.Set("load.loadErrorHandling","skip")
 
-	// os.Set("toc.forwardLinks","true")
-	// os.Set("useLocalLinks", "true")
+	os.Set("toc.forwardLinks","true")
+	os.Set("useLocalLinks", "true")
 	// os.Set("produceForms", "true")
 
 
