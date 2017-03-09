@@ -136,7 +136,7 @@ func convert(src,dst string) error {
 	}
 	c.Finished = func(c *Converter, s int) {
 		// fmt.Printf("Finished: %d\n", s)
-		logger.Info("Finished:" + strconv.Itoa(s))
+		logger.Info("pdf Finished:" + strconv.Itoa(s))
 	}
 	err:=c.Convert()
 	// temp:=c.ErrorCode()
@@ -189,8 +189,8 @@ func pdfHandler (w http.ResponseWriter, r *http.Request) {
     	fmt.Fprint(w,"ok")
     }
 	
-    // log_str:=fmt.Sprintf("Started %s %s for %s:%s\nresponse:%s", r.Method, r.URL.Path, addr,body,err.Error())
-    // logger.Info(log_str)
+    log_str:=fmt.Sprintf("Started %s %s for %s:%s\nresponse:%s", r.Method, r.URL.Path, addr,body,err.Error())
+    logger.Info(log_str)
 } 
 
 
