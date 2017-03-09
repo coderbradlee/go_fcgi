@@ -155,6 +155,7 @@ func convert(src,dst string) error {
 
 	c.Destroy()
 	C.wkhtmltopdf_deinit()	
+	converter_map =nil
 	if err!=nil{
 		return err
 	}
