@@ -127,7 +127,7 @@ func convert(src,dst string) error {
 	os.Set("web.defaultEncoding", "utf-8")
 	// os.Set("web.userStyleSheet", "utf-8")
 	// os.Set("load.blockLocalFileAccess","false")
-	os.Set("load.blockLocalFileAccess",false) 
+	os.SetBool("load.blockLocalFileAccess",false) 
 	os.Set("load.loadErrorHandling","skip")
 	c := gs.NewConverter()
 	c.Add(os)
