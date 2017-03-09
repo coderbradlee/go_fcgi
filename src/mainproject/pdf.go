@@ -120,7 +120,7 @@ func convert(src,dst string) error {
 
 	// os.Set("toc.forwardLinks","true")
 	// os.Set("useLocalLinks", "true")
-	os.Set("produceForms", "true")
+	// os.Set("produceForms", "true")
 
 
 	c := gs.NewConverter()
