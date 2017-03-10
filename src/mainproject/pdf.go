@@ -49,9 +49,6 @@ type Converter struct {
 }
 
 var converter_map map[unsafe.Pointer]*Converter
-var global_gs *GlobalSettings
-var global_os *ObjectSettings
-var global_c *Converter
 
 func NewGolbalSettings() *GlobalSettings {
 	return &GlobalSettings{s: C.wkhtmltopdf_create_global_settings()}
@@ -97,30 +94,30 @@ func (self *Converter) Convert() error {
 	// fmt.Printf("status: %d\n", status)
 	return nil
 }
-func init() {
+func convert(src,dst string) error {
 	converter_map = make(map[unsafe.Pointer]*Converter)
 	C.wkhtmltopdf_init(C.false)
-	global_gs = NewGolbalSettings()
-	global_gs.Set("outputFormat", "pdf")
-	// gs.Set("out", dst)
-	global_gs.Set("orientation", "Portrait")
-	global_gs.Set("colorMode", "Color")
-	global_gs.Set("size.paperSize", "A4")
+	gs := NewGolbalSettings()
+	gs.Set("outputFormat", "pdf")
+	gs.Set("out", dst)
+	gs.Set("orientation", "Portrait")
+	gs.Set("colorMode", "Color")
+	gs.Set("size.paperSize", "A4")
 	//gs.Set("load.cookieJar", "myjar.jar")
 	// object settings: http://www.cs.au.dk/~jakobt/libwkhtmltox_0.10.0_doc/pagesettings.html#pagePdfObject
-	global_os = NewObjectSettings()
-	// global_os.Set("page", src)global_
+	os := NewObjectSettings()
+	os.Set("page", src)
 	// os.Set("load.debugJavascript", "false")
 	//os.Set("load.jsdelay", "1000") // wait max 1s
-	global_os.Set("web.enableJavascript", "false")
-	global_os.Set("web.enablePlugins", "false")
-	global_os.Set("web.loadImages", "true")
-	global_os.Set("web.background", "true")
-	global_os.Set("web.defaultEncoding", "utf-8")
+	os.Set("web.enableJavascript", "false")
+	os.Set("web.enablePlugins", "false")
+	os.Set("web.loadImages", "true")
+	os.Set("web.background", "true")
+	os.Set("web.defaultEncoding", "utf-8")
 	// os.Set("web.userStyleSheet", "utf-8")
 	// os.Set("load.blockLocalFileAccess","false")
-	global_os.Set("load.blockLocalFileAccess","false") 
-	global_os.Set("load.loadErrorHandling","skip")
+	os.Set("load.blockLocalFileAccess","false") 
+	os.Set("load.loadErrorHandling","skip")
 
 	// os.Set("useExternalLinks","true")
 	// os.Set("toc.forwardLinks","true")
@@ -128,45 +125,37 @@ func init() {
 	// os.Set("produceForms", "true")
 	// os.Set("web.userStyleSheet", "css")
 
-	
-}
-func convert(src,dst string) error {
-	global_gs.Set("out", dst)
-	global_os.Set("page", src)
-
-	global_c = global_gs.NewConverter()
-	global_c.Add(global_os)
+	c := gs.NewConverter()
+	c.Add(os)
 	//c.AddHtml(os, "<html><body><h3>HELLO</h3><p>World</p></body></html>")
 
-	global_c.ProgressChanged = func(c *Converter, b int) {
+	c.ProgressChanged = func(c *Converter, b int) {
 		// fmt.Printf("Progress: %d\n", b)
 	}
-	global_c.Error = func(c *Converter, msg string) {
+	c.Error = func(c *Converter, msg string) {
 		// fmt.Printf("error: %s\n", msg)
 		logger.Error("error: "+msg)
             
 	}
-	global_c.Warning = func(c *Converter, msg string) {
+	c.Warning = func(c *Converter, msg string) {
 		// fmt.Printf("warning: %s\n", msg)
 		logger.Warn("warning: " + msg)
 	}
-	global_c.Phase = func(c *Converter) {
+	c.Phase = func(c *Converter) {
 		// fmt.Printf("Phase\n")
 	}
-	global_c.Finished = func(c *Converter, s int) {
+	c.Finished = func(c *Converter, s int) {
 		// fmt.Printf("Finished: %d\n", s)
 		logger.Info("pdf Finished:" + strconv.Itoa(s))
 	}
-
-	
-	err:=global_c.Convert()
+	err:=c.Convert()
 	// temp:=c.ErrorCode()
 	// logger.Info("Got error code: " + strconv.Itoa(temp))
 	// fmt.Printf("Got error code: %d\n", temp)
 
-	// c.Destroy()
-	// C.wkhtmltopdf_deinit()	
-	// converter_map =nil
+	c.Destroy()
+	C.wkhtmltopdf_deinit()	
+	converter_map =nil
 	if err!=nil{
 		return err
 	}
