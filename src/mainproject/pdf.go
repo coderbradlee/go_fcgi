@@ -198,6 +198,7 @@ func pdfHandler (w http.ResponseWriter, r *http.Request) {
     if t.Src==""||t.Dst==""{
     	ret="empty src or dst"
     	fmt.Fprint(w,ret )
+    	logger.Info(fmt.Sprintf("Started %s %s for %s:%s response:%s", r.Method, r.URL.Path, addr,body,"empty src or dst"))
 	    return
     }
     var err error
