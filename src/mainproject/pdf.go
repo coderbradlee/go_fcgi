@@ -94,9 +94,12 @@ func (self *Converter) Convert() error {
 	// fmt.Printf("status: %d\n", status)
 	return nil
 }
+func init() {
+	C.wkhtmltopdf_init(C.false)
+}
 func convert(src,dst string) error {
 	converter_map = make(map[unsafe.Pointer]*Converter)
-	C.wkhtmltopdf_init(C.false)
+	
 	gs := NewGolbalSettings()
 	gs.Set("outputFormat", "pdf")
 	gs.Set("out", dst)
@@ -154,7 +157,7 @@ func convert(src,dst string) error {
 	// fmt.Printf("Got error code: %d\n", temp)
 
 	c.Destroy()
-	C.wkhtmltopdf_deinit()	
+	// C.wkhtmltopdf_deinit()	
 	converter_map =nil
 	if err!=nil{
 		return err
