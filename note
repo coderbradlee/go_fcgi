@@ -1,3 +1,18 @@
+2017.3.10
+pdf 转换时第一次是好的，再次调用转换pdf乱码，准备编译最新版程序解决：
+https://github.com/anowell/wkhtmltopdf-rs/issues/1
+
+Despite the lazy static mutex that ensure we only init wkhtmltopdf once (via PdfGlobal::new(), it turns out that we can't let separate threads calling into wkhtmltopdf as it seems to result in hanging/idling inside wkhtmltopdf. Seems to align with this upstream issue
+
+For now, don't spin up threads. I'll be experimenting with a few options:
+
+1、have each PdfGlobal fork into its own process
+2、return a LockResult<Mutex<T>> to callers, requiring them to unlock it before conversion (probably requires refactoring so all wkhtmltopdf calls happen during the call to convert, also means non-threaded uses will unnecessarily init/deinit for every conversion)
+3、Provide a toplevel wkhtmltopdf::init() -> LockResult<Mutex<PdfBuilder>> to make it clearer that you can have multiple builders in the same process.
+4、Skip to wkhtmltopdf 0.13 (alpha) if it allows threaded usage
+
+
+
 2017.3.7
 export GODEBUG="memprofilerate=1"
 去掉性能检测，再测试下响应时间
