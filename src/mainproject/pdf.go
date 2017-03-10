@@ -30,6 +30,7 @@ import (
     "logger"
     "strconv"
     "errors"
+    "sync"
 )
 type GlobalSettings struct {
 	s *C.wkhtmltopdf_global_settings
