@@ -191,6 +191,7 @@ func pdfHandler (w http.ResponseWriter, r *http.Request) {
     if err_decode!=nil{
     	ret=`decode failed`
 	    fmt.Fprint(w,ret )
+	    logger.Info(fmt.Sprintf("Started %s %s for %s:%s response:%s", r.Method, r.URL.Path, addr,body,err_decode.Error()))
 	    return
     }
     // logger.Info(t.Src+": "+t.Dst)

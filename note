@@ -14,7 +14,7 @@ tag goroutinepartialok2017.3.5
 需要增加oauth认证
 
 
-curl -X GET http://127.0.0.1:9888/pdf
+curl -X POST http://127.0.0.1:9888/pdf -d '{\"src\":\"/root/Newshop_International/WEB-INF/quotation_pdf.html\",\"dst\":\"/root/go_fcgi/test.pdf\"}'
 
 
 2017.03.02
