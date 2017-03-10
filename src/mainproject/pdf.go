@@ -128,6 +128,12 @@ func init() {
 	// os.Set("produceForms", "true")
 	// os.Set("web.userStyleSheet", "css")
 
+	
+}
+func convert(src,dst string) error {
+	global_gs.Set("out", dst)
+	global_os.Set("page", src)
+
 	global_c = global_gs.NewConverter()
 	global_c.Add(global_os)
 	//c.AddHtml(os, "<html><body><h3>HELLO</h3><p>World</p></body></html>")
@@ -151,10 +157,8 @@ func init() {
 		// fmt.Printf("Finished: %d\n", s)
 		logger.Info("pdf Finished:" + strconv.Itoa(s))
 	}
-}
-func convert(src,dst string) error {
-	global_gs.Set("out", dst)
-	global_os.Set("page", src)
+
+	
 	err:=global_c.Convert()
 	// temp:=c.ErrorCode()
 	// logger.Info("Got error code: " + strconv.Itoa(temp))
