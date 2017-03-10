@@ -109,7 +109,7 @@ func logPanics(function func(http.ResponseWriter,
     return func(writer http.ResponseWriter, request *http.Request) {
         defer func() {
             if x := recover(); x != nil {
-                logger.Error(fmt.Sprintf("[%v] caught panic: %v", r.RemoteAddr, x))
+                logger.Error(fmt.Sprintf("[%v] caught panic: %v", request.RemoteAddr, x))
             }
         }()
         function(writer, request)
