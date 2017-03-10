@@ -96,12 +96,13 @@ func (self *Converter) Convert() error {
 	return nil
 }
 func init() {
-	C.wkhtmltopdf_init(C.false)
+	
 }
 func convert(src,dst string) error {
 	var mutex sync.Mutex
 	mutex.Lock()
 	defer mutex.Unlock()
+	C.wkhtmltopdf_init(C.false)
 	converter_map = make(map[unsafe.Pointer]*Converter)
 	
 	gs := NewGolbalSettings()
@@ -161,7 +162,7 @@ func convert(src,dst string) error {
 	// fmt.Printf("Got error code: %d\n", temp)
 
 	c.Destroy()
-	// C.wkhtmltopdf_deinit()	
+	C.wkhtmltopdf_deinit()	
 	converter_map =nil
 	if err!=nil{
 		return err
