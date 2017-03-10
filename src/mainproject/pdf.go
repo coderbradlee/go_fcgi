@@ -167,6 +167,13 @@ type src_dst struct{
 	Dst string
 }
 func pdfHandler (w http.ResponseWriter, r *http.Request) {
+
+	// defer func() { // Needed for every page
+ //        if x := recover(); x != nil {
+ //            logger.Error(fmt.Sprintf("[%v] caught panic: %v", r.RemoteAddr, x))
+ //        }
+ //    }()
+
   	addr := r.Header.Get("X-Real-IP")
 	if addr == "" {
 		addr = r.Header.Get("X-Forwarded-For")
@@ -196,14 +203,13 @@ func pdfHandler (w http.ResponseWriter, r *http.Request) {
     err=convert(t.Src,t.Dst)
     if err!=nil{
 		fmt.Fprint(w,err.Error())
-		log_str:=fmt.Sprintf("Started %s %s for %s:%s response:%s", r.Method, r.URL.Path, addr,body,err.Error())
-    	logger.Info(log_str)
+		
+    	logger.Info(fmt.Sprintf("Started %s %s for %s:%s response:%s", r.Method, r.URL.Path, addr,body,err.Error()))
     	return
     }else{
     	fmt.Fprint(w,"ok")
     }
-	log_str:=fmt.Sprintf("Started %s %s for %s:%s response:%s", r.Method, r.URL.Path, addr,body,"ok")
-    logger.Info(log_str)
+    logger.Info(fmt.Sprintf("Started %s %s for %s:%s response:%s", r.Method, r.URL.Path, addr,body,"ok"))
 } 
 
 ///////////////////////////////////////////////////

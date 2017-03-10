@@ -104,7 +104,17 @@ func log_init() {
             logger.SetLevel(logger.ERROR)
         }
 }
-
+func logPanics(function func(http.ResponseWriter,
+    *http.Request)) func(http.ResponseWriter, *http.Request) {
+    return func(writer http.ResponseWriter, request *http.Request) {
+        defer func() {
+            if x := recover(); x != nil {
+                logger.Error(fmt.Sprintf("[%v] caught panic: %v", r.RemoteAddr, x))
+            }
+        }()
+        function(writer, request)
+    }
+}
 
 func main() {
     
@@ -167,9 +177,9 @@ func startMartini() {
     // m.Use(auth_BasicFunc(func(username, password string) bool {
     //     return username == "admin" && password == "admin"
     // }))
-    m.Post("/po/deliver_goods",poHandler)
+    m.Post("/po/deliver_goods",logPanics(poHandler))
     //m.Post("/pdf",pdfHandler)
-    m.Post("/pdf",pdfHandler)
+    m.Post("/pdf",logPanics(pdfHandler))
     // m.Get("/debug/pprof", pprof.Index)
     // m.Get("/debug/pprof/cmdline", pprof.Cmdline)
     // m.Get("/debug/pprof/profile", pprof.Profile)
