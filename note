@@ -1,4 +1,24 @@
 2017.3.10
+
+wkhtmltopdf /root/Newshop_International/WEB-INF/quotation_pdf.html /root/go_fcgi/testprocess.pdf
+
+再次用下面的第4点尝试
+yum install libxcb libicu* libthai libxslt
+yum install libsqlite3 libxml 
+yum install icu*
+export QT_XKB_CONFIG_ROOT=/usr/share/X11/xkb
+export DISPLAY=:0.0
+
+yum install docker
+service docker start
+docker pull arachnysdocker/athenapdf-service
+docker run -p 8080:8080 --rm -env-file=/root/athenapdf/weaver/conf/sample.env docker.io/arachnysdocker/athenapdf-service&
+
+curl http://127.0.0.1:8080/convert\?auth\=arachnys-weaver\&url\=http://blog.arachnys.com/ |> out.pdf
+
+curl http://127.0.0.1:8080/convert\?auth\=arachnys-weaver\&url\=http://news.baidu.com/ |> out.pdf
+
+2017.3.10
 pdf 转换时第一次是好的，再次调用转换pdf乱码，准备编译最新版程序解决（先用建议4尝试下）：
 https://github.com/anowell/wkhtmltopdf-rs/issues/1
 
@@ -11,7 +31,8 @@ For now, don't spin up threads. I'll be experimenting with a few options:
 3、Provide a toplevel wkhtmltopdf::init() -> LockResult<Mutex<PdfBuilder>> to make it clearer that you can have multiple builders in the same process.
 4、Skip to wkhtmltopdf 0.13 (alpha) if it allows threaded usage
 
-
+用4需要：
+yum install xorg-x11-fonts-75dpi
 
 2017.3.7
 export GODEBUG="memprofilerate=1"
