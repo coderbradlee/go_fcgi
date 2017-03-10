@@ -98,6 +98,9 @@ func init() {
 	C.wkhtmltopdf_init(C.false)
 }
 func convert(src,dst string) error {
+	var mutex sync.Mutex
+	mutex.Lock()
+	defer mutex.Unlock()
 	converter_map = make(map[unsafe.Pointer]*Converter)
 	
 	gs := NewGolbalSettings()
