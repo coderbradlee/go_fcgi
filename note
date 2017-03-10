@@ -1,5 +1,5 @@
 2017.3.10
-pdf 转换时第一次是好的，再次调用转换pdf乱码，准备编译最新版程序解决：
+pdf 转换时第一次是好的，再次调用转换pdf乱码，准备编译最新版程序解决（先用建议4尝试下）：
 https://github.com/anowell/wkhtmltopdf-rs/issues/1
 
 Despite the lazy static mutex that ensure we only init wkhtmltopdf once (via PdfGlobal::new(), it turns out that we can't let separate threads calling into wkhtmltopdf as it seems to result in hanging/idling inside wkhtmltopdf. Seems to align with this upstream issue
