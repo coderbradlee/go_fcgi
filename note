@@ -8,6 +8,19 @@ yum install libsqlite3 libxml
 yum install icu*
 export QT_XKB_CONFIG_ROOT=/usr/share/X11/xkb
 export DISPLAY=:0.0
+export QT_QPA_PLATFORM_PLUGIN_PATH=
+export QT_DEBUG_PLUGINS=1
+
+yum install libxcb1-dev libx11-xcb-dev libxcb-glx0-dev libxcb-keysyms1-dev libxcb-image0-dev libxcb-shm0-dev libxcb-icccm4-dev libxcb-sync0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-randr0-dev libxcb-render-util0-dev
+
+
+export WKHTMLTOX_CHROOT=/home/brad/chroot
+
+
+
+
+
+
 
 yum install docker
 service docker start
