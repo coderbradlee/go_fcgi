@@ -98,10 +98,7 @@ func (self *Converter) Convert() error {
 func init() {
 	
 }
-func convert(src,dst string) error {
-	var mutex sync.Mutex
-	mutex.Lock()
-	defer mutex.Unlock()
+func convert(src,dst string) (error,done chan<- string) {
 	C.wkhtmltopdf_init(C.false)
 	converter_map = make(map[unsafe.Pointer]*Converter)
 	
@@ -164,11 +161,12 @@ func convert(src,dst string) error {
 	c.Destroy()
 	C.wkhtmltopdf_deinit()	
 	converter_map =nil
+
 	if err!=nil{
-		return err
+		return err,done<-"done"
 	}
 	
-	return nil
+	return nil,done<-"done"
 }
 type src_dst struct{
 	Src string
@@ -210,7 +208,8 @@ func pdfHandler (w http.ResponseWriter, r *http.Request) {
 	    return
     }
     var err error
-    err=convert(t.Src,t.Dst)
+    done:=make(chan string)
+    err,done=convert(t.Src,t.Dst)
     if err!=nil{
 		fmt.Fprint(w,err.Error())
 		
