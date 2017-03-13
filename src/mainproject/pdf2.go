@@ -7,7 +7,7 @@ import (
     // "unsafe"
     "encoding/json"
     "net/http"
-    // "io/ioutil"
+    "io/ioutil"
     "logger"
     // "strconv"
     // "errors"
@@ -44,7 +44,7 @@ func pdfHandler2 (w http.ResponseWriter, r *http.Request) {
 	    return
     }
     var err error
-    err=convert2(t.Src,t.Dst,ret_convert)
+    err=convert2(t.Src,t.Dst)
     if err!=nil{
 		fmt.Fprint(w,err.Error())
 		
