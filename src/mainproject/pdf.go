@@ -102,7 +102,7 @@ type Result struct{
 	err error
 	done string
 }
-func convert(src,dst string) chan Result {
+func convert(src,dst string,done chan<- Result)  {
 	C.wkhtmltopdf_init(C.false)
 	converter_map = make(map[unsafe.Pointer]*Converter)
 	
@@ -167,10 +167,10 @@ func convert(src,dst string) chan Result {
 	converter_map =nil
 
 	if err!=nil{
-		return Result{err,"done"}
+		done<-Result{err,"done"}
 	}
 	
-	return Result{nil,"done"}
+	done<-Result{nil,"done"}
 }
 type src_dst struct{
 	Src string
@@ -212,8 +212,9 @@ func pdfHandler (w http.ResponseWriter, r *http.Request) {
 	    return
     }
     var err error
-    done:=make(chan Result)
-    done=<-convert(t.Src,t.Dst)
+    ret:=make(chan Result)
+    go convert(t.Src,t.Dst,ret)
+    done:=<-ret
     if done.err!=nil{
 		fmt.Fprint(w,err.Error())
 		
