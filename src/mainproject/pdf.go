@@ -99,7 +99,7 @@ func init() {
 	
 }
 type Result struct{
-	err errors
+	err error
 	done string
 }
 func convert(src,dst string) chan<- Result {
@@ -167,10 +167,10 @@ func convert(src,dst string) chan<- Result {
 	converter_map =nil
 
 	if err!=nil{
-		return Result{err,<-"done"}
+		return Result{err,"done"}
 	}
 	
-	return Result{nil,<-"done"}
+	return Result{nil,"done"}
 }
 type src_dst struct{
 	Src string
