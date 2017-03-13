@@ -1,8 +1,9 @@
 2017.3.7
 新环境安装：
 1、yum install go
-cp src/wkhtmltox/libwkhtmltox.so /usr/lib
-ln -s /usr/lib/libwkhtmltox.so /usr/lib/libwkhtmltox.so.0
+cp src/wkhtmltox/libwkhtmltox.so.0.12.3 /usr/lib
+ln -s /usr/lib/libwkhtmltox.so.0.12.3 /usr/lib/libwkhtmltox.so.0
+ln -s /usr/lib/libwkhtmltox.so.0.12.3 /usr/lib/libwkhtmltox.so
 或
 yum install wkhtmltopdf* 不能正常工作
 

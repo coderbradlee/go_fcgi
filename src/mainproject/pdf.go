@@ -30,7 +30,7 @@ import (
     "logger"
     "strconv"
     "errors"
-    "sync"
+    // "sync"
 )
 type GlobalSettings struct {
 	s *C.wkhtmltopdf_global_settings
@@ -98,7 +98,11 @@ func (self *Converter) Convert() error {
 func init() {
 	
 }
-func convert(src,dst string) (error,done chan<- string) {
+type Result struct{
+	err errors
+	done string
+}
+func convert(src,dst string) chan<- Result {
 	C.wkhtmltopdf_init(C.false)
 	converter_map = make(map[unsafe.Pointer]*Converter)
 	
@@ -163,10 +167,10 @@ func convert(src,dst string) (error,done chan<- string) {
 	converter_map =nil
 
 	if err!=nil{
-		return err,done<-"done"
+		return Result{err,<-"done"}
 	}
 	
-	return nil,done<-"done"
+	return Result{nil,<-"done"}
 }
 type src_dst struct{
 	Src string
@@ -208,9 +212,9 @@ func pdfHandler (w http.ResponseWriter, r *http.Request) {
 	    return
     }
     var err error
-    done:=make(chan string)
-    err,done=convert(t.Src,t.Dst)
-    if err!=nil{
+    done:=make(chan Result)
+    done<-convert(t.Src,t.Dst)
+    if done.err!=nil{
 		fmt.Fprint(w,err.Error())
 		
     	logger.Info(fmt.Sprintf("Started %s %s for %s:%s response:%s", r.Method, r.URL.Path, addr,body,err.Error()))
