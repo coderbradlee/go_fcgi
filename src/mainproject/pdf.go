@@ -212,9 +212,9 @@ func pdfHandler (w http.ResponseWriter, r *http.Request) {
 	    return
     }
     var err error
-    ret:=make(chan Result)
-    go convert(t.Src,t.Dst,ret)
-    done:=<-ret
+    ret_convert:=make(chan Result)
+    go convert(t.Src,t.Dst,ret_convert)
+    done:=<-ret_convert
     if done.err!=nil{
 		fmt.Fprint(w,err.Error())
 		
