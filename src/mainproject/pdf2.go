@@ -77,11 +77,12 @@ func do_convert(source converter.ConversionSource)error {
 	var conversion converter.Converter
 	done := make(chan struct{}, 1)
 	got, err := conversion.Convert(source,done)
+	fmt.Println("do_convert 80")
 	if err != nil {
 		fmt.Println("convert returned an unexpected error: %+v", err)
 		return err
 	}
-	fmt.Println("do_convert 84")
+
 	if want := []byte{}; !reflect.DeepEqual(got, want) {
 		fmt.Println("expected output of conversion to be %+v, got %+v", want, got)
 	}
