@@ -5,13 +5,13 @@ import (
     "fmt"
     // // "net/http"
     // "unsafe"
-    // "encoding/json"
+    "encoding/json"
     "net/http"
     // "io/ioutil"
     "logger"
     // "strconv"
     // "errors"
-    // "sync"
+    "os"
     "converter"
 )
 func pdfHandler2 (w http.ResponseWriter, r *http.Request) {
@@ -44,7 +44,7 @@ func pdfHandler2 (w http.ResponseWriter, r *http.Request) {
 	    return
     }
     var err error
-    err=convert(t.Src,t.Dst,ret_convert)
+    err=convert2(t.Src,t.Dst,ret_convert)
     if err!=nil{
 		fmt.Fprint(w,err.Error())
 		
@@ -55,7 +55,7 @@ func pdfHandler2 (w http.ResponseWriter, r *http.Request) {
     }
     logger.Info(fmt.Sprintf("Started %s %s for %s:%s response:%s", r.Method, r.URL.Path, addr,body,"ok"))
 } 
-func convert(src,dst string) error{
+func convert2(src,dst string) error{
 	
 	source, err := converter.NewConversionSource(src, nil, "pdf")
 	if err != nil {
