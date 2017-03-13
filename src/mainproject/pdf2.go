@@ -13,6 +13,7 @@ import (
     // "errors"
     "os"
     "converter"
+    "reflect"
 )
 func pdfHandler2 (w http.ResponseWriter, r *http.Request) {
 
@@ -75,7 +76,7 @@ func do_convert(source converter.ConversionSource)error {
 	done := make(chan struct{}, 1)
 	got, err := conversion.Convert(source,done)
 	if err != nil {
-		fmt.Fatalf("convert returned an unexpected error: %+v", err)
+		fmt.Println("convert returned an unexpected error: %+v", err)
 		return err
 	}
 	if want := []byte{}; !reflect.DeepEqual(got, want) {
