@@ -68,12 +68,12 @@ func convert2(src,dst string) error{
 }
 func do_convert(source converter.ConversionSource)error {
 	// GC if converting temporary file
-	fmt.Println("do_convert")
+	// fmt.Println("do_convert")
 	if source.IsLocal {
 		defer os.Remove(source.URI)
 		fmt.Println("do_convert")
 	}
-
+	fmt.Println("do_convert 76")
 	var conversion converter.Converter
 	done := make(chan struct{}, 1)
 	got, err := conversion.Convert(source,done)
@@ -84,5 +84,6 @@ func do_convert(source converter.ConversionSource)error {
 	if want := []byte{}; !reflect.DeepEqual(got, want) {
 		fmt.Println("expected output of conversion to be %+v, got %+v", want, got)
 	}
+	fmt.Println("do_convert 87")
 	return nil
 }
