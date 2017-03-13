@@ -102,7 +102,7 @@ type Result struct{
 	err error
 	done string
 }
-func convert(src,dst string) chan<- Result {
+func convert(src,dst string) <-chan Result {
 	C.wkhtmltopdf_init(C.false)
 	converter_map = make(map[unsafe.Pointer]*Converter)
 	
