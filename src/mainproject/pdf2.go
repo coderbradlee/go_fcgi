@@ -62,6 +62,7 @@ func pdfHandler2 (w http.ResponseWriter, r *http.Request) {
     logger.Info(fmt.Sprintf("Started %s %s for %s:%s response:%s", r.Method, r.URL.Path, addr,body,"ok"))
 } 
 func convert2(src,dst string) error{
+	logger.Info("convert2")
 	var err error
 	cmd := exec.Command("wkhtmltopdf", src,dst)
 	err = cmd.Start()
