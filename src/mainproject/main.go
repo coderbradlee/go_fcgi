@@ -179,7 +179,7 @@ func startMartini() {
     // }))
     m.Post("/po/deliver_goods",logPanics(poHandler))
     //m.Post("/pdf",pdfHandler)
-    m.Post("/pdf",logPanics(pdfHandler))
+    // m.Post("/pdf",logPanics(pdfHandler))
     m.Post("/pdf2",logPanics(pdfHandler2))
     // m.Get("/debug/pprof", pprof.Index)
     // m.Get("/debug/pprof/cmdline", pprof.Cmdline)
