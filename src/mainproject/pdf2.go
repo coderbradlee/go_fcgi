@@ -57,7 +57,7 @@ func pdfHandler2 (w http.ResponseWriter, r *http.Request) {
     	logger.Error(fmt.Sprintf("Started %s %s for %s:%s response:%s", r.Method, r.URL.Path, addr,body,err.Error()))
     	return
     }else{
-    	fmt.Fprint(w,"ok")
+    	fmt.Fprint(w,t.Dst)
     }
     logger.Info(fmt.Sprintf("Started %s %s for %s:%s response:%s", r.Method, r.URL.Path, addr,body,"ok"))
 } 
