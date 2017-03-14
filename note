@@ -1,3 +1,17 @@
+2017.3.14
+关于pdf转换使用weasyprint尝试
+yum install redhat-rpm-config python-devel python-pip python-lxml python-cffi libffi-devel cairo pango gdk-pixbuf2 cairo-devel fontconfig fontconfig-devel freetype-devel harfbuzz-devel
+
+wget https://pypi.python.org/packages/ec/6d/b433a14c77ad17b917a9646d5ac96275309170a88fcffc967def7a1ba8ce/setuptools-18.5.tar.gz#md5=533c868f01169a3085177dffe5e768bb
+tar -xf setuptools..
+cd setuptools
+python setup.py install
+
+wget https://ftp.gnome.org/pub/gnome/sources/pango/1.38/pango-1.38.1.tar.xz
+pip install WeasyPrint
+pip install Flask-WeasyPrint
+
+
 2017.3.10
 
 wkhtmltopdf /root/Newshop_International/WEB-INF/quotation_pdf.html /root/go_fcgi/testprocess.pdf
