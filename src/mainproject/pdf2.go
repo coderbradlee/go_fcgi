@@ -39,14 +39,14 @@ func pdfHandler2 (w http.ResponseWriter, r *http.Request) {
     if err_decode!=nil{
     	ret=`decode failed`
 	    fmt.Fprint(w,ret )
-	    logger.Info(fmt.Sprintf("Started %s %s for %s:%s response:%s", r.Method, r.URL.Path, addr,body,err_decode.Error()))
+	    logger.Error(fmt.Sprintf("Started %s %s for %s:%s response:%s", r.Method, r.URL.Path, addr,body,err_decode.Error()))
 	    return
     }
     // logger.Info(t.Src+": "+t.Dst)
     if t.Src==""||t.Dst==""{
     	ret="empty src or dst"
     	fmt.Fprint(w,ret )
-    	logger.Info(fmt.Sprintf("Started %s %s for %s:%s response:%s", r.Method, r.URL.Path, addr,body,"empty src or dst"))
+    	logger.Error(fmt.Sprintf("Started %s %s for %s:%s response:%s", r.Method, r.URL.Path, addr,body,"empty src or dst"))
 	    return
     }
     var err error
@@ -54,7 +54,7 @@ func pdfHandler2 (w http.ResponseWriter, r *http.Request) {
     if err!=nil{
 		fmt.Fprint(w,err.Error())
 		
-    	logger.Info(fmt.Sprintf("Started %s %s for %s:%s response:%s", r.Method, r.URL.Path, addr,body,err.Error()))
+    	logger.Error(fmt.Sprintf("Started %s %s for %s:%s response:%s", r.Method, r.URL.Path, addr,body,err.Error()))
     	return
     }else{
     	fmt.Fprint(w,"ok")
@@ -66,7 +66,7 @@ func convert2(src,dst string) error{
 	cmd := exec.Command("wkhtmltopdf", src,dst)
 	err = cmd.Start()
 	if err != nil {
-		logger.Fatal(err)
+		logger.Error(err)
 	}
 	return err
 }
