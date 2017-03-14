@@ -11,11 +11,15 @@ import (
     "logger"
     // "strconv"
     // "errors"
-    "os"
+    // "os"
     // "converter"
-    "reflect"
+    // "reflect"
     "os/exec"
 )
+type src_dst struct{
+	Src string
+	Dst string
+}
 func pdfHandler2 (w http.ResponseWriter, r *http.Request) {
 
   	addr := r.Header.Get("X-Real-IP")
