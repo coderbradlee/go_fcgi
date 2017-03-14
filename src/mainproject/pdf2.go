@@ -14,6 +14,7 @@ import (
     "os"
     "converter"
     "reflect"
+    "os/exec"
 )
 func pdfHandler2 (w http.ResponseWriter, r *http.Request) {
 
@@ -57,35 +58,11 @@ func pdfHandler2 (w http.ResponseWriter, r *http.Request) {
     logger.Info(fmt.Sprintf("Started %s %s for %s:%s response:%s", r.Method, r.URL.Path, addr,body,"ok"))
 } 
 func convert2(src,dst string) error{
-	
-	source, err := converter.NewConversionSource(src, nil, "pdf")
+	var err error
+	cmd := exec.Command("wkhtmltopdf", src,dst)
+	err = cmd.Start()
 	if err != nil {
-		 
-		return err
+		logger.Fatal(err)
 	}
-
-	return do_convert(*source)
-}
-func do_convert(source converter.ConversionSource)error {
-	// GC if converting temporary file
-	// fmt.Println("do_convert")
-	if source.IsLocal {
-		defer os.Remove(source.URI)
-		fmt.Println("do_convert")
-	}
-	fmt.Println("do_convert 76")
-	var conversion converter.Converter
-	done := make(chan struct{}, 1)
-	got, err := conversion.Convert(source,done)
-	fmt.Println("do_convert 80")
-	if err != nil {
-		fmt.Println("convert returned an unexpected error: %+v", err)
-		return err
-	}
-
-	if want := []byte{}; !reflect.DeepEqual(got, want) {
-		fmt.Println("expected output of conversion to be %+v, got %+v", want, got)
-	}
-	fmt.Println("do_convert 87")
-	return nil
+	return err
 }

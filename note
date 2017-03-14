@@ -1,4 +1,7 @@
 2017.3.14
+weasyprint转换有问题，还是调用wkhtmltopdf进程吧
+
+2017.3.14
 关于pdf转换使用weasyprint尝试
 yum install redhat-rpm-config python-devel python-pip python-lxml python-cffi libffi-devel cairo pango gdk-pixbuf2 cairo-devel fontconfig fontconfig-devel freetype-devel harfbuzz-devel
 
