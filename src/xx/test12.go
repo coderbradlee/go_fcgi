@@ -31,11 +31,13 @@ func test_slice() {
 	data:=[...]int{0,1,2,3,10:0}
 	s:=data[:2:3]
 	fmt.Println(&s[0],&data[0])
+	fmt.Println(s,data)
 	s=append(s,200)
 	fmt.Println(&s[0],&data[0])
+	fmt.Println(s,data)
 	s=append(s,300,400)
 	fmt.Println(&s[0],&data[0])
-
+	fmt.Println(s,data)
 }
 func main() {
 	// test_defer(0)
