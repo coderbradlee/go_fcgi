@@ -8,7 +8,7 @@ import (
 	// "runtime"
 	// "io"
 	"sync"
-	"testing"
+	// "testing"
 )
 var lock sync.Mutex
 func test() {
