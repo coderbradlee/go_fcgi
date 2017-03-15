@@ -18,6 +18,8 @@ func main() {
 			a[1],a[2]=998,999
 			fmt.Println(a)
 		}
+		a[i]=v+100
 	}
+	fmt.Println(a)
 }
 
