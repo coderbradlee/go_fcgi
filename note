@@ -1,3 +1,7 @@
+2017.3.15
+用go调用wkhtmltopdf进程
+curl -X POST http://127.0.0.1:9888/pdf -d '{"src":"/root/Newshop_International/WEB-INF/quotation_pdf.html","dst":"/root/go_fcgi/test.pdf"}'
+
 2017.3.14
 weasyprint转换有问题，还是调用wkhtmltopdf进程吧
 
