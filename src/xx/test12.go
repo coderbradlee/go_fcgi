@@ -29,6 +29,6 @@ func test_override() {
 	fmt.Println(m.User.ToString())
 }
 func main() {
-
+	test_override()
 }
 
