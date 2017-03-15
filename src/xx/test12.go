@@ -39,8 +39,23 @@ func test_slice() {
 	fmt.Println(&s[0],&data[0])
 	fmt.Println(s,data)
 }
+func test_map() {
+	m:=map[string]int{
+		"a":1,
+	}
+	if v,ok:=m["a"];ok{
+		fmt.Println(v)
+	}
+	fmt.Println(m["c"])
+	m["b"]=2
+	delete(m,"c")
+	fmt.Println(len(m))
+	for k,v:=range m{
+		fmt.Println(k,v)
+	}
+}
 func main() {
 	// test_defer(0)
-	test_slice()
+	test_map()
 }
 
