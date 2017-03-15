@@ -27,6 +27,7 @@ func main() {
 		a[i]=v+100
 	}
 	fmt.Println(a)
-	fmt.Println(test("sum:%d",a...))
+	aa:=[]int{0,1,2}
+	fmt.Println(test("sum:%d",aa...))
 }
 
