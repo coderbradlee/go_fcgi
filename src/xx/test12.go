@@ -54,8 +54,16 @@ func test_map() {
 		fmt.Println(k,v)
 	}
 }
+type X struct{}
+
+func (*X)test_receiver() {
+	fmt.Println("receiver")
+}
+
 func main() {
 	// test_defer(0)
-	test_map()
+	// test_map()
+	p:=&X{}
+	p.test()
 }
 
