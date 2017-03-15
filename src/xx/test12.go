@@ -64,6 +64,6 @@ func main() {
 	// test_defer(0)
 	// test_map()
 	p:=&X{}
-	p.test()
+	p.test_receiver()
 }
 
