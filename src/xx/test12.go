@@ -16,6 +16,10 @@ func test(s string,n ...int)string {
 	}
 	return fmt.Sprintf(s,x)
 }
+func add(x,y int)(z int) {
+	z=x+y
+	return
+}
 func main() {
 	
 	a:=[3]int{0,1,2}
@@ -29,5 +33,6 @@ func main() {
 	fmt.Println(a)
 	aa:=[]int{0,1,2}
 	fmt.Println(test("sum:%d",aa...))
+	fmt.Println(add(1,2))
 }
 
