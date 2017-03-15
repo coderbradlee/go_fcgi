@@ -27,6 +27,16 @@ func test_panic() {
 	}()
 	panic("panic error")
 }
+func test_slice() {
+	data:=[...]int{0,1,2,3,10:0}
+	s:=data[:2:3]
+	fmt.Println(&s[0],&data[0])
+	s=apend(s,200)
+	fmt.Println(&s[0],&data[0])
+	s=apend(s,300,400)
+	fmt.Println(&s[0],&data[0])
+
+}
 func main() {
 	// test_defer(0)
 	test_panic()
