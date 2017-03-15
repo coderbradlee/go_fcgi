@@ -7,15 +7,27 @@ import (
 	// "bufio"
 	// "runtime"
 	// "io"
-	// "sync"
+	"sync"
+	"testing"
 )
-func test_defer(a int) {
-	defer fmt.Println("a")
-	defer fmt.Println("b")
-	defer func () {
-		fmt.Println(100/a)
-	}()
-	defer fmt.Println("c")
+var lock sync.Mutex
+func test() {
+	lock.Lock()
+	lock.Unlock()
+}
+func test_defer() {
+	lock.Lock()
+	defer lock.Unlock()
+}
+func benchmarkTest(b *testing.B) {
+	for i:=0;i<b.N;i++{
+		test()
+	}
+}
+func benchmarkTestDefer(b *testing.B) {
+	for i:=0;i<b.N;i++{
+		test_defer()
+	}
 }
 func main() {
 	test_defer(0)
