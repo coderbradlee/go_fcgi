@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	// "fmt"
 	// "regexp"
 	// "os"
 	// "bufio"
@@ -30,6 +30,6 @@ func benchmarkTestDefer(b *testing.B) {
 	}
 }
 func main() {
-	test_defer(0)
+	// test_defer(0)
 }
 
