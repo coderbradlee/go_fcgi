@@ -29,5 +29,6 @@ func test_panic() {
 }
 func main() {
 	// test_defer(0)
+	test_panic()
 }
 
