@@ -19,7 +19,14 @@ func test_defer() {
 	lock.Lock()
 	defer lock.Unlock()
 }
-
+func test_panic() {
+	defer func () {
+		if err:=recover();err!=nil{
+			fmt.Println(err.(string))
+		}
+	}()
+	panic("panic error")
+}
 func main() {
 	// test_defer(0)
 }
