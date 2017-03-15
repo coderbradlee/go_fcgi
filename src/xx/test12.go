@@ -17,7 +17,12 @@ func test(s string,n ...int)string {
 	return fmt.Sprintf(s,x)
 }
 func add(x,y int)(z int) {
+	defer func() {
+		fmt.Println("defer")
+		z+=100
+	}()
 	z=x+y
+	fmt.Println("return")
 	return
 }
 func main() {
