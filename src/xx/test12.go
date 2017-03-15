@@ -9,7 +9,13 @@ import (
 	// "io"
 	// "sync"
 )
-
+func test(s string,n ...int)string {
+	var x int
+	for _,i:=range n{
+		x+=i
+	}
+	return fmt.Sprintf(s,x)
+}
 func main() {
 	
 	a:=[3]int{0,1,2}
@@ -21,5 +27,6 @@ func main() {
 		a[i]=v+100
 	}
 	fmt.Println(a)
+	fmt.Println(test("sum:%d",a...))
 }
 
