@@ -18,7 +18,7 @@ func (self FuncDo)Do(){
 	self()
 }
 func main() {
-	var t Tester=func(){fmt.Println("hlll")}
+	var t Tester=FuncDo(func(){fmt.Println("hlll")})
 	t.Do()
 }
 
