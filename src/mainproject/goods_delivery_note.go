@@ -103,7 +103,7 @@ func get_flow_no(company string)(string,error) {
     str := fmt.Sprintf("%06d",i)
     return str,nil
 }
-func get_goods_delivery_note_no(deliver_note_no string)(string,error) {
+// func get_goods_delivery_note_no(deliver_note_no string)(string,error) {
     // goods_delivery_note_no:="GDN-"
     // var short string
     // db.QueryRow("select note from t_company where short_name=?",company).Scan(&short)
@@ -118,7 +118,7 @@ func get_goods_delivery_note_no(deliver_note_no string)(string,error) {
     // goods_delivery_note_no+=flow//get int,format to 6bit,then convert to string
     // return goods_delivery_note_no,nil
     //check if deliver_note_no already exist in t_goods_delivery_note
-}
+// }
 //为了在response中回传发货号，设置全局变量goods_receipt_no
 // var goods_receipt_no string
 // var goods_delivery_note_id string
