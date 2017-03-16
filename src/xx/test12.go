@@ -10,12 +10,10 @@ import (
 	// "sync"
 	// "testing"
 )
-type Stringer interface{
-	String() string
-}
-type Printer interface{
-	Stringer
-	Print()
+type Tester struct{
+	s interface{
+		String() string
+	}
 }
 type User struct{
 	id int
@@ -24,14 +22,9 @@ type User struct{
 func (self *User)String() string{
 	return fmt.Sprintf("user %d,%s",self.id,self.name)
 }
-func (self *User)Print() {
-	fmt.Println(self.String())
-}
-func Print(v interface{}) {
-	fmt.Printf("%T:%v\n",v,v)
-}
 func main() {
-	Print(1)
-	Print("hello world!")
+	u:=User{1,"tom"}
+	t:=Tester{&u}
+	fmt.Println(t.s.String())
 }
 
