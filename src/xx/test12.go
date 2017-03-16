@@ -10,15 +10,23 @@ import (
 	// "sync"
 	// "testing"
 )
-type Tester interface{
-	Do()
+func sum(id int) {
+	var x int64
+	for i:=0;i<math.MaxUint32;i++{
+		x+=int64(i)
+	}
+	fmt.Println(id,x)
 }
-type FuncDo func()
-func (self FuncDo)Do(){
-	self()
-}
+
 func main() {
-	var t Tester=FuncDo(func(){fmt.Println("hlll")})
-	t.Do()
+	wg:=new(sync.WaitGroup)
+	wg.Add(2)
+	for i:=0;i<2;i++{
+		go func (id int) {
+			defer wg.Done()
+			sum(id)
+		}(i)
+	}
+	wg.Wait()
 }
 
