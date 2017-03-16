@@ -5,7 +5,7 @@ import (
 	// "regexp"
 	// "os"
 	// "bufio"
-	// "runtime"
+	"runtime"
 	// "io"
 	"sync"
 	// "testing"
