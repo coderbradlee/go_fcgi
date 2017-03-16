@@ -19,10 +19,13 @@ func (self User)String()string {
 }
 func main() {
 	var empty interface{}=User{1,"tom"}
-	if i,ok:=empty.(fmt.Stringer);ok{
-		fmt.Println(i,ok)
+	switch v:=empty.(type){
+		case nil:
+			fmt.Println("nil")
+		case fmt.Stringer:
+			fmt.Println(v)
+		case func()string:
+			fmt.Println(v())
 	}
-	// fmt.Println(empty.(*User))
-	fmt.Println(empty.(User))
 }
 
