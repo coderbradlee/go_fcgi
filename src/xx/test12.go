@@ -24,9 +24,12 @@ func (self *User)String() string{
 }
 func main() {
 	u:=User{1,"tom"}
-	t:=Tester{u}
+	// t:=Tester{u}
+	var t interface{}=u
 	u.id=2
 	u.name="xx"
-	fmt.Println(t.s.String())
+	// fmt.Println(t.s.String())
+	fmt.Printf("%v\n",u)
+	fmt.Printf("%v\n",t.(User))
 }
 
