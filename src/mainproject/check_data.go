@@ -27,7 +27,7 @@ const(
     error_check_deliver_notes_packing_list="-132"
     error_check_deliver_notes_bill_of_lading="-133"
     error_check_deliver_notes_associated_so="-134"
-
+    error_check_deliver_notes_deliver_note_no="-135"
 
     error_deliver_notes_packing_method_id="-140"
     error_deliver_notes_transport_term_id="-141"
@@ -109,6 +109,19 @@ func check_packing_method(deliver_notes []Deliver_notes,error_chan chan<- check_
     }
     error_chan<- t
 }
+func check_deliver_notes_deliver_note_no(deliver_notes []Deliver_notes,error_chan chan<- check_struct) {
+    // error_check_deliver_notes_deliver_note_no
+    var t check_struct
+    for _,d:=range deliver_notes{
+        // fmt.Println(reflect.TypeOf(d))
+        var note_id string
+        db.QueryRow("select note_id from t_goods_delivery_note where goods_delivery_note_no=?",d.Deliver_note_no).Scan(&note_id)
+        if note_id!= ""{
+            t=check_struct{error_check_deliver_notes_deliver_note_no,errors.New(`deliver_notes deliver_note_no already exists`)}
+        }
+    }
+    error_chan<- t
+}
 func check_logistic_provider(deliver_notes []Deliver_notes,error_chan chan<- check_struct) {
     var t check_struct
     for _,d:=range deliver_notes{
@@ -184,7 +197,8 @@ func check_data(origi *DeliverGoodsForPO)(string,error) {
     go check_logistic_provider(origi.Data.Deliver_notes,error_chan)
     go check_ship_via(origi.Data.Purchase_order.Ship_via,error_chan)
     go check_trade_term(origi.Data.Purchase_order.Trade_term,error_chan)
-    for i:=0;i<9;i++{
+    go check_deliver_notes_deliver_note_no(origi.Data.Deliver_notes,error_chan)
+    for i:=0;i<10;i++{
         err:=<-error_chan
         // fmt.Println("104:",err.error_code,err.err)
         if err.err!=nil{

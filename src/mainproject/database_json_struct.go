@@ -120,6 +120,7 @@ type Deliver_notes_detail struct{
 	Sub_total float64 `json:"sub_total"`
 }
 type Deliver_notes struct{
+	Deliver_note_no string `json:"deliver_note_no"`
 	Supplier string `json:"supplier"`
 	Buyer string `json:"buyer"`
 	Loading_port string `json:"loading_port"`

@@ -103,20 +103,21 @@ func get_flow_no(company string)(string,error) {
     str := fmt.Sprintf("%06d",i)
     return str,nil
 }
-func get_goods_delivery_note_no(company string)(string,error) {
-    goods_delivery_note_no:="GDN-"
-    var short string
-    db.QueryRow("select note from t_company where short_name=?",company).Scan(&short)
-    // QU-UK-20160930-000001
-    goods_delivery_note_no+=short+"-"
-    goods_delivery_note_no+=time.Now().Format("20060102")+"-"
-    flow,err:=get_flow_no(short)
-    if err!=nil{
-        return "",err
-    }
-    // flow:="000001"
-    goods_delivery_note_no+=flow//get int,format to 6bit,then convert to string
-    return goods_delivery_note_no,nil
+func get_goods_delivery_note_no(deliver_note_no string)(string,error) {
+    // goods_delivery_note_no:="GDN-"
+    // var short string
+    // db.QueryRow("select note from t_company where short_name=?",company).Scan(&short)
+    // // QU-UK-20160930-000001
+    // goods_delivery_note_no+=short+"-"
+    // goods_delivery_note_no+=time.Now().Format("20060102")+"-"
+    // flow,err:=get_flow_no(short)
+    // if err!=nil{
+    //     return "",err
+    // }
+    // // flow:="000001"
+    // goods_delivery_note_no+=flow//get int,format to 6bit,then convert to string
+    // return goods_delivery_note_no,nil
+    //check if deliver_note_no already exist in t_goods_delivery_note
 }
 //为了在response中回传发货号，设置全局变量goods_receipt_no
 // var goods_receipt_no string
@@ -216,11 +217,13 @@ func insert_goods_delivery_note(t *purchase_order,origi *DeliverGoodsForPO,sd *s
             // return error_bill_type_id,errors.New("bill_type_id is missed")
         }
         ///////////////////////////////////////////////
-        goods_delivery_note_no,err:=get_goods_delivery_note_no(origi.Data.Purchase_order.Company)
-        sd.goods_receipt_no=goods_delivery_note_no
-        if err!=nil{
-            return "",err
-        }
+        // goods_delivery_note_no,err:=get_goods_delivery_note_no(origi.Data.Purchase_order.Company)
+        // goods_delivery_note_no,err:=get_goods_delivery_note_no(deliver_notes.Deliver_note_no)
+        // sd.goods_receipt_no=goods_delivery_note_no
+        // if err!=nil{
+        //     return "",err
+        // }
+        goods_delivery_note_no:=deliver_notes.Deliver_note_no
         sd.goods_delivery_note_id=rand_string(20)
         _, err = db.Exec(
         `INSERT INTO t_goods_delivery_note(
