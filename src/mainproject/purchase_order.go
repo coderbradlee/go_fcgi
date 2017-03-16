@@ -46,13 +46,15 @@ func get_vendor_basic_id_chan(vendor_basic_id_chan chan<- string,supplier string
 // 		order by a.alias`,company_id).Scan(&contact_account_id)
 //     return contact_account_id
 // }
-func check_po_exist(po_no string)(bool,error) {
+func check_po_exist(t* purchase_order)(bool,error) {
 	var get_po_no string
 	var err error
-    err=db.QueryRow("select po_no from t_purchase_order where po_no=?",po_no).Scan(&get_po_no)
+    err=db.QueryRow("select purchase_order_id from t_purchase_order where po_no=?",t.po_no).Scan(&get_po_no)
     if err!=nil{
     	return false,err
     }else if get_po_no!=""{
+    	//修改purchase_order_id
+    	t.purchase_order_id=get_po_no
     	return true,nil//存在po_no
     }
     return false,nil
@@ -68,7 +70,7 @@ func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shar
 	var exist bool=false
 		var err error
 		var s string
-		exist,err=check_po_exist(t_purchase_order.po_no)
+		exist,err=check_po_exist(t_purchase_order)
 		 
  		if exist{//err!=nil also does not exist
  			level3_group.Go(t_purchase_order,t,sd,insert_goods_delivery_note)
