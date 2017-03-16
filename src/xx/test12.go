@@ -10,25 +10,25 @@ import (
 	// "sync"
 	// "testing"
 )
+type Stringer interface{
+	String() string
+}
+type Printer interface{
+	Stringer
+	Print()
+}
 type User struct{
 	id int
 	name string
 }
-type Manager struct{
-	User
+func (self *User)String() string{
+	return fmt.Sprintf("user %d,%s",self.id,self.name)
 }
-func (self *User)ToString()string {
-	return fmt.Sprintf("user:%p,%v",self,self)
-}
-func (self *Manager)ToString()string {
-	return fmt.Sprintf("user:%p,%v",self,self)
-}
-func test_override() {
-	m:=Manager{User{1,"tom"}}
-	fmt.Println(m.ToString())
-	fmt.Println(m.User.ToString())
+func (self *User)Print() {
+	fmt.Println(self.String())
 }
 func main() {
-	test_override()
+	var t Printer=&User{1,"tom"}
+	t.Print()
 }
 
