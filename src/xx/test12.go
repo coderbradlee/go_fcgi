@@ -40,5 +40,6 @@ func main() {
 		fmt.Println("heeeee")	
 	}()
 	wg.Wait()
+	fmt.Println("444444444444444444")
 }
 
