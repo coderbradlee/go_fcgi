@@ -24,7 +24,7 @@ func (self *User)String() string{
 }
 func main() {
 	u:=User{1,"tom"}
-	t:=Tester{&u}
+	t:=Tester{u}
 	u.id=2
 	u.name="xx"
 	fmt.Println(t.s.String())
