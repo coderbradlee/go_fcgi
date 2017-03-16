@@ -23,23 +23,19 @@ func init() {
 	runtime.GOMAXPROCS(8)
 }
 func main() {
-	
-	wg:=new(sync.WaitGroup)
-	wg.Add(2)
+	data:=make(chan int)
+	exit:=make(chan bool)
 	go func () {
-		defer wg.Done()
-		for i:=0;i<6;i++{
-			fmt.Println(i)
-			if i==3{
-				runtime.Gosched()
-			}
+		for d:=range data{
+			fmt.Println(d)
 		}
+		fmt.Println("recv over")
+		exit<-true
 	}()
-	go func () {
-		defer wg.Done()
-		fmt.Println("heeeee")	
-	}()
-	wg.Wait()
-	fmt.Println("444444444444444444")
+	data<-1
+	data<-2
+	close(data)
+	fmt.Println("send over")
+	<-exit
 }
 
