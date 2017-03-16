@@ -10,14 +10,14 @@ import (
 	// "sync"
 	// "testing"
 )
-type User struct{
-	id int
-	name string
+type Tester interface{
+	Do()
 }
-// func (self User)String()string {
-// 	return fmt.Sprintf("%d,%s",self.id,self.name)
-// }
+func (self func())Do(){
+	self()
+}
 func main() {
-	var _ fmt.Stringer=(*User)(nil)
+	var t Tester=func(){fmt.Println("hlll")}
+	t.Do()
 }
 
