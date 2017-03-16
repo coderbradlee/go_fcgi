@@ -22,7 +22,7 @@ func main() {
 	if i,ok:=empty.(fmt.Stringer);ok{
 		fmt.Println(i,ok)
 	}
-	fmt.Println(empty.(*User))
+	// fmt.Println(empty.(*User))
 	fmt.Println(empty.(User))
 }
 
