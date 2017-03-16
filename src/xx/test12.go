@@ -27,8 +27,11 @@ func (self *User)String() string{
 func (self *User)Print() {
 	fmt.Println(self.String())
 }
+func Print(v interface{}) {
+	fmt.Printf("%T:%v\n",v,v)
+}
 func main() {
-	var t Printer=&User{1,"tom"}
-	t.Print()
+	Print(1)
+	Print("hello world!")
 }
 
