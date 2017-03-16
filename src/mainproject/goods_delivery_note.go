@@ -104,7 +104,7 @@ func get_flow_no(company string)(string,error) {
     return str,nil
 }
 func get_goods_delivery_note_no(company string)(string,error) {
-    goods_delivery_note_no:="PO-"
+    goods_delivery_note_no:="GDN-"
     var short string
     db.QueryRow("select note from t_company where short_name=?",company).Scan(&short)
     // QU-UK-20160930-000001

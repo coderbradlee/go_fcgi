@@ -18,10 +18,12 @@ func sum(id int) {
 	}
 	fmt.Println(id,x)
 }
-
-func main() {
+func init() {
 	// runtime.NumCPU()
 	runtime.GOMAXPROCS(8)
+}
+func main() {
+	
 	wg:=new(sync.WaitGroup)
 	wg.Add(2)
 	for i:=0;i<2;i++{
