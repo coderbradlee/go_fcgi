@@ -14,7 +14,7 @@ type User struct{
 	id int
 	name string
 }
-func (self *User)String()string {
+func (self User)String()string {
 	return fmt.Sprintf("%d,%s",self.id,self.name)
 }
 func main() {
