@@ -13,7 +13,8 @@ import (
 type Tester interface{
 	Do()
 }
-func (self func())Do(){
+type FuncDo func()
+func (self FuncDo)Do(){
 	self()
 }
 func main() {
