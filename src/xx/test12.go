@@ -18,7 +18,7 @@ func (self User)String()string {
 	return fmt.Sprintf("%d,%s",self.id,self.name)
 }
 func main() {
-	var empty interface{}=&User{1,"tom"}
+	var empty interface{}=User{1,"tom"}
 	if i,ok:=empty.(fmt.Stringer);ok{
 		fmt.Println(i,ok)
 	}
