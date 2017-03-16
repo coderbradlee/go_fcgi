@@ -7,8 +7,9 @@ import (
 	// "bufio"
 	// "runtime"
 	// "io"
-	// "sync"
+	"sync"
 	// "testing"
+	"math"
 )
 func sum(id int) {
 	var x int64
