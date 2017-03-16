@@ -34,6 +34,7 @@ func main() {
 	}()
 	data<-1
 	data<-2
+	data<-3
 	close(data)
 	fmt.Println("send over")
 	<-exit
