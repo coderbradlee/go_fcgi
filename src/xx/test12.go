@@ -25,15 +25,19 @@ func init() {
 func main() {
 	
 	wg:=new(sync.WaitGroup)
-	wg.Add(1)
+	wg.Add(2)
 	go func () {
 		defer wg.Done()
-		defer fmt.Println("defereee")
-		func () {
-			defer fmt.Println("eeeee")
-			runtime.Goexit()
-		}()
-		fmt.Println("fffffff")
+		for i:=0;i<6;i++{
+			fmt.Println(i)
+			if i==3{
+				runtime.Gosched()
+			}
+		}
+	}()
+	go func () {
+		defer wg.Done()
+		fmt.Println("heeeee")	
 	}()
 	wg.Wait()
 }
