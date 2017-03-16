@@ -10,26 +10,18 @@ import (
 	// "sync"
 	// "testing"
 )
-type Tester struct{
-	s interface{
-		String() string
-	}
-}
 type User struct{
 	id int
 	name string
 }
-func (self *User)String() string{
-	return fmt.Sprintf("user %d,%s",self.id,self.name)
+func (self *User)String()string {
+	return fmt.Sprintf("%d,%s",self.id,self.name)
 }
 func main() {
-	u:=User{1,"tom"}
-	// t:=Tester{u}
-	var t interface{}=u
-	u.id=2
-	u.name="xx"
-	// fmt.Println(t.s.String())
-	fmt.Printf("%v\n",u)
-	fmt.Printf("%v\n",t.(User))
+	var empty interface{}=&User{1,"tom"}
+	if i,ok:=empty.(fmt.Stringer);ok{
+		fmt.Println(i,ok)
+	}
+	fmt.Println(empty.(*User))
 }
 
