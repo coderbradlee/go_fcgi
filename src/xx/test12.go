@@ -20,6 +20,8 @@ func sum(id int) {
 }
 
 func main() {
+	// runtime.NumCPU()
+	runtime.GOMAXPROCS(2)
 	wg:=new(sync.WaitGroup)
 	wg.Add(2)
 	for i:=0;i<2;i++{
