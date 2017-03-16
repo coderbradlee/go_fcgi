@@ -23,5 +23,6 @@ func main() {
 		fmt.Println(i,ok)
 	}
 	fmt.Println(empty.(*User))
+	fmt.Println(empty.(User))
 }
 
