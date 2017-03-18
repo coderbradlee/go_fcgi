@@ -1,5 +1,5 @@
 export GOPATH=/root/go_fcgi
-export MARTINI_ENV=production
+export GODEBUG="gctrace=1"
 
 rm -fr xx
 go build -o xx xx

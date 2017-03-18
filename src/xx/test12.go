@@ -11,21 +11,25 @@ import (
 	// "testing"
 	// "math"
 	"time"
+	"unsafe"
 )
-var now=time.Now()
-
+type data struct{
+	x [1024*100]byte
+}
+func test()uintptr {
+	p:=&data{}
+	return uintptr(unsafe.Pointer(p))
+}
 func init() {
 	// runtime.NumCPU()
-	runtime.GOMAXPROCS(8)
-	fmt.Println("init:",int(time.Now().Sub(now).Seconds()))
-	w:=make(chan bool)
-	go func () {
-		time.Sleep(time.Second*3)
-		w<-true
-	}()
-	<-w
+	
 }
 func main() {
-	fmt.Println("main:",int(time.Now().Sub(now).Seconds()))
+	const N=10000
+	cache:=new([N]uintptr)
+	for i:=0;i<N;i++{
+		cache[i]=test()
+		time.Sleep(time.Millisecond)
+	}
 }
 
