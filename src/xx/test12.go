@@ -26,10 +26,18 @@ func main() {
 	data:=make(chan int)
 	exit:=make(chan bool)
 	go func () {
-		for d:=range data{
-			fmt.Println(d)
+		// for d:=range data{
+		// 	fmt.Println(d)
+		// }
+		// fmt.Println("recv over")
+		for{
+			if d,ok:=<-data;ok{
+				fmt.Println(d)
+			}else{
+				fmt.Println("over")
+				break
+			}
 		}
-		fmt.Println("recv over")
 		exit<-true
 	}()
 	data<-1
