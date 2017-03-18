@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	// "regexp"
-	// "os"
+	"os"
 	// "bufio"
 	"runtime"
 	// "io"
@@ -23,11 +23,27 @@ func init() {
 	runtime.GOMAXPROCS(8)
 }
 func main() {
-	c:=make(chan int,3)
-	var chan1 chan<- int=c
-	var chan2 <-chan int=c
-	chan1<-1
-	xx:=<-chan2
-	fmt.Println(xx)
+	a,b:=make(chan int,3),make(chan int)
+	go func () {
+		v,ok,s:=0,false,""
+		for{
+			select{
+				case v,ok=<-a:s="a"
+				case v,ok=<-b:s="b"
+			}
+			if ok{
+				fmt.Println(s,v)
+			}else{
+				os.Exit(0)
+			}
+		}
+	}()
+	for i:=0;i<10;i++{
+		select{
+		case a<-i:
+		case b<-i:
+		}
+	}
+	close(a)
 }
 
