@@ -23,28 +23,11 @@ func init() {
 	runtime.GOMAXPROCS(8)
 }
 func main() {
-	data:=make(chan int)
-	exit:=make(chan bool)
-	go func () {
-		// for d:=range data{
-		// 	fmt.Println(d)
-		// }
-		// fmt.Println("recv over")
-		for{
-			if d,ok:=<-data;ok{
-				fmt.Println(d)
-			}else{
-				fmt.Println("over")
-				break
-			}
-		}
-		exit<-true
-	}()
-	data<-1
-	data<-2
-	data<-3
-	close(data)
-	fmt.Println("send over")
-	<-exit
+	c:=make(chan int,3)
+	var chan1 chan<- int=c
+	var chan2 <-chan int=c
+	chan1<-1
+	xx:=<-chan2
+	fmt.Println(xx)
 }
 
