@@ -25,7 +25,7 @@ func init() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 }
 func main() {
-	const N=10000
+	const N=1000
 	cache:=new([N]uintptr)
 	for i:=0;i<N;i++{
 		cache[i]=test()
