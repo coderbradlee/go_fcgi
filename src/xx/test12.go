@@ -22,7 +22,7 @@ func test()uintptr {
 }
 func init() {
 	// runtime.NumCPU()
-	
+	runtime.GOMAXPROCS(runtime.NumCPU())
 }
 func main() {
 	const N=10000
@@ -31,5 +31,6 @@ func main() {
 		cache[i]=test()
 		time.Sleep(time.Millisecond)
 	}
+	fmt.Println("xxxxx")
 }
 
