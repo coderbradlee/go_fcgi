@@ -23,7 +23,7 @@ type Admin struct{
 func (*User)ToString() {
 	
 }
-func (Admin)ToString() {
+func (Admin)To() {
 	
 }
 func init() {
