@@ -25,8 +25,11 @@ func init() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 }
 func main() {
-	var u Admin
+	u:=new(Admin)
 	t:=reflect.TypeOf(u)
+	if t.Kind()==reflect.Ptr{
+		t=t.Elem()
+	}
 	for i,n:=0,t.NumField();i<n;i++{
 		f:=t.Field(i)
 		fmt.Println(f.Name,f.Type)
