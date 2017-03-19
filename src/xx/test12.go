@@ -20,6 +20,12 @@ type Admin struct{
 	User
 	title string
 }
+func (*User)ToString() {
+	
+}
+func (Admin)ToString() {
+	
+}
 func init() {
 	// runtime.NumCPU()
 	runtime.GOMAXPROCS(runtime.NumCPU())
@@ -30,9 +36,14 @@ func main() {
 	if t.Kind()==reflect.Ptr{
 		t=t.Elem()
 	}
-	for i,n:=0,t.NumField();i<n;i++{
-		f:=t.Field(i)
-		fmt.Println(f.Name,f.Type)
+	method:=func(t reflect.Type){
+		for i,n:=0,t.NumMethod();i<n;i++{
+			f:=t.Method(i)
+			fmt.Println(f.Name,f.Type)
+		}
 	}
+	method(reflect.TypeOf(u))
+	fmt.Println("--------------------")
+	method(reflect.TypeOf(*u))
 }
 
