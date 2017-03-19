@@ -13,25 +13,23 @@ import (
 	"time"
 	"unsafe"
 )
-type data struct{
-	x [1024*100]byte
+type User struct{
+	name string
 }
-func test()unsafe.Pointer {
-	p:=&data{}
-	return unsafe.Pointer(p)
+type Admin struct{
+	User
+	title string
 }
 func init() {
 	// runtime.NumCPU()
 	runtime.GOMAXPROCS(runtime.NumCPU())
 }
 func main() {
-	const N=100
-
-	cache:=new([N]unsafe.Pointer)
-	for i:=0;i<N;i++{
-		cache[i]=test()
-		time.Sleep(time.Millisecond)
+	var u Admin
+	t:=reflect.TypeOf(u)
+	for i,n:=0,t.NumField();i<n;i++{
+		f:=t.Field(i)
+		fmt.Println(f.Name,f.Type)
 	}
-	fmt.Println("xxxxx")
 }
 
