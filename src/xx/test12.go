@@ -42,8 +42,13 @@ func main() {
 			fmt.Println(f.Name,f.Type)
 		}
 	}
-	method(reflect.TypeOf(u))
-	fmt.Println("--------------------")
-	method(reflect.TypeOf(*u))
+	// method(reflect.TypeOf(u))
+	// fmt.Println("--------------------")
+	// method(reflect.TypeOf(*u))
+	x,_:=t.FieldByName("title")
+	fmt.Println(x.Name)
+
+	x,_:=t.FieldByName("User")
+	fmt.Println(x.Name)
 }
 
