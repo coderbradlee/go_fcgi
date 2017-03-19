@@ -16,9 +16,9 @@ import (
 type data struct{
 	x [1024*100]byte
 }
-func test()uintptr {
+func test()unsafe.Pointer {
 	p:=&data{}
-	return uintptr(unsafe.Pointer(p))
+	return unsafe.Pointer(p)
 }
 func init() {
 	// runtime.NumCPU()
@@ -26,7 +26,8 @@ func init() {
 }
 func main() {
 	const N=100
-	cache:=new([N]uintptr)
+
+	cache:=new([N]unsafe.Pointer)
 	for i:=0;i<N;i++{
 		cache[i]=test()
 		time.Sleep(time.Millisecond)

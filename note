@@ -1,3 +1,9 @@
+build go1.8
+GOROOT_BOOTSTRAP=/usr/lib/golang ./make.bash
+GOROOT_BOOTSTRAP=/usr/lib/golang ./all.bash
+
+
+
 go test -file src/xx/test12_test.go -test.bench=".*"
 
 2017.3.15
