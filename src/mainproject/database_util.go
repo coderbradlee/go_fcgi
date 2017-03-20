@@ -4,6 +4,17 @@ package main
     "time"
     // "errors"
 )
+func get_currency_id(currency_id_chan chan<- string,currency string) {
+    var currency_id string
+    db.QueryRow("select currency_id from t_currency where code=?",currency).Scan(&currency_id)
+    currency_id_chan<-currency_id
+}
+func get_company_id_chan(company_id_chan chan<- string,company string) {
+    var company_id string
+    db.QueryRow(fmt.Sprintf("select company_id from t_company where short_name like '%%%s%%'",company)).Scan(&company_id)
+    // db.QueryRow("select company_id from t_company where short_name like '%%?%%'",company).Scan(&company_id)
+    company_id_chan<-company_id
+}
 func get_company_time_zone_chan(company_time_zone_chan chan<- float64,company string) {
     var company_time_zone float64
     db.QueryRow("select time_zone from t_company where short_name=?",company).Scan(&company_time_zone)

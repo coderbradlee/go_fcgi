@@ -147,7 +147,7 @@ func deal_with_database(t *PoData,sd *shared_data,contact_account_id string)(str
   	return insert_to_db(&t_purchase_order,t,sd)
 }
 
-func get_response(t *DeliverGoodsForPO) (string){
+func get_response(t *PoData) (string){
 	// received:=get_contact_account_id_sh(t.Data.Purchase_order.Supplier)
 	received_chan :=make(chan string)
     go get_contact_account_id_sh_chan(received_chan,t.Data.Purchase_order.Supplier)
