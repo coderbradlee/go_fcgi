@@ -149,7 +149,7 @@ func deal_with_database(t *PoData,sd *shared_data,contact_account_id string)(str
 
 func get_response(t *PoData) (string){
 	// received:=get_contact_account_id_sh(t.Data.Purchase_order.Supplier)
-	json_ret:=&Response_json{}
+	// json_ret:=&Response_json{}
 	received_chan :=make(chan string)
     go get_contact_account_id_sh_chan(received_chan,t.Data.Purchase_order.Supplier)
     received:=<-received_chan
