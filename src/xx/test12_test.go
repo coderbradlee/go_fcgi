@@ -20,9 +20,7 @@ func TestSum(t *testing.T) {
 func TestTimeout(t *testing.T) {
 	time.Sleep(time.Second*5)
 }
-func test() {
-	
-}
+
 func Benchmark_Test(b *testing.B) {
 	for i:=0;i<b.N;i++{
 		test()
