@@ -2,7 +2,7 @@
  import (
     "time"
     "logger"
-    // "fmt"
+    "fmt"
     // "net/http"
     // "io/ioutil"
     // "strconv"
@@ -16,7 +16,7 @@
 // var goods_delivery_note_id string
 func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string,error) {
     var err error
-    // log.Println("insert_goods_delivery_note")
+    fmt.Println("insert_goods_delivery_note")
     for _,deliver_notes:= range origi.Data.Deliver_notes{
         // bill_type_id:=get_bill_type_id(t.Bill_type)
         // bill_type_id:=get_bill_type_id()
