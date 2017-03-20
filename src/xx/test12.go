@@ -1,7 +1,7 @@
 package main
 //#go:generate ls -l
 import (
-	"fmt"
+	// "fmt"
 	// "regexp"
 	// "os"
 	// "bufio"
@@ -10,7 +10,7 @@ import (
 	"sync"
 	// "testing"
 	// "math"
-	"reflect"
+	// "reflect"
 	// "unsafe"
 	"os"
 	"runtime/pprof"
