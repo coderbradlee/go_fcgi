@@ -5,7 +5,7 @@
     "encoding/json"
     "net/http"
     "io/ioutil"
-    // "bytes"
+    "bytes"
     "time"
     // "errors"
     // "runtime/pprof"
@@ -39,7 +39,7 @@ func deliver_goods_Handler (w http.ResponseWriter, r *http.Request) {
 		
 	    if err_decode != nil {
 	        // panic(err)
-	        ret=`{"error_code":"`+error_json_decode+`","error_msg":"`+error_json_decode.Error()+`","data":{"bill_no":"","bill_type":"Goods Receipt","receive_by":"",   "company":"","receive_at":""},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
+	        ret=`{"error_code":"`+error_json_decode+`","error_msg":"`+err_decode.Error()+`","data":{"bill_no":"","bill_type":"Goods Receipt","receive_by":"",   "company":"","receive_at":""},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
 	        fmt.Fprint(w,ret )
 	        // log.Printf("Started %s %s for %s:%s\nresponse:%s", r.Method, r.URL.Path, addr,body,ret)
 	        log_str:=fmt.Sprintf("Started %s %s for %s:%s response:%s", r.Method, r.URL.Path, addr,body,ret)
@@ -71,7 +71,7 @@ func get_response_of_gdn(t *DeliverGoodsForPO) (string){
 		return `{"error_code":"`+s+`","error_msg":"`+err.Error()+`","data":{"bill_no":"`+t.Data.Deliver_notes[0].Gdn_no+`","bill_type":"Goods Delivery Note","receive_by":"",   "company":"","receive_at":"`+t.Data.Request_time+`"},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
 	}
 	
-	json_ret:=&Response_json{Error_code:"200",Error_msg:"Goods received successfully at "+time.Now().Format("2006-01-02 15:04:05"),Data:Response_json_data{Goods_receipt_no:sd.goods_receipt_no,Bill_type:"Goods Delivery Note",Receive_by:"received",Company:t.Data.Purchase_order.Company,Receive_at:time.Now().Format("2006-01-02 15:04:05")},Reply_time:time.Now().Format("2006-01-02 15:04:05")}
+	json_ret:=&Response_json{Error_code:"200",Error_msg:"Goods received successfully at "+time.Now().Format("2006-01-02 15:04:05"),Data:Response_json_data{Goods_receipt_no:sd.goods_receipt_no,Bill_type:"Goods Delivery Note",Receive_by:"received",Company:"",Receive_at:time.Now().Format("2006-01-02 15:04:05")},Reply_time:time.Now().Format("2006-01-02 15:04:05")}
 		
 	var buffer bytes.Buffer
     enc := json.NewEncoder(&buffer)
@@ -88,7 +88,7 @@ func insert_gdn_database(t *DeliverGoodsForPO,sd *shared_data)(string,error){
     var level4_group errgroup
     level3_group.Go(t,sd,insert_goods_delivery_note)
             level3_group.Go(t,sd,insert_commercial_invoice)
-            if s,err = level3_group.Wait(); err != nil {
+            if s,err := level3_group.Wait(); err != nil {
              return s,err
             }else{
              // level4_group.Go(t,sd,insert_note_attachment)
