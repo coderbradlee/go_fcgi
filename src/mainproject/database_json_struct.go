@@ -64,7 +64,7 @@ type Purchase_order struct{
 	Po_no string `json:"po_no"`
 	Po_url string `json:"po_url"`
 	Po_date string `json:"po_date"`
-	Created_by string `json:"create_by"`
+	Created_by string `json:"created_by"`
 	Approved_by string `json:"approved_by"`
 	Status int32 `json:"status"`
 	Supplier string `json:"supplier"`
