@@ -22,12 +22,12 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         // bill_type_id:=get_bill_type_id()
 
         bill_type_id_chan :=make(chan string)
-        go get_bill_type_id_chan(bill_type_id_chan,origi.Data.Purchase_order.Bill_type)
+        go get_bill_type_id_chan(bill_type_id_chan,deliver_notes.Bill_type)
         // bill_type_id:=<-bill_type_id_chan
         /////////////////////////////////////////////
         // vendor_master_id:=get_vendor_master_id(t.vendor_basic_id)
-        vendor_master_id_chan :=make(chan string)
-        go get_vendor_master_id_chan(vendor_master_id_chan,t.vendor_basic_id)
+        // vendor_master_id_chan :=make(chan string)
+        // go get_vendor_master_id_chan(vendor_master_id_chan,t.vendor_basic_id)
         // vendor_master_id:=<-vendor_master_id_chan
 ////////////////////////////////////////////////////////////
 // trade_term_id:=get_trade_term_id(deliver_notes.Trade_term)
@@ -71,7 +71,8 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         transport_term_id:=<-transport_term_id_chan
         buyer_id:=<-buyer_id_chan
         trade_term_id:=<-trade_term_id_chan
-        vendor_master_id:=<-vendor_master_id_chan
+        // vendor_master_id:=<-vendor_master_id_chan
+        vendor_master_id:="vendor_master_id"
         bill_type_id:=<-bill_type_id_chan
         logistic_contact_id:=<-logistic_contact_id_chan
         var exist bool
@@ -130,8 +131,8 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         sd.goods_delivery_note_id,
         goods_delivery_note_no,//goods_delivery_note_no 待定
         bill_type_id,
-        t.company_id,
-        t.purchase_order_id,
+        "t.company_id",
+        "t.purchase_order_id",
         buyer_id,
         vendor_master_id,
         0,
@@ -146,7 +147,7 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         "",//atd
         "",//ata
         deliver_notes.Customs_clearance_date,
-        t.contact_account_id,//receiver 待定
+        "t.contact_account_id",//receiver 待定
         deliver_notes.Total_freight_charges,
         deliver_notes.Total_insurance_fee,
         deliver_notes.Total_excluded_tax,

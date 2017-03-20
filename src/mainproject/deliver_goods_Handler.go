@@ -71,7 +71,7 @@ func get_response_of_gdn(t *DeliverGoodsForPO) (string){
 		return `{"error_code":"`+s+`","error_msg":"`+err.Error()+`","data":{"bill_no":"`+t.Data.Deliver_notes[0].Gdn_no+`","bill_type":"Goods Delivery Note","receive_by":"",   "company":"","receive_at":"`+t.Data.Request_time+`"},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
 	}
 	
-	json_ret:=&Response_json{Error_code:"200",Error_msg:"Goods received successfully at "+time.Now().Format("2006-01-02 15:04:05"),Data:Response_json_data{Goods_receipt_no:sd.goods_receipt_no,Bill_type:"Goods Delivery Note",Receive_by:"received",Company:"",Receive_at:time.Now().Format("2006-01-02 15:04:05")},Reply_time:time.Now().Format("2006-01-02 15:04:05")}
+	json_ret:=&Response_json{Error_code:"200",Error_msg:"Goods received successfully at "+time.Now().Format("2006-01-02 15:04:05"),Data:Response_json_data{Bill_no:sd.goods_receipt_no,Bill_type:"Goods Delivery Note",Receive_by:"received",Company:"",Receive_at:time.Now().Format("2006-01-02 15:04:05")},Reply_time:time.Now().Format("2006-01-02 15:04:05")}
 		
 	var buffer bytes.Buffer
     enc := json.NewEncoder(&buffer)
