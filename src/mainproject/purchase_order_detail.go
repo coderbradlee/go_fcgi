@@ -30,7 +30,7 @@ func insert_purchase_order_detail(t *purchase_order,origi *PoData,sd *shared_dat
             }
 		_, err = db.Exec(
         `INSERT INTO t_purchase_order_detail(detail_id,purchase_order_id,
-		item_master_id,unit_price,quantity,uom_id,sub_amount,warranty,
+		item_master_id,unit_price,quantity,uom_id,amount,warranty,
 		comments,note,createAt,createBy,dr,data_version) 
 		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
 		rand_string(20),
