@@ -47,7 +47,7 @@ func deliver_goods_Handler (w http.ResponseWriter, r *http.Request) {
 	        return;
 	    }
 	    // log.Println(t.Operation)
-	    var err_encode error
+	    // var err_encode error
 	    ret =get_response_of_gdn(&t)
 	    
 	    fmt.Fprint(w,ret )
@@ -85,7 +85,7 @@ func get_response_of_gdn(t *DeliverGoodsForPO) (string){
 }
 func insert_gdn_database(t *DeliverGoodsForPO,sd *shared_data)(string,error){
     var level3_group errgroup
-    var level4_group errgroup
+    // var level4_group errgroup
     level3_group.Go(t,sd,insert_goods_delivery_note)
             level3_group.Go(t,sd,insert_commercial_invoice)
             if s,err := level3_group.Wait(); err != nil {
