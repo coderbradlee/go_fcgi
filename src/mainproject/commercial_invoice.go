@@ -2,7 +2,7 @@
  import (
     "time"
     // "logger"
-    // "fmt"
+    "fmt"
     "errors"
 )
  func get_company_id_chan(company_id_chan chan<- string,company string) {
