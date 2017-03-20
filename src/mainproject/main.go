@@ -177,7 +177,9 @@ func startMartini() {
     // m.Use(auth_BasicFunc(func(username, password string) bool {
     //     return username == "admin" && password == "admin"
     // }))
-    m.Post("/po/deliver_goods",logPanics(poHandler))
+    // m.Post("/po/deliver_goods",logPanics(poHandler))
+    m.Post("/po/submit",logPanics(po_submit_Handler))
+    m.Post("/po/deliver_goods",logPanics(deliver_goods_Handler))
     //m.Post("/pdf",pdfHandler)
     // m.Post("/pdf",logPanics(pdfHandler))
     m.Post("/pdf",logPanics(pdfHandler2))

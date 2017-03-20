@@ -10,7 +10,7 @@
     "errors"
     // "runtime/pprof"
 )
-func poHandler (w http.ResponseWriter, r *http.Request) {
+func po_submit_Handler (w http.ResponseWriter, r *http.Request) {
 	////////////////////////////////
 	addr := r.Header.Get("X-Real-IP")
 	if addr == "" {
@@ -38,7 +38,7 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 		body, _:= ioutil.ReadAll(r.Body)
 	    
 	    // log.Println(string(body))
-	    var t DeliverGoodsForPO  
+	    var t PoData  
 	    err_decode := json.Unmarshal(body, &t)
 	    // bytes.Trim(body,"\\r\\n")
 	    // line := strings.Trim(string(body), "\r\n")
@@ -74,21 +74,8 @@ func poHandler (w http.ResponseWriter, r *http.Request) {
 	}
 
 } 
-func get_company_time_zone_chan(company_time_zone_chan chan<- float64,company string) {
-    var company_time_zone float64
-    db.QueryRow("select time_zone from t_company where short_name=?",company).Scan(&company_time_zone)
-     company_time_zone_chan<-company_time_zone
- }
- func set_company_time_zone(company string,sd *shared_data){
- 	company_time_zone_chan :=make(chan float64)
-    go get_company_time_zone_chan(company_time_zone_chan,company)
-    t:=<-company_time_zone_chan
-    t-=8
-    sd.company_time_zone,_=time.ParseDuration(fmt.Sprintf("%fh",t))
-	// fmt.Println(company_time_zone)
-	//  ParseDuration
- }
-func deal_with_database(t *DeliverGoodsForPO,sd *shared_data,contact_account_id string)(string,error) {
+
+func deal_with_database(t *PoData,sd *shared_data,contact_account_id string)(string,error) {
 	set_company_time_zone(t.Data.Purchase_order.Company,sd)
 
 	var t_purchase_order purchase_order
@@ -128,7 +115,7 @@ func deal_with_database(t *DeliverGoodsForPO,sd *shared_data,contact_account_id 
 
     /////////////////////////////////
 	destination_company_id_chan :=make(chan string)
-    go get_company_id_chan(destination_company_id_chan,t.Data.Purchase_order.Destination_country)
+    go get_company_id_chan(destination_company_id_chan,t.Data.Purchase_order.Import_country)
     t_purchase_order.destination_country_id=<-destination_company_id_chan
 ////////////////////////////////////////
 	// t_purchase_order.destination_country_id=t.Data.Purchase_order.Destination_country
@@ -160,29 +147,6 @@ func deal_with_database(t *DeliverGoodsForPO,sd *shared_data,contact_account_id 
   	return insert_to_db(&t_purchase_order,t,sd)
 }
 
-func get_contact_account_id_sh_chan(contact_account_id_sh_chan chan<- string,company string) {
-	var company_id string//来自采购主动发起方公司的运营经理
-    db.QueryRow(`select company_id from t_company where short_name=?`,company).Scan(&company_id)
-
-	var contact_account_id string//来自采购主动发起方公司的运营经理
-    db.QueryRow(`select  
-		c.system_account_id
-		from  
-		(select *  from t_wf_role_def
-		where dr=0
-		and alias='Operation Manager'
-		) a
-		inner join 
-		(select  *  from t_wf_role_resolve
-		where dr=0
-		and master_file_obj_id=?
-		) b
-		on a.wf_role_def_id=b.wf_role_def_id
-		inner join  (select *  from t_system_account where dr=0) c
-		on b.employee_id=c.employee_no
-		order by a.alias`,company_id).Scan(&contact_account_id)
-    contact_account_id_sh_chan<- contact_account_id
-}
 func get_response(t *DeliverGoodsForPO) (string){
 	// received:=get_contact_account_id_sh(t.Data.Purchase_order.Supplier)
 	received_chan :=make(chan string)
@@ -191,7 +155,7 @@ func get_response(t *DeliverGoodsForPO) (string){
 
 
 	var sd=shared_data{"","",0}
-	err_no,check_err:=check_data(t)
+	err_no,check_err:=po_check_data(t)
 	if check_err!=nil{
 		return `{"error_code":"`+err_no+`","error_msg":"`+check_err.Error()+`","data":{"po_no":"`+t.Data.Purchase_order.Po_no+`","reply_system":2},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
 	}

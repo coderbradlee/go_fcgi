@@ -13,19 +13,7 @@
 
 //     return company_id
 // }
-func get_shipping_method_id_chan(shipping_method_id_chan chan<- string,Ship_via string) {
-	//cannot find the way to shipping_method_id
-	// var shipping_method_id string
- //    db.QueryRow("select shipping_method_id from t_company where short_name=?",company).Scan(&shipping_method_id)
-	var shipping_via_id string
-    db.QueryRow("select ship_via_id from t_ship_via where full_name=?",Ship_via).Scan(&shipping_via_id)
-    shipping_method_id_chan<- shipping_via_id
-}
-func get_vendor_basic_id_chan(vendor_basic_id_chan chan<- string,supplier string) {
-	var vendor_basic_id string
-    db.QueryRow("select vendor_basic_id from t_vendor_basic where short_name=?",supplier).Scan(&vendor_basic_id)
-    vendor_basic_id_chan<-vendor_basic_id
-}
+
 // func get_contact_account_id(company_id string)string {
 // 	var contact_account_id string//来自采购主动发起方公司的运营经理
 //     db.QueryRow(`select  
@@ -46,44 +34,33 @@ func get_vendor_basic_id_chan(vendor_basic_id_chan chan<- string,supplier string
 // 		order by a.alias`,company_id).Scan(&contact_account_id)
 //     return contact_account_id
 // }
-func check_po_exist(t* purchase_order)(bool,error) {
-	var get_po_no string
-	var err error
-    err=db.QueryRow("select purchase_order_id from t_purchase_order where po_no=?",t.po_no).Scan(&get_po_no)
-    if err!=nil{
-    	return false,err
-    }else if get_po_no!=""{
-    	//修改purchase_order_id
-    	t.purchase_order_id=get_po_no
-    	return true,nil//存在po_no
-    }
-    return false,nil
-}
+
 ///先后顺序及优先级
 //1、t_purchase_order 2、t_purchase_order_detail
 //3、t_goods_delivery_note 3、t_commercial_invoice
 //4、t_goods_delivery_note_detail 4、t_goods_delivery_note_attachment
 //4、t_goods_receipt
-func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shared_data)(string,error) {
-	var level3_group errgroup
-	var level4_group errgroup
+func insert_to_db(t_purchase_order* purchase_order,t *PoData,sd *shared_data)(string,error) {
+	// var level3_group errgroup
+	// var level4_group errgroup
 	var exist bool=false
 		var err error
 		var s string
 		exist,err=check_po_exist(t_purchase_order)
 		 
  		if exist{//err!=nil also does not exist
- 			level3_group.Go(t_purchase_order,t,sd,insert_goods_delivery_note)
-		 	level3_group.Go(t_purchase_order,t,sd,insert_commercial_invoice)
-		 	if s,err = level3_group.Wait(); err != nil {
-		 		return s,err
-		 	}else{
-		 		level4_group.Go(t_purchase_order,t,sd,insert_note_attachment)
-    			level4_group.Go(t_purchase_order,t,sd,insert_note_detail)
-    			level4_group.Go(t_purchase_order,t,sd,insert_goods_receipt)
-    			s,err = level4_group.Wait()
-    			return s,err
- 			}	
+ 			// level3_group.Go(t_purchase_order,t,sd,insert_goods_delivery_note)
+		 	// level3_group.Go(t_purchase_order,t,sd,insert_commercial_invoice)
+		 	// if s,err = level3_group.Wait(); err != nil {
+		 	// 	return s,err
+		 	// }else{
+		 	// 	level4_group.Go(t_purchase_order,t,sd,insert_note_attachment)
+    // 			level4_group.Go(t_purchase_order,t,sd,insert_note_detail)
+    // 			level4_group.Go(t_purchase_order,t,sd,insert_goods_receipt)
+    // 			s,err = level4_group.Wait()
+    // 			return s,err
+ 			// }	
+ 			return error_check_po_exists,errors.New("po_no already exists")
  		}
 
     _, err = db.Exec(
@@ -123,17 +100,18 @@ func insert_to_db(t_purchase_order* purchase_order,t *DeliverGoodsForPO,sd *shar
 	    	if err!=nil{
 	    		return s,err
 	    	}else{
-	    	level3_group.Go(t_purchase_order,t,sd,insert_goods_delivery_note)
-		 	level3_group.Go(t_purchase_order,t,sd,insert_commercial_invoice)
-		 	if s,err = level3_group.Wait(); err != nil {
-		 		return s,err
-		 	}else{
-		 		level4_group.Go(t_purchase_order,t,sd,insert_note_attachment)
-    			level4_group.Go(t_purchase_order,t,sd,insert_note_detail)
-    			level4_group.Go(t_purchase_order,t,sd,insert_goods_receipt)
-    			s,err = level4_group.Wait()
-    			return s,err
-		 	}
+	   //  	level3_group.Go(t_purchase_order,t,sd,insert_goods_delivery_note)
+		 	// level3_group.Go(t_purchase_order,t,sd,insert_commercial_invoice)
+		 	// if s,err = level3_group.Wait(); err != nil {
+		 	// 	return s,err
+		 	// }else{
+		 	// 	level4_group.Go(t_purchase_order,t,sd,insert_note_attachment)
+    // 			level4_group.Go(t_purchase_order,t,sd,insert_note_detail)
+    // 			level4_group.Go(t_purchase_order,t,sd,insert_goods_receipt)
+    // 			s,err = level4_group.Wait()
+    // 			return s,err
+		 	// }
+	   		return "",nil
 		}
 	}
 }
