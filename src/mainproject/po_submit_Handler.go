@@ -168,7 +168,7 @@ func get_response(t *PoData) (string){
 	
 	// json_ret:=&Response_json{Error_code:"200",Error_msg:"Goods received successfully at "+time.Now().Format("2006-01-02 15:04:05"),Data:Response_json_data{Goods_receipt_no:sd.goods_receipt_no,Bill_type:t.Data.Purchase_order.Bill_type,Receive_by:received,Company:t.Data.Purchase_order.Company,Receive_at:time.Now().Format("2006-01-02 15:04:05"),Reply_system:2},Reply_time:time.Now().Format("2006-01-02 15:04:05")}
 	json_ret:=&Response_json{
-		Error_code:"200",Error_msg:"po received successfully at "+time.Now().Format("2006-01-02 15:04:05"),Data:Response_json_data{bill_no:t.Data.Purchase_order.Po_no,Bill_type:t.Data.Purchase_order.Bill_type,Receive_by:received,Company:t.Data.Purchase_order.Company,Receive_at:time.Now().Format("2006-01-02 15:04:05")},Reply_time:time.Now().Format("2006-01-02 15:04:05")
+		Error_code:"200",Error_msg:"po received successfully at "+time.Now().Format("2006-01-02 15:04:05"),Data:Response_json_data{bill_no:t.Data.Purchase_order.Po_no,Bill_type:t.Data.Purchase_order.Bill_type,Receive_by:received,Company:t.Data.Purchase_order.Company,Receive_at:time.Now().Format("2006-01-02 15:04:05")},Reply_time:time.Now().Format("2006-01-02 15:04:05")}
 	}
 	var buffer bytes.Buffer
     enc := json.NewEncoder(&buffer)
