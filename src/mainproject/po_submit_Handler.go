@@ -39,6 +39,7 @@ func po_submit_Handler (w http.ResponseWriter, r *http.Request) {
 	    
 	    // log.Println(string(body))
 	    var t PoData  
+	    // var po_shared_data shared_data
 	    err_decode := json.Unmarshal(body, &t)
 	    // bytes.Trim(body,"\\r\\n")
 	    // line := strings.Trim(string(body), "\r\n")
@@ -47,7 +48,8 @@ func po_submit_Handler (w http.ResponseWriter, r *http.Request) {
 	    // err_decode := decoder.Decode(&t)
 	    if err_decode != nil {
 	        // panic(err)
-	        ret=`{"error_code":"`+error_json_decode+`","error_msg":"`+err_decode.Error()+`","data":{"po_no":"","reply_system":2},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
+	        // ret=`{"error_code":"`+error_json_decode+`","error_msg":"`+err_decode.Error()+`","data":{"po_no":"","reply_system":2},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
+	        ret=`{"error_code":"`+error_json_decode+`","error_msg":"`+error_json_decode.Error()+`","data":{"bill_no":"","bill_type":"Purchase Order","receive_by":"",   "company":"","receive_at":""},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
 	        fmt.Fprint(w,ret )
 	        // log.Printf("Started %s %s for %s:%s\nresponse:%s", r.Method, r.URL.Path, addr,body,ret)
 	        log_str:=fmt.Sprintf("Started %s %s for %s:%s response:%s", r.Method, r.URL.Path, addr,body,ret)
@@ -147,7 +149,7 @@ func deal_with_database(t *PoData,sd *shared_data,contact_account_id string)(str
   	return insert_to_db(&t_purchase_order,t,sd)
 }
 
-func get_response(t *PoData) (string){
+func get_response(t *PoData,sd *shared_data) (string){
 	// received:=get_contact_account_id_sh(t.Data.Purchase_order.Supplier)
 	// json_ret:=&Response_json{}
 	received_chan :=make(chan string)

@@ -220,3 +220,25 @@ func po_check_data(origi *PoData)(string,error) {
     } 
     return "",nil
 }
+func gdn_check_data(origi *DeliverGoodsForPO)(string,error) {
+    // var all_error map[string]error
+    error_chan:=make(chan check_struct)
+    go check_request_system(origi.Data.Request_system,error_chan)
+    go check_bill_type(origi.Data.Purchase_order.Bill_type,error_chan)
+    go check_po_url(origi.Data.Purchase_order.Po_url,error_chan)
+    go check_status(origi.Data.Purchase_order.Status,error_chan)
+    go check_supplier(origi.Data.Purchase_order.Supplier,error_chan)
+    // go check_packing_method(origi.Data.Deliver_notes,error_chan)
+    // go check_logistic_provider(origi.Data.Deliver_notes,error_chan)
+    go check_ship_via(origi.Data.Purchase_order.Ship_via,error_chan)
+    go check_trade_term(origi.Data.Purchase_order.Trade_term,error_chan)
+    // go check_deliver_notes_deliver_note_no(origi.Data.Deliver_notes,error_chan)
+    for i:=0;i<7;i++{
+        err:=<-error_chan
+        // fmt.Println("104:",err.error_code,err.err)
+        if err.err!=nil{
+            return err.error_code,err.err
+        }
+    } 
+    return "",nil
+}

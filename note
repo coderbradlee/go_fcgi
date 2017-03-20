@@ -175,7 +175,12 @@ curl   -X POST http://172.18.100.72:9888/po/deliver_goods -d '
    "reply_time":"2017-03-17 12:00:00"
 }
 
-
+ERP（海外） II 期 应上游SCM系统、下游Financial系统要求，修改数据模型，参见设计文档中灰色高亮部分。
+1）t_purchase_order_detail （采购订单明细）
+2）t_goods_delivery_note （发货单）
+3）t_goods_delivery_note_detail （发货单明细）
+4）t_goods_delivery_note_attachment （发货单附件）
+5）t_commercial_invoice （商业发票） 
 
 2017.03.15
 用go调用wkhtmltopdf进程

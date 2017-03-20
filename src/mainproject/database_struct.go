@@ -12,6 +12,10 @@ func rand_string(lens int)string{
     }
    return ret;
 }
+type flow_no_json struct{
+    FlowNo string `json:"flowNo"`
+    ReplyTime string `json:"replyTime"`
+}
 type shared_data struct{
 	goods_receipt_no string//在response中回传发货号
 	goods_delivery_note_id string//在插入t_goods_delivery_note时生成，在插入t_goods_delivery_note_detail和t_goods_delivery_note_attachment的时候用到

@@ -4,6 +4,92 @@ package main
     "time"
     // "errors"
 )
+
+func get_trade_term_id_chan(trade_term_id_chan chan<- string,Trade_term string) {
+    var trade_term_id string
+    db.QueryRow("select trade_term_id from t_trade_term where short_name=?",Trade_term).Scan(&trade_term_id)
+    trade_term_id_chan<-trade_term_id
+}
+func get_buyer_id_chan(buyer_id_chan chan<- string,buyer string) {
+    var buyer_id string
+    db.QueryRow("select company_id from t_company where short_name=?",buyer).Scan(&buyer_id)
+    buyer_id_chan<-buyer_id
+}
+
+func get_transport_term_id_chan(transport_term_id_chan chan<- string,ship_via string) {
+    var transport_term_id string
+    db.QueryRow("select ship_via_id from t_ship_via where full_name=?",ship_via).Scan(&transport_term_id)
+    transport_term_id_chan<-transport_term_id
+}
+func get_packing_method_id_chan(packing_method_id_chan chan<- string,Packing_method string) {
+    var packing_method_id string
+    db.QueryRow("select packing_method_id from t_packing_method where name=?",Packing_method).Scan(&packing_method_id)
+    packing_method_id_chan<- packing_method_id
+}
+func get_logistic_master_id_chan(logistic_master_id_chan chan<- string,Logistic string) {
+    var logistic_master_id string
+    db.QueryRow("select logistic_provider_master_id from t_logistic_provider_master where native_name=?",Logistic).Scan(&logistic_master_id)
+    logistic_master_id_chan<-logistic_master_id
+}
+func get_logistic_contact_id_chan(logistic_contact_id_chan chan<- string,Logistic_contact string) {
+    var logistic_contact_id string
+    db.QueryRow("select logistic_contact_id from t_logistic_provider_master where native_name=?",Logistic_contact).Scan(&logistic_contact_id)
+    logistic_contact_id_chan<-logistic_contact_id
+}
+func get_currency_id(currency_id_chan chan<- string,currency string) {
+    var currency_id string
+    db.QueryRow("select currency_id from t_currency where code=?",currency).Scan(&currency_id)
+    currency_id_chan<-currency_id
+}
+
+func get_flow_no(company string)(string,error) {
+    // var flow_no string
+    //http://127.0.0.1:8088/flowNo/JP/SO
+    url:=configuration.Redis_url+"/"+company+"/PO"
+
+    resp, err1 := http.Get(url)
+    if err1 != nil {
+        return  "",err1
+    }
+
+    defer resp.Body.Close()
+    body, err2 := ioutil.ReadAll(resp.Body)
+    if err2 != nil {
+        // handle error
+        return  "",err2
+    }
+    var data flow_no_json
+    json.Unmarshal(body, &data)
+    i, err3 := strconv.Atoi(data.FlowNo)
+    if err3 != nil {
+        // handle error
+        return  "",err3
+    }
+    // str := string.format(%06d",i)
+    str := fmt.Sprintf("%06d",i)
+    return str,nil
+}
+// func get_goods_delivery_note_no(deliver_note_no string)(string,error) {
+    // goods_delivery_note_no:="GDN-"
+    // var short string
+    // db.QueryRow("select note from t_company where short_name=?",company).Scan(&short)
+    // // QU-UK-20160930-000001
+    // goods_delivery_note_no+=short+"-"
+    // goods_delivery_note_no+=time.Now().Format("20060102")+"-"
+    // flow,err:=get_flow_no(short)
+    // if err!=nil{
+    //     return "",err
+    // }
+    // // flow:="000001"
+    // goods_delivery_note_no+=flow//get int,format to 6bit,then convert to string
+    // return goods_delivery_note_no,nil
+    //check if deliver_note_no already exist in t_goods_delivery_note
+// }
+func get_vendor_master_id_chan(vendor_master_id_chan chan<- string,vendor_basic_id string) {
+    var vendor_master_id string
+    db.QueryRow("select vendor_master_id from t_vendor_master where vendor_basic_id=?",vendor_basic_id).Scan(&vendor_master_id)
+    vendor_master_id_chan<-vendor_master_id
+}
 func get_currency_id(currency_id_chan chan<- string,currency string) {
     var currency_id string
     db.QueryRow("select currency_id from t_currency where code=?",currency).Scan(&currency_id)
