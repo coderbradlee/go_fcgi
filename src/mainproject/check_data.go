@@ -170,34 +170,34 @@ func check_trade_term(Trade_term string,error_chan chan<- check_struct) {
     }
     error_chan<- t
 }
-// func check_deliver_notes_commercial_invoice(path string) bool{
-//     _,err:=os.Stat(path)
-//     if err!=nil{
-//         return false
-//     }
-//     return true
-// }
-// func check_deliver_notes_packing_list(path string) bool{
-//     _,err:=os.Stat(path)
-//     if err!=nil{
-//         return false
-//     }
-//     return true
-// }
-// func check_deliver_notes_bill_of_lading(path string) bool{
-//     _,err:=os.Stat(path)
-//     if err!=nil{
-//         return false
-//     }
-//     return true
-// }
-// func check_deliver_notes_associated_so(path string) bool{
-//     _,err:=os.Stat(path)
-//     if err!=nil{
-//         return false
-//     }
-//     return true
-// }
+func check_deliver_notes_commercial_invoice(path string) bool{
+    _,err:=os.Stat(path)
+    if err!=nil{
+        return false
+    }
+    return true
+}
+func check_deliver_notes_packing_list(path string) bool{
+    _,err:=os.Stat(path)
+    if err!=nil{
+        return false
+    }
+    return true
+}
+func check_deliver_notes_bill_of_lading(path string) bool{
+    _,err:=os.Stat(path)
+    if err!=nil{
+        return false
+    }
+    return true
+}
+func check_deliver_notes_associated_so(path string) bool{
+    _,err:=os.Stat(path)
+    if err!=nil{
+        return false
+    }
+    return true
+}
 func po_check_data(origi *PoData)(string,error) {
     // var all_error map[string]error
     error_chan:=make(chan check_struct)
