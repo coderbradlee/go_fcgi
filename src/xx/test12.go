@@ -7,7 +7,7 @@ import (
 	// "bufio"
 	"runtime"
 	// "io"
-	// "sync"
+	"sync"
 	// "testing"
 	// "math"
 	"reflect"
@@ -18,6 +18,15 @@ type Data struct{
 }
 func (*Data)String() string{
 	return ""
+}
+var lock sync.Mutex
+func test(){
+	lock.Lock()
+	lock.Unlock()
+}
+func test_defer() {
+	lock.Lock()
+	defer lock.Unlock()
 }
 
 func init() {

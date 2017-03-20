@@ -20,15 +20,17 @@ func TestSum(t *testing.T) {
 func TestTimeout(t *testing.T) {
 	time.Sleep(time.Second*5)
 }
-
-// func Benchmark_Test(b *testing.B) {
-// 	for i:=0;i<b.N;i++{
-// 		test()
-// 	}
-// }
-// func Benchmark_TestDefer(b *testing.B) {
-// 	for i:=0;i<b.N;i++{
-// 		test_defer()
-// 	}
-// }
+func test() {
+	
+}
+func Benchmark_Test(b *testing.B) {
+	for i:=0;i<b.N;i++{
+		test()
+	}
+}
+func Benchmark_TestDefer(b *testing.B) {
+	for i:=0;i<b.N;i++{
+		test_defer()
+	}
+}
 
