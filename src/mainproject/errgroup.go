@@ -44,7 +44,7 @@ func (g *errgroup) Wait() (string,error) {
 //
 // The first call to return a non-nil error cancels the group; its error will be
 // returned by Wait.
-func (g *errgroup) Go(t_purchase_order *purchase_order,t *DeliverGoodsForPO,sd *shared_data,f func(t_purchase_order *purchase_order,t *DeliverGoodsForPO,sd *shared_data) (string,error)) {
+func (g *errgroup) Go(t_purchase_order *purchase_order,t *PoData,sd *shared_data,f func(t_purchase_order *purchase_order,t *PoData,sd *shared_data) (string,error)) {
 	g.wg.Add(1)
 
 	go func() {
