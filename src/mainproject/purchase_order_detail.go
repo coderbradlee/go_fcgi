@@ -1,8 +1,8 @@
  package main
  import (
     // "fmt"
-    "time"
-    "errors"
+    // "time"
+    // "errors"
 )
 
 func insert_purchase_order_detail(t *purchase_order,origi *PoData,sd *shared_data)(string,error) {
