@@ -126,8 +126,12 @@ func deal_with_database(t *DeliverGoodsForPO,sd *shared_data,contact_account_id 
     t_purchase_order.shipping_method_id=<-shipping_method_id_chan
 
 
-
-	t_purchase_order.destination_country_id=t.Data.Purchase_order.Destination_country
+    /////////////////////////////////
+	destination_company_id_chan :=make(chan string)
+    go get_company_id_chan(destination_company_id_chan,t.Data.Purchase_order.Destination_country)
+    t_purchase_order.destination_country_id=<-destination_company_id_chan
+////////////////////////////////////////
+	// t_purchase_order.destination_country_id=t.Data.Purchase_order.Destination_country
 	t_purchase_order.loading_port=t.Data.Purchase_order.Loading_port
 	t_purchase_order.certificate=t.Data.Purchase_order.Certificate
 	t_purchase_order.po_url=t.Data.Purchase_order.Po_url
