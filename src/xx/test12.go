@@ -13,42 +13,23 @@ import (
 	"reflect"
 	// "unsafe"
 )
-type User struct{
-	name string
+type Data struct{
+
 }
-type Admin struct{
-	User
-	title string
+func (*Data)String() string{
+	return ""
 }
-func (*User)ToString() {
-	
-}
-func (Admin)To() {
-	
-}
+
 func init() {
 	// runtime.NumCPU()
 	runtime.GOMAXPROCS(runtime.NumCPU())
 }
 func main() {
-	u:=new(Admin)
-	t:=reflect.TypeOf(u)
-	if t.Kind()==reflect.Ptr{
-		t=t.Elem()
-	}
-	method:=func(t reflect.Type){
-		for i,n:=0,t.NumMethod();i<n;i++{
-			f:=t.Method(i)
-			fmt.Println(f.Name,f.Type)
-		}
-	}
-	// method(reflect.TypeOf(u))
-	// fmt.Println("--------------------")
-	// method(reflect.TypeOf(*u))
-	x,_:=t.FieldByName("title")
-	fmt.Println(x.Name)
-
-	x,_:=t.FieldByName("User")
-	fmt.Println(x.Name)
+	var d *Data
+	t:=reflect.TypeOf(d)
+	fmt.Println(t)
+	it:=reflect.TypeOf((*fmt.Stringer)(nil)).Elem()
+	fmt.Println(it)
+	fmt.Println(t.Implements(it))
 }
 
