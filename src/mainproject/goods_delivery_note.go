@@ -16,11 +16,11 @@
 // var goods_delivery_note_id string
 func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string,error) {
     var err error
-    fmt.Println("insert_goods_delivery_note")
+    
     for _,deliver_notes:= range origi.Data.Deliver_notes{
         // bill_type_id:=get_bill_type_id(t.Bill_type)
         // bill_type_id:=get_bill_type_id()
-
+        fmt.Println("insert_goods_delivery_note")
         bill_type_id_chan :=make(chan string)
         go get_bill_type_id_chan(bill_type_id_chan,deliver_notes.Bill_type)
         // bill_type_id:=<-bill_type_id_chan
