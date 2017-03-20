@@ -1,5 +1,5 @@
 package main
-#go:generate ls -l
+//#go:generate ls -l
 import (
 	"fmt"
 	// "regexp"
