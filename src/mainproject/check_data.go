@@ -110,43 +110,43 @@ func check_supplier(supplier string,error_chan chan<- check_struct) {
     }
     error_chan<- t
 }
-// func check_packing_method(deliver_notes []Deliver_notes,error_chan chan<- check_struct) {
-//     var t check_struct
-//     for _,d:=range deliver_notes{
-//         // fmt.Println(reflect.TypeOf(d))
-//         var packing_method string
-//         db.QueryRow("select packing_method_id from t_packing_method where name=?",d.Packing_method).Scan(&packing_method)
-//         if packing_method== ""{
-//             t=check_struct{error_deliver_notes_packing_method_id,errors.New(`deliver_notes packing_method_id missed`)}
-//         }
-//     }
-//     error_chan<- t
-// }
-// func check_deliver_notes_deliver_note_no(deliver_notes []Deliver_notes,error_chan chan<- check_struct) {
-//     // error_check_deliver_notes_deliver_note_no
-//     var t check_struct
-//     for _,d:=range deliver_notes{
-//         // fmt.Println(reflect.TypeOf(d))
-//         var note_id string
-//         db.QueryRow("select note_id from t_goods_delivery_note where goods_delivery_note_no=?",d.Deliver_note_no).Scan(&note_id)
-//         if note_id!= ""{
-//             t=check_struct{error_check_deliver_notes_deliver_note_no,errors.New(`deliver_notes deliver_note_no already exists`)}
-//         }
-//     }
-//     error_chan<- t
-// }
-// func check_logistic_provider(deliver_notes []Deliver_notes,error_chan chan<- check_struct) {
-//     var t check_struct
-//     for _,d:=range deliver_notes{
-//         // fmt.Println(reflect.TypeOf(d))
-//         var logistic_provider_basic_id string
-//         db.QueryRow("select logistic_provider_basic_id from t_logistic_provider_basic where name=?",d.Logistic).Scan(&logistic_provider_basic_id)
-//         if logistic_provider_basic_id== ""{
-//             t=check_struct{error_check_logistic_provider,errors.New(`Deliver_notes logistic_provider_basic_id missed`)}
-//         }
-//     }
-//     error_chan<- t
-// }
+func check_packing_method(deliver_notes []Deliver_notes,error_chan chan<- check_struct) {
+    var t check_struct
+    for _,d:=range deliver_notes{
+        // fmt.Println(reflect.TypeOf(d))
+        var packing_method string
+        db.QueryRow("select packing_method_id from t_packing_method where name=?",d.Packing_method).Scan(&packing_method)
+        if packing_method== ""{
+            t=check_struct{error_deliver_notes_packing_method_id,errors.New(`deliver_notes packing_method_id missed`)}
+        }
+    }
+    error_chan<- t
+}
+func check_deliver_notes_deliver_note_no(deliver_notes []Deliver_notes,error_chan chan<- check_struct) {
+    // error_check_deliver_notes_deliver_note_no
+    var t check_struct
+    for _,d:=range deliver_notes{
+        // fmt.Println(reflect.TypeOf(d))
+        var note_id string
+        db.QueryRow("select note_id from t_goods_delivery_note where goods_delivery_note_no=?",d.Deliver_note_no).Scan(&note_id)
+        if note_id!= ""{
+            t=check_struct{error_check_deliver_notes_deliver_note_no,errors.New(`deliver_notes deliver_note_no already exists`)}
+        }
+    }
+    error_chan<- t
+}
+func check_logistic_provider(deliver_notes []Deliver_notes,error_chan chan<- check_struct) {
+    var t check_struct
+    for _,d:=range deliver_notes{
+        // fmt.Println(reflect.TypeOf(d))
+        var logistic_provider_basic_id string
+        db.QueryRow("select logistic_provider_basic_id from t_logistic_provider_basic where name=?",d.Logistic).Scan(&logistic_provider_basic_id)
+        if logistic_provider_basic_id== ""{
+            t=check_struct{error_check_logistic_provider,errors.New(`Deliver_notes logistic_provider_basic_id missed`)}
+        }
+    }
+    error_chan<- t
+}
 // func check_ship_via(ship_via string,error_chan chan<- check_struct) {
 //     var transport_term_id string
 //     db.QueryRow("select ship_via_id from t_ship_via where full_name=?",ship_via).Scan(&transport_term_id)
