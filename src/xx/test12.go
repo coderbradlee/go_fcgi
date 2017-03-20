@@ -12,6 +12,8 @@ import (
 	// "math"
 	"reflect"
 	// "unsafe"
+	"os"
+	"runtime.pprof"
 )
 type Data struct{
 
@@ -34,11 +36,12 @@ func init() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 }
 func main() {
-	var d *Data
-	t:=reflect.TypeOf(d)
-	fmt.Println(t)
-	it:=reflect.TypeOf((*fmt.Stringer)(nil)).Elem()
-	fmt.Println(it)
-	fmt.Println(t.Implements(it))
+	cpu,_:=os.Create("cpu.out")
+	defer cpu.Close()
+	pprof.StartCPUProfile(cpu)
+	defer pprof.StopCPUProfile()
+	mem,_:=os.Create("mem.out")
+	defer mem.Close()
+	defer pprof.WriteHeapProfile(mem)
 }
 
