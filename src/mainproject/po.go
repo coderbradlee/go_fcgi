@@ -153,6 +153,7 @@ func deal_with_database(t *DeliverGoodsForPO,sd *shared_data,contact_account_id 
 	t_purchase_order.createAt=time.Now().Add(sd.company_time_zone).Format("2006-01-02 15:04:05")
 	// fmt.Println(t_purchase_order.createAt)
 	// t_purchase_order.createBy="go_fcgi"
+	fmt.Println(t.Data.Purchase_order.Created_by)
 	t_purchase_order.createBy=t.Data.Purchase_order.Created_by+" go_fcgi"
   	t_purchase_order.dr=0
   	t_purchase_order.data_version=1
