@@ -13,7 +13,7 @@ import (
 	"reflect"
 	// "unsafe"
 	"os"
-	"runtime.pprof"
+	"runtime/pprof"
 )
 type Data struct{
 
