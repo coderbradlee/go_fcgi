@@ -2,7 +2,7 @@
  import (
     "time"
     // "logger"
-    "fmt"
+    // "fmt"
     "errors"
 )
 
@@ -20,7 +20,7 @@ func insert_ci(ci *Commercial_invoice,
         payment_dead_line,payment_received,payment_due,shipping_cost_total,markup_total,tax_total,sub_total,grand_total,approvedBy,approvedAt,note,createAt,createBy,dr,data_version) 
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
         rand_string(20),
-        origi.supplier,
+        origi.Supplier,
         ci.Ci_no,
         ci.Ci_date,
         "",//sales_order_id
