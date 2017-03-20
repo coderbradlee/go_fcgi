@@ -122,12 +122,12 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         `INSERT INTO t_goods_delivery_note(
         note_id,goods_delivery_note_no,bill_type_id,company_id,
         purchase_order_id,buyer_id,vendor_master_id,fulfill_status,
-        destination_port,trade_term_id,transport_term_id,packing_method_id,
+        export_country_id,loading_port_id,import_country_id,unloading_port_id,trade_term_id,ship_via_id,packing_method_id,
         logistic_provider_master_id,logistic_provider_contact_id,etd,
         eta,atd,ata,customs_clearance_date,receiver,total_freight_charges,
-        total_insurance_fee,total_excluded_tax,note,createAt,createBy,dr,
+        total_insurance_fee,total_excluded_tax,picking_list_no,picking_list_url,bill_of_lading_no,bill_of_lading_url,associated_so_no,associated_so_url,note,createAt,createBy,dr,
         data_version) 
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
         sd.goods_delivery_note_id,
         goods_delivery_note_no,//goods_delivery_note_no 待定
         bill_type_id,
@@ -136,7 +136,10 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         buyer_id,
         vendor_master_id,
         0,
+        deliver_notes.Export_country,
         deliver_notes.Loading_port,
+        deliver_notes.Import_country,
+        deliver_notes.Unloading_port,
         trade_term_id,
         transport_term_id,//transport_term_id 待定
         packing_method_id,
@@ -151,6 +154,13 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         deliver_notes.Total_freight_charges,
         deliver_notes.Total_insurance_fee,
         deliver_notes.Total_excluded_tax,
+        deliver_notes.Packing_list.Pl_no,
+        deliver_notes.Packing_list.Pl_url,
+        deliver_notes.Bill_of_lading.Bl_no,
+        deliver_notes.Bill_of_lading.Bl_url,
+        deliver_notes.Associated_so.Associated_so_no,
+        deliver_notes.Associated_so.Associated_so_url,
+
         "",//note
         time.Now().Add(sd.company_time_zone).Format("2006-01-02 15:04:05"),
         "go_fcgi",
