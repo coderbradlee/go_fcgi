@@ -8,7 +8,7 @@
     "strconv"
     "encoding/json"
     "errors"
-    "errgroup"
+    // "errgroup"
 )
 
 //为了在response中回传发货号，设置全局变量goods_receipt_no
