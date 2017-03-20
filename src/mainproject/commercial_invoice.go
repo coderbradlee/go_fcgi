@@ -7,7 +7,7 @@
 )
  func get_company_id_chan(company_id_chan chan<- string,company string) {
     var company_id string
-    db.QueryRow(fmt.Sprintf("select company_id from t_company where short_name like '\%%s\%'",company)).Scan(&company_id)
+    db.QueryRow(fmt.Sprintf("select company_id from t_company where short_name like '%%%s%%'",company)).Scan(&company_id)
      company_id_chan<-company_id
  }
  // func get_purchase_order_id_chan(purchase_order_id_chan chan<- string,po_no string) {
