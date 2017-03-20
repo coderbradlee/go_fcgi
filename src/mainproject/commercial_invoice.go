@@ -59,7 +59,7 @@ func insert_ci(ci *Commercial_invoice,t *purchase_order,
         "",//pending approvedAt
         ci.Note,
         time.Now().Add(sd.company_time_zone).Format("2006-01-02 15:04:05"),
-        "go_fcgi",
+        ci.Created_by+" go_fcgi",
         0,
         1)
     // fmt.Println("ci")

@@ -108,21 +108,21 @@ time.Now().Add(5 * time.Hour)
 以上多个请求同时发生时可能会有竞争关系
 new共享变量来代替
 
-SELECT * from t_purchase_order where createBy='go_fcgi'
-SELECT * from t_purchase_order_detail where createBy='go_fcgi'
-SELECT * from t_goods_delivery_note where createBy='go_fcgi'
-SELECT * from t_goods_delivery_note_attachment where createBy='go_fcgi'
-SELECT * from t_goods_delivery_note_detail where createBy='go_fcgi'
-select * from t_commercial_invoice where createBy='go_fcgi'
-select * from t_goods_receipt where createBy='go_fcgi'
+SELECT * from t_purchase_order where createBy like '%go_fcgi%'
+SELECT * from t_purchase_order_detail where createBy like '%go_fcgi%'
+SELECT * from t_goods_delivery_note where createBy like '%go_fcgi%'
+SELECT * from t_goods_delivery_note_attachment where createBy like '%go_fcgi%'
+SELECT * from t_goods_delivery_note_detail where createBy like '%go_fcgi%'
+select * from t_commercial_invoice where createBy like '%go_fcgi%'
+select * from t_goods_receipt where createBy like '%go_fcgi%'
 
-delete from t_purchase_order where createBy='go_fcgi';
-delete from t_purchase_order_detail where createBy='go_fcgi';
-delete from t_goods_delivery_note where createBy='go_fcgi';
-delete from t_goods_delivery_note_attachment where createBy='go_fcgi';
-delete from t_goods_delivery_note_detail where createBy='go_fcgi';
-delete from t_commercial_invoice where createBy='go_fcgi';
-delete from t_goods_receipt where createBy='go_fcgi';
+delete from t_purchase_order where createBy like '%go_fcgi%';
+delete from t_purchase_order_detail where createBy like '%go_fcgi%';
+delete from t_goods_delivery_note where createBy like '%go_fcgi%';
+delete from t_goods_delivery_note_attachment where createBy like '%go_fcgi%';
+delete from t_goods_delivery_note_detail where createBy like '%go_fcgi%';
+delete from t_commercial_invoice where createBy like '%go_fcgi%';
+delete from t_goods_receipt where createBy like '%go_fcgi%';
 增加Approved_by的作用？
 
 
