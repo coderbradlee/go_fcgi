@@ -66,6 +66,8 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         // currency_id_chan :=make(chan string)
         // go get_currency_id(currency_id_chan,deliver_notes.Currency)
     // t_purchase_order.currency_id=<-currency_id_chan
+        purchase_order_table_chan :=make(chan purchase_order_part)
+        go get_purchase_order_id_chan(purchase_order_table_chan,deliver_notes.Po_no)
 /////////////////////////////////////////////////////////////////////// 
 ///     在这里集中同步
         logistic_master_id:=<-logistic_master_id_chan
@@ -77,6 +79,7 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         vendor_master_id:="vendor_master_id"
         bill_type_id:=<-bill_type_id_chan
         logistic_contact_id:=<-logistic_contact_id_chan
+        purchase_order_table:=<-purchase_order_table_chan
         var exist bool
         exist=check_deliver_notes_commercial_invoice(deliver_notes.Commercial_invoice.Ci_url)
         if !exist{
@@ -133,8 +136,8 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         sd.goods_delivery_note_id,
         goods_delivery_note_no,//goods_delivery_note_no 待定
         bill_type_id,
-        "company_id",
-        "order_id",
+        company_id,
+        purchase_order_id,
         buyer_id,
         vendor_master_id,
         0,

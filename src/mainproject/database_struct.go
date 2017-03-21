@@ -20,7 +20,7 @@ type shared_data struct{
 	goods_receipt_no string//在response中回传发货号
 	goods_delivery_note_id string//在插入t_goods_delivery_note时生成，在插入t_goods_delivery_note_detail和t_goods_delivery_note_attachment的时候用到
 	company_time_zone time.Duration //获取后用于在各个表中的createAt字段
-	                  
+	purchase_order_id string                  
 }
 type purchase_order struct{
 	purchase_order_id string/*主键*/
@@ -48,3 +48,14 @@ type purchase_order struct{
   	data_version int32/*版本号, 从0开始*/
 }
 
+type purchase_order_part struct{
+	purchase_order_id string/*主键*/
+	company_id string/*采购公司id*/
+	vendor_basic_id string/*供应商基本档案id*/
+	contact_account_id string/*联系人帐号id*/
+	payment_terms string/*付款条款*/
+	requested_delivery_date string/*要求发货日期，YYYY-MM-DD*/
+	shipping_method_id string/*运输方式id*/
+	destination_country_id string/*目的地国家id*/
+	loading_port string/*到货港口*/
+}

@@ -59,7 +59,7 @@ func deliver_goods_Handler (w http.ResponseWriter, r *http.Request) {
 } 
 
 func get_response_of_gdn(t *DeliverGoodsForPO) (string){
-	var sd=shared_data{"","",0}
+	var sd=shared_data{}
 	err_no,check_err:=gdn_check_data(t)
 	if check_err!=nil{
 		// return `{"error_code":"`+err_no+`","error_msg":"`+check_err.Error()+`","data":{"po_no":"`+t.Data.Purchase_order.Po_no+`","reply_system":2},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
