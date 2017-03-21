@@ -11,8 +11,7 @@ func get_bill_type_id_chan(bill_type_id_chan chan<- string,bill_type string) {
 }
 func get_purchase_order_table_chan(purchase_order_table_chan chan<- string,po_no string) {
     var purchase_order_table purchase_order_part
-    db.QueryRow(fmt.Sprintf("select purchase_order_id,company_id ,
-    vendor_basic_id,contact_account_id,payment_terms,requested_delivery_date,shipping_method_id,destination_country_id,loading_port from t_purchase_order where po_no='%s'",po_no)).Scan(&purchase_order_table)
+    db.QueryRow(fmt.Sprintf("select purchase_order_id,company_id,vendor_basic_id,contact_account_id,payment_terms,requested_delivery_date,shipping_method_id,destination_country_id,loading_port from t_purchase_order where po_no='%s'",po_no)).Scan(&purchase_order_table)
      purchase_order_table_chan<-purchase_order_table
 }
 func get_trade_term_id_chan(trade_term_id_chan chan<- string,Trade_term string) {
