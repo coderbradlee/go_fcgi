@@ -112,6 +112,16 @@ func get_company_id_chan(company_id_chan chan<- string,company string) {
     // db.QueryRow("select company_id from t_company where short_name like '%%?%%'",company).Scan(&company_id)
     company_id_chan<-company_id
 }
+func get_country_id_chan(country_id_chan chan<- string,country string) {
+    var country_id string
+    db.QueryRow(fmt.Sprintf("select country_id from t_country where full_name like '%%%s%%'",country)).Scan(&country_id)
+    country_id_chan<-country_id
+}
+func get_port_id_chan(port_id_chan chan<- string,port string) {
+    var port string
+    db.QueryRow(fmt.Sprintf("select seaport_id from t_seaport where full_name like '%%%s%%'",port)).Scan(&port)
+    port_id_chan<-port
+}
 func get_company_time_zone_chan(company_time_zone_chan chan<- float64,company string) {
     var company_time_zone float64
     db.QueryRow("select time_zone from t_company where short_name=?",company).Scan(&company_time_zone)

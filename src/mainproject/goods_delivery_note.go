@@ -68,7 +68,17 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         /////////////////////////////////////////////
         vendor_master_id_chan :=make(chan string)
         go get_vendor_master_id_chan(vendor_master_id_chan,purchase_order_table.vendor_basic_id)
-        // vendor_master_id:=<-vendor_master_id_chan                                                 
+        // vendor_master_id:=<-vendor_master_id_chan                 
+        // ///////////////////
+        export_country_id_chan :=make(chan string)
+        go get_country_id_chan(export_country_id_chan,deliver_notes.Export_country)
+        import_country_id_chan :=make(chan string)
+        go get_country_id_chan(import_country_id_chan,deliver_notes.Import_country)    
+        //////////////////////////////////////////////   
+        loading_port_id_chan :=make(chan string)
+        go get_port_id_chan(loading_port_id_chan,deliver_notes.Loading_port)
+        unloading_port_id_chan :=make(chan string)
+        go get_port_id_chan(unloading_port_id_chan,deliver_notes.Unloading_port)                        
 /////////////////////////////////////////////////////////////////////// 
 ///     在这里集中同步
         logistic_master_id:=<-logistic_master_id_chan
@@ -80,8 +90,13 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         // vendor_master_id:="vendor_master_id"
         bill_type_id:=<-bill_type_id_chan
         logistic_contact_id:=<-logistic_contact_id_chan
-        
+        export_country_id:=<-export_country_id_chan   
+        import_country_id:=<-import_country_id_chan 
+        loading_port_id:=<-loading_port_id_chan
+        unloading_port_id:=<-unloading_port_id_chan
+
         var exist bool
+
         exist=check_deliver_notes_commercial_invoice(deliver_notes.Commercial_invoice.Ci_url)
         if !exist{
              return error_check_deliver_notes_commercial_invoice,errors.New("deliver_notes commercial_invoice file is missed")
@@ -142,10 +157,10 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         buyer_id,
         vendor_master_id,
         0,
-        deliver_notes.Export_country,
-        deliver_notes.Loading_port,
-        deliver_notes.Import_country,
-        deliver_notes.Unloading_port,
+        export_country_id,
+        loading_port_id,
+        import_country_id,
+        unloading_port_id,
         trade_term_id,
         transport_term_id,//transport_term_id 待定
         packing_method_id,
