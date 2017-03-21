@@ -171,7 +171,7 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         "",//atd
         "",//ata
         deliver_notes.Customs_clearance_date,
-        "account_id",//receiver 待定
+        deliver_notes.Supplier,//receiver 待定
         deliver_notes.Total_freight_charges,
         deliver_notes.Total_insurance_fee,
         deliver_notes.Total_excluded_tax,
