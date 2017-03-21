@@ -66,7 +66,6 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         go get_purchase_order_table_chan(purchase_order_table_chan,deliver_notes.Po_no)
         purchase_order_table:=<-purchase_order_table_chan//get_vendor_master_id用到所以需要提前拿到
         /////////////////////////////////////////////
-        vendor_master_id:=get_vendor_master_id(t.vendor_basic_id)
         vendor_master_id_chan :=make(chan string)
         go get_vendor_master_id_chan(vendor_master_id_chan,purchase_order_table.vendor_basic_id)
         // vendor_master_id:=<-vendor_master_id_chan                                                 
