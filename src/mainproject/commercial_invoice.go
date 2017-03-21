@@ -6,30 +6,35 @@
     "errors"
 )
 
-func insert_ci(ci *Commercial_invoice,
+func insert_ci(d *Deliver_notes,
     origi *DeliverGoodsForPO,sd *shared_data)(string,error) {
     var err error
-    
+    ci:=d.Commercial_invoice
     if ci.Status!=1{
         return error_commercial_invoice_status,errors.New("commercial_invoice.status!=1")
     }
+    
+    company_id_chan :=make(chan string)
+    go get_company_id_chan(company_id_chan,ci.Company)
+    company_id:=<-company_id_chan
+
     _, err = db.Exec(
         `INSERT INTO t_commercial_invoice(
         invoice_id,company_id,associated_invoice_no,associated_system_code,invoice_no,invoice_date,type,sales_order_id,outbound_note_id,status,process_type,
         payment_dead_line,payment_due,shipping_cost_total,markup_total,tax_total,sub_total,grand_total,url,approvedBy,approvedAt,note,createAt,createBy,dr,data_version) 
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
         rand_string(20),
-        "Supplier",
+        company_id,
         ci.Ci_no,
         1,
-        "invoice_no",
+        "invoice_no",//need to get from redis flowno
         ci.Ci_date,
         1,
-        "sales_order_id",//sales_order_id
-        "outbound_note_id",//outbound_note_id
+        "",//sales_order_id
+        "",//outbound_note_id
         ci.Status,
         ci.Invoice_type,//pending
-        "payment_dead_line",//payment_dead_line//pending
+        "",//payment_dead_line//pending
         0,//payment_due//pending
         0,//shipping_cost_total,//pending
         0,//markup_total,//pending
@@ -53,7 +58,7 @@ func insert_commercial_invoice(
     var err error
     var s string
     for _,d:= range origi.Data.Deliver_notes{
-        s,err= insert_ci(&d.Commercial_invoice,origi,sd)
+        s,err= insert_ci(&d,origi,sd)
         if err!=nil{
             return s,err
         }   
