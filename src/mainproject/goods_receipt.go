@@ -9,7 +9,7 @@ func insert_goods_receipt(
     var err error
     ////////////////////////////
     bill_type_id_chan :=make(chan string)
-    go get_bill_type_id_chan(bill_type_id_chan,origi.Data.Purchase_order.Bill_type)
+    go get_bill_type_id_chan(bill_type_id_chan,origi.Bill_type)
     bill_type_id:=<-bill_type_id_chan
     ///////////////////////////////
     // company_id_chan :=make(chan string)

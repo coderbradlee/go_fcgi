@@ -3,8 +3,7 @@
     "time"
     "logger"
 )
-func insert_goods_delivery_note_detail(detail *Deliver_notes_detail,item_master_id,uom_id string,
-        delivery_qty int32,sd *shared_data)(string,error) {
+func insert_goods_delivery_note_detail(detail *Deliver_notes_detail,item_master_id,uom_id string,sd *shared_data)(string,error) {
     var err error
     _, err = db.Exec(
         `INSERT INTO t_goods_delivery_note_detail(
