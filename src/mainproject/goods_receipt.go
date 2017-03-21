@@ -7,14 +7,14 @@
 func insert_goods_receipt(
     origi *DeliverGoodsForPO,sd *shared_data)(string,error) {
     var err error
-    ////////////////////////////
-    bill_type_id_chan :=make(chan string)
-    go get_bill_type_id_chan(bill_type_id_chan,origi.Bill_type)
-    bill_type_id:=<-bill_type_id_chan
-    ///////////////////////////////
-    // company_id_chan :=make(chan string)
-    // go get_company_id_chan(company_id_chan,origi.Data.Purchase_order.Company)
-    // company_id:=<-company_id_chan
+    for _,d:= range origi.Data.Deliver_notes{
+        bill_type_id_chan :=make(chan string)
+        go get_bill_type_id_chan(bill_type_id_chan,d.Bill_type)
+        bill_type_id:=<-bill_type_id_chan
+        ///////////////////////////////
+        // company_id_chan :=make(chan string)
+        // go get_company_id_chan(company_id_chan,origi.Data.Purchase_order.Company)
+        // company_id:=<-company_id_chan
 
     _, err = db.Exec(
         `INSERT INTO t_goods_receipt(
@@ -51,6 +51,7 @@ func insert_goods_receipt(
         "go_fcgi",
         0,
         1)
+    }
     return error_insert_goods_receipt,err
 }
 
