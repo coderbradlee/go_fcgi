@@ -43,7 +43,7 @@ func insert_ci(d *Deliver_notes,
         ci.Total_amount,
         ci.Ci_url,
         ci.Approved_by,
-        "approvedAt",//pending approvedAt
+        ci.Ci_date,//pending approvedAt
         ci.Note,
         time.Now().Add(sd.company_time_zone).Format("2006-01-02 15:04:05"),
         ci.Created_by+" go_fcgi",
