@@ -191,7 +191,7 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         logger.Info("insert_goods_delivery_note:"+err.Error()) 
         return error_insert_goods_delivery_note,err
     }else{
-        s,err= insert_note_detail(d,sd)
+        s,err:= insert_note_detail(deliver_notes,sd)
         if err!=nil{
             logger.Info(s+":"+err.Error()) 
             return s,err
