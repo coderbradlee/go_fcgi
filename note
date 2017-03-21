@@ -99,7 +99,7 @@ curl   -X POST http://172.18.100.72:9888/po/deliver_goods -d '
                 "loading_port": "Shenzhen",
                 "import_country": "France",
                 "unloading_port": "Amsterdam",
-                "logistic": "COSCO",
+                "logistic": "DHL",
                 "logistic_contact": "",
                 "logistic_contact_email": "",
                 "logistic_contact_telephone_number": "",

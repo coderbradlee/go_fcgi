@@ -43,7 +43,7 @@ type Deliver_notes_detail struct{
 	Sub_total float64 `json:"sub_total"`
 }
 type Deliver_notes struct{
-	Bill_type string `json:"bill_tpye"`
+	Bill_type string `json:"bill_type"`
 	Gdn_no string `json:"gdn_no"`
 	Po_no string `json:"po_no"`
 	Supplier string `json:"supplier"`
