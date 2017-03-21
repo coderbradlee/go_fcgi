@@ -69,6 +69,6 @@ type Response_json_data struct{
 type Response_json struct{
 	Error_code string `json:"error_code"`
 	Error_msg string `json:"error_msg"`
-	Data Response_json_data	 `json:"response_json_data"`
+	Data Response_json_data	 `json:"data"`
 	Reply_time string `json:"reply_time"`		  
 }
