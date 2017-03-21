@@ -23,7 +23,7 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         fmt.Println("insert_goods_delivery_note")
         bill_type_id_chan :=make(chan string)
         go get_bill_type_id_chan(bill_type_id_chan,deliver_notes.Bill_type)
-        // bill_type_id:=<-bill_type_id_chan
+        bill_type_id:=<-bill_type_id_chan
         /////////////////////////////////////////////
         // vendor_master_id:=get_vendor_master_id(t.vendor_basic_id)
         // vendor_master_id_chan :=make(chan string)
@@ -33,33 +33,33 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
 // trade_term_id:=get_trade_term_id(deliver_notes.Trade_term)
         trade_term_id_chan :=make(chan string)
         go get_trade_term_id_chan(trade_term_id_chan,deliver_notes.Trade_term)
-        // trade_term_id:=<-trade_term_id_chan
+        trade_term_id:=<-trade_term_id_chan
 
 ///////////////////////////////////////////////////////////
         // buyer_id:=get_buyer_id(deliver_notes.Buyer)
         buyer_id_chan :=make(chan string)
         go get_buyer_id_chan(buyer_id_chan,deliver_notes.Buyer)
-        // buyer_id:=<-buyer_id_chan
+        buyer_id:=<-buyer_id_chan
 ///////////////////////////////////////////////////
 // transport_term_id:=get_transport_term_id(deliver_notes.Ship_via)
         transport_term_id_chan :=make(chan string)
         go get_transport_term_id_chan(transport_term_id_chan,deliver_notes.Ship_via)
-        // transport_term_id:=<-transport_term_id_chan
+        transport_term_id:=<-transport_term_id_chan
 /////////////////////////////////////////////////////////////////         
         //packing_method_id:=get_packing_method_id(deliver_notes.Packing_method)
         packing_method_id_chan :=make(chan string)
         go get_packing_method_id_chan(packing_method_id_chan,deliver_notes.Packing_method)
-        // packing_method_id:=<-packing_method_id_chan
+        packing_method_id:=<-packing_method_id_chan
 //////////////////////////////////////////////////////////////
         // logistic_master_id:=get_logistic_master_id(deliver_notes.Logistic)
         logistic_master_id_chan :=make(chan string)
         go get_logistic_master_id_chan(logistic_master_id_chan,deliver_notes.Logistic)
-        // logistic_master_id:=<-logistic_master_id_chan
+        logistic_master_id:=<-logistic_master_id_chan
 ////////////////////////////////////////////////////////////////////
         // logistic_contact_id:=get_logistic_contact_id(deliver_notes.Logistic_contact)
         logistic_contact_id_chan :=make(chan string)
         go get_logistic_contact_id_chan(logistic_contact_id_chan,deliver_notes.Logistic_contact)
-        // logistic_contact_id:=<-logistic_contact_id_chan
+        logistic_contact_id:=<-logistic_contact_id_chan
         ////////////////////////////////////////////////////
         // currency_id_chan :=make(chan string)
         // go get_currency_id(currency_id_chan,deliver_notes.Currency)
