@@ -156,7 +156,7 @@ func get_response(t *PoData) (string){
     go get_contact_account_id_sh_chan(received_chan,t.Data.Purchase_order.Supplier)
     received:=<-received_chan
 
-	var sd=shared_data{"","",0}
+	var sd=shared_data{}
 	err_no,check_err:=po_check_data(t)
 	if check_err!=nil{
 		// return `{"error_code":"`+err_no+`","error_msg":"`+check_err.Error()+`","data":{"po_no":"`+t.Data.Purchase_order.Po_no+`","reply_system":2},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
