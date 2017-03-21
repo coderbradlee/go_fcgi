@@ -5,6 +5,7 @@ package main
     // "errors"
 )
 func get_bill_type_id_chan(bill_type_id_chan chan<- string,bill_type string) {
+    fmt.Println(bill_type)
     var bill_type_id string
     db.QueryRow("select bill_type_id from t_bill_type where name like '%%?%%'",bill_type).Scan(&bill_type_id)
      bill_type_id_chan<-bill_type_id
