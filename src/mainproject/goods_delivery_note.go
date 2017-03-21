@@ -26,11 +26,7 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         bill_type_id_chan :=make(chan string)
         go get_bill_type_id_chan(bill_type_id_chan,deliver_notes.Bill_type)
         //bill_type_id:=<-bill_type_id_chan
-        /////////////////////////////////////////////
-        // vendor_master_id:=get_vendor_master_id(t.vendor_basic_id)
-        // vendor_master_id_chan :=make(chan string)
-        // go get_vendor_master_id_chan(vendor_master_id_chan,t.vendor_basic_id)
-        // vendor_master_id:=<-vendor_master_id_chan
+        
 ////////////////////////////////////////////////////////////
 // trade_term_id:=get_trade_term_id(deliver_notes.Trade_term)
         trade_term_id_chan :=make(chan string)
@@ -68,6 +64,12 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
     // t_purchase_order.currency_id=<-currency_id_chan
         purchase_order_table_chan :=make(chan purchase_order_part)
         go get_purchase_order_table_chan(purchase_order_table_chan,deliver_notes.Po_no)
+        purchase_order_table:=<-purchase_order_table_chan//get_vendor_master_id用到所以需要提前拿到
+        /////////////////////////////////////////////
+        vendor_master_id:=get_vendor_master_id(t.vendor_basic_id)
+        vendor_master_id_chan :=make(chan string)
+        go get_vendor_master_id_chan(vendor_master_id_chan,purchase_order_table.vendor_basic_id)
+        // vendor_master_id:=<-vendor_master_id_chan                                                 
 /////////////////////////////////////////////////////////////////////// 
 ///     在这里集中同步
         logistic_master_id:=<-logistic_master_id_chan
@@ -75,11 +77,11 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         transport_term_id:=<-transport_term_id_chan
         buyer_id:=<-buyer_id_chan
         trade_term_id:=<-trade_term_id_chan
-        // vendor_master_id:=<-vendor_master_id_chan
-        vendor_master_id:="vendor_master_id"
+        vendor_master_id:=<-vendor_master_id_chan
+        // vendor_master_id:="vendor_master_id"
         bill_type_id:=<-bill_type_id_chan
         logistic_contact_id:=<-logistic_contact_id_chan
-        purchase_order_table:=<-purchase_order_table_chan
+        
         var exist bool
         exist=check_deliver_notes_commercial_invoice(deliver_notes.Commercial_invoice.Ci_url)
         if !exist{
@@ -136,8 +138,8 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         sd.goods_delivery_note_id,
         goods_delivery_note_no,//goods_delivery_note_no 待定
         bill_type_id,
-        company_id,
-        purchase_order_id,
+        purchase_order_table.company_id,
+        purchase_order_table.purchase_order_id,
         buyer_id,
         vendor_master_id,
         0,
