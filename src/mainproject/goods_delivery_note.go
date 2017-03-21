@@ -198,4 +198,5 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         }
     }
 }
+    return "",nil
 }
