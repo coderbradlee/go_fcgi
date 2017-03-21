@@ -19,18 +19,17 @@ func insert_ci(ci *Commercial_invoice,
         payment_dead_line,payment_due,shipping_cost_total,markup_total,tax_total,sub_total,grand_total,url,approvedBy,approvedAt,note,createAt,createBy,dr,data_version) 
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
         rand_string(20),
-        "origi.Supplier",
+        "Supplier",
         ci.Ci_no,
         1,
-        "xxxx",
+        "invoice_no",
         ci.Ci_date,
         1,
-        "",//sales_order_id
-        "t.purchase_order_id",
-        "",//outbound_note_id
+        "sales_order_id",//sales_order_id
+        "outbound_note_id",//outbound_note_id
         ci.Status,
         ci.Invoice_type,//pending
-        "",//payment_dead_line//pending
+        "payment_dead_line",//payment_dead_line//pending
         0,//payment_due//pending
         0,//shipping_cost_total,//pending
         0,//markup_total,//pending
@@ -39,7 +38,7 @@ func insert_ci(ci *Commercial_invoice,
         ci.Total_amount,
         ci.Ci_url,
         ci.Approved_by,
-        "",//pending approvedAt
+        "approvedAt",//pending approvedAt
         ci.Note,
         time.Now().Add(sd.company_time_zone).Format("2006-01-02 15:04:05"),
         ci.Created_by+" go_fcgi",
