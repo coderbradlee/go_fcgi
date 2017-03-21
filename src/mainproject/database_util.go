@@ -118,9 +118,9 @@ func get_country_id_chan(country_id_chan chan<- string,country string) {
     country_id_chan<-country_id
 }
 func get_port_id_chan(port_id_chan chan<- string,port string) {
-    var port string
-    db.QueryRow(fmt.Sprintf("select seaport_id from t_seaport where full_name like '%%%s%%'",port)).Scan(&port)
-    port_id_chan<-port
+    var port_id string
+    db.QueryRow(fmt.Sprintf("select seaport_id from t_seaport where full_name like '%%%s%%'",port)).Scan(&port_id)
+    port_id_chan<-port_id
 }
 func get_company_time_zone_chan(company_time_zone_chan chan<- float64,company string) {
     var company_time_zone float64
