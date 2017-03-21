@@ -28,6 +28,8 @@ const(
     error_check_deliver_notes_bill_of_lading="-133"
     error_check_deliver_notes_associated_so="-134"
     error_check_deliver_notes_deliver_note_no="-135"
+    error_check_po_exist_for_gdn="-136"
+
 
     error_deliver_notes_packing_method_id="-140"
     error_deliver_notes_transport_term_id="-141"
@@ -198,6 +200,25 @@ func check_deliver_notes_associated_so(path string) bool{
     }
     return true
 }
+////////////////following check for gdn
+func check_po_exist_for_gdn(origi *DeliverGoodsForPO,error_chan chan<- check_struct){
+    var get_po_no string
+    var t check_struct
+    for _,d:= range origi.Data.Deliver_notes{
+        err=db.QueryRow("select purchase_order_id from t_purchase_order where po_no=?",d.Po_no).Scan(&get_po_no)
+        if err!=nil{
+            t=check_struct{error_check_po_exist_for_gdn,errors.New(`po_exist_for_gdn missed`)}
+            error_chan<- t
+            return
+        }else if get_po_no==""{
+            // return true,nil//存在po_no
+            t=check_struct{error_check_po_exist_for_gdn,errors.New(`po_exist_for_gdn missed`)}
+            error_chan<- t
+            return
+        }
+    }
+    error_chan<- t
+}
 func po_check_data(origi *PoData)(string,error) {
     // var all_error map[string]error
     error_chan:=make(chan check_struct)
@@ -226,7 +247,8 @@ func gdn_check_data(origi *DeliverGoodsForPO)(string,error) {
     go check_packing_method(origi.Data.Deliver_notes,error_chan)
     go check_logistic_provider(origi.Data.Deliver_notes,error_chan)
     go check_deliver_notes_deliver_note_no(origi.Data.Deliver_notes,error_chan)
-    for i:=0;i<3;i++{
+    go check_po_exist_for_gdn(origi)
+    for i:=0;i<4;i++{
         err:=<-error_chan
         // fmt.Println("104:",err.error_code,err.err)
         if err.err!=nil{
