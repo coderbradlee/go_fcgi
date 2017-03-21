@@ -67,7 +67,7 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         // go get_currency_id(currency_id_chan,deliver_notes.Currency)
     // t_purchase_order.currency_id=<-currency_id_chan
         purchase_order_table_chan :=make(chan purchase_order_part)
-        go get_purchase_order_id_chan(purchase_order_table_chan,deliver_notes.Po_no)
+        go get_purchase_order_table_chan(purchase_order_table_chan,deliver_notes.Po_no)
 /////////////////////////////////////////////////////////////////////// 
 ///     在这里集中同步
         logistic_master_id:=<-logistic_master_id_chan
