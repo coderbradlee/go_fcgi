@@ -4,6 +4,11 @@ package main
     "time"
     // "errors"
 )
+func get_purchase_order_id_chan(purchase_order_id_chan chan<- string,po_no string) {
+    var purchase_order_id string
+    db.QueryRow(fmt.Sprintf("select purchase_order_id from t_purchase_order where po_no like '%%%s%%'",po_no)).Scan(&purchase_order_id)
+     purchase_order_id_chan<-purchase_order_id
+}
 func get_bill_type_id_chan(bill_type_id_chan chan<- string,bill_type string) {
     var bill_type_id string
     db.QueryRow(fmt.Sprintf("select bill_type_id from t_bill_type where name like '%%%s%%'",bill_type)).Scan(&bill_type_id)
