@@ -51,13 +51,14 @@ type Purchase_order struct{
 }
 
 type Datas struct{
-	Request_system int32 `json:"request_system"`
-	Request_time string `json:"request_time"`
+	
 	Purchase_order Purchase_order `json:"purchase_order"`
 }
 type PoData struct {
-   Operation string `json:"operation"`
-   Data Datas  `json:"data"`
+	Request_system int32 `json:"request_system"`
+	Request_time string `json:"request_time"`
+   	Operation string `json:"operation"`
+   	Data Datas  `json:"data"`
 }
 type Response_json_data struct{
 	Bill_no string `json:"bill_no"`

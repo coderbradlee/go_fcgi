@@ -223,7 +223,7 @@ func check_po_exist_for_gdn(origi *DeliverGoodsForPO,error_chan chan<- check_str
 func po_check_data(origi *PoData)(string,error) {
     // var all_error map[string]error
     error_chan:=make(chan check_struct)
-    go check_request_system(origi.Data.Request_system,error_chan)
+    go check_request_system(origi.Request_system,error_chan)
     go check_bill_type(origi.Data.Purchase_order.Bill_type,error_chan)
     go check_po_url(origi.Data.Purchase_order.Po_url,error_chan)
     go check_status(origi.Data.Purchase_order.Status,error_chan)
