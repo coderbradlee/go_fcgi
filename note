@@ -1,3 +1,18 @@
+2017.03.22
+更改了json结构。更改程序前tag beforejsonchange2017.03.22
+1、t_goods_delivery_note里的receiver
+2、t_commercial_invoice里的invoice_no产生，其他字段需要填写哪些
+3、t_goods_receipt是否需要填写
+
+关于invoice_no的产生，之前的流水号规则如下：
+1、UK、ZA、FR、IT、DE、TR、RU、PA、US、CA、MX、BR、JP、TH这些公司流水号按公司产生，忽略后面的类型，即同一个公司一个池
+2、其他公司按公司+类型产生流水号，即公司+类型为一个池
+
+请求规则统一为：GET http://x.x.x.x:8088/flowNo/JS/PO
+
+如需要invoice_no按系统连续，需要增加新接口，把系统号作为key的一部分，
+然后关于发票号的接口统一请求新的接口
+
 build go1.8
 GOROOT_BOOTSTRAP=/usr/lib/golang ./make.bash
 GOROOT_BOOTSTRAP=/usr/lib/golang ./all.bash
