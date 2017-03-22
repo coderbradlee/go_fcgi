@@ -63,12 +63,12 @@ func get_response_of_gdn(t *DeliverGoodsForPO) (string){
 	err_no,check_err:=gdn_check_data(t)
 	if check_err!=nil{
 		// return `{"error_code":"`+err_no+`","error_msg":"`+check_err.Error()+`","data":{"po_no":"`+t.Data.Purchase_order.Po_no+`","reply_system":2},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
-		return `{"error_code":"`+err_no+`","error_msg":"`+check_err.Error()+`","data":{"bill_no":"`+t.Data.Deliver_notes[0].Gdn_no+`","bill_type":"Goods Delivery Note","receive_by":"",   "company":"","receive_at":"`+t.Data.Request_time+`"},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
+		return `{"error_code":"`+err_no+`","error_msg":"`+check_err.Error()+`","data":{"bill_no":"`+t.Data.Deliver_notes[0].Gdn_no+`","bill_type":"Goods Delivery Note","receive_by":"",   "company":"","receive_at":"`+t.Request_time+`"},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
 	}
 	s,err:=insert_gdn_database(t,&sd)
 	if err!=nil{
 		// return `{"error_code":"`+s+`","error_msg":"`+err.Error()+`","data":{"po_no":"`+t.Data.Purchase_order.Po_no+`","reply_system":2},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
-		return `{"error_code":"`+s+`","error_msg":"`+err.Error()+`","data":{"bill_no":"`+t.Data.Deliver_notes[0].Gdn_no+`","bill_type":"Goods Delivery Note","receive_by":"",   "company":"","receive_at":"`+t.Data.Request_time+`"},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
+		return `{"error_code":"`+s+`","error_msg":"`+err.Error()+`","data":{"bill_no":"`+t.Data.Deliver_notes[0].Gdn_no+`","bill_type":"Goods Delivery Note","receive_by":"",   "company":"","receive_at":"`+t.Request_time+`"},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
 	}
 	
 	json_ret:=&Response_json{Error_code:"200",Error_msg:"Goods received successfully at "+time.Now().Format("2006-01-02 15:04:05"),Data:Response_json_data{Bill_no:sd.goods_receipt_no,Bill_type:"Goods Delivery Note",Receive_by:"received",Company:"",Receive_at:time.Now().Format("2006-01-02 15:04:05")},Reply_time:time.Now().Format("2006-01-02 15:04:05")}
@@ -79,7 +79,7 @@ func get_response_of_gdn(t *DeliverGoodsForPO) (string){
     err_encode := enc.Encode(json_ret)
     if err_encode!=nil{
     	// return `{"error_code":"`+error_json_encode+`","error_msg":"`+err_encode.Error()+`","data":{"po_no":"`+t.Data.Purchase_order.Po_no+`","reply_system":2},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
-    	return `{"error_code":"`+error_json_encode+`","error_msg":"`+err_encode.Error()+`","data":{"bill_no":"`+t.Data.Deliver_notes[0].Gdn_no+`","bill_type":"Goods Delivery Note","receive_by":"",   "company":"","receive_at":"`+t.Data.Request_time+`"},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
+    	return `{"error_code":"`+error_json_encode+`","error_msg":"`+err_encode.Error()+`","data":{"bill_no":"`+t.Data.Deliver_notes[0].Gdn_no+`","bill_type":"Goods Delivery Note","receive_by":"",   "company":"","receive_at":"`+t.Request_time+`"},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
     }
 	return buffer.String()
 }

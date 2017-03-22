@@ -249,7 +249,8 @@ func gdn_check_data(origi *DeliverGoodsForPO)(string,error) {
     go check_logistic_provider(origi.Data.Deliver_notes,error_chan)
     go check_deliver_notes_deliver_note_no(origi.Data.Deliver_notes,error_chan)
     go check_po_exist_for_gdn(origi,error_chan)
-    for i:=0;i<4;i++{
+    go check_request_system(origi.Request_system,error_chan)
+    for i:=0;i<5;i++{
         err:=<-error_chan
         // fmt.Println("104:",err.error_code,err.err)
         if err.err!=nil{
