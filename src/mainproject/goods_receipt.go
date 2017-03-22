@@ -5,9 +5,9 @@
 )
 
 func insert_goods_receipt(
-    origi *DeliverGoodsForPO,sd *shared_data)(string,error) {
+    d *Deliver_notes,sd *shared_data)(string,error) {
     var err error
-    for _,d:= range origi.Data.Deliver_notes{
+    // for _,d:= range origi.Data.Deliver_notes{
         bill_type_id_chan :=make(chan string)
         go get_bill_type_id_chan(bill_type_id_chan,d.Bill_type)
         bill_type_id:=<-bill_type_id_chan
@@ -44,14 +44,14 @@ func insert_goods_receipt(
         0,//status
         "",//receipt_date,
         2,//from_system_code,
-        "approved_by",//approved_by,
-        "approved_at",//approved_at,
+        d.Approved_by,//approved_by,
+        "Approved_at",//approved_at,
         "note",//note
         time.Now().Add(sd.company_time_zone).Format("2006-01-02 15:04:05"),
-        "go_fcgi",
+        d.Created_by+" go_fcgi",
         0,
         1)
-    }
+    // }
     return error_insert_goods_receipt,err
 }
 
