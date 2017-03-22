@@ -114,7 +114,11 @@ func get_vendor_master_id_chan(vendor_master_id_chan chan<- string,vendor_basic_
     db.QueryRow("select vendor_master_id from t_vendor_master where vendor_basic_id=?",vendor_basic_id).Scan(&vendor_master_id)
     vendor_master_id_chan<-vendor_master_id
 }
-
+func get_company_short_name_chan(company_short_name_chan chan<- string,company string) {
+    var company_short_name string
+    db.QueryRow(fmt.Sprintf("select note from t_company where short_name like '%%%s%%'",company)).Scan(&company_short_name)
+    company_short_name_chan<-company_short_name
+}
 func get_company_id_chan(company_id_chan chan<- string,company string) {
     var company_id string
     db.QueryRow(fmt.Sprintf("select company_id from t_company where short_name like '%%%s%%'",company)).Scan(&company_id)
