@@ -16,7 +16,20 @@ func insert_ci(d *Deliver_notes,sd *shared_data)(string,error) {
     company_id_chan :=make(chan string)
     go get_company_id_chan(company_id_chan,ci.Company)
     company_id:=<-company_id_chan
+    ///////////////////////////////////
+    company_short_name_chan :=make(chan string)
+    go get_company_short_name_chan(company_short_name_chan,ci.Company)
+    company_short_name:=<-company_short_name_chan
 
+    if company_short_name==""||len(company_short_name)>3{
+        return error_insert_commercial_invoice,errors.New("get_company_short_name error")
+    }
+
+    flow_no,err:=get_flow_no(company_short_name)
+    if flow_no==""{
+        return error_insert_commercial_invoice,errors.New("get_flow_no error")
+    }
+    invoice_no:="CI-"+company_short_name+"-"+time.Now().Format("20060102")+"-"+flow_no
     _, err = db.Exec(
         `INSERT INTO t_commercial_invoice(
         invoice_id,company_id,associated_invoice_no,associated_system_code,invoice_no,invoice_date,type,sales_order_id,outbound_note_id,status,process_type,
@@ -26,7 +39,7 @@ func insert_ci(d *Deliver_notes,sd *shared_data)(string,error) {
         company_id,
         ci.Ci_no,
         1,
-        "invoice_no",//need to get from redis flowno
+        invoice_no,//need to get from redis flowno
         ci.Ci_date,
         1,
         "",//sales_order_id

@@ -43,6 +43,7 @@ type Configuration struct {
     RedisNodes []string
     Mysql_conf mysql_conf
     Redis_url string
+    System_no string
 }
 var configuration Configuration
 var db *sql.DB

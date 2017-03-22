@@ -62,33 +62,33 @@ func get_currency_id(currency_id_chan chan<- string,currency string){
     currency_id_chan<-currency_id
 }
 
-// func get_flow_no(company string)(string,error) {
-//     // var flow_no string
-//     //http://127.0.0.1:8088/flowNo/JP/SO
-//     url:=configuration.Redis_url+"/"+company+"/PO"
+func get_flow_no(company string)(string,error) {
+    // var flow_no string
+    //http://127.0.0.1:8088/flowNo/JP/SO
+    url:=configuration.Redis_url+"/"+configuration.System_no+"/"+company+"/PO"
 
-//     resp, err1 := http.Get(url)
-//     if err1 != nil {
-//         return  "",err1
-//     }
+    resp, err1 := http.Get(url)
+    if err1 != nil {
+        return  "",err1
+    }
 
-//     defer resp.Body.Close()
-//     body, err2 := ioutil.ReadAll(resp.Body)
-//     if err2 != nil {
-//         // handle error
-//         return  "",err2
-//     }
-//     var data flow_no_json
-//     json.Unmarshal(body, &data)
-//     i, err3 := strconv.Atoi(data.FlowNo)
-//     if err3 != nil {
-//         // handle error
-//         return  "",err3
-//     }
-//     // str := string.format(%06d",i)
-//     str := fmt.Sprintf("%06d",i)
-//     return str,nil
-// }
+    defer resp.Body.Close()
+    body, err2 := ioutil.ReadAll(resp.Body)
+    if err2 != nil {
+        // handle error
+        return  "",err2
+    }
+    var data flow_no_json
+    json.Unmarshal(body, &data)
+    i, err3 := strconv.Atoi(data.FlowNo)
+    if err3 != nil {
+        // handle error
+        return  "",err3
+    }
+    // str := string.format(%06d",i)
+    str := fmt.Sprintf("%06d",i)
+    return str,nil
+}
 // func get_goods_delivery_note_no(deliver_note_no string)(string,error) {
     // goods_delivery_note_no:="GDN-"
     // var short string
