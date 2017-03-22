@@ -53,7 +53,7 @@ func insert_ci(d *Deliver_notes,sd *shared_data)(string,error) {
 }
 
 func insert_commercial_invoice(
-    d *Deliver_notes,sd *shared_data,note_id string)(string,error) {
+    d *Deliver_notes,sd *shared_data)(string,error) {
     var err error
     var s string
     // for _,d:= range origi.Data.Deliver_notes{
