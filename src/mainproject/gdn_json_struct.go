@@ -43,6 +43,7 @@ type Deliver_notes_detail struct{
 	Sub_total float64 `json:"sub_total"`
 }
 type Deliver_notes struct{
+	Company string `json:"company"`
 	Bill_type string `json:"bill_type"`
 	Gdn_no string `json:"gdn_no"`
 	Po_no string `json:"po_no"`
@@ -72,15 +73,17 @@ type Deliver_notes struct{
 	Bill_of_lading Bill_of_lading `json:"bill_of_lading"`
 	Associated_so Associated_so `json:"associated_so"`
 	Detail []Deliver_notes_detail `json:"detail"`
+	Created_by string `json:"created_by"`
+    Approved_by string `json:"approved_by"`
 	Comments string `json:"comments"`
 	Note string `json:"note"`
 }
-type DeliverGoodsData struct{
-	Request_system int32 `json:"request_system"`
-	Request_time string `json:"request_time"`
+type DeliverGoodsData struct{	
 	Deliver_notes []Deliver_notes `json:"deliver_notes"`
 }
 type DeliverGoodsForPO struct {
-   Operation string `json:"operation"`
-   Data DeliverGoodsData  `json:"data"`
+	Request_system int32 `json:"request_system"`
+	Request_time string `json:"request_time"`
+   	Operation string `json:"operation"`
+   	Data DeliverGoodsData  `json:"data"`
 }

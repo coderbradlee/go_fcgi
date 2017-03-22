@@ -78,7 +78,11 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         loading_port_id_chan :=make(chan string)
         go get_port_id_chan(loading_port_id_chan,deliver_notes.Loading_port)
         unloading_port_id_chan :=make(chan string)
-        go get_port_id_chan(unloading_port_id_chan,deliver_notes.Unloading_port)                        
+        go get_port_id_chan(unloading_port_id_chan,deliver_notes.Unloading_port) 
+        /////////////////////////////////////
+        received_chan :=make(chan string)
+        go get_contact_account_id_sh_chan(received_chan,deliver_notes.Company)
+        received:=<-received_chan
 /////////////////////////////////////////////////////////////////////// 
 ///     在这里集中同步
         logistic_master_id:=<-logistic_master_id_chan
@@ -171,7 +175,8 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         "",//atd
         "",//ata
         deliver_notes.Customs_clearance_date,
-        deliver_notes.Supplier,//receiver 待定
+        // deliver_notes.Supplier,//receiver 待定
+        received,
         deliver_notes.Total_freight_charges,
         deliver_notes.Total_insurance_fee,
         deliver_notes.Total_excluded_tax,

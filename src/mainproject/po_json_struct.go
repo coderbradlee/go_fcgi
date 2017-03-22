@@ -20,7 +20,7 @@ import (
 	Note string `json:"note"`
 }
 type Purchase_order struct{
-	Website string `json:"website"`
+	// Website string `json:"website"`
 	Company string `json:"company"`
 	Bill_type string `json:"bill_type"`
 	Po_no string `json:"po_no"`
