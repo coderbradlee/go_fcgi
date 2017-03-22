@@ -75,10 +75,10 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         import_country_id_chan :=make(chan string)
         go get_country_id_chan(import_country_id_chan,deliver_notes.Import_country)    
         //////////////////////////////////////////////   
-        loading_port_id_chan :=make(chan string)
-        go get_port_id_chan(loading_port_id_chan,deliver_notes.Loading_port)
-        unloading_port_id_chan :=make(chan string)
-        go get_port_id_chan(unloading_port_id_chan,deliver_notes.Unloading_port) 
+        // loading_port_id_chan :=make(chan string)
+        // go get_port_id_chan(loading_port_id_chan,deliver_notes.Loading_port)
+        // unloading_port_id_chan :=make(chan string)
+        // go get_port_id_chan(unloading_port_id_chan,deliver_notes.Unloading_port) 
         /////////////////////////////////////
         received_chan :=make(chan string)
         go get_contact_account_id_sh_chan(received_chan,deliver_notes.Company)
@@ -96,8 +96,8 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         logistic_contact_id:=<-logistic_contact_id_chan
         export_country_id:=<-export_country_id_chan   
         import_country_id:=<-import_country_id_chan 
-        loading_port_id:=<-loading_port_id_chan
-        unloading_port_id:=<-unloading_port_id_chan
+        loading_port_id:=deliver_notes.Loading_port
+        unloading_port_id:=deliver_notes.Unloading_port
 
         var exist bool
 
@@ -147,7 +147,7 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         `INSERT INTO t_goods_delivery_note(
         note_id,goods_delivery_note_no,bill_type_id,company_id,
         purchase_order_id,buyer_id,vendor_master_id,fulfill_status,
-        export_country_id,loading_port_id,import_country_id,unloading_port_id,trade_term_id,ship_via_id,packing_method_id,
+        export_country_id,loading_port,import_country_id,unloading_port,trade_term_id,ship_via_id,packing_method_id,
         logistic_provider_master_id,logistic_provider_contact_id,etd,
         eta,atd,ata,customs_clearance_date,receiver,total_freight_charges,
         total_insurance_fee,total_excluded_tax,picking_list_no,picking_list_url,bill_of_lading_no,bill_of_lading_url,associated_so_no,associated_so_url,note,createAt,createBy,dr,
