@@ -3,7 +3,7 @@
     "time"
     "logger"
 )
-func insert_goods_delivery_note_detail(detail *Deliver_notes_detail,item_master_id,uom_id,currency_id string,sd *shared_data)(string,error) {
+func insert_goods_delivery_note_detail(detail *Deliver_notes_detail,item_master_id,uom_id,currency_id string,sd *shared_data,note,createBy string)(string,error) {
     var err error
     _, err = db.Exec(
         `INSERT INTO t_goods_delivery_note_detail(
@@ -29,9 +29,9 @@ func insert_goods_delivery_note_detail(detail *Deliver_notes_detail,item_master_
         detail.Unit_price,
         currency_id,
         detail.Sub_total,
-        "",
+        note,
         time.Now().Add(sd.company_time_zone).Format("2006-01-02 15:04:05"),
-        "go_fcgi",
+        createBy+" go_fcgi",
         0,
         1)
     return error_insert_goods_delivery_note_detail,err
@@ -57,7 +57,7 @@ func insert_note_detail(
         uom_id:=<-uom_id_chan
         item_master_id:=<-item_master_id_chan
         
-        s,err= insert_goods_delivery_note_detail(&detail,item_master_id,uom_id,currency_id,sd)
+        s,err= insert_goods_delivery_note_detail(&detail,item_master_id,uom_id,currency_id,sd,d.Note,d.Created_by)
         if err!=nil{
             logger.Info("insert to insert_goods_delivery_note_detail:"+err.Error()) 
             return s,err
