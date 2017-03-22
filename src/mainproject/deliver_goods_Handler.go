@@ -85,16 +85,17 @@ func get_response_of_gdn(t *DeliverGoodsForPO) (string){
 }
 func insert_gdn_database(t *DeliverGoodsForPO,sd *shared_data)(string,error){
     var level3_group errgroup
-    var level4_group errgroup
+    // var level4_group errgroup
     level3_group.Go(t,sd,insert_goods_delivery_note)
     // level3_group.Go(t,sd,insert_commercial_invoice)
-    if s,err := level3_group.Wait(); err != nil {
-     return s,err
-    }else{
-     // level4_group.Go(t,sd,insert_note_attachment)
-     // level4_group.Go(t,sd,insert_note_detail)
-     level4_group.Go(t,sd,insert_goods_receipt)
-     s,err = level4_group.Wait()
-     return s,err
-    }
+    // if s,err := level3_group.Wait(); err != nil {
+    //  return s,err
+    return level3_group.Wait()
+    // }else{
+    //  // level4_group.Go(t,sd,insert_note_attachment)
+    //  // level4_group.Go(t,sd,insert_note_detail)
+    //  level4_group.Go(t,sd,insert_goods_receipt)
+    //  s,err = level4_group.Wait()
+    //  return s,err
+    // }
 }
