@@ -6,8 +6,7 @@
     "errors"
 )
 
-func insert_ci(d *Deliver_notes,
-    origi *DeliverGoodsForPO,sd *shared_data)(string,error) {
+func insert_ci(d *Deliver_notes,sd *shared_data)(string,error) {
     var err error
     ci:=d.Commercial_invoice
     if ci.Status!=1{
@@ -21,7 +20,7 @@ func insert_ci(d *Deliver_notes,
     _, err = db.Exec(
         `INSERT INTO t_commercial_invoice(
         invoice_id,company_id,associated_invoice_no,associated_system_code,invoice_no,invoice_date,type,sales_order_id,outbound_note_id,status,process_type,
-        payment_dead_line,payment_due,shipping_cost_total,markup_total,tax_total,sub_total,grand_total,url,approvedBy,approvedAt,note,createAt,createBy,dr,data_version) 
+        payment_dead_line,payment_due,shipping_cost_total,markup_total,tax_total,sub_total,grand_total,url,approvedBy,approvedAt,note,createAt,createBy,dr,data_version,varchar_1) 
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
         rand_string(20),
         company_id,
@@ -48,20 +47,20 @@ func insert_ci(d *Deliver_notes,
         time.Now().Add(sd.company_time_zone).Format("2006-01-02 15:04:05"),
         ci.Created_by+" go_fcgi",
         0,
-        1)
+        1,sd.goods_delivery_note_id)
     // fmt.Println("ci")
     return error_insert_commercial_invoice,err
 }
 
 func insert_commercial_invoice(
-    origi *DeliverGoodsForPO,sd *shared_data)(string,error) {
+    d *Deliver_notes,sd *shared_data,note_id string)(string,error) {
     var err error
     var s string
-    for _,d:= range origi.Data.Deliver_notes{
-        s,err= insert_ci(&d,origi,sd)
+    // for _,d:= range origi.Data.Deliver_notes{
+        s,err= insert_ci(d,sd)
         if err!=nil{
             return s,err
         }   
-    }
+    // }
     return error_insert_commercial_invoice,err
 }

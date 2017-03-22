@@ -200,6 +200,8 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         if err!=nil{
             logger.Info(s+":"+err.Error()) 
             return s,err
+        }else{
+            return insert_commercial_invoice(&deliver_notes,sd)
         }
     }
 }
