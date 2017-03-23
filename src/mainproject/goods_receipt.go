@@ -19,7 +19,15 @@ func insert_goods_receipt(
         purchase_order_id_chan :=make(chan string)
         go get_purchase_order_id_chan(purchase_order_id_chan,d.Po_no)
         purchase_order_id:=<-purchase_order_id_chan
-
+/////////////////////////////////////////
+        system_account_id_chan :=make(chan string)
+        go get_system_account_id_chan(system_account_id_chan,d.Created_by)
+        createBy:=<-system_account_id_chan
+        ////////////////////////////////////
+        approvedBy_chan :=make(chan string)
+        go get_system_account_id_chan(approvedBy_chan,d.Approved_by)
+        approvedBy:=<-approvedBy_chan
+    //////////////////////////////////////////
     _, err = db.Exec(
         `INSERT INTO t_goods_receipt(
             receipt_id,
@@ -49,11 +57,11 @@ func insert_goods_receipt(
         0,//status
         "",//receipt_date,
         2,//from_system_code,
-        d.Approved_by,//approved_by,
+        approvedBy,//approved_by,
         "",//approved_at,
         d.Note,//note
         time.Now().Add(sd.company_time_zone).Format("2006-01-02 15:04:05"),
-        d.Created_by,
+        createBy,
         "go_fcgi",
         0,
         1)
