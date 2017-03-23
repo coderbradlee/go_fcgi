@@ -32,7 +32,7 @@ func test_mysql_time (w http.ResponseWriter, r *http.Request) {
 	    // line := strings.Trim(string(body), "\r\n")
 		defer r.Body.Close()
 
-		ret:=single_select()
+		ret:=single_select()+"error_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerroerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_code"
 	    fmt.Fprint(w,ret )
 	    log_str:=fmt.Sprintf("Started %s %s for %s:%s response:%s", r.Method, r.URL.Path, addr,"body",ret)
         logger.Info(log_str)
