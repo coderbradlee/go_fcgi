@@ -148,7 +148,7 @@ func deal_with_database(t *PoData,sd *shared_data,contact_account_id string)(str
 	
 	system_account_id_chan :=make(chan string)
     go get_system_account_id_chan(system_account_id_chan,t.Data.Purchase_order.Created_by)
-    t_purchase_order.Created_by=<-system_account_id_chan
+    t_purchase_order.createBy=<-system_account_id_chan
     
   	t_purchase_order.dr=0
   	t_purchase_order.data_version=1
