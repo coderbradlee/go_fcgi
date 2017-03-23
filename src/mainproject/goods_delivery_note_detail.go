@@ -61,7 +61,7 @@ func insert_note_detail(
         ///////////////////////////////////////////////////
         system_account_id_chan :=make(chan string)
         go get_system_account_id_chan(system_account_id_chan,d.Created_by)
-        createBy=<-system_account_id_chan
+        createBy:=<-system_account_id_chan
 
         s,err= insert_goods_delivery_note_detail(&detail,item_master_id,uom_id,currency_id,sd,d.Note,createBy)
         if err!=nil{

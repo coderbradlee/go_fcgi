@@ -87,7 +87,7 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         
         system_account_id_chan :=make(chan string)
         go get_system_account_id_chan(system_account_id_chan,deliver_notes.Created_by)
-        createBy=<-system_account_id_chan
+        createBy:=<-system_account_id_chan
 /////////////////////////////////////////////////////////////////////// 
 ///     在这里集中同步
         logistic_master_id:=<-logistic_master_id_chan
