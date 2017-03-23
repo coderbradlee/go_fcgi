@@ -212,7 +212,7 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
                 logger.Info(ss+":"+errr.Error()) 
                 return ss,errr
             }else{
-                return insert_goods_receipt(&deliver_notes,sd)
+                return insert_goods_receipt(&deliver_notes,sd,origi.request_time)
             }
         }
     }

@@ -5,7 +5,7 @@
 )
 
 func insert_goods_receipt(
-    d *Deliver_notes,sd *shared_data)(string,error) {
+    d *Deliver_notes,sd *shared_data,request_time string)(string,error) {
     var err error
     // for _,d:= range origi.Data.Deliver_notes{
         bill_type_id_chan :=make(chan string)
@@ -58,7 +58,7 @@ func insert_goods_receipt(
         "",//receipt_date,
         2,//from_system_code,
         approvedBy,//approved_by,
-        "",//approved_at,
+        request_time,//approved_at,
         d.Note,//note
         time.Now().Add(sd.company_time_zone).Format("2006-01-02 15:04:05"),
         createBy,
