@@ -69,8 +69,8 @@ func insert_to_db(t_purchase_order* purchase_order,t *PoData,sd *shared_data)(st
 		contact_account_id,payment_terms,requested_delivery_date,
 		shipping_method_id,destination_country_id,loading_port,unloading_port,
 		certificate,po_url,total_quantity,total_amount,currency_id,comments,
-		note,createAt,createBy,dr,data_version) 
-		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,t_purchase_order.purchase_order_id,
+		note,createAt,createBy,updateBy,dr,data_version) 
+		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,t_purchase_order.purchase_order_id,
 			t_purchase_order.po_no,
 			t_purchase_order.po_date,
 			5,// t_purchase_order.status,
@@ -92,6 +92,7 @@ func insert_to_db(t_purchase_order* purchase_order,t *PoData,sd *shared_data)(st
 			t_purchase_order.note,
 			t_purchase_order.createAt,
 			t_purchase_order.createBy,
+			"go_fcgi",
 		  	t_purchase_order.dr,
 		  	t_purchase_order.data_version)
 	    if err!=nil{

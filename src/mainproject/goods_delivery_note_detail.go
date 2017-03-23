@@ -18,9 +18,10 @@ func insert_goods_delivery_note_detail(detail *Deliver_notes_detail,item_master_
         note,
         createAt,
         createBy,
+        updateBy,
         dr,
         data_version) 
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
         rand_string(20),
         sd.goods_delivery_note_id,
         item_master_id,
@@ -31,7 +32,8 @@ func insert_goods_delivery_note_detail(detail *Deliver_notes_detail,item_master_
         detail.Sub_total,
         note,
         time.Now().Add(sd.company_time_zone).Format("2006-01-02 15:04:05"),
-        createBy+" go_fcgi",
+        createBy,
+        "go_fcgi",
         0,
         1)
     return error_insert_goods_delivery_note_detail,err

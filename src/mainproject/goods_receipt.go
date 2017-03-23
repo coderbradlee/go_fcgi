@@ -36,9 +36,10 @@ func insert_goods_receipt(
             note,
             createAt,
             createBy,
+            updateBy,
             dr,
             data_version) 
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
         rand_string(20),
         sd.goods_receipt_no,
         bill_type_id,
@@ -52,7 +53,8 @@ func insert_goods_receipt(
         "",//approved_at,
         d.Note,//note
         time.Now().Add(sd.company_time_zone).Format("2006-01-02 15:04:05"),
-        d.Created_by+" go_fcgi",
+        d.Created_by,
+        "go_fcgi",
         0,
         1)
     // }

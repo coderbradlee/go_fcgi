@@ -150,9 +150,9 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         export_country_id,loading_port,import_country_id,unloading_port,trade_term_id,ship_via_id,packing_method_id,
         logistic_provider_master_id,logistic_provider_contact_id,etd,
         eta,atd,ata,customs_clearance_date,receiver,total_freight_charges,
-        total_insurance_fee,total_excluded_tax,picking_list_no,picking_list_url,bill_of_lading_no,bill_of_lading_url,associated_so_no,associated_so_url,note,createAt,createBy,dr,
+        total_insurance_fee,total_excluded_tax,picking_list_no,picking_list_url,bill_of_lading_no,bill_of_lading_url,associated_so_no,associated_so_url,note,createAt,createBy,updateBy,dr,
         data_version) 
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
         sd.goods_delivery_note_id,
         goods_delivery_note_no,//goods_delivery_note_no 待定
         bill_type_id,
@@ -189,7 +189,8 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
 
         deliver_notes.Note,//note
         time.Now().Add(sd.company_time_zone).Format("2006-01-02 15:04:05"),
-        deliver_notes.Created_by+" go_fcgi",
+        deliver_notes.Created_by,
+        "go_fcgi",
         0,
         1)
     if err!=nil{

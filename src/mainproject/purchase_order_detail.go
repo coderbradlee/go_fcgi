@@ -31,8 +31,8 @@ func insert_purchase_order_detail(t *purchase_order,origi *PoData,sd *shared_dat
 		_, err = db.Exec(
         `INSERT INTO t_purchase_order_detail(detail_id,purchase_order_id,
 		item_master_id,unit_price,quantity,uom_id,amount,warranty,
-		comments,note,createAt,createBy,dr,data_version) 
-		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+		comments,note,createAt,createBy,updateBy,dr,data_version) 
+		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
 		rand_string(20),
 		t.purchase_order_id,
 		item_master_id,
@@ -44,7 +44,8 @@ func insert_purchase_order_detail(t *purchase_order,origi *PoData,sd *shared_dat
 		detail.Comments,
 		detail.Note,
 		time.Now().Add(sd.company_time_zone).Format("2006-01-02 15:04:05"),
-		origi.Data.Purchase_order.Created_by+" go_fcgi",
+		origi.Data.Purchase_order.Created_by,
+		"go_fcgi",
 		0,
 		1)
 	}

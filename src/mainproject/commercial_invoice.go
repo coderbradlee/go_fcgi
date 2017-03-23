@@ -33,8 +33,8 @@ func insert_ci(d *Deliver_notes,sd *shared_data)(string,error) {
     _, err = db.Exec(
         `INSERT INTO t_commercial_invoice(
         invoice_id,company_id,associated_invoice_no,associated_system_code,invoice_no,invoice_date,type,sales_order_id,outbound_note_id,status,process_type,
-        payment_dead_line,payment_due,shipping_cost_total,markup_total,tax_total,sub_total,grand_total,url,approvedBy,approvedAt,note,createAt,createBy,dr,data_version,varchar_1) 
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+        payment_dead_line,payment_due,shipping_cost_total,markup_total,tax_total,sub_total,grand_total,url,approvedBy,approvedAt,note,createAt,createBy,updateBy,dr,data_version,varchar_1) 
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
         rand_string(20),
         company_id,
         ci.Ci_no,
@@ -58,7 +58,8 @@ func insert_ci(d *Deliver_notes,sd *shared_data)(string,error) {
         ci.Ci_date,//pending approvedAt
         ci.Note,
         time.Now().Add(sd.company_time_zone).Format("2006-01-02 15:04:05"),
-        ci.Created_by+" go_fcgi",
+        ci.Created_by,
+        "go_fcgi",
         0,
         1,sd.goods_delivery_note_id)
     // fmt.Println("ci")
