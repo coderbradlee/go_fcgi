@@ -13,6 +13,11 @@ func get_purchase_order_id_chan(purchase_order_id_chan chan<- string,po_no strin
     db.QueryRow(fmt.Sprintf("select purchase_order_id from t_purchase_order where po_no like '%%%s%%'",po_no)).Scan(&purchase_order_id)
      purchase_order_id_chan<-purchase_order_id
 }
+func get_system_account_id_chan(system_account_id_chan chan<- string,name string) {
+    var system_account_id string
+    db.QueryRow(fmt.Sprintf("select system_account_id from t_system_account where account_name like '%%%s%%'",name)).Scan(&system_account_id)
+     system_account_id_chan<-system_account_id
+}
 func get_bill_type_id_chan(bill_type_id_chan chan<- string,bill_type string) {
     var bill_type_id string
     db.QueryRow(fmt.Sprintf("select bill_type_id from t_bill_type where name like '%%%s%%'",bill_type)).Scan(&bill_type_id)
@@ -57,7 +62,7 @@ func get_logistic_master_id_chan(logistic_master_id_chan chan<- string,Logistic 
 }
 func get_logistic_contact_id_chan(logistic_contact_id_chan chan<- string,Logistic_contact string) {
     var logistic_contact_id string
-    db.QueryRow("select logistic_contact_id from t_logistic_provider_master where native_name=?",Logistic_contact).Scan(&logistic_contact_id)
+    db.QueryRow("select logistic_provider_basic_id from t_logistic_provider_basic where name=?",Logistic_contact).Scan(&logistic_contact_id)
     logistic_contact_id_chan<-logistic_contact_id
 }
 func get_currency_id(currency_id_chan chan<- string,currency string){
