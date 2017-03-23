@@ -2,12 +2,12 @@
  import (
     "logger"
     "fmt"
-    "encoding/json"
+    // "encoding/json"
     "net/http"
-    "io/ioutil"
-    "bytes"
-    "time"
-    "errors"
+    // "io/ioutil"
+    // "bytes"
+    // "time"
+    // "errors"
     // "runtime/pprof"
 )
 func test_mysql_time (w http.ResponseWriter, r *http.Request) {
@@ -24,7 +24,7 @@ func test_mysql_time (w http.ResponseWriter, r *http.Request) {
 	} else{
 		ret:=single_select()
 	    fmt.Fprint(w,ret )
-	    log_str:=fmt.Sprintf("Started %s %s for %s:%s response:%s", r.Method, r.URL.Path, addr,body,ret)
+	    log_str:=fmt.Sprintf("Started %s %s for %s:%s response:%s", r.Method, r.URL.Path, addr,"body",ret)
         logger.Info(log_str)
 	}
 
@@ -32,6 +32,6 @@ func test_mysql_time (w http.ResponseWriter, r *http.Request) {
 
 func single_select()string {
 	var packing_method string
-    db.QueryRow("select packing_method_id from t_packing_method where name=?",Pallet).Scan(&packing_method)
+    db.QueryRow("select packing_method_id from t_packing_method where name=?","Pallet").Scan(&packing_method)
     return packing_method
 }
