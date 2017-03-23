@@ -83,6 +83,11 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         received_chan :=make(chan string)
         go get_contact_account_id_sh_chan(received_chan,deliver_notes.Company)
         received:=<-received_chan
+        /////////////////////////////////////////////
+        
+        system_account_id_chan :=make(chan string)
+        go get_system_account_id_chan(system_account_id_chan,deliver_notes.Created_by)
+        createBy=<-system_account_id_chan
 /////////////////////////////////////////////////////////////////////// 
 ///     在这里集中同步
         logistic_master_id:=<-logistic_master_id_chan
@@ -189,7 +194,7 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
 
         deliver_notes.Note,//note
         time.Now().Add(sd.company_time_zone).Format("2006-01-02 15:04:05"),
-        deliver_notes.Created_by,
+        createBy,
         "go_fcgi",
         0,
         1)

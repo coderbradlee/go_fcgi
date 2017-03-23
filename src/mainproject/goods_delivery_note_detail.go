@@ -58,8 +58,12 @@ func insert_note_detail(
         go get_uom_id_chan(uom_id_chan,detail.Uom)
         uom_id:=<-uom_id_chan
         item_master_id:=<-item_master_id_chan
-        
-        s,err= insert_goods_delivery_note_detail(&detail,item_master_id,uom_id,currency_id,sd,d.Note,d.Created_by)
+        ///////////////////////////////////////////////////
+        system_account_id_chan :=make(chan string)
+        go get_system_account_id_chan(system_account_id_chan,d.Created_by)
+        createBy=<-system_account_id_chan
+
+        s,err= insert_goods_delivery_note_detail(&detail,item_master_id,uom_id,currency_id,sd,d.Note,createBy)
         if err!=nil{
             logger.Info("insert to insert_goods_delivery_note_detail:"+err.Error()) 
             return s,err
