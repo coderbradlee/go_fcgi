@@ -62,7 +62,7 @@ func get_logistic_master_id_chan(logistic_master_id_chan chan<- string,Logistic 
 }
 func get_logistic_contact_id_chan(logistic_contact_id_chan chan<- string,Logistic_contact string) {
     var logistic_contact_id string
-    db.QueryRow("select logistic_provider_basic_id from t_logistic_provider_basic where name=?",Logistic_contact).Scan(&logistic_contact_id)
+    db.QueryRow("select logistic_provider_basic_id from t_logistic_provider_basic where contact=?",Logistic_contact).Scan(&logistic_contact_id)
     logistic_contact_id_chan<-logistic_contact_id
 }
 func get_currency_id(currency_id_chan chan<- string,currency string){
