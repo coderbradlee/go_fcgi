@@ -44,6 +44,7 @@ type Configuration struct {
     Mysql_conf mysql_conf
     Redis_url string
     System_no string
+    Nfs_path string
 }
 var configuration Configuration
 var db *sql.DB

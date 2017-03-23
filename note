@@ -1,4 +1,5 @@
-2017.3.23
+2017.3.23 10042143
+
 SELECT * from t_purchase_order where updateBy like '%go_fcgi%'
 SELECT * from t_purchase_order_detail where updateBy like '%go_fcgi%'
 SELECT * from t_goods_delivery_note where updateBy like '%go_fcgi%'

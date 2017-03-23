@@ -94,7 +94,7 @@ func check_bill_type(bill_type string,error_chan chan<- check_struct) {
 // }
 func check_po_url(po_url string,error_chan chan<- check_struct) {
     var t check_struct
-    _,err:=os.Stat(po_url)
+    _,err:=os.Stat(configuration.Nfs_path+po_url)
     t=check_struct{error_check_po_url,err}
     error_chan<- t
 }
@@ -173,28 +173,28 @@ func check_trade_term(Trade_term string,error_chan chan<- check_struct) {
     error_chan<- t
 }
 func check_deliver_notes_commercial_invoice(path string) bool{
-    _,err:=os.Stat(path)
+    _,err:=os.Stat(configuration.Nfs_path+path)
     if err!=nil{
         return false
     }
     return true
 }
 func check_deliver_notes_packing_list(path string) bool{
-    _,err:=os.Stat(path)
+    _,err:=os.Stat(configuration.Nfs_path+path)
     if err!=nil{
         return false
     }
     return true
 }
 func check_deliver_notes_bill_of_lading(path string) bool{
-    _,err:=os.Stat(path)
+    _,err:=os.Stat(configuration.Nfs_path+path)
     if err!=nil{
         return false
     }
     return true
 }
 func check_deliver_notes_associated_so(path string) bool{
-    _,err:=os.Stat(path)
+    _,err:=os.Stat(configuration.Nfs_path+path)
     if err!=nil{
         return false
     }
