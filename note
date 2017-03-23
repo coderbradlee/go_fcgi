@@ -1,3 +1,19 @@
+2017.3.23
+SELECT * from t_purchase_order where updateBy like '%go_fcgi%'
+SELECT * from t_purchase_order_detail where updateBy like '%go_fcgi%'
+SELECT * from t_goods_delivery_note where updateBy like '%go_fcgi%'
+SELECT * from t_goods_delivery_note_detail where updateBy like '%go_fcgi%'
+select * from t_commercial_invoice where updateBy like '%go_fcgi%'
+select * from t_goods_receipt where updateBy like '%go_fcgi%'
+
+select bill_type_id from t_bill_type where name like '%Goods Delivery Note%'
+
+delete from t_purchase_order where updateBy like '%go_fcgi%';
+delete from t_purchase_order_detail where updateBy like '%go_fcgi%';
+delete from t_goods_delivery_note where updateBy like '%go_fcgi%';
+delete from t_goods_delivery_note_detail where updateBy like '%go_fcgi%';
+delete from t_commercial_invoice where updateBy like '%go_fcgi%';
+delete from t_goods_receipt where updateBy like '%go_fcgi%';
 2017.03.22
 json格式以learning_python里的test为准
 更改了json结构。更改程序前tag beforejsonchange2017.03.22

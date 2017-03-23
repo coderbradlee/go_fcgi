@@ -144,7 +144,7 @@ func deal_with_database(t *PoData,sd *shared_data,contact_account_id string)(str
 	// fmt.Println(t_purchase_order.createAt)
 	// t_purchase_order.createBy="go_fcgi"
 	fmt.Println(t.Data.Purchase_order.Created_by)
-	t_purchase_order.createBy=t.Data.Purchase_order.Created_by+" go_fcgi"
+	t_purchase_order.createBy=t.Data.Purchase_order.Created_by
   	t_purchase_order.dr=0
   	t_purchase_order.data_version=1
   	return insert_to_db(&t_purchase_order,t,sd)
