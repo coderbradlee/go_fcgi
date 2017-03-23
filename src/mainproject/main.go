@@ -185,6 +185,7 @@ func startMartini() {
     //m.Post("/pdf",pdfHandler)
     // m.Post("/pdf",logPanics(pdfHandler))
     m.Post("/pdf",logPanics(pdfHandler2))
+    m.Post("/test_mysql_time",logPanics(test_mysql_time))
     // m.Get("/debug/pprof", pprof.Index)
     // m.Get("/debug/pprof/cmdline", pprof.Cmdline)
     // m.Get("/debug/pprof/profile", pprof.Profile)
