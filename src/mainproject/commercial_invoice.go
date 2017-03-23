@@ -24,7 +24,15 @@ func insert_ci(d *Deliver_notes,sd *shared_data)(string,error) {
     if company_short_name==""||len(company_short_name)>3{
         return error_insert_commercial_invoice,errors.New("get_company_short_name error")
     }
-
+/////////////////////////////////////////
+    system_account_id_chan :=make(chan string)
+    go get_system_account_id_chan(system_account_id_chan,ci.Created_by)
+    createBy:=<-system_account_id_chan
+    ////////////////////////////////////
+    approvedBy_chan :=make(chan string)
+    go get_system_account_id_chan(approvedBy_chan,ci.Approved_by)
+    approved_by:=<-approvedBy_chan
+    //////////////////////////////////////////
     flow_no,err:=get_flow_no(company_short_name)
     if flow_no==""{
         return error_insert_commercial_invoice,errors.New("get_flow_no error")
@@ -54,11 +62,11 @@ func insert_ci(d *Deliver_notes,sd *shared_data)(string,error) {
         0,//sub_total,//pending
         ci.Total_amount,
         ci.Ci_url,
-        ci.Approved_by,
+        approved_by,
         ci.Ci_date,//pending approvedAt
         ci.Note,
         time.Now().Add(sd.company_time_zone).Format("2006-01-02 15:04:05"),
-        ci.Created_by,
+        createBy,
         "go_fcgi",
         0,
         1,sd.goods_delivery_note_id)
