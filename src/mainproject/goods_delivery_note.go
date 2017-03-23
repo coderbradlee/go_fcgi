@@ -104,24 +104,24 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         loading_port_id:=deliver_notes.Loading_port
         unloading_port_id:=deliver_notes.Unloading_port
 
-        var exist bool
+        // var exist bool
 
-        exist=check_deliver_notes_commercial_invoice(deliver_notes.Commercial_invoice.Ci_url)
-        if !exist{
-             return error_check_deliver_notes_commercial_invoice,errors.New("deliver_notes commercial_invoice file is missed")
-        }
-        exist=check_deliver_notes_packing_list(deliver_notes.Packing_list.Pl_url)
-        if !exist{
-             return error_check_deliver_notes_packing_list,errors.New("deliver_notes packing_list file is missed")
-        }
-        exist=check_deliver_notes_bill_of_lading(deliver_notes.Bill_of_lading.Bl_url)
-        if !exist{
-             return error_check_deliver_notes_bill_of_lading,errors.New("deliver_notes bill_of_lading file is missed")
-        }
-        exist=check_deliver_notes_associated_so(deliver_notes.Associated_so.Associated_so_url)
-        if !exist{
-             return error_check_deliver_notes_associated_so,errors.New("deliver_notes associated_so file is missed")
-        }
+        // exist=check_deliver_notes_commercial_invoice(deliver_notes.Commercial_invoice.Ci_url)
+        // if !exist{
+        //      return error_check_deliver_notes_commercial_invoice,errors.New("deliver_notes commercial_invoice file is missed")
+        // }
+        // exist=check_deliver_notes_packing_list(deliver_notes.Packing_list.Pl_url)
+        // if !exist{
+        //      return error_check_deliver_notes_packing_list,errors.New("deliver_notes packing_list file is missed")
+        // }
+        // exist=check_deliver_notes_bill_of_lading(deliver_notes.Bill_of_lading.Bl_url)
+        // if !exist{
+        //      return error_check_deliver_notes_bill_of_lading,errors.New("deliver_notes bill_of_lading file is missed")
+        // }
+        // exist=check_deliver_notes_associated_so(deliver_notes.Associated_so.Associated_so_url)
+        // if !exist{
+        //      return error_check_deliver_notes_associated_so,errors.New("deliver_notes associated_so file is missed")
+        // }
 
 
         if transport_term_id==""{
