@@ -18,7 +18,7 @@ import (
     _"mysql"
     "strconv"
     "time"
-    // "net/http/pprof"
+    "net/http/pprof"
     )
 type mysql_conf struct{
     Host string
@@ -188,7 +188,7 @@ func startMartini() {
     m.Post("/test_mysql_time",logPanics(test_mysql_time))
     // m.Get("/debug/pprof", pprof.Index)
     // m.Get("/debug/pprof/cmdline", pprof.Cmdline)
-    // m.Get("/debug/pprof/profile", pprof.Profile)
+    m.Get("/debug/pprof/profile", pprof.Profile)
     // m.Get("/debug/pprof/symbol", pprof.Symbol)
     // m.Post("/debug/pprof/symbol", pprof.Symbol)
     // m.Get("/debug/pprof/block", pprof.Handler("block").ServeHTTP)

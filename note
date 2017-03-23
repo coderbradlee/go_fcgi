@@ -1,3 +1,5 @@
+go tool pprof --pdf testprofile http://127.0.0.1:9888/debug/pprof/profile
+
 2017.3.23 10042143
 
 SELECT * from t_purchase_order where updateBy like '%go_fcgi%'
