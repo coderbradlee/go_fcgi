@@ -186,15 +186,15 @@ func startMartini() {
     // m.Post("/pdf",logPanics(pdfHandler))
     m.Post("/pdf",logPanics(pdfHandler2))
     m.Post("/test_mysql_time",logPanics(test_mysql_time))
-    // m.Get("/debug/pprof", pprof.Index)
-    // m.Get("/debug/pprof/cmdline", pprof.Cmdline)
+    m.Get("/debug/pprof", pprof.Index)
+    m.Get("/debug/pprof/cmdline", pprof.Cmdline)
     m.Get("/debug/pprof/profile", pprof.Profile)
-    // m.Get("/debug/pprof/symbol", pprof.Symbol)
-    // m.Post("/debug/pprof/symbol", pprof.Symbol)
-    // m.Get("/debug/pprof/block", pprof.Handler("block").ServeHTTP)
-    // m.Get("/debug/pprof/heap", pprof.Handler("heap").ServeHTTP)
-    // m.Get("/debug/pprof/goroutine", pprof.Handler("goroutine").ServeHTTP)
-    // m.Get("/debug/pprof/threadcreate", pprof.Handler("threadcreate").ServeHTTP)
+    m.Get("/debug/pprof/symbol", pprof.Symbol)
+    m.Post("/debug/pprof/symbol", pprof.Symbol)
+    m.Get("/debug/pprof/block", pprof.Handler("block").ServeHTTP)
+    m.Get("/debug/pprof/heap", pprof.Handler("heap").ServeHTTP)
+    m.Get("/debug/pprof/goroutine", pprof.Handler("goroutine").ServeHTTP)
+    m.Get("/debug/pprof/threadcreate", pprof.Handler("threadcreate").ServeHTTP)
 
 
 

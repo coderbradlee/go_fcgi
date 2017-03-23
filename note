@@ -1,4 +1,4 @@
-go tool pprof --pdf testprofile http://127.0.0.1:9888/debug/pprof/profile
+go tool pprof -pdf ./go_fcgi http://127.0.0.1:9888/debug/pprof/profile>out.pdf
 
 2017.3.23 10042143
 
