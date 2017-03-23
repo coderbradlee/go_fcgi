@@ -73,7 +73,7 @@ func insert_to_db(t_purchase_order* purchase_order,t *PoData,sd *shared_data)(st
 		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,t_purchase_order.purchase_order_id,
 			t_purchase_order.po_no,
 			t_purchase_order.po_date,
-			t_purchase_order.status,
+			5,// t_purchase_order.status,
 			t_purchase_order.company_id,
 			t_purchase_order.vendor_basic_id,
 			t_purchase_order.contact_account_id,
