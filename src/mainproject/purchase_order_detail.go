@@ -56,8 +56,9 @@ func insert_purchase_order_detail(t *purchase_order,origi *PoData,sd *shared_dat
 		"test_go_fcgi",
 		0,
 		1)
-	if err!=nil{
-		return error_insert_purchase_order_detail,err
+		if err!=nil{
+			return error_insert_purchase_order_detail,err
+		}
 	}
 	return "",nil
 }
