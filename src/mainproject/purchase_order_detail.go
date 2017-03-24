@@ -7,6 +7,7 @@
 
 func insert_purchase_order_detail(t *purchase_order,origi *PoData,sd *shared_data)(string,error) {
 	var err error
+	var stmt
 	// system_account_id_chan :=make(chan string)
  //    go get_system_account_id_chan(system_account_id_chan,t.Data.Purchase_order.Created_by)
  //    created_by:=<-system_account_id_chan
