@@ -132,7 +132,7 @@ func check_deliver_notes_deliver_note_no(deliver_notes []Deliver_notes,error_cha
     for _,d:=range deliver_notes{
         // fmt.Println(reflect.TypeOf(d))
         var note_id string
-        db.QueryRow("select note_id from t_goods_delivery_note where goods_delivery_note_no=?",d.Gdn_no).Scan(&note_id)
+        db.QueryRow("select note_id from t_goods_delivery_note where associated_goods_delivery_note_no=?",d.Gdn_no).Scan(&note_id)
         if note_id!= ""{
             t=check_struct{error_check_deliver_notes_deliver_note_no,errors.New(`deliver_notes deliver_note_no already exists`)}
         }
