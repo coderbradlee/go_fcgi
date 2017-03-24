@@ -16,12 +16,12 @@
 // var goods_delivery_note_id string
 func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string,error) {
     // var err error
-    var gdn_nos []string
+    var gdn_nos []erp_api_data
     for _,deliver_notes:= range origi.Data.Deliver_notes{
         // bill_type_id:=get_bill_type_id(t.Bill_type)
         // bill_type_id:=get_bill_type_id()
         fmt.Println("insert_goods_delivery_note")
-
+        var ead erp_api_data
         fmt.Println("Bill_type:",deliver_notes.Bill_type)
         bill_type_id_chan :=make(chan string)
         go get_bill_type_id_chan(bill_type_id_chan,deliver_notes.Bill_type)
@@ -216,6 +216,10 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         "go_fcgi",
         0,
         1)
+        ead.company_id=purchase_order_table.company_id
+        ead.goods_delivery_note_id=sd.goods_delivery_note_id
+        ead.goods_delivery_note_no=gdn_no
+        gdn_nos=append(gdn_nos,ead)
     if err!=nil{
         logger.Info("insert_goods_delivery_note:"+err.Error()) 
         return error_insert_goods_delivery_note,err
@@ -237,15 +241,20 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
                 }
             }
         }
-    }
-    gdn_nos=append(gdn_nos,gdn_no)
+    }    
 }
     return call_erp_api(gdn_nos)
     // return "",nil
 }
-func call_erp_api(gdn_nos []string)(string,error) {
+func call_erp_api(gdn_nos []erp_api_data)(string,error) {
     for gdn_no:=range gdn_nos{
-        fmt.Println("gdn_no:",gdn_no)
+        fmt.Printf("%s:%s:%s",gdn_no.company_id,gdn_no.goods_delivery_note_id,gdn_no.goods_delivery_note_no)
     }
+    // configuration.Erp_api
     return "",nil
+}
+type erp_api_data struct{
+    company_id string
+    goods_delivery_note_id string
+    goods_delivery_note_no string
 }

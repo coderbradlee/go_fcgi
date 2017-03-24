@@ -46,6 +46,7 @@ type Configuration struct {
     Redis_url_subflowno string
     System_no string
     Nfs_path string
+    Erp_api string
 }
 var configuration Configuration
 var db *sql.DB
