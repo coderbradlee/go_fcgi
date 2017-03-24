@@ -171,7 +171,7 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         export_country_id,loading_port,import_country_id,unloading_port,trade_term_id,ship_via_id,packing_method_id,
         logistic_provider_master_id,logistic_provider_contact_id,etd,
         eta,atd,ata,customs_clearance_date,receiver,total_freight_charges,
-        total_insurance_fee,total_excluded_tax,picking_list_no,picking_list_url,bill_of_lading_no,bill_of_lading_url,associated_so_no,associated_so_url,note,createAt,createBy,updateBy,dr,
+        total_insurance_fee,total_excluded_tax,associated_pkl_no,associated_pkl_url,associated_bl_no,associated_bl_url,associated_so_no,associated_so_url,note,createAt,createBy,updateBy,dr,
         data_version) 
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
         sd.goods_delivery_note_id,
