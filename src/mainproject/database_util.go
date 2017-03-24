@@ -10,7 +10,7 @@ package main
 )
 func get_purchase_order_id_chan(purchase_order_id_chan chan<- string,po_no string) {
     var purchase_order_id string
-    db.QueryRow(fmt.Sprintf("select purchase_order_id from t_purchase_order where po_no like '%%%s%%'",po_no)).Scan(&purchase_order_id)
+    db.QueryRow(fmt.Sprintf("select purchase_order_id from t_purchase_order where associated_po_no like '%%%s%%'",po_no)).Scan(&purchase_order_id)
      purchase_order_id_chan<-purchase_order_id
 }
 func get_system_account_id_chan(system_account_id_chan chan<- string,name string) {
