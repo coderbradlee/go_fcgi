@@ -16,7 +16,7 @@
 // var goods_delivery_note_id string
 func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string,error) {
     // var err error
-    
+    var gdn_nos []string
     for _,deliver_notes:= range origi.Data.Deliver_notes{
         // bill_type_id:=get_bill_type_id(t.Bill_type)
         // bill_type_id:=get_bill_type_id()
@@ -230,10 +230,20 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
                 logger.Info(ss+":"+errr.Error()) 
                 return ss,errr
             }else{
-                return insert_goods_receipt(&deliver_notes,sd,origi.Request_time)
+                ss,errr:= insert_goods_receipt(&deliver_notes,sd,origi.Request_time)
+                if errr!=nil{
+                    logger.Info(ss+":"+errr.Error()) 
+                    return ss,errr
+                }
             }
         }
     }
+    gdn_nos=append(gdn_nos,gdn_no)
 }
+    return call_erp_api(gdn_nos)
+    // return "",nil
+}
+func call_erp_api(gdn_nos []string)(string,error) {
+    
     return "",nil
 }
