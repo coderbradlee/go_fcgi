@@ -72,7 +72,7 @@ func insert_to_db(t_purchase_order* purchase_order,t *PoData,sd *shared_data)(st
 	        return error_get_flow_no_po,errors.New("get_flow_no_po error")
 	    }
 	    po_no:="PO-"+company_short_name+"-"+time.Now().Format("20060102")+"-"+flow_no
-
+	    fmt.Println("po_no:",po_no)
     _, err = db.Exec(
         `INSERT INTO t_purchase_order(
 	    purchase_order_id,po_no,associated_po_no,po_date,status,company_id,vendor_basic_id,
