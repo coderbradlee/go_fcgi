@@ -42,7 +42,9 @@ func test_mysql_time (w http.ResponseWriter, r *http.Request) {
 
 func single_select()string {
 	var packing_method string
-    db.QueryRow("select packing_method_id from t_packing_method where name=?","Pallet").Scan(&packing_method)
+	for i:=0;i<10;i++{
+		db.QueryRow("select packing_method_id from t_packing_method where name=?","Pallet").Scan(&packing_method)
+	}
     return packing_method
 }
 func insert_test_time() {
