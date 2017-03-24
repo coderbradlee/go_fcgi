@@ -244,6 +244,8 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
     // return "",nil
 }
 func call_erp_api(gdn_nos []string)(string,error) {
-    
+    for gdn_no:=range gdn_nos{
+        fmt.Println(gdn_no)
+    }
     return "",nil
 }
