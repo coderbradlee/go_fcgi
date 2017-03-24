@@ -32,7 +32,7 @@ func test_mysql_time (w http.ResponseWriter, r *http.Request) {
 	    // line := strings.Trim(string(body), "\r\n")
 		defer r.Body.Close()
 		insert_test_time()
-		ret:=single_select()+"error_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerroerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_code"
+		ret:=single_select2()+"error_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerroerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_code"
 	    fmt.Fprint(w,ret )
 	    log_str:=fmt.Sprintf("Started %s %s for %s:%s response:%s", r.Method, r.URL.Path, addr,"body",ret)
         logger.Info(log_str)
@@ -46,6 +46,15 @@ func single_select()string {
 		db.QueryRow("select packing_method_id from t_packing_method where name=?","Pallet").Scan(&packing_method)
 	}
     return packing_method
+}
+func single_select2()string {
+	var purchase_order_id string
+	for i:=0;i<10;i++{
+		purchase_order_id_chan :=make(chan string)
+        go get_purchase_order_id_chan(purchase_order_id_chan,"PO-FR-20170216-0016")
+        purchase_order_id=<-purchase_order_id_chan
+	}
+    return purchase_order_id
 }
 func insert_test_time() {
 	db.Exec(
