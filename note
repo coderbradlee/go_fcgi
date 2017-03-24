@@ -1,3 +1,16 @@
+2017.03.24
+调整一些字段：
+1、t_purchase_order增加associat的po_no,并产生自己的单号
+  GET http://172.18.100.85:8088/flowNo/2/FR/PO
+  2是erp系统号
+
+2、t_goods_delivery_note增加associat的gdn_no,并产生自己的单号
+  GET http://172.18.100.85:8088/subFlowNo/2/FR/PO/000196/GDN
+  第一个2是erp系统号，第二个2是对应的po的号
+
+3、json更改
+
+
 go tool pprof -pdf ./go_fcgi http://127.0.0.1:9888/debug/pprof/profile>out.pdf
 
 2017.3.23 10042143

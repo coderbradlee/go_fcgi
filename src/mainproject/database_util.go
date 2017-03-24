@@ -71,10 +71,36 @@ func get_currency_id(currency_id_chan chan<- string,currency string){
     currency_id_chan<-currency_id
 }
 
-func get_flow_no(company string)(string,error) {
+func get_flow_no(company,type string)(string,error) {
     // var flow_no string
-    //http://127.0.0.1:8088/flowNo/JP/SO
-    url:=configuration.Redis_url+"/"+configuration.System_no+"/"+company+"/PO"
+    //GET http://172.18.100.85:8088/flowNo/2/FR/PO
+    url:=configuration.Redis_url+"/"+configuration.System_no+"/"+company+"/"+type
+
+    resp, err1 := http.Get(url)
+    if err1 != nil {
+        return  "",err1
+    }
+
+    defer resp.Body.Close()
+    body, err2 := ioutil.ReadAll(resp.Body)
+    if err2 != nil {
+        // handle error
+        return  "",err2
+    }
+    var data flow_no_json
+    json.Unmarshal(body, &data)
+    i, err3 := strconv.Atoi(data.FlowNo)
+    if err3 != nil {
+        // handle error
+        return  "",err3
+    }
+    // str := string.format(%06d",i)
+    str := fmt.Sprintf("%06d",i)
+    return str,nil
+}
+func get_subflow_no(company,parent_type,parent_no,type string)(string,error) {
+    // GET http://172.18.100.85:8088/subFlowNo/2/FR/PO/000196/GDN
+    url:=configuration.Redis_url_subflowno+"/"+configuration.System_no+"/"+company+"/"+parent_type/parent_no/type
 
     resp, err1 := http.Get(url)
     if err1 != nil {
@@ -132,7 +158,7 @@ func get_company_id_chan(company_id_chan chan<- string,company string) {
 }
 func get_country_id_chan(country_id_chan chan<- string,country string) {
     var country_id string
-    db.QueryRow(fmt.Sprintf("select country_id from t_country where full_name like '%%%s%%'",country)).Scan(&country_id)
+    db.QueryRow(fmt.Sprintf("select country_id from t_country where short_name like '%%%s%%'",country)).Scan(&country_id)
     country_id_chan<-country_id
 }
 func get_port_id_chan(port_id_chan chan<- string,port string) {

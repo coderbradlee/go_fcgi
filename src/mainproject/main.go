@@ -43,6 +43,7 @@ type Configuration struct {
     RedisNodes []string
     Mysql_conf mysql_conf
     Redis_url string
+    Redis_url_subflowno string
     System_no string
     Nfs_path string
 }

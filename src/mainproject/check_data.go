@@ -52,6 +52,8 @@ const(
     error_insert_goods_delivery_note_detail="-154"
     error_insert_goods_receipt="-155"
     error_insert_commercial_invoice="-156"
+    error_get_flow_no_po="-157"
+    error_get_flow_no_gdn="-158"
 )
 type check_struct struct{
     error_code string

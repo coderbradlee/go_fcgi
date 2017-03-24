@@ -88,6 +88,21 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         system_account_id_chan :=make(chan string)
         go get_system_account_id_chan(system_account_id_chan,deliver_notes.Created_by)
         createBy:=<-system_account_id_chan
+        ////////////////////////////////////////////////
+//get_subflow_no(company,parent_type,parent_no,type string)
+        //GDN-FR-20170216-001014-009
+        company_short_name_chan :=make(chan string)
+        go get_company_short_name_chan(company_short_name_chan,deliver_notes.Company)
+        company_short_name:=<-company_short_name_chan
+        /////////////////////////////////////////////////////
+        parent_no:=deliver_notes.po_no[15:]
+        fmt.Println("parent_no:",parent_no)
+        flow_no,err:=get_subflow_no(company_short_name,"PO",parent_no,"GDN")
+        if flow_no==""{
+            return error_get_flow_no_gdn,errors.New("get_flow_no_gdn error")
+        }
+        gdn_no:="GDN-"+company_short_name+"-"+time.Now().Format("20060102")+"-"+parent_no+"-"+flow_no
+
 /////////////////////////////////////////////////////////////////////// 
 ///     在这里集中同步
         logistic_master_id:=<-logistic_master_id_chan
@@ -150,7 +165,7 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         sd.goods_delivery_note_id=rand_string(20)
         _, err = db.Exec(
         `INSERT INTO t_goods_delivery_note(
-        note_id,goods_delivery_note_no,bill_type_id,company_id,
+        note_id,goods_delivery_note_no,associated_goods_delivery_note,bill_type_id,company_id,
         purchase_order_id,buyer_id,vendor_master_id,fulfill_status,
         export_country_id,loading_port,import_country_id,unloading_port,trade_term_id,ship_via_id,packing_method_id,
         logistic_provider_master_id,logistic_provider_contact_id,etd,
@@ -159,6 +174,7 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         data_version) 
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
         sd.goods_delivery_note_id,
+        gdn_no,
         goods_delivery_note_no,//goods_delivery_note_no 待定
         bill_type_id,
         purchase_order_table.company_id,

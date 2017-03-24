@@ -33,7 +33,7 @@ func insert_ci(d *Deliver_notes,sd *shared_data)(string,error) {
     go get_system_account_id_chan(approvedBy_chan,ci.Approved_by)
     approved_by:=<-approvedBy_chan
     //////////////////////////////////////////
-    flow_no,err:=get_flow_no(company_short_name)
+    flow_no,err:=get_flow_no(company_short_name,"CI")
     if flow_no==""{
         return error_insert_commercial_invoice,errors.New("get_flow_no error")
     }

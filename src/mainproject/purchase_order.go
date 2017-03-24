@@ -62,15 +62,25 @@ func insert_to_db(t_purchase_order* purchase_order,t *PoData,sd *shared_data)(st
  			// }	
  			return error_check_po_exists,errors.New("po_no already exists")
  		}
+ 		company_short_name_chan :=make(chan string)
+	    go get_company_short_name_chan(company_short_name_chan,t.Data.Purchase_order.Company)
+	    company_short_name:=<-company_short_name_chan
+	    //////////////////////////////////////////////////
+		flow_no,err:=get_flow_no(company_short_name,"PO")
+	    if flow_no==""{
+	        return error_get_flow_no_po,errors.New("get_flow_no_po error")
+	    }
+	    po_no:="PO-"+company_short_name+"-"+time.Now().Format("20060102")+"-"+flow_no
 
     _, err = db.Exec(
         `INSERT INTO t_purchase_order(
-	    purchase_order_id,po_no,po_date,status,company_id,vendor_basic_id,
+	    purchase_order_id,po_no,associated_po_no,po_date,status,company_id,vendor_basic_id,
 		contact_account_id,payment_terms,requested_delivery_date,
 		shipping_method_id,destination_country_id,loading_port,unloading_port,
 		certificate,po_url,total_quantity,total_amount,currency_id,comments,
 		note,createAt,createBy,updateBy,dr,data_version) 
 		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,t_purchase_order.purchase_order_id,
+			po_no,
 			t_purchase_order.po_no,
 			t_purchase_order.po_date,
 			5,// t_purchase_order.status,
