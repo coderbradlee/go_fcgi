@@ -121,7 +121,7 @@ func get_subflow_no(company,parent_type,parent_no,bill_type string)(string,error
         return  "",err3
     }
     // str := string.format(%06d",i)
-    str := fmt.Sprintf("%06d",i)
+    str := fmt.Sprintf("%03d",i)
     return str,nil
 }
 // func get_goods_delivery_note_no(deliver_note_no string)(string,error) {
