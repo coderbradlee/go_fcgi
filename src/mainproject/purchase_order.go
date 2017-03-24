@@ -62,7 +62,7 @@ func insert_to_db(t_purchase_order* purchase_order,t *PoData,sd *shared_data)(st
 			t_purchase_order.note,
 			t_purchase_order.createAt,
 			t_purchase_order.createBy,
-			"go_fcgi",
+			"test_go_fcgi",
 		  	t_purchase_order.dr,
 		  	t_purchase_order.data_version)
 		if err != nil {

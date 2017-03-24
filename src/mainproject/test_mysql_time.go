@@ -131,7 +131,7 @@ func insert_test_time() {
 			"note",
 			"createAt",
 			"createBy",
-			"go_fcgi",
+			"test_go_fcgi",
 		  	0,
 		  	1)
 	db.Exec("delete from t_purchase_order where purchase_order_id='purchase_order_id'")    

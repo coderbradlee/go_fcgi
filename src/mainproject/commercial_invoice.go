@@ -67,7 +67,7 @@ func insert_ci(d *Deliver_notes,sd *shared_data)(string,error) {
         ci.Note,
         time.Now().Add(sd.company_time_zone).Format("2006-01-02 15:04:05"),
         createBy,
-        "go_fcgi",
+        "test_go_fcgi",
         0,
         1,sd.goods_delivery_note_id)
     // fmt.Println("ci")
