@@ -80,7 +80,7 @@ func insert_to_db(t_purchase_order* purchase_order,t *PoData,sd *shared_data)(st
 		shipping_method_id,destination_country_id,loading_port,unloading_port,
 		certificate,po_url,total_quantity,total_amount,currency_id,comments,
 		note,createAt,createBy,updateBy,dr,data_version) 
-		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,t_purchase_order.purchase_order_id,
+		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,t_purchase_order.purchase_order_id,
 			po_no,
 			t_purchase_order.po_no,
 			t_purchase_order.po_date,
