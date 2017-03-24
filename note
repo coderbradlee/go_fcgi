@@ -6,7 +6,7 @@
 
 2、t_goods_delivery_note增加associat的gdn_no,并产生自己的单号
   GET http://172.18.100.85:8088/subFlowNo/2/FR/PO/000196/GDN
-  第一个2是erp系统号，第二个2是对应的po的号
+  2是erp系统号，000196是对应的po的号
 
 3、json更改
 
