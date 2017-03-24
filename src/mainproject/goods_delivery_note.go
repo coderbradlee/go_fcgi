@@ -68,6 +68,7 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         /////////////////////////////////////////////
         vendor_master_id_chan :=make(chan string)
         go get_vendor_master_id_chan(vendor_master_id_chan,purchase_order_table.vendor_basic_id)
+        fmt.Println("vendor_basic_id:",purchase_order_table.vendor_basic_id)
         // vendor_master_id:=<-vendor_master_id_chan                 
         // ///////////////////
         export_country_id_chan :=make(chan string)
