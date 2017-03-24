@@ -9,9 +9,14 @@
 func insert_purchase_order_detail(t *purchase_order,origi *PoData,sd *shared_data)(string,error) {
 	var err error
 	var stmt *sql.Stmt
-	// system_account_id_chan :=make(chan string)
- //    go get_system_account_id_chan(system_account_id_chan,t.Data.Purchase_order.Created_by)
- //    created_by:=<-system_account_id_chan
+	stmt, err = db.Prepare(
+        `INSERT INTO t_purchase_order_detail(detail_id,purchase_order_id,
+		item_master_id,unit_price,quantity,uom_id,amount,warranty,
+		comments,note,createAt,createBy,updateBy,dr,data_version) 
+		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`)
+	if err != nil {
+	    return error_insert_purchase_order_detail,err
+	}
 	for _,detail:= range origi.Data.Purchase_order.Detail{
 		// item_master_id:=get_item_master_id(detail.Item_no,detail.Product_name,detail.Product_code)
 		// uom_id:=get_uom_id(detail.Uom)
@@ -33,15 +38,7 @@ func insert_purchase_order_detail(t *purchase_order,origi *PoData,sd *shared_dat
         if item_master_id==""{
         	return error_purchase_order_detail_item_master_id,errors.New("purchase_order.detail item_master_id is missed")
         }
-            
-		stmt, err = db.Prepare(
-        `INSERT INTO t_purchase_order_detail(detail_id,purchase_order_id,
-		item_master_id,unit_price,quantity,uom_id,amount,warranty,
-		comments,note,createAt,createBy,updateBy,dr,data_version) 
-		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`)
-		if err != nil {
-		    return error_insert_purchase_order_detail,err
-		}
+
 		_, err = stmt.Exec(
 		rand_string(20),
 		t.purchase_order_id,
