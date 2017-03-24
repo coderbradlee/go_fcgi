@@ -267,10 +267,10 @@ func call_erp_api(gdn_nos []erp_api_data)(string,error) {
     }
     // fmt.Printf("len:%d",len(ee))
     // ret_data.Goods_delivery_notes=ee
-    fmt.Printf("len:%d\n",len(ret_data.Goods_delivery_notes))
+
     // configuration.Erp_api
     ret.Data=ret_data
-    
+    fmt.Printf("len:%d\n",len(ret.Data.Goods_delivery_notes))
     var buffer bytes.Buffer
     enc := json.NewEncoder(&buffer)
     err_encode := enc.Encode(ret)
