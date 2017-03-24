@@ -71,10 +71,10 @@ func get_currency_id(currency_id_chan chan<- string,currency string){
     currency_id_chan<-currency_id
 }
 
-func get_flow_no(company,type string)(string,error) {
+func get_flow_no(company,bill_type string)(string,error) {
     // var flow_no string
     //GET http://172.18.100.85:8088/flowNo/2/FR/PO
-    url:=configuration.Redis_url+"/"+configuration.System_no+"/"+company+"/"+type
+    url:=configuration.Redis_url+"/"+configuration.System_no+"/"+company+"/"+bill_type
 
     resp, err1 := http.Get(url)
     if err1 != nil {
@@ -98,9 +98,9 @@ func get_flow_no(company,type string)(string,error) {
     str := fmt.Sprintf("%06d",i)
     return str,nil
 }
-func get_subflow_no(company,parent_type,parent_no,type string)(string,error) {
+func get_subflow_no(company,parent_type,parent_no,bill_type string)(string,error) {
     // GET http://172.18.100.85:8088/subFlowNo/2/FR/PO/000196/GDN
-    url:=configuration.Redis_url_subflowno+"/"+configuration.System_no+"/"+company+"/"+parent_type/parent_no/type
+    url:=configuration.Redis_url_subflowno+"/"+configuration.System_no+"/"+company+"/"+parent_type/parent_no/bill_type
 
     resp, err1 := http.Get(url)
     if err1 != nil {
