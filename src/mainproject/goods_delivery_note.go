@@ -269,6 +269,9 @@ func call_erp_api(gdn_nos []erp_api_data)(string,error) {
     var buffer bytes.Buffer
     enc := json.NewEncoder(&buffer)
     err_encode := enc.Encode(ret)
+    if err_encode!=nil{
+        
+    }
     fmt.Println(buffer.String())
     ///////////////////post
     // resp, err := http.Post("configuration.Erp_api",
