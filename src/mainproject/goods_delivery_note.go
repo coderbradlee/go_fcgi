@@ -256,17 +256,18 @@ func call_erp_api(gdn_nos []erp_api_data)(string,error) {
     var ee []erp_api_return_json_goods_delivery_notes
     // var ee=make([]erp_api_return_json_goods_delivery_notes)
     for _,gdn_no:=range gdn_nos{
-        fmt.Printf("%s:%s:%s",gdn_no.company_id,gdn_no.goods_delivery_note_id,gdn_no.goods_delivery_note_no)
+        fmt.Printf("%s:%s:%s\n",gdn_no.company_id,gdn_no.goods_delivery_note_id,gdn_no.goods_delivery_note_no)
         ret_data.Company_id=gdn_no.company_id
         var e erp_api_return_json_goods_delivery_notes
         e.Goods_delivery_note_id=gdn_no.goods_delivery_note_id
         e.Goods_delivery_note_no=gdn_no.goods_delivery_note_no
         e.Goods_delivery_note_status=0
-        // ret_data.Goods_delivery_notes=append(ret_data.Goods_delivery_notes,e)
-        ee=append(ee,e)
+        ret_data.Goods_delivery_notes=append(ret_data.Goods_delivery_notes,e)
+        // ee=append(ee,e)
     }
-    fmt.Printf("len:%d",len(ee))
+    // fmt.Printf("len:%d",len(ee))
     ret_data.Goods_delivery_notes=ee
+    fmt.Printf("len:%d\n",len(ee))
     // configuration.Erp_api
     ret.Data=ret_data
     
