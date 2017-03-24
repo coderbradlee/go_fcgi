@@ -16,7 +16,8 @@
 // var goods_delivery_note_id string
 func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string,error) {
     // var err error
-    var gdn_nos []erp_api_data
+    // var gdn_nos []erp_api_data
+    var gdn_nos=make([]erp_api_data, 5, 10)
     for _,deliver_notes:= range origi.Data.Deliver_notes{
         // bill_type_id:=get_bill_type_id(t.Bill_type)
         // bill_type_id:=get_bill_type_id()
@@ -252,7 +253,8 @@ func call_erp_api(gdn_nos []erp_api_data)(string,error) {
     ret.Request_time=time.Now().Format("2006-01-02 15:04:05")
     var ret_data erp_api_return_json_data
     ret_data.Action_name="DeliverGoods"
-    var ee []erp_api_return_json_goods_delivery_notes
+    // var ee []erp_api_return_json_goods_delivery_notes
+    var ee=make([]erp_api_return_json_goods_delivery_notes, 5, 10)
     for _,gdn_no:=range gdn_nos{
         // fmt.Printf("%s:%s:%s",gdn_no.company_id,gdn_no.goods_delivery_note_id,gdn_no.goods_delivery_note_no)
         ret_data.Company_id=gdn_no.company_id
@@ -270,7 +272,7 @@ func call_erp_api(gdn_nos []erp_api_data)(string,error) {
     enc := json.NewEncoder(&buffer)
     err_encode := enc.Encode(ret)
     if err_encode!=nil{
-        
+
     }
     fmt.Println(buffer.String())
     ///////////////////post
