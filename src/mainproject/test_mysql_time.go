@@ -59,6 +59,46 @@ func single_select2()string {
 	    go get_purchase_order_id_chan(purchase_order_id_chan,"PO-FR-20170216-0016")
 	    purchase_order_id=<-purchase_order_id_chan
 	}
+	{
+		purchase_order_id_chan :=make(chan string)
+	    go get_purchase_order_id_chan(purchase_order_id_chan,"PO-FR-20170216-0016")
+	    purchase_order_id=<-purchase_order_id_chan
+	}
+	{
+		purchase_order_id_chan :=make(chan string)
+	    go get_purchase_order_id_chan(purchase_order_id_chan,"PO-FR-20170216-0016")
+	    purchase_order_id=<-purchase_order_id_chan
+	}
+	{
+		purchase_order_id_chan :=make(chan string)
+	    go get_purchase_order_id_chan(purchase_order_id_chan,"PO-FR-20170216-0016")
+	    purchase_order_id=<-purchase_order_id_chan
+	}
+	{
+		purchase_order_id_chan :=make(chan string)
+	    go get_purchase_order_id_chan(purchase_order_id_chan,"PO-FR-20170216-0016")
+	    purchase_order_id=<-purchase_order_id_chan
+	}
+	{
+		purchase_order_id_chan :=make(chan string)
+	    go get_purchase_order_id_chan(purchase_order_id_chan,"PO-FR-20170216-0016")
+	    purchase_order_id=<-purchase_order_id_chan
+	}
+	{
+		purchase_order_id_chan :=make(chan string)
+	    go get_purchase_order_id_chan(purchase_order_id_chan,"PO-FR-20170216-0016")
+	    purchase_order_id=<-purchase_order_id_chan
+	}
+	{
+		purchase_order_id_chan :=make(chan string)
+	    go get_purchase_order_id_chan(purchase_order_id_chan,"PO-FR-20170216-0016")
+	    purchase_order_id=<-purchase_order_id_chan
+	}
+	{
+		purchase_order_id_chan :=make(chan string)
+	    go get_purchase_order_id_chan(purchase_order_id_chan,"PO-FR-20170216-0016")
+	    purchase_order_id=<-purchase_order_id_chan
+	}
     return purchase_order_id
 }
 func insert_test_time() {
