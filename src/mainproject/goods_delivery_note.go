@@ -252,6 +252,7 @@ func call_erp_api(gdn_nos []erp_api_data)(string,error) {
     ret.Request_time=time.Now().Format("2006-01-02 15:04:05")
     var ret_data erp_api_return_json_data
     ret_data.Action_name="DeliverGoods"
+    var ee []erp_api_return_json_goods_delivery_notes
     for _,gdn_no:=range gdn_nos{
         // fmt.Printf("%s:%s:%s",gdn_no.company_id,gdn_no.goods_delivery_note_id,gdn_no.goods_delivery_note_no)
         ret_data.Company_id=gdn_no.company_id
@@ -259,8 +260,9 @@ func call_erp_api(gdn_nos []erp_api_data)(string,error) {
         e.Goods_delivery_note_id=gdn_no.goods_delivery_note_id
         e.Goods_delivery_note_no=gdn_no.goods_delivery_note_no
         e.Goods_delivery_note_status=0
-        ret_data=append(ret_data,e)
+        ee=append(ee,e)
     }
+    ret_data.Goods_delivery_notes=ee
     // configuration.Erp_api
     ret.Data=ret_data
     
