@@ -17,7 +17,7 @@
 func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string,error) {
     // var err error
     // var gdn_nos []erp_api_data
-    var gdn_nos=make([]erp_api_data, 5, 10)
+    var gdn_nos=make([]erp_api_data)
     for _,deliver_notes:= range origi.Data.Deliver_notes{
         // bill_type_id:=get_bill_type_id(t.Bill_type)
         // bill_type_id:=get_bill_type_id()
@@ -254,9 +254,9 @@ func call_erp_api(gdn_nos []erp_api_data)(string,error) {
     var ret_data erp_api_return_json_data
     ret_data.Action_name="DeliverGoods"
     // var ee []erp_api_return_json_goods_delivery_notes
-    var ee=make([]erp_api_return_json_goods_delivery_notes, 5, 10)
+    var ee=make([]erp_api_return_json_goods_delivery_notes)
     for _,gdn_no:=range gdn_nos{
-        // fmt.Printf("%s:%s:%s",gdn_no.company_id,gdn_no.goods_delivery_note_id,gdn_no.goods_delivery_note_no)
+        fmt.Printf("%s:%s:%s",gdn_no.company_id,gdn_no.goods_delivery_note_id,gdn_no.goods_delivery_note_no)
         ret_data.Company_id=gdn_no.company_id
         var e erp_api_return_json_goods_delivery_notes
         e.Goods_delivery_note_id=gdn_no.goods_delivery_note_id
