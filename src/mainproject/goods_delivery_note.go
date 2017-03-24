@@ -266,8 +266,8 @@ func call_erp_api(gdn_nos []erp_api_data)(string,error) {
         // ee=append(ee,e)
     }
     // fmt.Printf("len:%d",len(ee))
-    ret_data.Goods_delivery_notes=ee
-    fmt.Printf("len:%d\n",len(ee))
+    // ret_data.Goods_delivery_notes=ee
+    fmt.Printf("len:%d\n",len(ret_data.Goods_delivery_notes))
     // configuration.Erp_api
     ret.Data=ret_data
     
