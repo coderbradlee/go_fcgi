@@ -270,6 +270,23 @@ func call_erp_api(gdn_nos []erp_api_data)(string,error) {
     enc := json.NewEncoder(&buffer)
     err_encode := enc.Encode(ret)
     fmt.Println(buffer.String())
+    ///////////////////post
+    // resp, err := http.Post("configuration.Erp_api",
+    //     "application/x-www-form-urlencoded",
+    //     strings.NewReader(buffer.String()))
+    // if err != nil {
+    //     // fmt.Println(err)
+    //     return error_call_erp_api,err
+    // }
+ 
+    // defer resp.Body.Close()
+    // body, err := ioutil.ReadAll(resp.Body)
+    // if err != nil {
+    //     // handle error
+    //     return error_call_erp_api,err
+    // }
+ 
+    // fmt.Println(string(body))
     return "",nil
 }
 type erp_api_data struct{
