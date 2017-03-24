@@ -167,7 +167,7 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         sd.goods_delivery_note_id=rand_string(20)
         _, err = db.Exec(
         `INSERT INTO t_goods_delivery_note(
-        note_id,goods_delivery_note_no,associated_goods_delivery_note,bill_type_id,company_id,
+        note_id,goods_delivery_note_no,associated_goods_delivery_note_no,bill_type_id,company_id,
         purchase_order_id,buyer_id,vendor_master_id,fulfill_status,
         export_country_id,loading_port,import_country_id,unloading_port,trade_term_id,ship_via_id,packing_method_id,
         logistic_provider_master_id,logistic_provider_contact_id,etd,

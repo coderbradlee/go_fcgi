@@ -62,7 +62,7 @@ type check_struct struct{
 func check_po_exist(t* purchase_order)(bool,error) {
     var get_po_no string
     var err error
-    err=db.QueryRow("select purchase_order_id from t_purchase_order where po_no=?",t.po_no).Scan(&get_po_no)
+    err=db.QueryRow("select purchase_order_id from t_purchase_order where associated_po_no=?",t.po_no).Scan(&get_po_no)
     if err!=nil{
         return false,err
     }else if get_po_no!=""{
