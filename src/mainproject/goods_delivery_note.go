@@ -247,14 +247,46 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
     // return "",nil
 }
 func call_erp_api(gdn_nos []erp_api_data)(string,error) {
+    var ret erp_api_return_json
+    ret.Operation="SubmitGoodsDeliveryNote"
+    ret.Request_time=time.Now().Format("2006-01-02 15:04:05")
+    var ret_data erp_api_return_json_data
+    ret_data.Action_name="DeliverGoods"
     for _,gdn_no:=range gdn_nos{
-        fmt.Printf("%s:%s:%s",gdn_no.company_id,gdn_no.goods_delivery_note_id,gdn_no.goods_delivery_note_no)
+        // fmt.Printf("%s:%s:%s",gdn_no.company_id,gdn_no.goods_delivery_note_id,gdn_no.goods_delivery_note_no)
+        ret_data.Company_id=gdn_no.company_id
+        var e erp_api_return_json_goods_delivery_notes
+        e.Goods_delivery_note_id=gdn_no.goods_delivery_note_id
+        e.Goods_delivery_note_no=gdn_no.goods_delivery_note_no
+        e.Goods_delivery_note_status=0
+        ret_data=append(ret_data,e)
     }
     // configuration.Erp_api
+    ret.Data=ret_data
+    
+    var buffer bytes.Buffer
+    enc := json.NewEncoder(&buffer)
+    err_encode := enc.Encode(ret)
+    fmt.Println(buffer.String())
     return "",nil
 }
 type erp_api_data struct{
     company_id string
     goods_delivery_note_id string
     goods_delivery_note_no string
+}
+type erp_api_return_json_goods_delivery_notes struct{
+    Goods_delivery_note_id string `json:"goods_delivery_note_id"`
+    Goods_delivery_note_no string `json:"goods_delivery_note_id"`
+    Goods_delivery_note_status int `json:"goods_delivery_note_id"`
+}
+type erp_api_return_json_data struct{
+    Action_name string `json:"action_name"`
+    Company_id string `json:"company_id"`
+    Goods_delivery_notes []erp_api_return_json_goods_delivery_notes `json:"goods_delivery_notes"`       
+}
+type erp_api_return_json struct{
+    Operation string `json:"operation"`
+    Data erp_api_return_json_data `json:"data"`
+    Request_time string `json:"request_time"`
 }
