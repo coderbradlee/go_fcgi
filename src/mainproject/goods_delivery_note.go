@@ -95,7 +95,8 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         go get_company_short_name_chan(company_short_name_chan,deliver_notes.Company)
         company_short_name:=<-company_short_name_chan
         /////////////////////////////////////////////////////
-        parent_no:=deliver_notes.po_no[15:]
+        parent_no_all:=deliver_notes.po_no
+        parent_no:=parent_no_all[15:]
         fmt.Println("parent_no:",parent_no)
         flow_no,err:=get_subflow_no(company_short_name,"PO",parent_no,"GDN")
         if flow_no==""{

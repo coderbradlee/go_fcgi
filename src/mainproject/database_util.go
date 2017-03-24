@@ -100,7 +100,7 @@ func get_flow_no(company,bill_type string)(string,error) {
 }
 func get_subflow_no(company,parent_type,parent_no,bill_type string)(string,error) {
     // GET http://172.18.100.85:8088/subFlowNo/2/FR/PO/000196/GDN
-    url:=configuration.Redis_url_subflowno+"/"+configuration.System_no+"/"+company+"/"+parent_type/parent_no/bill_type
+    url:=configuration.Redis_url_subflowno+"/"+configuration.System_no+"/"+company+"/"+parent_type+"/"+parent_no+"/"+bill_type
 
     resp, err1 := http.Get(url)
     if err1 != nil {
