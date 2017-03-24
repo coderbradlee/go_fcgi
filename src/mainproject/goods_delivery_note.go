@@ -6,9 +6,9 @@
     // "net/http"
     // "io/ioutil"
     // "strconv"
-    // "encoding/json"
+    "encoding/json"
     "errors"
-    // "errgroup"
+    "bytes"
 )
 
 //为了在response中回传发货号，设置全局变量goods_receipt_no
