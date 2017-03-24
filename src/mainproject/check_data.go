@@ -208,7 +208,7 @@ func check_po_exist_for_gdn(origi *DeliverGoodsForPO,error_chan chan<- check_str
     var t check_struct
     var err error
     for _,d:= range origi.Data.Deliver_notes{
-        err=db.QueryRow("select purchase_order_id from t_purchase_order where po_no=?",d.Po_no).Scan(&get_po_no)
+        err=db.QueryRow("select purchase_order_id from t_purchase_order where associated_po_no=?",d.Po_no).Scan(&get_po_no)
         if err!=nil{
             t=check_struct{error_check_po_exist_for_gdn,errors.New(`po_exist_for_gdn missed`)}
             error_chan<- t
