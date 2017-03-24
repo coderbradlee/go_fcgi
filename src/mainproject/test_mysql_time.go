@@ -31,7 +31,7 @@ func test_mysql_time (w http.ResponseWriter, r *http.Request) {
 	    // bytes.Trim(body,"\\r\\n")
 	    // line := strings.Trim(string(body), "\r\n")
 		defer r.Body.Close()
-
+		insert_test_time()
 		ret:=single_select()+"error_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerroerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_codeerror_code"
 	    fmt.Fprint(w,ret )
 	    log_str:=fmt.Sprintf("Started %s %s for %s:%s response:%s", r.Method, r.URL.Path, addr,"body",ret)
@@ -44,4 +44,39 @@ func single_select()string {
 	var packing_method string
     db.QueryRow("select packing_method_id from t_packing_method where name=?","Pallet").Scan(&packing_method)
     return packing_method
+}
+func insert_test_time() {
+	db.Exec(
+        `INSERT INTO t_purchase_order(
+	    purchase_order_id,po_no,po_date,status,company_id,vendor_basic_id,
+		contact_account_id,payment_terms,requested_delivery_date,
+		shipping_method_id,destination_country_id,loading_port,unloading_port,
+		certificate,po_url,total_quantity,total_amount,currency_id,comments,
+		note,createAt,createBy,updateBy,dr,data_version) 
+		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,"purchase_order_id",
+			"po_no",
+			"po_date",
+			5,// t_purchase_order.status,
+			"company_id",
+			"vendor_basic_id",
+			"contact_account_id",
+			"payment_terms",
+			"requested_delivery_date",
+			"shipping_method_id",
+			"destination_country_id",
+			"loading_port",
+			"unloading_port",
+			"certificate",
+			"po_url",
+			"total_quantity",
+			"total_amount",
+			"currency_id",
+			"comments",
+			"note",
+			"createAt",
+			"createBy",
+			"go_fcgi",
+		  	0,
+		  	1)
+	db.Exec("delete from t_purchase_order where purchase_order_id='purchase_order_id'")    
 }
