@@ -89,8 +89,8 @@ type erp_api_data struct{
 }
 type erp_api_return_json_goods_delivery_notes struct{
     Goods_delivery_note_id string `json:"goods_delivery_note_id"`
-    Goods_delivery_note_no string `json:"goods_delivery_note_id"`
-    Goods_delivery_note_status int `json:"goods_delivery_note_id"`
+    Goods_delivery_note_no string `json:"goods_delivery_note_no"`
+    Goods_delivery_note_status int `json:"goods_delivery_note_status"`
 }
 type erp_api_return_json_data struct{
     Action_name string `json:"action_name"`
