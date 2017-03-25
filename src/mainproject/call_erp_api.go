@@ -38,6 +38,7 @@ func call_erp_api(gdn_nos []erp_api_data)(string,error) {
     // var buffer bytes.Buffer
     // enc := json.NewEncoder(&buffer)
     // err_encode := enc.Encode(ret)
+    var b []byte
     if b, err := json.Marshal(ret); err == nil {
         fmt.Println(string(b))
     }else{
