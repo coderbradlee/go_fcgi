@@ -8,7 +8,7 @@
     // "strconv"
     "encoding/json"
     "errors"
-    "bytes"
+    // "bytes"
 )
 
 func call_erp_api(gdn_nos []erp_api_data)(string,error) {
@@ -42,6 +42,8 @@ func call_erp_api(gdn_nos []erp_api_data)(string,error) {
         fmt.Println(string(b))
     }else{
         fmt.Println("================struct 到json str==")
+        logger.Error("json Marshal")
+        return error_call_erp_api,errors.New("error_call_erp_api json Marshal")
     }
 
     return post_api(string(b))
