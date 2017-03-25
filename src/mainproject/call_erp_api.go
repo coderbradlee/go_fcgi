@@ -21,7 +21,7 @@ func call_erp_api(gdn_nos []erp_api_data)(string,error) {
     // var ee=make([]erp_api_return_json_goods_delivery_notes)
     for _,gdn_no:=range gdn_nos{
         fmt.Printf("%s:%s:%s\n",gdn_no.company_id,gdn_no.goods_delivery_note_id,gdn_no.goods_delivery_note_no)
-        ret_data.Company_id=gdn_no.company_id
+        ret.Data.Company_id=gdn_no.company_id
         var e erp_api_return_json_goods_delivery_notes
         e.Goods_delivery_note_id=gdn_no.goods_delivery_note_id
         e.Goods_delivery_note_no=gdn_no.goods_delivery_note_no
