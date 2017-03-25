@@ -80,7 +80,7 @@ type erp_api_reponse struct{
     Error_code string `json:"error_code"`
     Error_msg string `json:"error_msg"`
     Data erp_api_reponse_data `json:"data"`
-    Reply_time `json:"reply_time"`
+    Reply_time string `json:"reply_time"`
 }
 type erp_api_reponse_data struct{
     Goods_delivery_notes []erp_api_reponse_data_gdns `json:"goods_delivery_notes"`
