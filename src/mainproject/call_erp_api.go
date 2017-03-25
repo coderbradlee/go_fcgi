@@ -9,6 +9,7 @@
     "encoding/json"
     "errors"
     // "bytes"
+    "strings"
 )
 
 func call_erp_api(gdn_nos []erp_api_data)(string,error) {
@@ -42,7 +43,7 @@ func call_erp_api(gdn_nos []erp_api_data)(string,error) {
 func post_api(content string)(string,error) {
     ///////////////////post
     resp, err := http.Post(configuration.Erp_api,
-        "application/x-www-form-urlencoded",content)
+        "application/x-www-form-urlencoded",strings.NewReader(content))
 
     if err != nil {
         // fmt.Println(err)
