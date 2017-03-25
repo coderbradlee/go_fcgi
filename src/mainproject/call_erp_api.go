@@ -62,19 +62,17 @@ func post_api(content string)(string,error) {
     }
     logger.Info(fmt.Sprintf("response from %s :%s", configuration.Erp_api, string(body)))
     fmt.Println(string(body))
-//     {
-//    "error_code":"200",
-//    "error_msg":"workflow has been started successfully",
-//    "data":{
-//       "goods_delivery_notes":[{
-//          "goods_delivery_note_id":"JHMOX87V3AT0PPMTV5RB",
-//          "goods_delivery_note_no":"JHMOX87V3AT0PPMTV5RB",
-//          "wf_instance_id":"JHMOX87V3AT0PPMTV5RB"
-// }]
-//    },
-//    "reply_time":"2015-02-21 08:00:00"
-// }
-
+    var t erp_api_reponse  
+        // var po_shared_data shared_data
+    err_decode := json.Unmarshal(body, &t)
+    if err_decode!=nil{
+        logger.Error(fmt.Sprintf("json unmarshal reponse from %s :%s", configuration.Erp_api, string(body)))
+        return error_call_erp_api,err_decode
+    }
+    if t.Error_code!="200"{
+        logger.Error(fmt.Sprintf("reponse !=200"))
+        return error_call_erp_api,errors.New("reponse !=200 from erp_api")
+    }
     return "",nil
 }
 type erp_api_reponse struct{
