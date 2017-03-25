@@ -67,7 +67,7 @@ func post_api(content string)(string,error) {
     // }
  
     // fmt.Println(string(body))
-    a := &s{42, "Hello World!", []byte{0,1,2,3,4}}
+    a := &s{42, "Hello World!", []int{0,1,2,3,4}}
 
     out, err := json.Marshal(a)
     if err != nil {
@@ -80,7 +80,7 @@ func post_api(content string)(string,error) {
 type s struct {
     Int       int
     String    string
-    ByteSlice []byte
+    ByteSlice []int
 }
 type erp_api_data struct{
     company_id string
