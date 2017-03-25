@@ -47,9 +47,9 @@ func post_api(content string)(string,error) {
 
     if err != nil {
         // fmt.Println(err)
-        logger.Error(fmt.Sprintf("post %s :%s", configuration.Erp_api, content))
+        // logger.Error(fmt.Sprintf("post %s :%s", configuration.Erp_api, content))
 
-        return error_call_erp_api,err
+        // return error_call_erp_api,err
     }
     
     defer resp.Body.Close()
