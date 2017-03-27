@@ -46,6 +46,7 @@ func get_payment_term_id_chan(payment_term_id_chan chan<- string,payment_term,co
     billing_days:="0"
     if payment_term_id!=""{
         payment_term_id_chan<-payment_term_id
+        return
     }else{
         payment_term_id=rand_string(20)
         _, err := db.Exec(
