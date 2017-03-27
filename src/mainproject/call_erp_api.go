@@ -51,7 +51,7 @@ func post_api(content string)(string,error) {
 
         return error_call_erp_api,err
     }
-
+    fmt.Println("555555555555")
     body, err := ioutil.ReadAll(resp.Body)
 
     if err != nil {
