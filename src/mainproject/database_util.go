@@ -13,6 +13,45 @@ func get_purchase_order_id_chan(purchase_order_id_chan chan<- string,po_no strin
     db.QueryRow(fmt.Sprintf("select purchase_order_id from t_purchase_order where associated_po_no like '%%%s%%'",po_no)).Scan(&purchase_order_id)
      purchase_order_id_chan<-purchase_order_id
 }
+func get_payment_type_id_chan(payment_type_id_chan chan<- string,payment_type string) {
+    var payment_type_id string
+    db.QueryRow(fmt.Sprintf("select payment_type_id from t_payment_type where short_name like '%%%s%%'",payment_type)).Scan(&payment_type_id)
+    payment_type_id_chan<-payment_type_id
+}
+func get_payment_method_id_chan(payment_method_id_chan chan<- string,payment_method string) {
+    var payment_method_id string
+    db.QueryRow(fmt.Sprintf("select payment_method_id from t_payment_method where short_name like '%%%s%%'",payment_method)).Scan(&payment_method_id)
+    payment_method_id_chan<-payment_method_id
+}
+func get_payment_term_id_chan(payment_term_id_chan chan<- string,payment_term string) {
+    
+    payment_type_id_chan :=make(chan string)
+    go get_payment_type_id_chan(payment_type_id_chan,payment_type)
+    payment_type_id:=<-payment_type_id_chan
+
+    payment_method_id_chan :=make(chan string)
+    go get_payment_method_id_chan(payment_method_id_chan,payment_method)
+    payment_method_id:=<-payment_method_id_chan
+
+
+    var payment_term_id string
+    // payment_type_id payment_method_id
+    db.QueryRow(fmt.Sprintf("select payment_term_id from t_payment_term where payment_type_id=? and payment_method_id=?",payment_type_id,payment_method_id)).Scan(&payment_term_id)
+    if payment_term_id!=""{
+        payment_term_id_chan<-payment_term_id
+    }else{
+        payment_term_id=rand_string(20)
+        _, err = db.Exec(
+        `INSERT INTO t_payment_term(payment_term_id,payment_type_id,payment_method_id) 
+        VALUES (?,?,?)`,payment_term_id,payment_type_id,payment_method_id)
+        if err!=nil{
+            
+        }else{
+            payment_term_id_chan<-payment_term_id
+        }
+    }
+}
+
 func get_system_account_id_chan(system_account_id_chan chan<- string,name string) {
     var system_account_id string
     db.QueryRow(fmt.Sprintf("select system_account_id from t_system_account where account_name like '%%%s%%'",name)).Scan(&system_account_id)

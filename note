@@ -20,12 +20,12 @@ go tool pprof -pdf ./go_fcgi http://127.0.0.1:9888/debug/pprof/profile>out.pdf
 
 2017.3.23 10042143
 
-SELECT * from t_purchase_order where updateBy like '%test_go_fcgi%'
-SELECT * from t_purchase_order_detail where updateBy like '%test_go_fcgi%'
-SELECT * from t_goods_delivery_note where updateBy like '%test_go_fcgi%'
-SELECT * from t_goods_delivery_note_detail where updateBy like '%test_go_fcgi%'
-select * from t_commercial_invoice where updateBy like '%test_go_fcgi%'
-select * from t_goods_receipt where updateBy like '%test_go_fcgi%'
+SELECT * from t_purchase_order order by createAt desc
+SELECT * from t_purchdese_order_detail  order by createAt desc
+SELECT * from t_goods_delivery_note  order by createAt desc
+SELECT * from t_goods_delivery_note_detail  order by createAt desc
+select * from t_commercial_invoice  order by createAt desc
+select * from t_goods_receipt  order by createAt desc
 
 delete from t_purchase_order where updateBy like '%test_go_fcgi%';
 delete from t_purchase_order_detail where updateBy like '%test_go_fcgi%';
