@@ -50,7 +50,8 @@ func get_payment_term_id_chan(payment_term_id_chan chan<- string,payment_term,co
         `INSERT INTO t_payment_term(payment_term_id,payment_type_id,payment_method_id) 
         VALUES (?,?,?)`,payment_term_id,payment_type_id,payment_method_id)
         if err!=nil{
-            
+            payment_term_id_chan<-""
+            fmt.Println("insert error")
         }else{
             payment_term_id_chan<-payment_term_id
         }
