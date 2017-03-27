@@ -29,7 +29,10 @@ func get_payment_term_id_chan(payment_term_id_chan chan<- string,payment_term,co
     s := strings.Split(payment_term, "|")
     payment_method:=s[0]
     payment_type:=s[1]
-    
+    reg := regexp.MustCompile(`[0-9]{2} days`)
+    fmt.Printf("%q\n", reg.FindAllString(payment_type, -1))
+    billing_days:="0"
+
     payment_type_id_chan :=make(chan string)
     go get_payment_type_id_chan(payment_type_id_chan,payment_type,company_id)
     payment_type_id:=<-payment_type_id_chan
@@ -44,7 +47,7 @@ func get_payment_term_id_chan(payment_term_id_chan chan<- string,payment_term,co
     // payment_type_id payment_method_id
     db.QueryRow(fmt.Sprintf("select payment_term_id from t_payment_term where payment_type_id='%s' and payment_method_id='%s' and company_id='%s'",payment_type_id,payment_method_id,company_id)).Scan(&payment_term_id)
     // fmt.Printf("payment_term_id exist:%s\n",payment_term_id)
-    billing_days:="0"
+    
     if payment_term_id!=""{
         payment_term_id_chan<-payment_term_id
         fmt.Printf("payment_term_id exist:%s\n",payment_term_id)
