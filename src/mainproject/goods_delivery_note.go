@@ -244,9 +244,9 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         }
     }    
 }
+    fmt.Println("Need_erp_api true",configuration.Need_erp_api)
     if configuration.Need_erp_api{
-        fmt.Println("Need_erp_api true")
-        return call_erp_api(gdn_nos)
+        // return call_erp_api(gdn_nos)
     }
     
     return "",nil
