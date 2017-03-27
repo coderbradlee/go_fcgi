@@ -38,7 +38,7 @@ func get_payment_term_id_chan(payment_term_id_chan chan<- string,payment_term,co
     go get_payment_method_id_chan(payment_method_id_chan,payment_method,company_id)
     payment_method_id:=<-payment_method_id_chan
     
-    fmt.Printf("payment_terms:%s,%s,%s",payment_method_id,payment_type_id,company_id)
+    fmt.Printf("payment_terms:%s,%s,%s\n",payment_method_id,payment_type_id,company_id)
 
     var payment_term_id string
     // payment_type_id payment_method_id
@@ -46,6 +46,7 @@ func get_payment_term_id_chan(payment_term_id_chan chan<- string,payment_term,co
     billing_days:="0"
     if payment_term_id!=""{
         payment_term_id_chan<-payment_term_id
+        fmt.Printf("payment_term_id exist:%s\n",payment_term_id)
         return
     }else{
         payment_term_id=rand_string(20)
