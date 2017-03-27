@@ -44,15 +44,14 @@ func post_api(content string)(string,error) {
     ///////////////////post
     resp, err := http.Post(configuration.Erp_api,
         "application/x-www-form-urlencoded",strings.NewReader(content))
-
+    defer resp.Body.Close()
     if err != nil {
         fmt.Println(err)
         logger.Error(fmt.Sprintf("post %s :%s", configuration.Erp_api, content))
 
         return error_call_erp_api,err
     }
-    
-    defer resp.Body.Close()
+
     body, err := ioutil.ReadAll(resp.Body)
 
     if err != nil {
