@@ -43,7 +43,7 @@ func get_payment_term_id_chan(payment_term_id_chan chan<- string,payment_term,co
     var payment_term_id string
     // payment_type_id payment_method_id
     db.QueryRow(fmt.Sprintf("select payment_term_id from t_payment_term where payment_type_id='%s' and payment_method_id='%s' and company_id='%s'",payment_type_id,payment_method_id,company_id)).Scan(&payment_term_id)
-    fmt.Printf("payment_term_id exist:%s\n",payment_term_id)
+    // fmt.Printf("payment_term_id exist:%s\n",payment_term_id)
     billing_days:="0"
     if payment_term_id!=""{
         payment_term_id_chan<-payment_term_id
