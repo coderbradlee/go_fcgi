@@ -8,6 +8,7 @@ package main
     "io/ioutil"
     "strconv"
     "strings"
+    "logger"
 )
 func get_purchase_order_id_chan(purchase_order_id_chan chan<- string,po_no string) {
     var purchase_order_id string
@@ -51,7 +52,7 @@ func get_payment_term_id_chan(payment_term_id_chan chan<- string,payment_term,co
         VALUES (?,?,?)`,payment_term_id,payment_type_id,payment_method_id)
         if err!=nil{
             payment_term_id_chan<-""
-            fmt.Println("insert error:",err.Error())
+            logger.Error(fmt.Sprintf("insert t_payment_term: %s", err.Error()))
         }else{
             payment_term_id_chan<-payment_term_id
         }
