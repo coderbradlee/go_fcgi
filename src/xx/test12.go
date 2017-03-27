@@ -40,6 +40,7 @@ func main() {
 	reg := regexp.MustCompile(`([1-9][0-9])( Days)`)
     reg_find:=reg.FindAllString(payment_type, -1)[0]
     fmt.Printf("%s: %s\n",payment_type, reg_find[:2])
-
+    billing_days:=reg_find[:2]
+	fmt.Printf("%s\n",billing_days)
 }
 
