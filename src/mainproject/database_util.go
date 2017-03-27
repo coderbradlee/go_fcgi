@@ -55,6 +55,7 @@ func get_payment_term_id_chan(payment_term_id_chan chan<- string,payment_term,co
         if err!=nil{
             payment_term_id_chan<-""
             logger.Error(fmt.Sprintf("insert t_payment_term: %s", err.Error()))
+            return
         }else{
             payment_term_id_chan<-payment_term_id
         }
