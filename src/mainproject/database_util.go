@@ -7,6 +7,7 @@ package main
     "encoding/json"
     "io/ioutil"
     "strconv"
+    "strings"
 )
 func get_purchase_order_id_chan(purchase_order_id_chan chan<- string,po_no string) {
     var purchase_order_id string
@@ -44,7 +45,7 @@ func get_payment_term_id_chan(payment_term_id_chan chan<- string,payment_term,co
         payment_term_id_chan<-payment_term_id
     }else{
         payment_term_id=rand_string(20)
-        _, err = db.Exec(
+        _, err := db.Exec(
         `INSERT INTO t_payment_term(payment_term_id,payment_type_id,payment_method_id) 
         VALUES (?,?,?)`,payment_term_id,payment_type_id,payment_method_id)
         if err!=nil{
