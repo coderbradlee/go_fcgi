@@ -69,7 +69,7 @@ func insert_to_db(t_purchase_order* purchase_order,t *PoData,sd *shared_data)(st
 	    company_short_name:=<-company_short_name_chan
 	    /////////////////////////////////////
 		payment_term_id_chan :=make(chan string)
-	    go get_payment_term_id_chan(payment_term_id_chan,t_purchase_order.payment_terms)
+	    go get_payment_term_id_chan(payment_term_id_chan,t_purchase_order.payment_terms,t_purchase_order.company_id)
 	    t_purchase_order.payment_terms=<-payment_term_id_chan
 	    //////////////////////////////////////////////////
 		flow_no,err:=get_flow_no(company_short_name,"PO")

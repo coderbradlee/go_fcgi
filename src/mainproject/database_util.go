@@ -13,30 +13,33 @@ func get_purchase_order_id_chan(purchase_order_id_chan chan<- string,po_no strin
     db.QueryRow(fmt.Sprintf("select purchase_order_id from t_purchase_order where associated_po_no like '%%%s%%'",po_no)).Scan(&purchase_order_id)
      purchase_order_id_chan<-purchase_order_id
 }
-func get_payment_type_id_chan(payment_type_id_chan chan<- string,payment_type string) {
+func get_payment_type_id_chan(payment_type_id_chan chan<- string,payment_type,company_id string) {
     var payment_type_id string
-    db.QueryRow(fmt.Sprintf("select payment_type_id from t_payment_type where short_name like '%%%s%%'",payment_type)).Scan(&payment_type_id)
+    db.QueryRow(fmt.Sprintf("select payment_type_id from t_payment_type where short_name like '%%%s%%' and company_id='%s'",payment_type,company_id)).Scan(&payment_type_id)
     payment_type_id_chan<-payment_type_id
 }
-func get_payment_method_id_chan(payment_method_id_chan chan<- string,payment_method string) {
+func get_payment_method_id_chan(payment_method_id_chan chan<- string,payment_method,company_id string) {
     var payment_method_id string
-    db.QueryRow(fmt.Sprintf("select payment_method_id from t_payment_method where short_name like '%%%s%%'",payment_method)).Scan(&payment_method_id)
+    db.QueryRow(fmt.Sprintf("select payment_method_id from t_payment_method where short_name like '%%%s%%' and company_id='%s'",payment_method,company_id)).Scan(&payment_method_id)
     payment_method_id_chan<-payment_method_id
 }
-func get_payment_term_id_chan(payment_term_id_chan chan<- string,payment_term string) {
-    
+func get_payment_term_id_chan(payment_term_id_chan chan<- string,payment_term,company_id string) {
+    s := strings.Split(payment_term, "|")
+    payment_method:=s[0]
+    payment_type:=s[1]
+    fmt.Printf("payment_terms:%s,%s,%s",payment_method,payment_type,company_id)
     payment_type_id_chan :=make(chan string)
-    go get_payment_type_id_chan(payment_type_id_chan,payment_type)
+    go get_payment_type_id_chan(payment_type_id_chan,payment_type,company_id)
     payment_type_id:=<-payment_type_id_chan
 
     payment_method_id_chan :=make(chan string)
-    go get_payment_method_id_chan(payment_method_id_chan,payment_method)
+    go get_payment_method_id_chan(payment_method_id_chan,payment_method,company_id)
     payment_method_id:=<-payment_method_id_chan
 
 
     var payment_term_id string
     // payment_type_id payment_method_id
-    db.QueryRow(fmt.Sprintf("select payment_term_id from t_payment_term where payment_type_id=? and payment_method_id=?",payment_type_id,payment_method_id)).Scan(&payment_term_id)
+    db.QueryRow(fmt.Sprintf("select payment_term_id from t_payment_term where payment_type_id=? and payment_method_id=? and company_id=?",payment_type_id,payment_method_id,company_id)).Scan(&payment_term_id)
     if payment_term_id!=""{
         payment_term_id_chan<-payment_term_id
     }else{
