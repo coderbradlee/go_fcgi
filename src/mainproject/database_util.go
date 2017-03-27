@@ -9,6 +9,7 @@ package main
     "strconv"
     "strings"
     "logger"
+    "regexp"
 )
 func get_purchase_order_id_chan(purchase_order_id_chan chan<- string,po_no string) {
     var purchase_order_id string
