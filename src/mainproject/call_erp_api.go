@@ -44,7 +44,7 @@ func post_api(content string)(string,error) {
     ///////////////////post
     fmt.Println(content)
     resp, err := http.Post(configuration.Erp_api,
-        "application/x-www-form-urlencoded",strings.NewReader(content))
+        "application/json",strings.NewReader(content))
     
     if err != nil {
         fmt.Println(err)
