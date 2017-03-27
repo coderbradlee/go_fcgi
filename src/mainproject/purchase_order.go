@@ -77,7 +77,7 @@ func insert_to_db(t_purchase_order* purchase_order,t *PoData,sd *shared_data)(st
     _, err = db.Exec(
         `INSERT INTO t_purchase_order(
 	    purchase_order_id,po_no,associated_po_no,po_date,status,company_id,vendor_basic_id,
-		contact_account_id,payment_terms,requested_delivery_date,
+		contact_account_id,payment_term_id,requested_delivery_date,
 		shipping_method_id,destination_country_id,loading_port,unloading_port,po_url,total_quantity,total_amount,currency_id,comments,
 		note,createAt,createBy,updateBy,dr,data_version) 
 		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,t_purchase_order.purchase_order_id,
