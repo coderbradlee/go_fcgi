@@ -1,19 +1,19 @@
 package main
 //#go:generate ls -l
 import (
-	// "fmt"
-	// "regexp"
+	"fmt"
+	"regexp"
 	// "os"
 	// "bufio"
 	"runtime"
 	// "io"
-	"sync"
+	// "sync"
 	// "testing"
 	// "math"
 	// "reflect"
 	// "unsafe"
-	"os"
-	"runtime/pprof"
+	// "os"
+	// "runtime/pprof"
 )
 type Data struct{
 
@@ -36,12 +36,9 @@ func init() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 }
 func main() {
-	cpu,_:=os.Create("cpu.out")
-	defer cpu.Close()
-	pprof.StartCPUProfile(cpu)
-	defer pprof.StopCPUProfile()
-	mem,_:=os.Create("mem.out")
-	defer mem.Close()
-	defer pprof.WriteHeapProfile(mem)
+	payment_type:="30 Days xxxxxx"
+	reg := regexp.MustCompile(`([1-9][0-9])( Days)`)
+    reg_find:=reg.FindAllString(payment_type, -1)[0]
+    fmt.Printf("%s: %s\n",payment_type, reg_find[0])
 }
 
