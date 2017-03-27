@@ -244,6 +244,9 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         }
     }    
 }
-    return call_erp_api(gdn_nos)
-    // return "",nil
+    if configuration.Need_erp_api{
+        return call_erp_api(gdn_nos)
+    }
+    
+    return "",nil
 }

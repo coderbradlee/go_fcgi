@@ -9,5 +9,6 @@
     "Redis_url_subflowno":"http://172.18.100.85:8088/subFlowNo",
     "system_no":"2",
     "nfs_path":"/opt/renesola/apollo",
-    "erp_api":"http://172.18.22.240:8080/deliver_goods"
+    "erp_api":"http://172.18.22.240:8080/deliver_goods",
+    "need_erp_api":false
 }

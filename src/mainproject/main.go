@@ -47,6 +47,7 @@ type Configuration struct {
     System_no string
     Nfs_path string
     Erp_api string
+    Need_erp_api bool
 }
 var configuration Configuration
 var db *sql.DB
