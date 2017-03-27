@@ -49,8 +49,8 @@ func get_payment_term_id_chan(payment_term_id_chan chan<- string,payment_term,co
     }else{
         payment_term_id=rand_string(20)
         _, err := db.Exec(
-        `INSERT INTO t_payment_term(payment_term_id,payment_type_id,payment_method_id,sort_no,billing_days,time_node,deadline_date_type,createAt,createBy,dr,data_version) 
-        VALUES (?,?,?,?,?,?,?,?,?,?,?)`,payment_term_id,payment_type_id,payment_method_id,1,billing_days,0,9,time.Now().Format("2006-01-02 15:04:05"),"go_fcgi",0,1)
+        `INSERT INTO t_payment_term(company_id,payment_term_id,payment_type_id,payment_method_id,sort_no,billing_days,time_node,deadline_date_type,createAt,createBy,dr,data_version) 
+        VALUES (?,?,?,?,?,?,?,?,?,?,?)`,company_id,payment_term_id,payment_type_id,payment_method_id,1,billing_days,0,9,time.Now().Format("2006-01-02 15:04:05"),"go_fcgi",0,1)
         if err!=nil{
             payment_term_id_chan<-""
             logger.Error(fmt.Sprintf("insert t_payment_term: %s", err.Error()))
