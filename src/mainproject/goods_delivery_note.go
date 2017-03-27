@@ -21,6 +21,7 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
     for _,deliver_notes:= range origi.Data.Deliver_notes{
         // bill_type_id:=get_bill_type_id(t.Bill_type)
         // bill_type_id:=get_bill_type_id()
+        set_company_time_zone(deliver_notes.Company,sd)
         fmt.Println("insert_goods_delivery_note")
         var ead erp_api_data
         fmt.Println("Bill_type:",deliver_notes.Bill_type)
