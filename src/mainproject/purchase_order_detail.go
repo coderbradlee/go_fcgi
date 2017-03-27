@@ -34,9 +34,9 @@ func insert_purchase_order_detail(t *purchase_order,origi *PoData,sd *shared_dat
             
 		_, err = db.Exec(
         `INSERT INTO t_purchase_order_detail(detail_id,purchase_order_id,
-		item_master_id,unit_price,quantity,uom_id,amount,warranty,
+		item_master_id,unit_price,quantity,uom_id,amount,certificate,warranty,
 		comments,note,createAt,createBy,updateBy,dr,data_version) 
-		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
 		rand_string(20),
 		t.purchase_order_id,
 		item_master_id,
@@ -44,6 +44,7 @@ func insert_purchase_order_detail(t *purchase_order,origi *PoData,sd *shared_dat
 		detail.Quantity,
 		uom_id,
 		detail.Sub_total,
+		detail.Certificate,
 		detail.Warranty,
 		detail.Comments,
 		detail.Note,

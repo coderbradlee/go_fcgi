@@ -15,6 +15,7 @@ import (
 	Quantity int32 `json:"quantity"`
 	Uom string `json:"uom"`
 	Sub_total float64 `json:"sub_total"`
+	Certificate string `json:"certificate"`
 	Warranty int32 `json:"warranty"`
 	Comments string `json:"comments"`
 	Note string `json:"note"`

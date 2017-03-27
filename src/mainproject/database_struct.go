@@ -35,7 +35,7 @@ type purchase_order struct{
 	destination_country_id string/*目的地国家id*/
 	loading_port string/*到货港口*/
 	unloading_port string
-	certificate string/*证书*/
+	
 	po_url string/*采购订单PDF文件地址*/
 	total_quantity int32/*订单总数量*/
 	total_amount float64/*订单总金额*/
