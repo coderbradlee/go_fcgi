@@ -75,7 +75,7 @@ func post_api(content string)(string,error) {
         fmt.Sprintf("json unmarshal reponse from %s :%s", configuration.Erp_api, string(body))
         return error_call_erp_api,err_decode
     }
-    if t.Error_code!="200"{
+    if t.Error_code!=200{
         logger.Error(fmt.Sprintf("reponse !=200"))
         fmt.Println("reponse !=200")
         return error_call_erp_api,errors.New("reponse !=200 from erp_api")
@@ -83,7 +83,7 @@ func post_api(content string)(string,error) {
     return "",nil
 }
 type erp_api_reponse struct{
-    Error_code string `json:"error_code"`
+    Error_code int `json:"error_code"`
     Error_msg string `json:"error_msg"`
     Data erp_api_reponse_data `json:"data"`
     Reply_time string `json:"reply_time"`
