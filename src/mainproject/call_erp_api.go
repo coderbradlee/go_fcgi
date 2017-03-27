@@ -62,6 +62,7 @@ func post_api(content string)(string,error) {
     if err != nil {
         // handle error
         logger.Error(fmt.Sprintf("reponse from %s :%s", configuration.Erp_api, string(body)))
+        fmt.Sprintf("reponse from %s :%s", configuration.Erp_api, string(body))
         return error_call_erp_api,err
     }
     logger.Info(fmt.Sprintf("response from %s :%s", configuration.Erp_api, string(body)))
@@ -71,10 +72,12 @@ func post_api(content string)(string,error) {
     err_decode := json.Unmarshal(body, &t)
     if err_decode!=nil{
         logger.Error(fmt.Sprintf("json unmarshal reponse from %s :%s", configuration.Erp_api, string(body)))
+        fmt.Sprintf("json unmarshal reponse from %s :%s", configuration.Erp_api, string(body))
         return error_call_erp_api,err_decode
     }
     if t.Error_code!="200"{
         logger.Error(fmt.Sprintf("reponse !=200"))
+        fmt.Println("reponse !=200")
         return error_call_erp_api,errors.New("reponse !=200 from erp_api")
     }
     return "",nil
