@@ -31,7 +31,8 @@ func call_erp_api(gdn_nos []erp_api_data)(string,error) {
     // ret.Data=ret_data
     fmt.Printf("len:%d\n",len(ret.Data.Goods_delivery_notes))
     var b []byte
-    if b, err := json.Marshal(ret); err == nil {
+    var err error
+    if b, err = json.Marshal(ret); err == nil {
         // fmt.Println(string(b))
     }else{
         logger.Error("json Marshal")
