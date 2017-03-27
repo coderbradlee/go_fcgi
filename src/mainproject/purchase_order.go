@@ -78,10 +78,9 @@ func insert_to_db(t_purchase_order* purchase_order,t *PoData,sd *shared_data)(st
         `INSERT INTO t_purchase_order(
 	    purchase_order_id,po_no,associated_po_no,po_date,status,company_id,vendor_basic_id,
 		contact_account_id,payment_terms,requested_delivery_date,
-		shipping_method_id,destination_country_id,loading_port,unloading_port,
-		certificate,po_url,total_quantity,total_amount,currency_id,comments,
+		shipping_method_id,destination_country_id,loading_port,unloading_port,po_url,total_quantity,total_amount,currency_id,comments,
 		note,createAt,createBy,updateBy,dr,data_version) 
-		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,t_purchase_order.purchase_order_id,
+		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,t_purchase_order.purchase_order_id,
 			po_no,
 			t_purchase_order.po_no,
 			t_purchase_order.po_date,
@@ -95,7 +94,7 @@ func insert_to_db(t_purchase_order* purchase_order,t *PoData,sd *shared_data)(st
 			t_purchase_order.destination_country_id,
 			t_purchase_order.loading_port,
 			t_purchase_order.unloading_port,
-			t_purchase_order.certificate,
+			// t_purchase_order.certificate,
 			t_purchase_order.po_url,
 			t_purchase_order.total_quantity,
 			t_purchase_order.total_amount,
