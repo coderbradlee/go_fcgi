@@ -53,7 +53,7 @@ type purchase_order_part struct{
 	company_id string/*采购公司id*/
 	vendor_basic_id string/*供应商基本档案id*/
 	contact_account_id string/*联系人帐号id*/
-	payment_terms string/*付款条款*/
+	payment_term_id string/*付款条款*/
 	requested_delivery_date string/*要求发货日期，YYYY-MM-DD*/
 	shipping_method_id string/*运输方式id*/
 	destination_country_id string/*目的地国家id*/
