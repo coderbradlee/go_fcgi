@@ -44,9 +44,12 @@ func init() {
 	// runtime.NumCPU()
 	runtime.GOMAXPROCS(runtime.NumCPU())
 }
+func defer_recover() {
+	fmt.Println("recovered:",recover())
+}
 func main() {
 	defer func () {
-		fmt.Println("recovered:",recover())
+		defer_recover()
 	}()
 	panic("fail")
 }
