@@ -61,6 +61,7 @@ func main() {
     var decoded map[string]interface{}
     json.Unmarshal(encoded, &decoded)
     fmt.Println("data == decoded:",reflect.DeepEqual(data, decoded)) 
+    fmt.Println(data)
     fmt.Println(decoded)
 }
 
