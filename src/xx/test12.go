@@ -59,7 +59,7 @@ func main() {
 			switch{
 			case true:
 				fmt.Println("xx")
-				break loop
+				goto loop
 			}
 		}
 	fmt.Println("out")
