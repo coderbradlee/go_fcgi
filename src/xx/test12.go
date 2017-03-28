@@ -14,6 +14,7 @@ import (
 	// "unsafe"
 	// "os"
 	// "runtime/pprof"
+	"time"
 )
 type Data struct{
 
@@ -36,13 +37,14 @@ func init() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 }
 func main() {
-	ch:=make(chan string)
-	go func () {
-		for m:=range ch{
-			fmt.Println("pp:",m)
-		}
-	}()
-	ch<-"11111"
-	ch<-"22222"
+	ch:=make(chan int)
+	for i:=0;i<3;i++{
+		go func (index int) {
+			ch<-(index+1)*2
+		}(i)
+	}
+	fmt.Println(<-ch)
+	close(ch)
+	time.Sleep(2*time.Second)
 }
 
