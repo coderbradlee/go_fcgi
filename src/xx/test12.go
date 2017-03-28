@@ -58,8 +58,9 @@ func main() {
 	data:=[]string{"1","2","3"}
 	for _,v:=range data{
 		fmt.Println(v)
+		vcopy:=v
 		go func () {
-			fmt.Println(v)
+			fmt.Println(vcopy)
 		}()
 	}
 	time.Sleep(3*time.Second)
