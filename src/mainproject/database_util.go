@@ -18,22 +18,29 @@ func get_purchase_order_id_chan(purchase_order_id_chan chan<- string,po_no strin
 }
 func get_payment_type_id_chan(payment_type_id_chan chan<- string,payment_type,company_id string) {
     var payment_type_id string
-    db.QueryRow(fmt.Sprintf("select payment_type_id from t_payment_type where (short_name like '%%%s%%' or name like '%%%s%%') and company_id='%s' and status=0",payment_type,payment_type,company_id)).Scan(&payment_type_id)
+    err:=db.QueryRow(fmt.Sprintf("select payment_type_id from t_payment_type where (short_name like '%%%s%%' or name like '%%%s%%') and company_id='%s' and status=0",payment_type,payment_type,company_id)).Scan(&payment_type_id)
+    if err!=nil{
+        fmt.Println("payment_type:",err.Error())
+    }
     payment_type_id_chan<-payment_type_id
 }
 func get_payment_method_id_chan(payment_method_id_chan chan<- string,payment_method,company_id string) {
     var payment_method_id string
-    db.QueryRow(fmt.Sprintf("select payment_method_id from t_payment_method where (short_name like '%%%s%%' or name like '%%%s%%') and company_id='%s' and status=0",payment_method,payment_method,company_id)).Scan(&payment_method_id)
+    err:=db.QueryRow(fmt.Sprintf("select payment_method_id from t_payment_method where (short_name like '%%%s%%' or name like '%%%s%%') and company_id='%s' and status=0",payment_method,payment_method,company_id)).Scan(&payment_method_id)
+    if err!=nil{
+        fmt.Println("payment_method:",err.Error())
+    }
     payment_method_id_chan<-payment_method_id
 }
 func get_payment_term_id_chan(payment_term_id_chan chan<- string,payment_term,company_id string) {
     s := strings.Split(payment_term, "|")
     payment_method:=s[0]
     payment_type:=s[1]
+    billing_days:=0
     reg := regexp.MustCompile(`([1-9][0-9])( Days)`)
     reg_find:=reg.FindAllString(payment_type, -1)[0]
     fmt.Printf("%s: %s\n",payment_type, reg_find)
-    billing_days:=reg_find[:2]
+    billing_days=reg_find[:2]
 
     payment_type_id_chan :=make(chan string)
     go get_payment_type_id_chan(payment_type_id_chan,payment_type,company_id)
