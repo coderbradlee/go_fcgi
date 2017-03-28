@@ -61,7 +61,7 @@ func (this *field)print() {
 }
 func main() {
 	
-	data:=[]*field{{"1"},{"2"},{"3"}}
+	data:=[]field{{"1"},{"2"},{"3"}}
 	for _,v:=range data{
 		// vcopy:=v
 		go v.print()
