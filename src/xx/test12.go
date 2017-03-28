@@ -53,15 +53,18 @@ func get() []byte {
 type myLocker struct{
 	sync.Mutex
 }
+type field struct{
+	name string
+}
+func (this *field)print() {
+	fmt.Println(this.name)
+}
 func main() {
 	
-	data:=[]string{"1","2","3"}
+	data:=[]field{{"1"},{"2"},{"3"}}
 	for _,v:=range data{
-		fmt.Println(v)
 		vcopy:=v
-		go func () {
-			fmt.Println(vcopy)
-		}()
+		go vcopy.print()
 	}
 	time.Sleep(3*time.Second)
 }
