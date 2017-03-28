@@ -51,16 +51,17 @@ func get() []byte {
     return raw[:3]
 }
 func main() {
-	path:=[]byte("BBBBBBBBB/AAAA")
-	sep:=bytes.IndexByte(path,'/')
-	dir1:=path[:sep:sep]
-	dir2:=path[sep+1:]
-	fmt.Println("dir1:",string(dir1))
-	fmt.Println("dir2:",string(dir2))
-	dir1=append(dir1,"suffix"...)
-	path=bytes.Join([][]byte{dir1,dir2},[]byte{'/'})
-	fmt.Println("dir1:",string(dir1))
-	fmt.Println("dir2:",string(dir2))
-	fmt.Println("path:",string(path))
+	s1:=[]int{1,2,3}
+	fmt.Println(len(s1),cap(s1),s1)
+	s2:=s1[1:]
+	fmt.Println(len(s2),cap(s2),s2)
+	fmt.Println("--------------")
+	s2[1]=22
+	fmt.Println(len(s1),cap(s1),s1)
+	fmt.Println(len(s2),cap(s2),s2)
+	fmt.Println("--------------")
+	s2=append(s2,4)
+	fmt.Println(len(s1),cap(s1),s1)
+	fmt.Println(len(s2),cap(s2),s2)
 }
 
