@@ -62,9 +62,9 @@ func (this *field)print() {
 func main() {
 	
 	data := []field{ {"one"},{"two"},{"three"} }
-    for _,v := range data {
-        go v.print()
-    }
+    // for _,v := range data {
+    //     go v.print()
+    // }
     for _,v := range data {
     	func () {
     		v.print()
