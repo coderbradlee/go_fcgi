@@ -36,7 +36,7 @@ func get_payment_term_id_chan(payment_term_id_chan chan<- string,payment_term,co
     s := strings.Split(payment_term, "|")
     payment_method:=s[0]
     payment_type:=s[1]
-    billing_days:=0
+    billing_days:="0"
     reg := regexp.MustCompile(`([1-9][0-9])( Days)`)
     reg_find:=reg.FindAllString(payment_type, -1)[0]
     fmt.Printf("%s: %s\n",payment_type, reg_find)
