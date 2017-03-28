@@ -26,6 +26,8 @@ SELECT * from t_goods_delivery_note  order by createAt desc
 SELECT * from t_goods_delivery_note_detail  order by createAt desc
 select * from t_commercial_invoice  order by createAt desc
 select * from t_goods_receipt  order by createAt desc
+select * from t_payment_term  order by createAt desc
+
 
 delete from t_purchase_order where updateBy like '%test_go_fcgi%';
 delete from t_purchase_order_detail where updateBy like '%test_go_fcgi%';

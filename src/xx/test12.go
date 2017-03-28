@@ -36,11 +36,13 @@ func init() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 }
 func main() {
-	payment_type:="30 Days xxxxxx"
-	reg := regexp.MustCompile(`([1-9][0-9])( Days)`)
-    reg_find:=reg.FindAllString(payment_type, -1)[0]
-    fmt.Printf("%s: %s\n",payment_type, reg_find[:2])
-    billing_days:=reg_find[:2]
-	fmt.Printf("%s\n",billing_days)
+	ch:=make(chan string)
+	go func () {
+		for m:=range ch{
+			fmt.Println("pp:",m)
+		}
+	}()
+	ch<-"11111"
+	ch<-"22222"
 }
 
