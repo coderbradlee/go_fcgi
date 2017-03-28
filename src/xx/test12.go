@@ -10,7 +10,7 @@ import (
 	"sync"
 	// "testing"
 	// "math"
-	// "reflect"
+	"reflect"
 	// "unsafe"
 	// "os"
 	// "runtime/pprof"
@@ -46,6 +46,6 @@ func init() {
 func main() {
 	m1:=map[string]string{"one":"1","two":"2"}
 	m2:=map[string]string{"one":"1","two":"2"}
-	fmt.Println("m1==m2:",m1==m2)
+	fmt.Println("m1==m2:",reflect.DeepEqual(m1,m2))
 }
 
