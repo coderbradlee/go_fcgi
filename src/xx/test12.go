@@ -63,8 +63,8 @@ func main() {
 	
 	data:=[]*field{{"1"},{"2"},{"3"}}
 	for _,v:=range data{
-		vcopy:=v
-		go vcopy.print()
+		// vcopy:=v
+		go v.print()
 	}
 	time.Sleep(3*time.Second)
 }
