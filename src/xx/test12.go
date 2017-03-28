@@ -43,7 +43,9 @@ func main() {
 			ch<-(index+1)*2
 		}(i)
 	}
-	fmt.Println(<-ch)
+	fmt.Println("1:",<-ch)
+	fmt.Println("2:",<-ch)
+	fmt.Println("3:",<-ch)
 	close(ch)
 	time.Sleep(2*time.Second)
 }
