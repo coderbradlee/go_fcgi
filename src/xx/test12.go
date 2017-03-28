@@ -61,11 +61,9 @@ func (this *field)print() {
 }
 func main() {
 	
-	data:=[]field{{"1"},{"2"},{"3"}}
-	for _,v:=range data{
-		// vcopy:=v
-		go v.print()
-	}
+	var i int = 1
+    defer fmt.Println("result =>",func() int { return i * 2 }())
+    i++
 	time.Sleep(3*time.Second)
 }
 
