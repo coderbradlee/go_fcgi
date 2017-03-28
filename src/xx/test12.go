@@ -16,6 +16,7 @@ import (
 	// "runtime/pprof"
 	// "time"
 	// "encoding/json"
+	"bytes"
 )
 type Data struct{
 	num int
@@ -50,7 +51,16 @@ func get() []byte {
     return raw[:3]
 }
 func main() {
-	data := get()
-    fmt.Println(len(data),cap(data),&data[0])
+	path:=[]byte("aaa/bbb")
+	sep:=bytes.IndexByte(path,'/')
+	dir1:=path[:sep]
+	dir2:=path[sep+1:]
+	fmt.Println("dir1:",string(dir1))
+	fmt.Println("dir2:",string(dir2))
+	dir=append(dir1,"suffix"...)
+	path=bytes.Join([][]byte{dir1,dir2},[]byte{'/'})
+	fmt.Println("dir1:",string(dir1))
+	fmt.Println("dir2:",string(dir2))
+	fmt.Println("path:",string(path))
 }
 
