@@ -14,7 +14,7 @@ import (
 	// "unsafe"
 	// "os"
 	// "runtime/pprof"
-	// "time"
+	"time"
 	// "encoding/json"
 	// "bytes"
 )
@@ -55,15 +55,14 @@ type myLocker struct{
 }
 func main() {
 	
-		for{
-			switch{
-			case true:
-				fmt.Println("xx")
-				goto loop
-			}
-		}
-		loop:
-	fmt.Println("out")
+	data:=[]string{"1","2","3"}
+	for _,v:=range data{
+		fmt.Println(v)
+		go func () {
+			fmt.Println(v)
+		}()
+	}
+	time.Sleep(3*time.Second)
 }
 
 
