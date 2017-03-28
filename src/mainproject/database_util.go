@@ -18,7 +18,9 @@ func get_purchase_order_id_chan(purchase_order_id_chan chan<- string,po_no strin
 }
 func get_payment_type_id_chan(payment_type_id_chan chan<- string,payment_type,company_id string) {
     var payment_type_id string
-    err:=db.QueryRow(fmt.Sprintf("select payment_type_id from t_payment_type where (short_name like '%%%s%%' or name like '%%%s%%') and company_id='%s' and status=0",payment_type,payment_type,company_id)).Scan(&payment_type_id)
+    sql:=fmt.Sprintf("select payment_type_id from t_payment_type where (short_name like '%%%s%%' or name like '%%%s%%') and company_id='%s' and status=0",payment_type,payment_type,company_id)
+    fmt.Println(sql)
+    err:=db.QueryRow(sql).Scan(&payment_type_id)
     if err!=nil{
         fmt.Println("payment_type:",err.Error())
     }
@@ -26,7 +28,9 @@ func get_payment_type_id_chan(payment_type_id_chan chan<- string,payment_type,co
 }
 func get_payment_method_id_chan(payment_method_id_chan chan<- string,payment_method,company_id string) {
     var payment_method_id string
-    err:=db.QueryRow(fmt.Sprintf("select payment_method_id from t_payment_method where (short_name like '%%%s%%' or name like '%%%s%%') and company_id='%s' and status=0",payment_method,payment_method,company_id)).Scan(&payment_method_id)
+    sql:=fmt.Sprintf("select payment_method_id from t_payment_method where (short_name like '%%%s%%' or name like '%%%s%%') and company_id='%s' and status=0",payment_method,payment_method,company_id)
+    fmt.Println(sql)
+    err:=db.QueryRow(sql).Scan(&payment_method_id)
     if err!=nil{
         fmt.Println("payment_method:",err.Error())
     }
