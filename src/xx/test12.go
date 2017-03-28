@@ -60,9 +60,9 @@ type data struct {
     name string
 }
 func main() {
-	m := map[string]data {"x":{"one"}}
-    m["x"].name = "two" //error
-	time.Sleep(3*time.Second)
+	s := []data one
+    s[0].name = "two" //ok
+    fmt.Println(s)    //prints: [{two}]
 }
 
 
