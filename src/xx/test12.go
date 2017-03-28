@@ -37,20 +37,15 @@ func init() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 }
 func main() {
-	ch:=make(chan int)
-	done:=make(chan struct{})
-	for i:=0;i<10;i++{
+	var ch=chan int
+
+	for i:=0;i<3;i++{
 		go func (index int) {
-			select{
-				case ch<-(index+1)*2:fmt.Println("index:",index)
-				case <-done:fmt.Println("done:",index)
-			}	
+			ch<-(index+1)*2	
 		}(i)
 	}
 	fmt.Println("1:",<-ch)
-	// fmt.Println("2:",<-ch)
-	// fmt.Println("3:",<-ch)
-	close(done)
+
 	time.Sleep(2*time.Second)
 }
 
