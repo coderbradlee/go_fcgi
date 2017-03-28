@@ -39,7 +39,7 @@ func init() {
 func main() {
 	ch:=make(chan int)
 	done:=make(chan struct{})
-	for i:=0;i<3;i++{
+	for i:=0;i<10;i++{
 		go func (index int) {
 			select{
 				case ch<-(index+1)*2:fmt.Println("index:",index)
