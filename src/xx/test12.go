@@ -17,10 +17,17 @@ import (
 	"time"
 )
 type Data struct{
-
+	num int
+	key *string
+	items map[string]bool
 }
-func (*Data)String() string{
-	return ""
+func (this *Data)pmethod() {
+	this.num=7
+}
+func (this Data)vmethod() {
+	this.num=8
+	*this.key="v.key"
+	this.items["vmethod"]=true
 }
 var lock sync.Mutex
 func test(){
@@ -37,15 +44,12 @@ func init() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 }
 func main() {
-	var ch chan int
-
-	for i:=0;i<3;i++{
-		go func (index int) {
-			ch<-(index+1)*2	
-		}(i)
-	}
-	fmt.Println("1:",<-ch)
-
-	time.Sleep(2*time.Second)
+	key:="key1"
+	d:=Data{1,&key,make(map[string]bool)}
+	fmt.Printf("num=%v key=%v items=%v\n",d.num,*d.key,d.items)
+	d.pmethod()
+	fmt.Printf("num=%v key=%v items=%v\n",d.num,*d.key,d.items)
+	d.vmethod()
+	fmt.Printf("num=%v key=%v items=%v\n",d.num,*d.key,d.items)
 }
 
