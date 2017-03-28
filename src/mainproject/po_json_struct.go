@@ -69,7 +69,7 @@ type Response_json_data struct{
 	Receive_at string `json:"receive_at"`
 }
 type Response_json struct{
-	Error_code string `json:"error_code"`
+	Error_code int `json:"error_code"`
 	Error_msg string `json:"error_msg"`
 	Data Response_json_data	 `json:"data"`
 	Reply_time string `json:"reply_time"`		  
