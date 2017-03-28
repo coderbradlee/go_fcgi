@@ -37,7 +37,7 @@ func init() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 }
 func main() {
-	var ch=chan int
+	var ch chan int
 
 	for i:=0;i<3;i++{
 		go func (index int) {
