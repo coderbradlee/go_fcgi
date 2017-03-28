@@ -52,7 +52,7 @@ func po_submit_Handler (w http.ResponseWriter, r *http.Request) {
 	        ret=`{"error_code":`+error_json_decode+`,"error_msg":"`+err_decode.Error()+`","data":{"bill_no":"","bill_type":"Purchase Order","receive_by":"",   "company":"","receive_at":""},"reply_time":"`+time.Now().Format("2006-01-02 15:04:05")+`"}`
 	        fmt.Fprint(w,ret )
 	        // log.Printf("Started %s %s for %s:%s\nresponse:%s", r.Method, r.URL.Path, addr,body,ret)
-	        log_str:=fmt.Sprintf("Started %s %s for %s:%s response:%s", r.Method, r.URL.Path, addr,body,ret)
+	        log_str:=fmt.Sprintf("Started %s %s for %s:%s \nresponse:%s", r.Method, r.URL.Path, addr,body,ret)
 	        logger.Info(log_str)
 	        return;
 	    }
@@ -70,7 +70,7 @@ func po_submit_Handler (w http.ResponseWriter, r *http.Request) {
 	    // }
 	    fmt.Fprint(w,ret )
 	    // log.Printf("Started %s %s for %s:%s\nresponse:%s", r.Method, r.URL.Path, addr,body,ret)
-	    log_str:=fmt.Sprintf("Started %s %s for %s:%s response:%s", r.Method, r.URL.Path, addr,body,ret)
+	    log_str:=fmt.Sprintf("Started %s %s for %s:%s \nresponse:%s", r.Method, r.URL.Path, addr,body,ret)
         logger.Info(log_str)
         // pprof.StopCPUProfile()
 	}
