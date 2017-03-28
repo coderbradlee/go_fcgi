@@ -2,7 +2,7 @@ package main
 //#go:generate ls -l
 import (
 	"fmt"
-	"regexp"
+	// "regexp"
 	// "os"
 	// "bufio"
 	"runtime"
