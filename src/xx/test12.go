@@ -55,6 +55,6 @@ type myLocker struct{
 }
 func main() {
 	var l myLocker
-	l.lock()
+	l.Lock()
 }
 
