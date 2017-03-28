@@ -14,7 +14,7 @@ import (
 	// "unsafe"
 	// "os"
 	// "runtime/pprof"
-	"time"
+	// "time"
 	// "encoding/json"
 	// "bytes"
 )
@@ -60,9 +60,9 @@ type data struct {
     name string
 }
 func main() {
-	m := map[string]data {"x":{"one"}}
-    m["x"].name = "two" //error
-                        //prints: [{two}]
+	s := []data
+    s[0].name = "two" //ok
+    fmt.Println(s)
 }
 
 
