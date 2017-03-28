@@ -54,7 +54,7 @@ type myLocker struct{
 	sync.Mutex
 }
 func main() {
-	loop:
+	// loop:
 		for{
 			switch{
 			case true:
