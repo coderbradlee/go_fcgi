@@ -44,12 +44,8 @@ func init() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 }
 func main() {
-	key:="key1"
-	d:=Data{1,&key,make(map[string]bool)}
-	fmt.Printf("num=%v key=%v items=%v\n",d.num,*d.key,d.items)
-	d.pmethod()
-	fmt.Printf("num=%v key=%v items=%v\n",d.num,*d.key,d.items)
-	d.vmethod()
-	fmt.Printf("num=%v key=%v items=%v\n",d.num,*d.key,d.items)
+	m1:=map[string]string{"one":"1","two":"2"}
+	m2:=map[string]string{"one":"1","two":"2"}
+	fmt.Println("m1==m2:",m1==m2)
 }
 

@@ -56,7 +56,6 @@ func post_api(content string)(string,error) {
         return error_call_erp_api,err
     }
     logger.Info(fmt.Sprintf("post %s :%s\n", configuration.Erp_api, content))
-    fmt.Println("555555555555")
     body, err := ioutil.ReadAll(resp.Body)
     defer resp.Body.Close()
     if err != nil {
