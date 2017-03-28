@@ -60,16 +60,12 @@ func (this *field)print() {
 	fmt.Println(this.name)
 }
 func main() {
-	
-	data := []field{ {"one"},{"two"},{"three"} }
-    // for _,v := range data {
-    //     go v.print()
-    // }
-    for _,v := range data {
-    	func () {
-    		v.print()
-    	}()
-    }
+	var data interface{}="great"
+	if data,ok:=data.(int);ok{
+		fmt.Println("ok:",data)
+	}else{
+		fmt.Println("no:",data)
+	}
 	time.Sleep(3*time.Second)
 }
 
