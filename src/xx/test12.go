@@ -51,7 +51,7 @@ func get() []byte {
     return raw[:3]
 }
 func main() {
-	path:=[]byte("aaa/bbb")
+	path:=[]byte("aaaaaaaaaaaa/bbb")
 	sep:=bytes.IndexByte(path,'/')
 	dir1:=path[:sep]
 	dir2:=path[sep+1:]
