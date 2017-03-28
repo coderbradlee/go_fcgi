@@ -38,15 +38,19 @@ func init() {
 }
 func main() {
 	ch:=make(chan int)
+	done:=make(chan struct{})
 	for i:=0;i<3;i++{
 		go func (index int) {
-			ch<-(index+1)*2
+			select{
+				case ch<-(index+1)*2:fmt.Println("index:",index)
+				case <-done:fmt.Println("done:",index)
+			}	
 		}(i)
 	}
 	fmt.Println("1:",<-ch)
-	fmt.Println("2:",<-ch)
-	fmt.Println("3:",<-ch)
-	close(ch)
+	// fmt.Println("2:",<-ch)
+	// fmt.Println("3:",<-ch)
+	close(done)
 	time.Sleep(2*time.Second)
 }
 
