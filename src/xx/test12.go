@@ -56,16 +56,12 @@ type myLocker struct{
 type field struct{
 	name string
 }
-func (this *field)print() {
-	fmt.Println(this.name)
+type data struct {  
+    name string
 }
 func main() {
-	var data interface{}="great"
-	if data,ok:=data.(int);ok{
-		fmt.Println("ok:",data)
-	}else{
-		fmt.Println("no:",data)
-	}
+	m := map[string]data {"x":{"one"}}
+    m["x"].name = "two" //error
 	time.Sleep(3*time.Second)
 }
 
