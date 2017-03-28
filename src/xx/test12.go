@@ -50,18 +50,11 @@ func get() []byte {
     fmt.Println(len(raw),cap(raw),&raw[0]) //prints: 10000 10000 <byte_addr_x>
     return raw[:3]
 }
+type myLocker struct{
+	sync.Mutex
+}
 func main() {
-	s1:=[]int{1,2,3}
-	fmt.Println(len(s1),cap(s1),s1)
-	s2:=s1[1:]
-	fmt.Println(len(s2),cap(s2),s2)
-	fmt.Println("--------------")
-	s2[1]=22
-	fmt.Println(len(s1),cap(s1),s1)
-	fmt.Println(len(s2),cap(s2),s2)
-	fmt.Println("--------------")
-	s2=append(s2,4)
-	fmt.Println(len(s1),cap(s1),s1)
-	fmt.Println(len(s2),cap(s2),s2)
+	var l myLocker
+	l.lock()
 }
 
