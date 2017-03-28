@@ -54,12 +54,12 @@ type myLocker struct{
 	sync.Mutex
 }
 func main() {
-	// loop:
+	loop:
 		for{
 			switch{
 			case true:
 				fmt.Println("xx")
-				return
+				break loop
 			}
 		}
 	fmt.Println("out")
