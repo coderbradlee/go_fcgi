@@ -68,7 +68,7 @@ func main() {
 		// 	fmt.Println("content:",err.Error())
 		// }
 		// fmt.Println("content:",content)
-		if _, err := io.Copy(os.Stdout, in); err != nil {
+		if _, err := io.Copy(out, in); err != nil {
 			fmt.Println("copy error:",err.Error())
 		}
 		// cmd := exec.Command("grep", params[0],content)
