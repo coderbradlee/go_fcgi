@@ -59,12 +59,30 @@ func main() {
 	}
 	p:=[]string{"note"}
 	fp:=bind(f,p)
-	// fp2:=bind(f,"select")
-	fp(strings.NewReader("cat"),os.Stdout)
 
-	// pp:=pipe(fp,fp2)
-	// pp(strings.NewReader("cat"),os.Stdout)//cat note|grep select
-	                      //
+	f2:=func(in io.Reader,out io.Writer,params []string) {
+		var command string
+		if b, err := ioutil.ReadAll(out); err == nil {
+		    command=string(b)
+		}
+		var content string
+		if b, err := ioutil.ReadAll(in); err == nil {
+		    content=string(b)
+		}
+		cmd := exec.Command(command, params[0],content)
+		cmd.Stdout =out
+		err := cmd.Start()
+		if err != nil {
+			fmt.Println("cmd error!")
+		}
+	}
+	p2:=[]string{"select"}
+	fp2:=bind(f2,p2)
+	// fp(strings.NewReader("cat"),os.Stdout)
+
+	pp:=pipe(fp,fp2)
+	pp(strings.NewReader("cat"),strings.NewReader("grep"))
+	//cat note|grep select
 	fmt.Println("done!")
 }
 
