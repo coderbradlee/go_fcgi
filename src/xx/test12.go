@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	// "regexp"
-	// "os"
+	"os"
 	// "bufio"
 	"runtime"
 	"io"
@@ -39,7 +39,7 @@ func pipe(app1 func(in io.Reader,out io.Writer),app2 func(in io.Reader,out io.Wr
 		go func() {
 			defer r.Close()
 			app2(r,out)
-		}
+		}()
 	}
 }
 func main() {
