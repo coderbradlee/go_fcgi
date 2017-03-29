@@ -61,7 +61,8 @@ type data struct {
 }
 func main() {
 	doit:=func()interface{} {
-		result:=&struct{}{}
+		var ret *struct{}=nil
+		result=&struct{}{}
 		return result
 	}
 	if res:=doit();res!=nil{
