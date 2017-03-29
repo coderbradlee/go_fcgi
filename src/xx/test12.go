@@ -60,9 +60,11 @@ type data struct {
     name string
 }
 func main() {
-	s := make([]data,1)
-    s[0].name = "two" //ok
-    fmt.Println(s)
+	m:=map[string]data{"x":{"1"}}
+	r:=m["x"]
+	r.name="2"
+	m["x"]=r
+	fmt.Println(m)
 }
 
 
