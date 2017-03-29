@@ -47,7 +47,7 @@ func post_api(content string)(string,error) {
     ///////////////////post
     fmt.Println("content:",content)
     c := &http.Client{  
-    Timeout: 5 * time.Second}
+    Timeout: 10 * time.Second}
     resp, err := c.Post(configuration.Erp_api,
         "application/json",strings.NewReader(content))
     
