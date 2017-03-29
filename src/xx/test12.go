@@ -45,7 +45,7 @@ func pipe(app1 func(in io.Reader,out io.Writer),app2 func(in io.Reader,out io.Wr
 	}
 }
 func main() {
-	f:=func(in io.Reader,out io.Writer,params []string) {
+	func1:=func(in io.Reader,out io.Writer,params []string) {
 		var command string
 		if b, err := ioutil.ReadAll(in); err == nil {
 		    command=string(b)
@@ -57,29 +57,29 @@ func main() {
 			fmt.Println("cmd error!")
 		}
 	}
-	p:=[]string{"test"}
-	fp:=bind(f,p)
+	params1:=[]string{"test"}
+	bind1:=bind(func1,params1)
 
-	f2:=func(in io.Reader,out io.Writer,params []string) {
-		var content string
-		if b, err := ioutil.ReadAll(in); err == nil {
-		    content=string(b)
-		}else{
-			fmt.Println("content:",err.Error())
-		}
-		fmt.Println("content:",content)
-		cmd := exec.Command("grep", params[0],content)
+	func2:=func(in io.Reader,out io.Writer,params []string) {
+		// var content string
+		// if b, err := ioutil.ReadAll(in); err == nil {
+		//     content=string(b)
+		// }else{
+		// 	fmt.Println("content:",err.Error())
+		// }
+		// fmt.Println("content:",content)
+		cmd := exec.Command("grep", params[0],in)
 		cmd.Stdout =out
 		err := cmd.Start()
 		if err != nil {
 			fmt.Println("cmd error!")
 		}
 	}
-	p2:=[]string{"select"}
-	fp2:=bind(f2,p2)
+	params2:=[]string{"select"}
+	bind2:=bind(func2,params2)
 	// fp(strings.NewReader("cat"),os.Stdout)
 	fmt.Println("--------------------")
-	pp:=pipe(fp,fp2)
+	pp:=pipe(bind1,bind2)
 	pp(strings.NewReader("cat"),os.Stdout)
 	//cat note|grep select
 	time.Sleep(2*time.Second)
