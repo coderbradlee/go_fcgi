@@ -61,11 +61,11 @@ func main() {
 	fp:=bind(f,p)
 
 	f2:=func(in io.Reader,out io.Writer,params []string) {
-		
 		var content string
 		if b, err := ioutil.ReadAll(in); err == nil {
 		    content=string(b)
 		}
+		fmt.Println("content:",content)
 		cmd := exec.Command("grep", params[0],content)
 		cmd.Stdout =out
 		err := cmd.Start()
