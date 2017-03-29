@@ -62,8 +62,8 @@ type data struct {
 func main() {
 	doit:=func()interface{} {
 		var ret *struct{}=nil
-		result=&struct{}{}
-		return result
+		ret=&struct{}{}
+		return ret
 	}
 	if res:=doit();res!=nil{
 		fmt.Println("xx:",res)
