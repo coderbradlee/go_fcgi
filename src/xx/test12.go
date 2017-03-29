@@ -80,7 +80,7 @@ func main() {
 	}
 	params2:=[]string{"select"}
 	bind2:=bind(func2,params2)
-	fp(strings.NewReader("cat"),os.Stdout)
+	bind1(strings.NewReader("cat"),os.Stdout)
 	fmt.Println("--------------------")
 	pp:=pipe(bind1,bind2)
 	pp(strings.NewReader("cat"),os.Stdout)
