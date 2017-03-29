@@ -68,12 +68,15 @@ func main() {
 		// 	fmt.Println("content:",err.Error())
 		// }
 		// fmt.Println("content:",content)
-		cmd := exec.Command("grep", params[0],in)
-		cmd.Stdout =out
-		err := cmd.Start()
-		if err != nil {
-			fmt.Println("cmd error!")
+		if _, err := io.Copy(os.Stdout, in); err != nil {
+			fmt.Println("copy error:",err.Error())
 		}
+		// cmd := exec.Command("grep", params[0],content)
+		// cmd.Stdout =out
+		// err := cmd.Start()
+		// if err != nil {
+		// 	fmt.Println("cmd error!")
+		// }
 	}
 	params2:=[]string{"select"}
 	bind2:=bind(func2,params2)
