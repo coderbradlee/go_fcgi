@@ -41,7 +41,7 @@ func pipe(app1 func(in io.Reader,out io.Writer),app2 func(in io.Reader,out io.Wr
 		go func() {
 			defer r.Close()
 			app2(r,out)
-			ch<-1
+			close(ch)
 		}()
 		app1(in,w)
 		<-ch
