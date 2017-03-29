@@ -42,8 +42,7 @@ func pipe(app1 func(in io.Reader,out io.Writer),app2 func(in io.Reader,out io.Wr
 			app2(r,out)
 		}()
 		app1(in,w)
-		
-	
+	}
 }
 func main() {
 	func1:=func(in io.Reader,out io.Writer,params []string) {
