@@ -77,8 +77,8 @@ func main() {
 	}
 	p2:=[]string{"select"}
 	fp2:=bind(f2,p2)
-	// fp(strings.NewReader("cat"),os.Stdout)
-
+	fp(strings.NewReader("cat"),os.Stdout)
+	fmt.Println("--------------------")
 	pp:=pipe(fp,fp2)
 	pp(strings.NewReader("cat"),os.Stdout)
 	//cat note|grep select
