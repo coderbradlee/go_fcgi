@@ -60,9 +60,13 @@ type data struct {
     name string
 }
 func main() {
-	m:=map[string]*data{"x":{"1"}}
-	m["z"].name="2"
-	fmt.Println(m)
+	doit:=func()interface{} {
+		result:=&struct{}{}
+		return result
+	}
+	if res:=doit();res!=nil{
+		fmt.Println("xx:",res)
+	}
 }
 
 
