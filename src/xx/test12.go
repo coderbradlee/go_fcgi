@@ -48,7 +48,7 @@ func pipe(app1 func(in io.Reader,out io.Writer),app2 func(in io.Reader,out io.Wr
 			// exit<-1
 		}()
 		go func(){
-			defer wg.Done(s)
+			defer wg.Done()
 			app1(in,w)
 		}()	// <-exit
 		wg.Wait()
