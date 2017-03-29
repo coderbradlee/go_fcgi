@@ -64,7 +64,8 @@ func main() {
 		var content string
 		if b, err := ioutil.ReadAll(in); err == nil {
 		    content=string(b)
-		    fmt.Println("content:",err.Error())
+		}else{
+			fmt.Println("content:",err.Error())
 		}
 		fmt.Println("content:",content)
 		cmd := exec.Command("grep", params[0],content)
