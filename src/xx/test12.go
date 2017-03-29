@@ -61,15 +61,12 @@ func main() {
 	fp:=bind(f,p)
 
 	f2:=func(in io.Reader,out io.Writer,params []string) {
-		var command string
-		if b, err := ioutil.ReadAll(out); err == nil {
-		    command=string(b)
-		}
+		
 		var content string
 		if b, err := ioutil.ReadAll(in); err == nil {
 		    content=string(b)
 		}
-		cmd := exec.Command(command, params[0],content)
+		cmd := exec.Command("grep", params[0],content)
 		cmd.Stdout =out
 		err := cmd.Start()
 		if err != nil {
@@ -81,7 +78,7 @@ func main() {
 	// fp(strings.NewReader("cat"),os.Stdout)
 
 	pp:=pipe(fp,fp2)
-	pp(strings.NewReader("cat"),strings.NewReader("grep"))
+	pp(strings.NewReader("cat"),os.Stdout)
 	//cat note|grep select
 	fmt.Println("done!")
 }
