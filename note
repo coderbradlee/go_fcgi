@@ -1,3 +1,5 @@
+2017.03.29
+发布到测试环境，修改erp wfe ip地址
 2017.03.27tag writet_payment_term2017.03.27
 1、修改json格式，将po的其中cb字段移动到detail里面
 2、payment_terms拆分为payment_type|payment_method，翻译为id后插入到t_payment_term表中

@@ -66,6 +66,7 @@ func main() {
 	}()
 	for !done{
 		fmt.Println("xx")
+		runtime.Gosched()
 	}
 	fmt.Println("done!")
 }
