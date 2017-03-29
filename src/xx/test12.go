@@ -96,11 +96,11 @@ func main() {
 		go func() {
 		    defer pr.Close()
 		    if _, err := io.Copy(os.Stdout, pr); err != nil {
-		        log.Fatal(err)
+		        fmt.Println(err)
 		    }
 		}()
 		if err := cmd.Run(); err != nil {
-		    log.Fatal(err)
+		    fmt.Println(err)
 		}
 	}
 
