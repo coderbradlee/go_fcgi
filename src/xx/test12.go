@@ -49,7 +49,7 @@ func main() {
 		if b, err := ioutil.ReadAll(in); err == nil {
 		    command=string(b)
 		}
-		cmd := exec.Command(command, params)
+		cmd := exec.Command(command, params[0])
 		cmd.Stdout =out
 		err := cmd.Start()
 		if err != nil {
