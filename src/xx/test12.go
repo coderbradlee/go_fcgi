@@ -36,12 +36,15 @@ func bind(f func(in io.Reader,out io.Writer,p []string),params []string)func(in 
 func pipe(app1 func(in io.Reader,out io.Writer),app2 func(in io.Reader,out io.Writer))func(in io.Reader,out io.Writer) {
 	return func(in io.Reader,out io.Writer) {
 		r,w:=io.Pipe()
+		ch:=make(chan int)
 		defer w.Close()
 		go func() {
 			defer r.Close()
 			app2(r,out)
+			ch<-1
 		}()
 		app1(in,w)
+		<-ch
 	}
 }
 func main() {
@@ -87,21 +90,21 @@ func main() {
 	//cat note|grep select
 	
 	{
-		pr, pw := io.Pipe()
-		defer pw.Close()
+		// pr, pw := io.Pipe()
+		// defer pw.Close()
 		 
-		cmd := exec.Command("cat", "test")
-		cmd.Stdout = pw
+		// cmd := exec.Command("cat", "test")
+		// cmd.Stdout = pw
 		 
-		go func() {
-		    defer pr.Close()
-		    if _, err := io.Copy(os.Stdout, pr); err != nil {
-		        fmt.Println(err)
-		    }
-		}()
-		if err := cmd.Run(); err != nil {
-		    fmt.Println(err)
-		}
+		// go func() {
+		//     defer pr.Close()
+		//     if _, err := io.Copy(os.Stdout, pr); err != nil {
+		//         fmt.Println(err)
+		//     }
+		// }()
+		// if err := cmd.Run(); err != nil {
+		//     fmt.Println(err)
+		// }
 	}
 
 
