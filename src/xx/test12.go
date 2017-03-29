@@ -60,7 +60,7 @@ type data struct {
     name string
 }
 func main() {
-	s := make([]data)
+	s := make([]data,1)
     s[0].name = "two" //ok
     fmt.Println(s)
 }
