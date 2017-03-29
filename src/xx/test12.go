@@ -42,10 +42,11 @@ func pipe(app1 func(in io.Reader,out io.Writer),app2 func(in io.Reader,out io.Wr
 			defer r.Close()
 			app2(r,out)
 			// close(ch)
-			exit<-1
+			// exit<-1
 		}()
 		app1(in,w)
-		<-exit
+		// <-exit
+		time.Sleep(2*time.Second)
 	}
 }
 func main() {
