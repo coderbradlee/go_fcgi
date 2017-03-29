@@ -51,7 +51,7 @@ func main() {
 		    command=string(b)
 		}
 		cmd := exec.Command(command, params[0])
-		cmd.Stdout =out
+		out=cmd.Stdout
 		err := cmd.Start()
 		if err != nil {
 			fmt.Println("cmd error!")
