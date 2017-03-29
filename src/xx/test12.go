@@ -15,7 +15,7 @@ import (
 	// "unsafe"
 	// "os"
 	// "runtime/pprof"
-	// "time"
+	"time"
 	// "encoding/json"
 	// "bytes"
 	"os/exec"
@@ -80,6 +80,7 @@ func main() {
 	pp:=pipe(fp,fp2)
 	pp(strings.NewReader("cat"),os.Stdout)
 	//cat note|grep select
+	time.Sleep(2*time.Second)
 	fmt.Println("done!")
 }
 
