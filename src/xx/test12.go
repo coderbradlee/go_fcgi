@@ -37,11 +37,11 @@ func pipe(app1 func(in io.Reader,out io.Writer),app2 func(in io.Reader,out io.Wr
 	return func(in io.Reader,out io.Writer) {
 		r,w:=io.Pipe()
 		defer w.Close()
-		app1(in,w)
 		go func() {
 			defer r.Close()
 			app2(r,out)
 		}()
+		app1(in,w)
 	}
 }
 func main() {
