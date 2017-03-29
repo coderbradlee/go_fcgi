@@ -42,7 +42,8 @@ func pipe(app1 func(in io.Reader,out io.Writer),app2 func(in io.Reader,out io.Wr
 			app2(r,out)
 		}()
 		app1(in,w)
-	}
+		
+	
 }
 func main() {
 	func1:=func(in io.Reader,out io.Writer,params []string) {
@@ -80,11 +81,31 @@ func main() {
 	}
 	params2:=[]string{"select"}
 	bind2:=bind(func2,params2)
-	bind1(strings.NewReader("cat"),os.Stdout)
+	// bind1(strings.NewReader("cat"),os.Stdout)
 	fmt.Println("--------------------")
 	pp:=pipe(bind1,bind2)
 	pp(strings.NewReader("cat"),os.Stdout)
 	//cat note|grep select
+	
+	{
+		pr, pw := io.Pipe()
+		defer pw.Close()
+		 
+		cmd := exec.Command("cat", "test")
+		cmd.Stdout = pw
+		 
+		go func() {
+		    defer pr.Close()
+		    if _, err := io.Copy(os.Stdout, pr); err != nil {
+		        log.Fatal(err)
+		    }
+		}()
+		if err := cmd.Run(); err != nil {
+		    log.Fatal(err)
+		}
+	}
+
+
 	time.Sleep(2*time.Second)
 	fmt.Println("done!")
 }
