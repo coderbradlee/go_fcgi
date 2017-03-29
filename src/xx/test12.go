@@ -35,23 +35,17 @@ func bind(f func(in io.Reader,out io.Writer,p []string),params []string)func(in 
 }
 func pipe(app1 func(in io.Reader,out io.Writer),app2 func(in io.Reader,out io.Writer))func(in io.Reader,out io.Writer) {
 	return func(in io.Reader,out io.Writer) {
-		wg := sync.WaitGroup{}
-		wg.Add(2)
+		
 		r,w:=io.Pipe()
 		// exit:=make(chan int)
 		defer w.Close()
 		go func() {
 			defer r.Close()
-			defer wg.Done()
 			app2(r,out)
 			// close(ch)
 			// exit<-1
 		}()
-		go func(){
-			defer wg.Done()
-			app1(in,w)
-		}()	// <-exit
-		wg.Wait()
+		app1(in,w)
 	}
 }
 func main() {
