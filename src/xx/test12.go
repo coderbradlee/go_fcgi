@@ -34,7 +34,7 @@ func bind(f func(in io.Reader,out io.Writer,p []string),params []string)func(in 
 }
 func pipe(app1 func(in io.Reader,out io.Writer),app2 func(in io.Reader,out io.Writer))func(in io.Reader,out io.Writer) {
 	return func(in io.Reader,out io.Writer) {
-		r,w:=os.Pipe()
+		r,w:=io.Pipe()
 		defer w.Close()
 		app1(in,w)
 		go func() {
