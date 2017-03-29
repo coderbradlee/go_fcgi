@@ -57,7 +57,7 @@ func main() {
 			fmt.Println("cmd error!")
 		}
 	}
-	fp:=bind(f,"note")
+	fp:=bind(f,{"note"})
 	// fp2:=bind(f,"select")
 	fp(strings.NewReader("cat"),os.Stdout)
 
