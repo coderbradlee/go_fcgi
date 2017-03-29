@@ -98,10 +98,13 @@ func (m *Martini) RunOnAddr(addr string) {
 	// TODO: Should probably be implemented using a new instance of http.Server in place of
 	// calling http.ListenAndServer directly, so that it could be stored in the martini struct for later use.
 	// This would also allow to improve testing when a custom host and port are passed.
-
+	srv := &http.Server{  
+	    ReadTimeout: 5 * time.Second,
+	    WriteTimeout: 10 * time.Second,
+	}
 	logger := m.Injector.Get(reflect.TypeOf(m.logger)).Interface().(*log.Logger)
 	logger.Printf("listening on %s (%s)\n", addr, Env)
-	logger.Fatalln(http.ListenAndServe(addr, m))
+	logger.Fatalln(srv.ListenAndServe(addr, m))
 }
 
 // Run the http server. Listening on os.GetEnv("PORT") or 3000 by default.
