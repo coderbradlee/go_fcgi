@@ -60,10 +60,8 @@ type data struct {
     name string
 }
 func main() {
-	m:=map[string]data{"x":{"1"}}
-	r:=m["x"]
-	r.name="2"
-	m["x"]=r
+	m:=map[string]*data{"x":{"1"}}
+	m["z"].name="2"
 	fmt.Println(m)
 }
 
