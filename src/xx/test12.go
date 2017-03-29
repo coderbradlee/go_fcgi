@@ -36,7 +36,7 @@ func bind(f func(in io.Reader,out io.Writer,p []string),params []string)func(in 
 func pipe(app1 func(in io.Reader,out io.Writer),app2 func(in io.Reader,out io.Writer))func(in io.Reader,out io.Writer) {
 	return func(in io.Reader,out io.Writer) {
 		r,w:=io.Pipe()
-		exit:=make(chan int)
+		// exit:=make(chan int)
 		defer w.Close()
 		go func() {
 			defer r.Close()
