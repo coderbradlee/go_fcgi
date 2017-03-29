@@ -57,7 +57,7 @@ func main() {
 			fmt.Println("cmd error!")
 		}
 	}
-	p:=[]string{"note"}
+	p:=[]string{"test"}
 	fp:=bind(f,p)
 
 	f2:=func(in io.Reader,out io.Writer,params []string) {
