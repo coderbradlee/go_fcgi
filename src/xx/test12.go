@@ -18,6 +18,7 @@ import (
 	// "time"
 	// "encoding/json"
 	// "bytes"
+	"os/exec"
 )
 
 var lock sync.Mutex
@@ -50,7 +51,7 @@ func main() {
 		}
 		cmd := exec.Command(command, params)
 		cmd.Stdout =out
-		err = cmd.Start()
+		err := cmd.Start()
 		if err != nil {
 			fmt.Println("cmd error!")
 		}
