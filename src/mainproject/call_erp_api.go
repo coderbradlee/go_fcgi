@@ -46,7 +46,9 @@ func call_erp_api(gdn_nos []erp_api_data)(string,error) {
 func post_api(content string)(string,error) {
     ///////////////////post
     fmt.Println("content:",content)
-    resp, err := http.Post(configuration.Erp_api,
+    c := &http.Client{  
+    Timeout: 5 * time.Second}
+    resp, err := c.Post(configuration.Erp_api,
         "application/json",strings.NewReader(content))
     
     if err != nil {
