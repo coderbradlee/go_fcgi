@@ -30,28 +30,27 @@ func init() {
 	// runtime.NumCPU()
 	runtime.GOMAXPROCS(runtime.NumCPU())
 }
-type Integer int
-func (a Integer)Less(b Integer)bool {
-	return a<b
-}
-func (a *Integer)Add(b Integer) {
-	*a+=b
-}
-type LessAdder interface{
-	Less(b Integer)bool
-	Add(b Integer)
-}
+var  counter int=0
+func Count(ch chan int) {
 
-func main() {
-	var a Integer=1
-	var b LessAdder=&a
-	b.Add(1)
-	fmt.Println(a)
-	switch b.(type){
-		case LessAdder:fmt.Println("int")
-		default:fmt.Println("default")
+	counter++
+	fmt.Println(counter)
+	ch<-counter
+}
+func Parse(ch <-chan int) {
+	for v:=range ch{
+		fmt.Println("parse:",v)
 	}
-	
+}
+func main() {
+	ch:=make(chan int)
+	for{
+		select{
+		case ch<-0:
+		case ch<-1:
+		}
+		Parse(ch)
+	}
 }
 
 
