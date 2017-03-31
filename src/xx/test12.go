@@ -45,7 +45,7 @@ func Parse(ch <-chan int) {
 }
 func main() {
 	ch:=make(chan int,2)
-	for{
+	//for{
 		select{
 		case ch<-0:fmt.Println("0")
 		case ch<-1:fmt.Println("1")
@@ -53,7 +53,7 @@ func main() {
 		go Parse(ch)
 		// <-ch
 		close(ch)
-	}
+	//}
 }
 
 
