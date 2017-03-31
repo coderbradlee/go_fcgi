@@ -46,7 +46,7 @@ func Parse(ch <-chan int) {
 type Vector []float64
 func (v *Vector)doSome(i,n int,u Vector,c chan<- int) {
 	for ;i<n;i++{
-		v[i]+=u[i]
+		(*v)[i]+=u[i]
 	}
 	c<-1
 }
