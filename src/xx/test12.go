@@ -43,19 +43,26 @@ func Parse(ch <-chan int) {
 	}
 	// <-ch
 }
+type Vector []float64
+func (v *Vector)doSome(i,n int,u Vector,c chan<- int) {
+	for ;i<n;i++{
+		v[i]+=u[i]
+	}
+	c<-1
+}
+func (v *Vector)doAll(u Vector) {
+	c:=make(chan int,4)
+	for i:=0;i<4;i++{
+		go v.doSome(i*len(v)/4,(i+1)*len(v)/4+1,u,c)
+	}
+	for i:=range c{
+		fmt.Println(i)
+	}
+}
 func main() {
-	ch:=make(chan int,2)
-	//for{
-		select{
-		case ch<-0:fmt.Println("0")
-		case ch<-1:fmt.Println("1")
-		}
-		go Parse(ch)
-		// <-ch
-		close(ch)
-
-	//}
-	time.Sleep(2*time.Second)
+	var Vector v{1,2,3,4,5,6,7,8,9,10}
+	var Vector u{10,9,8,7,6,5,4,3,2,1}
+	v.doAll()
 }
 
 
