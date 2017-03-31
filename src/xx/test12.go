@@ -55,9 +55,10 @@ func (v *Vector)doAll(u Vector) {
 	for i:=0;i<4;i++{
 		go v.doSome(i*len(*v)/4,(i+1)*len(*v)/4,u,c)
 	}
-	for i:=range c{
-		fmt.Println(i)
+	for i:=0;i<4;i++{
+		fmt.Println(<-c)
 	}
+
 }
 func main() {
 	var v =Vector{1,2,3,4,5,6,7,8,9,10}
