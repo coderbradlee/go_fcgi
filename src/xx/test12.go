@@ -53,7 +53,7 @@ func (v *Vector)doSome(i,n int,u Vector,c chan<- int) {
 func (v *Vector)doAll(u Vector) {
 	c:=make(chan int,4)
 	for i:=0;i<4;i++{
-		go v.doSome(i*len(v)/4,(i+1)*len(v)/4+1,u,c)
+		go v.doSome(i*len(*v)/4,(i+1)*len(*v)/4+1,u,c)
 	}
 	for i:=range c{
 		fmt.Println(i)
