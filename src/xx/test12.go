@@ -52,6 +52,7 @@ func main() {
 		}
 		Parse(ch)
 		// <-ch
+		close(ch)
 	}
 }
 
