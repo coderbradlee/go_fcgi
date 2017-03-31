@@ -49,7 +49,8 @@ func main() {
 		case ch<-0:fmt.Println("0")
 		case ch<-1:fmt.Println("1")
 		}
-		Parse(ch)
+		// Parse(ch)
+		<-ch
 	}
 }
 
