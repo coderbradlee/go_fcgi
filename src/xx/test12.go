@@ -53,7 +53,9 @@ func main() {
 		go Parse(ch)
 		// <-ch
 		close(ch)
+
 	//}
+	time.Sleep(2*time.Second)
 }
 
 
