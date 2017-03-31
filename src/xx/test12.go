@@ -60,8 +60,8 @@ func (v *Vector)doAll(u Vector) {
 	}
 }
 func main() {
-	var v Vector={1,2,3,4,5,6,7,8,9,10}
-	var u Vector={10,9,8,7,6,5,4,3,2,1}
+	var v =Vector{1,2,3,4,5,6,7,8,9,10}
+	var u =Vector{10,9,8,7,6,5,4,3,2,1}
 	v.doAll()
 }
 
