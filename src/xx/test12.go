@@ -38,9 +38,10 @@ func Count(ch chan int) {
 	ch<-counter
 }
 func Parse(ch <-chan int) {
-	for v:=range ch{
-		fmt.Println("parse:",v)
-	}
+	// for v:=range ch{
+	// 	fmt.Println("parse:",v)
+	// }
+	<-ch
 }
 func main() {
 	ch:=make(chan int,1)
