@@ -77,12 +77,13 @@ func readFully(conn net.Conn) ([]byte, error) {
 }
 func main() {
 	service := "www.qq.com:80"
-	conn, err := net.DialTimeout("tcp", service, 3*time.Second)
+	tcpAddr,err:=net.ResolverTCPAddr("tcp4",service)
 	checkError(err)
-	_, err = conn.Write([]byte("HEAD / HTTP/1.0\r\n\r\n"))
+	conn,err:=net.DialTCP("tcp",nil,tcpAddr)
 	checkError(err)
-	result, err := readFully(conn)
+	_,err:=conn.Write([]byte("HEAD / HTTP/1.0\r\n\r\n"))
 	checkError(err)
-	fmt.Println("ret:", string(result))
-	os.Exit(0)
+	result,err:=ioutil.ReadAll(conn)
+	checkError(err)
+	fmt.Println(string(result))
 }
