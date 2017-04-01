@@ -13,7 +13,7 @@ import (
 	// "math"
 	// "reflect"
 	// "unsafe"
-	// "os"
+	"os"
 	// "runtime/pprof"
 	// "time"
 	// "encoding/json"
@@ -22,6 +22,8 @@ import (
 	// "strings"
 	// "syscall"
 	// "log"
+	"net"
+
 )
 
 var lock sync.Mutex
@@ -30,42 +32,59 @@ func init() {
 	// runtime.NumCPU()
 	runtime.GOMAXPROCS(runtime.NumCPU())
 }
-var  counter int=0
-func Count(ch chan int) {
-
-	counter++
-	fmt.Println(counter)
-	ch<-counter
+var once sync.Once
+var a string
+func setup() {
+	a="x.x.x.x:8088"
 }
-func Parse(ch <-chan int) {
-	for v:=range ch{
-		fmt.Println("parse:",v)
-	}
-	// <-ch
+func do() {
+	once.Do(setup)
+	fmt.Println(a)
 }
-type Vector []float64
-func (v *Vector)doSome(i,n int,u Vector,c chan<- int) {
-	for ;i<n;i++{
-		(*v)[i]+=u[i]
+func checkError(err error) {
+	if err!=nil{
+		fmt.Println(err)
 	}
-	c<-1
 }
-func (v *Vector)doAll(u Vector) {
-	c:=make(chan int,4)
-	for i:=0;i<4;i++{
-		go v.doSome(i*len(*v)/4,(i+1)*len(*v)/4,u,c)
+func checkSum(msg []byte)uint16 {
+	sum:=0
+	for n:=1;n<len(msg)-1;n+=2{
+		sum+=int(msg[n])*256+int(msg[n+1])
 	}
-	for i:=0;i<4;i++{
-		fmt.Println(<-c)
-	}
-
+	sum=(sum>>16)+(sum&0xffff)
+	sum+=(sum>>16)
+	var answer uint16=uint16(^sum)
+	return answer
 }
 func main() {
-	var v =Vector{1,2,3,4,5,6,7,8,9,10}
-	var u =Vector{10,9,8,7,6,5,4,3,2,1}
-	v.doAll(u)
-	fmt.Println(v)
-	fmt.Println(u)
+	service:="www.baidu.com"
+	conn,err:=net.Dial("ip4:icmp",service)
+	checkError(err)
+	var msg [512]byte
+	msg[0]=8
+	msg[1]=0
+	msg[2]=0
+	msg[3]=0
+	msg[4]=0
+	msg[5]=13
+	msg[6]=0
+	msg[7]=37
+	len:=8
+	check:=checkSum(msg[0:len])
+	msg[2]=byte(check>>8)
+	msg[3]=byte(check&255)
+	_,err=conn.Write(msg[0:len])
+	checkError(err)
+	_,err=conn.Read(msg[0:])
+	checkError(err)
+	fmt.Println("got response")
+	if msg[5]==13{
+		fmt.Println("13 ok")
+	}
+	if msg[7]==37{
+		fmt.Println("37 ok")
+	}
+	os.Exit(0)
 }
 
 
