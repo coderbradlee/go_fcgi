@@ -56,37 +56,31 @@ func checkSum(msg []byte)uint16 {
 	var answer uint16=uint16(^sum)
 	return answer
 }
+func readFully(conn net.Conn)([]byte,error) {
+	defer conn.Close()
+	result:=bytes.NewBuffer(nil)
+	var buf [512]byte
+	for{
+		n,err:=conn.Read(buf[0:])
+		result.Write(buf[0:n])
+		if err!=nil{
+			if err==io.EOF{
+				break
+			}
+			return nil,err
+		}
+	}
+	return result.Bytes(),nil
+}
 func main() {
-	service:="127.0.0.1"
-	conn,err:=net.Dial("ip4:icmp",service)
+	service:="www.baidu.com"
+	conn,err:=net.Dial("tcp",service)
 	checkError(err)
-	var msg [512]byte
-	msg[0]=8
-	msg[1]=0
-	msg[2]=0
-	msg[3]=0
-	msg[4]=0
-	msg[5]=13
-	msg[6]=0
-	msg[7]=37
-	len:=8
-	check:=checkSum(msg[0:len])
-	msg[2]=byte(check>>8)
-	msg[3]=byte(check&255)
-	_,err=conn.Write(msg[0:len])
+	_,err=conn.Write([]byte("HEAD / HTTP/1.0\r\n\r\n"))
 	checkError(err)
-	_,err=conn.Read(msg[0:])
+	result,err:=readFully(conn)
 	checkError(err)
-	fmt.Println("got response")
-	if msg[5]==13{
-		fmt.Println("13 ok")
-	}
-	if msg[7]==37{
-		fmt.Println("37 ok")
-	}
-	for i:=0;i<8;i++{
-		fmt.Printf("%d %d\n",i,msg[i])
-	}
+	fmt.Println(string(result))
 	os.Exit(0)
 }
 
