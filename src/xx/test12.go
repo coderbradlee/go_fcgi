@@ -84,6 +84,9 @@ func main() {
 	if msg[7]==37{
 		fmt.Println("37 ok")
 	}
+	for i:=0;i<8;i++{
+		fmt.Printf("%d %d\n",i,msg[i])
+	}
 	os.Exit(0)
 }
 
