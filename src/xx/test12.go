@@ -7,16 +7,16 @@ import (
 	// "os"
 	// "bufio"
 	"io"
+	//	"io/ioutil"
 	"runtime"
-	// "io/ioutil"
 	"sync"
 	// "testing"
 	// "math"
 	// "reflect"
 	// "unsafe"
-	"os"
+	//	"os"
 	// "runtime/pprof"
-	"time"
+	//	"time"
 	// "encoding/json"
 	"bytes"
 	// "os/exec"
@@ -24,6 +24,7 @@ import (
 	// "syscall"
 	// "log"
 	"net"
+	"net/http"
 )
 
 var lock sync.Mutex
@@ -76,14 +77,23 @@ func readFully(conn net.Conn) ([]byte, error) {
 	return result.Bytes(), nil
 }
 func main() {
-	service := "www.qq.com:80"
-	tcpAddr,err:=net.ResolverTCPAddr("tcp4",service)
-	checkError(err)
-	conn,err:=net.DialTCP("tcp",nil,tcpAddr)
-	checkError(err)
-	_,err:=conn.Write([]byte("HEAD / HTTP/1.0\r\n\r\n"))
-	checkError(err)
-	result,err:=ioutil.ReadAll(conn)
-	checkError(err)
-	fmt.Println(string(result))
+	//	service := "www.qq.com:80"
+	//	tcpAddr, err := net.ResolveTCPAddr("tcp4", service)
+	//	checkError(err)
+	//	conn, err := net.DialTCP("tcp", nil, tcpAddr)
+	//	checkError(err)
+	//	fmt.Println(tcpAddr)
+	//	_, err = conn.Write([]byte("HEAD / HTTP/1.0\r\n\r\n"))
+	//	checkError(err)
+	//	result, err := ioutil.ReadAll(conn)
+	//	checkError(err)
+	//	fmt.Println(string(result))
+	//	///////////////////////////////
+	//	domain := "www.qq.com"
+	//	addrs, err := net.LookupHost(domain)
+	//	//	fmt.Println(cname)
+	//	fmt.Println(addrs)
+	//	fmt.Println(err)
+	resp, _ := http.Head("https://www.baidu.com/")
+	fmt.Println(resp)
 }
