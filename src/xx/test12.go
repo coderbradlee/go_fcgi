@@ -57,7 +57,7 @@ func checkSum(msg []byte)uint16 {
 	return answer
 }
 func main() {
-	service:="www.baidu.com"
+	service:="127.0.0.1"
 	conn,err:=net.Dial("ip4:icmp",service)
 	checkError(err)
 	var msg [512]byte
