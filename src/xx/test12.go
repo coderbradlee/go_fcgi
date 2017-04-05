@@ -76,6 +76,23 @@ func readFully(conn net.Conn) ([]byte, error) {
 	}
 	return result.Bytes(), nil
 }
+type customTransport struct{
+	Transport http.RoundTripper
+}
+func (t *customTransport)transport()http.RoundTripper {
+	if t.Transport!=nil{
+		return t.Transport
+	}
+	return http.DefaultTransport
+}
+func (t *customTransport)RoundTrip(req *http.Request)(*http.Response,error) {
+	fmt.Println("RoundTrip")
+	return t.transport().RoundTrip(req)
+}
+func (t *customTransport)Client()*http.Client {
+	return &http.Client{Transport:t}
+}
+
 func main() {
 	//	service := "www.qq.com:80"
 	//	tcpAddr, err := net.ResolveTCPAddr("tcp4", service)
@@ -94,6 +111,10 @@ func main() {
 	//	//	fmt.Println(cname)
 	//	fmt.Println(addrs)
 	//	fmt.Println(err)
-	resp, _ := http.Head("https://www.baidu.com/")
-	fmt.Println(resp)
+	// resp, _ := http.Head("https://www.baidu.com/")
+	// fmt.Println(resp)
+	t:=&customTransport{}
+	c:=t.Client()
+	_,err:=c.Get("https://www.google.co.kr/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#newwindow=1&q=golang+LookupHost&*")
+	fmt.Println(err)
 }
