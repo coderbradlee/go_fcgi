@@ -185,6 +185,7 @@ func startMartini() {
     // m.Post("/po/deliver_goods",logPanics(poHandler))
     m.Post("/po/submit",logPanics(po_submit_Handler))
     m.Post("/po/deliver_goods",logPanics(deliver_goods_Handler))
+    m.Post("/po/check",logPanics(po_check_Handler))
     //m.Post("/pdf",pdfHandler)
     // m.Post("/pdf",logPanics(pdfHandler))
     m.Post("/pdf",logPanics(pdfHandler2))

@@ -23,8 +23,8 @@ import (
 	// "strings"
 	// "syscall"
 	// "log"
-	"net"
-	"net/http"
+	// "net"
+	// "net/http"
 	"errors"
 	"net/rpc"
 )
@@ -56,12 +56,22 @@ func (t *Arith)Divide(args *Args,quo *Quotient)error {
 	return nil
 }
 func main() {
-	arith:=new(Arith)
-	rpc.Register(arith)
-	rpc.HandleHTTP()
-	l,e:=net.Listen("tcp",":1234")
-	if e!=nil{
-		fmt.Println("listen error:",e)
+	client,err:=rpc.DialHTTP("tcp","127.0.0.1:1234")
+	if err!=nil{
+		fmt.Println("dialing:",err)
 	}
-	http.Serve(l,nil)
+	args:=&Args{17,8}
+	var reply int
+	err=client.Call("Arith.Multiply",args,&reply)
+	if err!=nil{
+		fmt.Println("arith error:",err)
+	}
+	fmt.Printf("%d*%d=%d\n",args.A,args.B,reply)
+	quotient:=new(Quotient)
+	divCall:=client.Go("Arith.Divide",args,&quotient,nil)
+	<-divCall.Done
+	fmt.Println(err)
+	fmt.Println(quotient.Quo)
+	fmt.Println(quotient.Rem)
+	// fmt.Println(r.Reply)
 }

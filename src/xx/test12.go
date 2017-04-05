@@ -17,7 +17,7 @@ import (
 	//	"os"
 	// "runtime/pprof"
 	//	"time"
-	// "encoding/json"
+	"encoding/json"
 	"bytes"
 	// "os/exec"
 	// "strings"
@@ -113,8 +113,28 @@ func main() {
 	//	fmt.Println(err)
 	// resp, _ := http.Head("https://www.baidu.com/")
 	// fmt.Println(resp)
-	t:=&customTransport{}
-	c:=t.Client()
-	_,err:=c.Get("https://www.baidu.com/")
-	fmt.Println(err)
+	// t:=&customTransport{}
+	// c:=t.Client()
+	// _,err:=c.Get("https://www.baidu.com/")
+	// fmt.Println(err)
+	b := []byte(`{
+	"Title": "Go语言编程",
+	"Authors": ["XuShiwei", "HughLv", "Pandaman", "GuaguaSong", "HanTuo", "BertYuan",
+	"XuDaoli"],
+	"Publisher": "ituring.com.cn",
+	"IsPublished": true,
+	"Price": 9.99,
+	"Sales": 1000000
+	}`)
+	var r interface{}
+	err := json.Unmarshal(b, &r)
+	if err!=nil{
+		fmt.Println(err)
+	}
+	if gobook,ok:=r.(map[string]interface{});ok{
+		fmt.Println("map[string]interface{}")
+		for k,v:=range gobook{
+			fmt.Println(k,":",v)
+		}
+	}
 }
