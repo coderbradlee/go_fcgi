@@ -46,6 +46,7 @@ func call_erp_api(gdn_nos []erp_api_data)(string,error) {
 func post_api(content string)(string,error) {
     ///////////////////post
     fmt.Println("content:",content)
+    logger.Info(fmt.Sprintf("post to erp_api: %s", content))
     c := &http.Client{  
     Timeout: 10 * time.Second}
     resp, err := c.Post(configuration.Erp_api,

@@ -54,6 +54,7 @@ const(
     error_insert_commercial_invoice="-156"
     error_get_flow_no_po="-157"
     error_get_flow_no_gdn="-158"
+    //调用范总wfe接口时出错
     error_call_erp_api="-159"
 )
 type check_struct struct{

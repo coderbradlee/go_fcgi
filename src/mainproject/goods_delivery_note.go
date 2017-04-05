@@ -165,6 +165,7 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         // if err!=nil{
         //     return "",err
         // }
+        sd.goods_receipt_no=deliver_notes.Gdn_no
         goods_delivery_note_no:=deliver_notes.Gdn_no
         sd.goods_delivery_note_id=rand_string(20)
         _, err = db.Exec(
