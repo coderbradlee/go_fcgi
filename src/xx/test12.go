@@ -115,6 +115,6 @@ func main() {
 	// fmt.Println(resp)
 	t:=&customTransport{}
 	c:=t.Client()
-	_,err:=c.Get("https://www.google.co.kr/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#newwindow=1&q=golang+LookupHost&*")
+	_,err:=c.Get("https://www.baidu.com/")
 	fmt.Println(err)
 }
