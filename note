@@ -1,3 +1,25 @@
+2017.04.06 打tag beforeshrinkcode2017.4.6
+
+po/submit 接口写三个表：t_purchase_order、t_purchase_order_detail、t_payment_term，其中t_payment_term表在调用get_payment_term_id_chan时，如果表里不存在payment_term则插入
+po/deliver_goods 接口写：t_goods_delivery_note、t_goods_delivery_note_detail、t_commercial_invoice、t_goods_receipt
+
+SELECT * from t_purchase_order order by createAt desc
+SELECT * from t_purchase_order_detail  order by createAt desc
+SELECT * from t_goods_delivery_note  order by createAt desc
+SELECT * from t_goods_delivery_note_detail  order by createAt desc
+select * from t_commercial_invoice  order by createAt desc
+select * from t_goods_receipt  order by createAt desc
+select * from t_payment_term  order by createAt desc
+
+delete from t_purchase_order;
+delete from t_purchase_order_detail;
+delete from t_goods_delivery_note;
+delete from t_goods_delivery_note_detail;
+delete from t_commercial_invoice;
+delete from t_goods_receipt;
+增加接口：po/check，用于scm首先调用此接口判断条件是否满足
+方法调用与原来相同，去掉插入数据库的部分，插入t_payment_term的部分保留
+
 2017.03.29
 发布到测试环境，修改erp wfe ip地址
 2017.03.27tag writet_payment_term2017.03.27

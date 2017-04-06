@@ -86,7 +86,7 @@ func check_purchase_order_detail(t *purchase_order,origi *PoData,sd *shared_data
         	return error_purchase_order_detail_item_master_id,errors.New("purchase_order.detail item_master_id is missed")
         }
             
-		_, err = db.Exec()
+		err = nil
 	}
 	if err!=nil{
 		return error_insert_purchase_order_detail,err
