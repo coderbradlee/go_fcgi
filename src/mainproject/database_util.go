@@ -294,8 +294,8 @@ func get_item_master_id_chan(item_master_id_chan chan<- string,item_no,product_n
     db.QueryRow("select item_basic_id from t_item_basic where item_no=?",item_no).Scan(&item_basic_id)
 
 	var item_master_id string
-    db.QueryRow("select item_master_id from t_item_master where item_basic_id=? and product_code=? and product_name=?",item_basic_id,product_code,product_name).Scan(&item_master_id)
-
+    // db.QueryRow("select item_master_id from t_item_master where item_basic_id=? and product_code=? and product_name=?",item_basic_id,product_code,product_name).Scan(&item_master_id)
+    db.QueryRow("select item_master_id from t_item_master where item_basic_id=?",item_basic_id).Scan(&item_master_id)
     item_master_id_chan<-item_master_id
 }
 func get_uom_id_chan(uom_id_chan chan<- string,uom string){

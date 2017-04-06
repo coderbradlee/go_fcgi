@@ -17,7 +17,7 @@ import (
 	//	"os"
 	// "runtime/pprof"
 	//	"time"
-	"encoding/json"
+	// "encoding/json"
 	"bytes"
 	// "os/exec"
 	// "strings"
@@ -25,6 +25,7 @@ import (
 	// "log"
 	"net"
 	"net/http"
+	"reflect"
 )
 
 var lock sync.Mutex
@@ -92,8 +93,15 @@ func (t *customTransport)RoundTrip(req *http.Request)(*http.Response,error) {
 func (t *customTransport)Client()*http.Client {
 	return &http.Client{Transport:t}
 }
-
+func testreflect() {
+	var x float64=3.4
+	v:=reflect.ValueOf(x)
+	fmt.Println("type:",v.Type())
+	fmt.Println("kind:",v.Kind())
+	fmt.Println("value:",v.Float())
+}
 func main() {
+	testreflect()
 	//	service := "www.qq.com:80"
 	//	tcpAddr, err := net.ResolveTCPAddr("tcp4", service)
 	//	checkError(err)
@@ -117,24 +125,24 @@ func main() {
 	// c:=t.Client()
 	// _,err:=c.Get("https://www.baidu.com/")
 	// fmt.Println(err)
-	b := []byte(`{
-	"Title": "Go语言编程",
-	"Authors": ["XuShiwei", "HughLv", "Pandaman", "GuaguaSong", "HanTuo", "BertYuan",
-	"XuDaoli"],
-	"Publisher": "ituring.com.cn",
-	"IsPublished": true,
-	"Price": 9.99,
-	"Sales": 1000000
-	}`)
-	var r interface{}
-	err := json.Unmarshal(b, &r)
-	if err!=nil{
-		fmt.Println(err)
-	}
-	if gobook,ok:=r.(map[string]interface{});ok{
-		fmt.Println("map[string]interface{}")
-		for k,v:=range gobook{
-			fmt.Println(k,":",v)
-		}
-	}
+	// b := []byte(`{
+	// "Title": "Go语言编程",
+	// "Authors": ["XuShiwei", "HughLv", "Pandaman", "GuaguaSong", "HanTuo", "BertYuan",
+	// "XuDaoli"],
+	// "Publisher": "ituring.com.cn",
+	// "IsPublished": true,
+	// "Price": 9.99,
+	// "Sales": 1000000
+	// }`)
+	// var r interface{}
+	// err := json.Unmarshal(b, &r)
+	// if err!=nil{
+	// 	fmt.Println(err)
+	// }
+	// if gobook,ok:=r.(map[string]interface{});ok{
+	// 	fmt.Println("map[string]interface{}")
+	// 	for k,v:=range gobook{
+	// 		fmt.Println(k,":",v)
+	// 	}
+	// }
 }
