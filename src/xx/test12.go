@@ -95,13 +95,39 @@ func (t *customTransport)Client()*http.Client {
 }
 func testreflect() {
 	var x float64=3.4
-	v:=reflect.ValueOf(x)
-	fmt.Println("type:",v.Type())
-	fmt.Println("kind:",v.Kind())
-	fmt.Println("value:",v.Float())
+	// v:=reflect.ValueOf(x)
+	// fmt.Println("type:",v.Type())
+	// fmt.Println("kind:",v.Kind())
+	// fmt.Println("value:",v.Float())
+	// var y float64=4.1
+	// v.Set(y)
+	// fmt.Println(v.CanSet())
+	p:=reflect.ValueOf(&x)
+	fmt.Println(p.Type())
+	fmt.Println(p.CanSet())
+	v:=p.Elem()
+	fmt.Println(v.CanSet())
+	v.SetFloat(7.1)
+	fmt.Println(v.Interface())
+	fmt.Println(x)
+}
+func testreflect1() {
+	type T struct{
+		A int
+		B string
+	}
+	t:=T{203,"mh203"}
+	s:=reflect.ValueOf(&t).Elem()
+	typeoft:=s.Type()
+	for i:=0;i<s.NumField();i++{
+		f:=s.Field(i)
+		fmt.Printf("%d:%s %s=%v\n",i,typeoft.Field(i).Name,f.Type(),f.Interface())
+	}
+
 }
 func main() {
-	testreflect()
+	// testreflect()
+	testreflect1()
 	//	service := "www.qq.com:80"
 	//	tcpAddr, err := net.ResolveTCPAddr("tcp4", service)
 	//	checkError(err)

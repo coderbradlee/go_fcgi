@@ -37,6 +37,11 @@ delete from t_goods_receipt;
   GET http://172.18.100.85:8088/subFlowNo/2/FR/PO/000196/GDN
   2是erp系统号，000196是对应的po的号
 
+GET http://172.18.100.85:8088/subFlowNo/2/FR/PO/001235/GDN 
+  2是erp系统号，000196是对应的po的号
+redis命令为hincrby {flow_no_sub_2} FR_PO_001235_GDN -1
+
+
 3、json更改
 
 
