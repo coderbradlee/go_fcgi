@@ -139,9 +139,10 @@ func player(name string,b chan *ball) {
 }
 func test_pingpong() {
 	table:=make(chan *ball)
-	table<-new(ball)
+	
 	go player("ping",table)
 	go player("pong",table)
+	table<-new(ball)
 	time.Sleep(1*time.Second)
 	<-table
 }
