@@ -129,11 +129,13 @@ type ball struct{
 	hit int
 }
 func player(name string,b chan *ball) {
-	xx:=<-b
-	fmt.Println(name,xx.hit)
-	xx.hit++
-	time.Sleep(100*time.Millisecond)
-	b<-xx
+	for{
+		xx:=<-b
+		fmt.Println(name,xx.hit)
+		xx.hit++
+		time.Sleep(100*time.Millisecond)
+		b<-xx
+	}	
 }
 func test_pingpong() {
 	table:=make(chan *ball)
