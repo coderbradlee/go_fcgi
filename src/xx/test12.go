@@ -141,9 +141,11 @@ func test_pingpong() {
 	table:=make(chan *ball)
 	table<-new(ball)
 	fmt.Println("toss a ball")
+	<-table
+	fmt.Println("throw a ball")
 	go player("ping",table)
 	go player("pong",table)
-	
+	table<-new(ball)
 	time.Sleep(1*time.Second)
 	<-table
 }
