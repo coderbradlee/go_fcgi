@@ -147,7 +147,7 @@ func test_pingpong() {
 	go player("pong",table)
 	table<-new(ball)
 	time.Sleep(1*time.Second)
-	<-table
+	// <-table
 }
 func main() {
 	test_pingpong()
