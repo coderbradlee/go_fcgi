@@ -133,7 +133,7 @@ func player(name string,b chan *ball) {
 		xx:=<-b
 		fmt.Println(name,xx.hit)
 		xx.hit++
-		time.Sleep(100*time.Millisecond)
+		// time.Sleep(100*time.Millisecond)
 		b<-xx
 	}	
 }
@@ -146,7 +146,7 @@ func test_pingpong() {
 	go player("ping",table)
 	go player("pong",table)
 	table<-new(ball)
-	time.Sleep(1*time.Second)
+	// time.Sleep(1*time.Second)
 	<-table
 }
 func main() {
