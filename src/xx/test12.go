@@ -16,7 +16,7 @@ import (
 	// "unsafe"
 	//	"os"
 	// "runtime/pprof"
-	//	"time"
+		"time"
 	// "encoding/json"
 	"bytes"
 	// "os/exec"
@@ -125,9 +125,28 @@ func testreflect1() {
 	}
 
 }
+type ball struct{
+	hit int
+}
+func player(name string,b chan *ball) {
+	xx:=<-b
+	fmt.Println(name,xx.hit)
+	xx.hit++
+	time.Sleep(100*time.Millisecond)
+	b<-xx
+}
+func test_pingpong() {
+	table:=make(chan *ball)
+	table<-new(ball)
+	go player("ping",table)
+	go player("pong",table)
+	time.Sleep(1*time.Second)
+	<-table
+}
 func main() {
+	test_pingpong()
 	// testreflect()
-	testreflect1()
+	// testreflect1()
 	//	service := "www.qq.com:80"
 	//	tcpAddr, err := net.ResolveTCPAddr("tcp4", service)
 	//	checkError(err)
