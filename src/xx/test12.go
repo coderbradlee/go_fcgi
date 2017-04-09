@@ -140,6 +140,7 @@ func player(name string,b chan *ball) {
 func test_pingpong() {
 	table:=make(chan *ball)
 	table<-new(ball)
+	fmt.Println("toss a ball")
 	go player("ping",table)
 	go player("pong",table)
 	
