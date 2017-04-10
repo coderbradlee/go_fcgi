@@ -118,21 +118,21 @@ type mergedSub struct{
 	subs []Subscription
 }
 func (s *mergedSub)Updates()<-chan Item {
-	// chans:=[]make(chan Item)
+	chans:=make(chan Item)
 	for i:=0;i<len(s.subs);{
 		select {
 			case ret:=<-s.subs[i].Updates():
-				retchan:=make(chan Item)
-				retchan<-ret
-				return retchan
+				chans<-ret
+				return chans
 			default:
 				continue
 		}
 	}
+	return chans
 }
 func (s *mergedSub)Close()error {
 	for sub:=range s.subs{
-		sub.Close()
+		s.sub.Close()
 	}
 	return nil
 }
