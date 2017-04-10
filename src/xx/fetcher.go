@@ -9,7 +9,7 @@ type Fetcher interface{
 	Fetch()(items []Item,next time.Time,err error)
 }
 func Fetch(domain string)Fetcher {
-	return fet{domain}
+	return &fet{domain}
 }
 type fet struct{
 	domain string
