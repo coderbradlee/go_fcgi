@@ -120,14 +120,17 @@ type mergedSub struct{
 func (s *mergedSub)Updates()<-chan Item {
 	chans:=make(chan Item)
 	for{
-		select {
-			case ret:=<-s.subs[i].Updates():
-				chans<-ret
-				return chans
-			default:
-				continue
+		for i:=0;i<len(s.subs);{
+			select {
+				case ret:=<-s.subs[i].Updates():
+					chans<-ret
+					return chans
+				default:
+					continue
+			}
 		}
 	}
+	
 	return chans
 }
 func (s *mergedSub)Close()error {
