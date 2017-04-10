@@ -122,7 +122,9 @@ func (s *mergedSub)Updates()<-chan Item {
 	for i:=0;i<len(s.subs);{
 		select {
 			case ret:=<-s.subs[i].Updates():
-				return ret
+				retchan:=make(chan Item)
+				retchan<-ret
+				return retchan
 			default:
 				continue
 		}
