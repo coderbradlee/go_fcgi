@@ -63,11 +63,11 @@ func (s *sub)loop() {
 	for{
 		select{
 			case cl:=<-s.closing:
-				fmt.Println(cl)
+				// fmt.Println(cl)
 				close(s.updates)
 				return
 			default:
-				fmt.Println("default")
+				// fmt.Println("default")
 		}
 		fmt.Println("after select")
 		items,next,err:=s.fetcher.Fetch()
@@ -77,7 +77,7 @@ func (s *sub)loop() {
 			continue
 		}
 		for _,item:=range items{
-			fmt.Println("item input s.updates")
+			// fmt.Println("item input s.updates")
 			s.updates<-item
 		}
 		if now:=time.Now();next.After(now){
