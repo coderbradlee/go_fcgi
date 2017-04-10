@@ -59,16 +59,17 @@ func (s *sub)loop() {
 	// 		time.Sleep(a)
 	// 	}
 	// }
-	items,next,err:=s.fetcher.Fetch()
-	if err!=nil{
-		s.err=err
-		time.Sleep(10*time.Second)
-	}
+	
 	for{
 		select{
 			case <-s.closing:
 				close(s.updates)
 				return
+		}
+		items,next,err:=s.fetcher.Fetch()
+		if err!=nil{
+			s.err=err
+			time.Sleep(10*time.Second)
 		}
 		for _,item:=range items{
 			s.updates<-item
