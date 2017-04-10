@@ -70,8 +70,10 @@ func (s *sub)loop() {
 		if err!=nil{
 			s.err=err
 			time.Sleep(10*time.Second)
+			continue
 		}
 		for _,item:=range items{
+			fmt.Println("item input s.updates")
 			s.updates<-item
 		}
 		if now:=time.Now();next.After(now){
