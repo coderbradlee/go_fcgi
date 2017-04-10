@@ -62,7 +62,7 @@ func (s *sub)loop() {
 	
 	for{
 		select{
-			case cl:=<-s.closing:
+			case <-s.closing:
 				// fmt.Println(cl)
 				close(s.updates)
 				return
