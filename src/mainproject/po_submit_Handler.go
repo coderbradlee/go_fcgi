@@ -140,7 +140,7 @@ func deal_with_database(t *PoData,sd *shared_data,contact_account_id string)(str
 	fmt.Println(t.Data.Purchase_order.Currency)
 	t_purchase_order.comments=t.Data.Purchase_order.Comments
 	t_purchase_order.note=t.Data.Purchase_order.Note
-	t_purchase_order.createAt=time.Now().Add(sd.company_time_zone).Format("2006-01-02 15:04:05")
+	t_purchase_order.createAt=time.Now().Format("2006-01-02 15:04:05")
 	// fmt.Println(t_purchase_order.createAt)
 	// t_purchase_order.createBy="go_fcgi"
 	fmt.Println(t.Data.Purchase_order.Created_by)

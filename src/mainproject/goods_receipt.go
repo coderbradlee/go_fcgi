@@ -60,7 +60,7 @@ func insert_goods_receipt(
         approvedBy,//approved_by,
         request_time,//approved_at,
         d.Note,//note
-        time.Now().Add(sd.company_time_zone).Format("2006-01-02 15:04:05"),
+        time.Now().Format("2006-01-02 15:04:05"),
         createBy,
         "go_fcgi",
         0,

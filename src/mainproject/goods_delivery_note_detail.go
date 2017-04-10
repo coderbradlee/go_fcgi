@@ -31,7 +31,7 @@ func insert_goods_delivery_note_detail(detail *Deliver_notes_detail,item_master_
         currency_id,
         detail.Sub_total,
         note,
-        time.Now().Add(sd.company_time_zone).Format("2006-01-02 15:04:05"),
+        time.Now().Format("2006-01-02 15:04:05"),
         createBy,
         "go_fcgi",
         0,

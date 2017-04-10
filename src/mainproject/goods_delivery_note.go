@@ -214,7 +214,7 @@ func insert_goods_delivery_note(origi *DeliverGoodsForPO,sd *shared_data)(string
         deliver_notes.Associated_so.Associated_so_url,
 
         deliver_notes.Note,//note
-        time.Now().Add(sd.company_time_zone).Format("2006-01-02 15:04:05"),
+        time.Now().Format("2006-01-02 15:04:05"),
         createBy,
         "go_fcgi",
         0,

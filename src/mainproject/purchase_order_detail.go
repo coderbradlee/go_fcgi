@@ -48,7 +48,7 @@ func insert_purchase_order_detail(t *purchase_order,origi *PoData,sd *shared_dat
 		detail.Warranty,
 		detail.Comments,
 		detail.Note,
-		time.Now().Add(sd.company_time_zone).Format("2006-01-02 15:04:05"),
+		time.Now().Format("2006-01-02 15:04:05"),
 		t.createBy,
 		"go_fcgi",
 		0,
