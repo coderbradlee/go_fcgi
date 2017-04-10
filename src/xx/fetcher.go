@@ -67,7 +67,7 @@ func (s *sub)Close()error {
 }
 func Subscribe(fetcher Fetcher)Subscription {
 	updates:=make(chan Item)
-	return sub{fetcher,updates,false,nil}
+	return &sub{fetcher,updates,false,nil}
 }
 func Merge(subs ...Subscription)Subscription {
 	
