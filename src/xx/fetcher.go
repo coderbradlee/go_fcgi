@@ -101,26 +101,50 @@ func NewSubscription(fetcher Fetcher)Subscription {
 	go s.loop()
 	return s
 }
-// func Merge(subs ...Subscription)Subscription {
+type fetcherall struct{
+	domain []string
+}
+func (f *fetcherall)Fetch()(items []Item,next time.Time,err error) {
+	for do:=range f.domain{
+		for i:=0;i<3;i++{
+			items=append(items,Item{do,i})
+		}
+	}
 	
-// }
+	next=time.Now().Add(time.Second)
+	return
+}
+func Merge(subs ...Subscription)Subscription {
+	updates:=make(chan Item)
+	items:=make([]Item) 
+	domains:=[]string
+	for sub:=range Subscription{
+		domains=append(domains,sub.domain)
+	}
+	fa:=&fetcherall{domains}
+	cl:=make(chan int)	
+	s:= &sub{fa,updates,cl,nil}
+	go s.loop()
+	return s
+}
 
 func main() {
-	// merged:=Merge(Subscribe(Fetch("xx.com")),Subscribe(Fetch("xx.org")),Subscribe(Fetch("xx.cn")))
-	// time.AfterFunc(3*time.Second,func() {
-	// 	fmt.Println("closed:",merged.Close())
-	// })
-	// for it:=range merged.Updates(){
-	// 	fmt.Println(it.Title,it.Channel)
-	// }
-	s:=NewSubscription(NewFetcher("xx.com"))
+	merged:=Merge(NewSubscription(NewFetcher("xx.com")),NewSubscription(NewFetcher("xx.org")),NewSubscription(NewFetcher("xx.cn")))
 
 	time.AfterFunc(3*time.Second,func() {
-		fmt.Println("closed:",s.Close())})
-	fmt.Println("weird thing happend")
-	for it:=range s.Updates(){
+		fmt.Println("closed:",merged.Close())
+	})
+	for it:=range merged.Updates(){
 		fmt.Println(it.Title,it.Channel)
 	}
-	fmt.Println("weird thing happend again")
-	panic("show me the stacks")
+	// s:=NewSubscription(NewFetcher("xx.com"))
+
+	// time.AfterFunc(3*time.Second,func() {
+	// 	fmt.Println("closed:",s.Close())})
+	// fmt.Println("weird thing happend")
+	// for it:=range s.Updates(){
+	// 	fmt.Println(it.Title,it.Channel)
+	// }
+	// fmt.Println("weird thing happend again")
+	// panic("show me the stacks")
 }
