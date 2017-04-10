@@ -65,7 +65,7 @@ func insert_ci(d *Deliver_notes,sd *shared_data)(string,error) {
         approved_by,
         ci.Ci_date,//pending approvedAt
         ci.Note,
-        time.Now().Add(sd.company_time_zone).Format("2006-01-02 15:04:05"),
+        time.Now().Format("2006-01-02 15:04:05"),
         createBy,
         "go_fcgi",
         0,

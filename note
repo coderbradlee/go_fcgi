@@ -1,3 +1,6 @@
+
+2017.04.10 tag beforermtimezone2017.4.10
+去除插入时区
 2017.04.06 打tag beforeshrinkcode2017.4.6
 
 po/submit 接口写三个表：t_purchase_order、t_purchase_order_detail、t_payment_term，其中t_payment_term表在调用get_payment_term_id_chan时，如果表里不存在payment_term则插入

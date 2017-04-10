@@ -11,17 +11,17 @@ import (
 type Fetcher interface{
 	Fetch()(items []Item,next time.Time,err error)
 }
-func Fetch(domain string)Fetcher{} {
+func Fetch(domain string)Fetcher {
 	
 }
 type Subscription interface{
 	Updates()<-chan Item
 	Close()error
 }
-func Subscribe(fetcher Fetcher)Subscription{...} {
+func Subscribe(fetcher Fetcher)Subscription {
 	
 }
-func Merge(subs ...Subscription)Subscription{...} {
+func Merge(subs ...Subscription)Subscription {
 	
 }
 type Item struct{
