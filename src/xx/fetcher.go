@@ -22,7 +22,7 @@ func (f *fet)Fetch()(items []Item,next time.Time,err error) {
 	for i:=0;i<3;i++{
 		items=append(items,Item{f.domain,i})
 	}
-	next=time.Now().After(time.Second)
+	next=time.Now().Add(time.Second)
 	return
 }
 type Subscription interface{
