@@ -20,7 +20,7 @@ type Item struct{
 }
 func (f *fet)Fetch()(items []Item,next time.Time,err error) {
 	for i:=0;i<3;i++{
-		items=Append(items,Item{f.domain,i})
+		items=append(items,Item{f.domain,i})
 	}
 	next=time.Now()
 	return
@@ -69,9 +69,9 @@ func Subscribe(fetcher Fetcher)Subscription {
 	updates:=make(chan Item)
 	return &sub{fetcher,updates,false,nil}
 }
-func Merge(subs ...Subscription)Subscription {
+// func Merge(subs ...Subscription)Subscription {
 	
-}
+// }
 
 func main() {
 	// merged:=Merge(Subscribe(Fetch("xx.com")),Subscribe(Fetch("xx.org")),Subscribe(Fetch("xx.cn")))
