@@ -82,6 +82,7 @@ func main() {
 	// 	fmt.Println(it.Title,it.Channel)
 	// }
 	s:=Subscribe(Fetch("xx.com"))
+	s.loop()
 	for it:=range s.Updates(){
 		fmt.Println(it.Title,it.Channel)
 	}
