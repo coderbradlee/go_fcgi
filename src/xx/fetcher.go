@@ -66,6 +66,9 @@ func (s *sub)loop() {
 				fmt.Println(cl)
 				close(s.updates)
 				return
+			case default:
+				fmt.Println("default")
+				continue
 		}
 		fmt.Println("after select")
 		items,next,err:=s.fetcher.Fetch()
