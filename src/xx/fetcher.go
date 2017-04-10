@@ -118,7 +118,7 @@ func Merge(subs ...Subscription)Subscription {
 	updates:=make(chan Item)
 	var items []Item 
 	var domains []string
-	for sub:=range Subscription{
+	for sub:=range subs{
 		domains=append(domains,sub.domain)
 	}
 	fa:=&fetcherall{domains}
