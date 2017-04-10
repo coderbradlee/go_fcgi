@@ -116,7 +116,6 @@ func (f *fetcherall)Fetch()(items []Item,next time.Time,err error) {
 }
 type mergedSub struct{
 	subs []Subscription
-	closing 
 }
 func (s *mergedSub)Updates()<-chan Item {
 	for sub:=range s.subs{
