@@ -118,7 +118,7 @@ type mergedSub struct{
 	subs []Subscription
 }
 func (s *mergedSub)Updates()<-chan Item {
-	chans:=[]make(chan Item)
+	// chans:=[]make(chan Item)
 	for i:=0;i<len(subs);{
 		select {
 			case ret:=<-subs[i].Updates():
