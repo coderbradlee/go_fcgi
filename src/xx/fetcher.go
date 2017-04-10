@@ -119,21 +119,20 @@ type mergedSub struct{
 }
 func (s *mergedSub)Updates()<-chan Item {
 	chans:=make(chan Item)
-	for{
-		for i:=0;i<len(s.subs);{
-			select {
-				case ret:=<-s.subs[i].Updates():
-					fmt.Println("ret:",ret)
-					chans <-ret
-					// return chans
-				default:
-					fmt.Println("default")
-					return chans
+	go func() {
+		for{
+			for i:=0;i<len(s.subs);{
+				select {
+					case ret:=<-s.subs[i].Updates():
+						fmt.Println("ret:",ret)
+						chans <-ret
+					default:
+						fmt.Println("default")
+				}
+				// return s.subs[i].Updates()
 			}
-			// return s.subs[i].Updates()
 		}
-	}
-	
+	}()
 	return chans
 }
 func (s *mergedSub)Close()error {
