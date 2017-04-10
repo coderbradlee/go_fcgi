@@ -114,17 +114,33 @@ func (f *fetcherall)Fetch()(items []Item,next time.Time,err error) {
 	next=time.Now().Add(time.Second)
 	return
 }
-func Merge(subs ...Subscription)Subscription {
-	updates:=make(chan Item)
-	var items []Item 
-	var domains []string
-	for _,sub:=range subs{
-		domains=append(domains,sub.fetcher.domain)
+type mergedSub struct{
+	subs []Subscription
+	closing 
+}
+func (s *mergedSub)Updates()<-chan Item {
+	for sub:=range s.subs{
+		return sub.updates
 	}
-	fa:=&fetcherall{domains}
-	cl:=make(chan int)	
-	s:= &sub{fa,updates,cl,nil}
-	go s.loop()
+}
+func (s *mergedSub)Close()error {
+	for sub:=range s.subs{
+		sub.closing<-1
+	}
+	return nil
+}
+func Merge(subs ...Subscription)Subscription {
+	// updates:=make(chan Item)
+	// var items []Item 
+	// var domains []string
+	// for _,sub:=range subs{
+	// 	domains=append(domains,sub.fetcher.domain)
+	// }
+	// fa:=&fetcherall{domains}
+	// cl:=make(chan int)	
+	// s:= &sub{fa,updates,cl,nil}
+	// go s.loop()
+	s:=&mergedSub{subs}
 	return s
 }
 
