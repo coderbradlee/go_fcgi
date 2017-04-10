@@ -119,9 +119,9 @@ type mergedSub struct{
 }
 func (s *mergedSub)Updates()<-chan Item {
 	// chans:=[]make(chan Item)
-	for i:=0;i<len(subs);{
+	for i:=0;i<len(s.subs);{
 		select {
-			case ret:=<-subs[i].Updates():
+			case ret:=<-s.subs[i].Updates():
 				return ret
 			default:
 				continue
