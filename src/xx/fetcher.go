@@ -3,9 +3,7 @@ package main
 import (
 	"fmt"
 	
-	"net"
-	"net/http"
-	"reflect"
+	"time"
 )
 type Fetcher interface{
 	Fetch()(items []Item,next time.Time,err error)
