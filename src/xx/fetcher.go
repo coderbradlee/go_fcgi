@@ -116,7 +116,7 @@ func (f *fetcherall)Fetch()(items []Item,next time.Time,err error) {
 }
 func Merge(subs ...Subscription)Subscription {
 	updates:=make(chan Item)
-	items:=make([]Item) 
+	var items []Item 
 	domains:=[]string
 	for sub:=range Subscription{
 		domains=append(domains,sub.domain)
