@@ -87,5 +87,8 @@ func main() {
 	for it:=range s.Updates(){
 		fmt.Println(it.Title,it.Channel)
 	}
+	time.AfterFunc(3*time.Second,func() {
+		fmt.Println("closed:",s.Close())
+	})
 	panic("show me the stacks")
 }
