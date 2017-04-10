@@ -105,7 +105,7 @@ type fetcherall struct{
 	domains []string
 }
 func (f *fetcherall)Fetch()(items []Item,next time.Time,err error) {
-	for dos:=range f.domains{
+	for _,dos:=range f.domains{
 		for i:=0;i<3;i++{
 			items=append(items,Item{dos,i})
 		}
