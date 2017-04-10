@@ -124,7 +124,11 @@ func (s *mergedSub)Updates()<-chan Item {
 			select {
 				case ret:=<-s.subs[i].Updates():
 					fmt.Println("ret:",i)
-					return chans <-ret
+					go func() {
+						return chans
+					}
+					chans <-ret
+					// return chans
 				default:
 					fmt.Println("continue")
 					continue
