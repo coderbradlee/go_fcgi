@@ -67,6 +67,7 @@ func (s *sub)loop() {
 				close(s.updates)
 				return
 		}
+		fmt.Println("after select")
 		items,next,err:=s.fetcher.Fetch()
 		if err!=nil{
 			s.err=err
