@@ -119,7 +119,7 @@ func Merge(subs ...Subscription)Subscription {
 	var items []Item 
 	var domains []string
 	for sub:=range subs{
-		domains=append(domains,sub.domain)
+		domains=append(domains,sub.fetcher.domain)
 	}
 	fa:=&fetcherall{domains}
 	cl:=make(chan int)	
