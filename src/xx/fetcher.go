@@ -126,7 +126,7 @@ func (s *mergedSub)Updates()<-chan Item {
 					fmt.Println("ret:",i)
 					go func() {
 						return chans
-					}
+					}()
 					chans <-ret
 					// return chans
 				default:
