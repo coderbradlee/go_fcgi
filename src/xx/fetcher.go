@@ -8,7 +8,7 @@ import (
 type Fetcher interface{
 	Fetch()(items []Item,next time.Time,err error)
 }
-func Fetch(domain string)Fetcher {
+func NewFetcher(domain string)Fetcher {
 	return &fet{domain}
 }
 type fet struct{
@@ -67,7 +67,7 @@ func (s *sub)Close()error {
 	s.closed=true
 	return s.err
 }
-func Subscribe(fetcher Fetcher)Subscription {
+func NewSubscription(fetcher Fetcher)Subscription {
 	updates:=make(chan Item)
 	s:= &sub{fetcher,updates,false,nil}
 	go s.loop()
@@ -85,12 +85,13 @@ func main() {
 	// for it:=range merged.Updates(){
 	// 	fmt.Println(it.Title,it.Channel)
 	// }
-	s:=Subscribe(Fetch("xx.com"))
-	for it:=range s.Updates(){
-		fmt.Println(it.Title,it.Channel)
-	}
+	s:=NewSubscription(NewFetcher("xx.com"))
 	time.AfterFunc(3*time.Second,func() {
 		fmt.Println("closed:",s.Close())
 	})
+	for it:=range s.Updates(){
+		fmt.Println(it.Title,it.Channel)
+	}
+	
 	panic("show me the stacks")
 }
