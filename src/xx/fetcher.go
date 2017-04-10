@@ -32,29 +32,45 @@ type Subscription interface{
 type sub struct{
 	fetcher Fetcher
 	updates chan Item
-	closed bool
+	closing chan int
 	err error
 }
 func (s *sub)loop() {
 	//call fetch
 	//send items on the updates channel
 	//exit when close is called,reporting any error
+	// for{
+	// 	if s.closed{
+	// 		close(s.updates)
+	// 		return
+	// 	}
+	// 	items,next,err:=s.fetcher.Fetch()
+	// 	if err!=nil{
+	// 		s.err=err
+	// 		time.Sleep(10*time.Second)
+	// 		continue
+	// 	}
+	// 	for _,item:=range items{
+	// 		s.updates<-item
+	// 	}
+	// 	if now:=time.Now();next.After(now){
+	// 		a:=next.Sub(now)
+	// 		fmt.Println("after:",a)
+	// 		time.Sleep(a)
+	// 	}
+	// }
+	items,next,err:=s.fetcher.Fetch()
+	if err!=nil{
+		s.err=err
+		time.Sleep(10*time.Second)
+	}
 	for{
-		if s.closed{
-			close(s.updates)
-			return
-		}else{
-			time.AfterFunc(3*time.Second,func() {
-			fmt.Println("closed:",s.Close())})
-		}
-		items,next,err:=s.fetcher.Fetch()
-		if err!=nil{
-			s.err=err
-			time.Sleep(10*time.Second)
-			continue
-		}
-		for _,item:=range items{
-			s.updates<-item
+		select{
+			case cl:=<-s.closing:
+				close(s.updates)
+				return
+			case item:=<-items:
+				s.updates<-item
 		}
 		if now:=time.Now();next.After(now){
 			a:=next.Sub(now)
@@ -67,7 +83,7 @@ func (s *sub)Updates()<-chan Item {
 	return s.updates
 }
 func (s *sub)Close()error {
-	s.closed=true
+	s.closing<-1
 	return s.err
 }
 func NewSubscription(fetcher Fetcher)Subscription {
@@ -89,8 +105,8 @@ func main() {
 	// 	fmt.Println(it.Title,it.Channel)
 	// }
 	s:=NewSubscription(NewFetcher("xx.com"))
-	// time.AfterFunc(3*time.Second,func() {
-	// 	fmt.Println("closed:",s.Close())})
+	time.AfterFunc(3*time.Second,func() {
+		fmt.Println("closed:",s.Close())})
 	for it:=range s.Updates(){
 		fmt.Println(it.Title,it.Channel)
 	}
