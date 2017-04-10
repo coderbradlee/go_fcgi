@@ -131,7 +131,7 @@ func (s *mergedSub)Updates()<-chan Item {
 	return chans
 }
 func (s *mergedSub)Close()error {
-	for sub:=range s.subs{
+	for _,sub:=range s.subs{
 		sub.Close()
 	}
 	return nil
