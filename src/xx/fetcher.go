@@ -69,7 +69,7 @@ func (s *sub)loop() {
 			default:
 				// fmt.Println("default")
 		}
-		fmt.Println("after select")
+		// fmt.Println("after select")
 		items,next,err:=s.fetcher.Fetch()
 		if err!=nil{
 			s.err=err
