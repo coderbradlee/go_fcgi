@@ -102,12 +102,12 @@ func NewSubscription(fetcher Fetcher)Subscription {
 	return s
 }
 type fetcherall struct{
-	domain []string
+	domains []string
 }
 func (f *fetcherall)Fetch()(items []Item,next time.Time,err error) {
-	for do:=range f.domain{
+	for dos:=range f.domains{
 		for i:=0;i<3;i++{
-			items=append(items,Item{do,i})
+			items=append(items,Item{dos,i})
 		}
 	}
 	
