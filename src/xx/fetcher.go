@@ -69,8 +69,9 @@ func (s *sub)loop() {
 			case cl:=<-s.closing:
 				close(s.updates)
 				return
-			case item:=<-items:
-				s.updates<-item
+		}
+		for _,item:=range items{
+			s.updates<-item
 		}
 		if now:=time.Now();next.After(now){
 			a:=next.Sub(now)
@@ -88,7 +89,8 @@ func (s *sub)Close()error {
 }
 func NewSubscription(fetcher Fetcher)Subscription {
 	updates:=make(chan Item)
-	s:= &sub{fetcher,updates,false,nil}
+	cl:=make(chan int)	
+	s:= &sub{fetcher,updates,cl,nil}
 	go s.loop()
 	return s
 }
