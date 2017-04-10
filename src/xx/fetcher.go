@@ -43,6 +43,9 @@ func (s *sub)loop() {
 		if s.closed{
 			close(s.updates)
 			return
+		}else{
+			time.AfterFunc(3*time.Second,func() {
+			fmt.Println("closed:",s.Close())})
 		}
 		items,next,err:=s.fetcher.Fetch()
 		if err!=nil{
@@ -86,9 +89,8 @@ func main() {
 	// 	fmt.Println(it.Title,it.Channel)
 	// }
 	s:=NewSubscription(NewFetcher("xx.com"))
-	time.AfterFunc(3*time.Second,func() {
-		fmt.Println("closed:",s.Close())
-	})
+	// time.AfterFunc(3*time.Second,func() {
+	// 	fmt.Println("closed:",s.Close())})
 	for it:=range s.Updates(){
 		fmt.Println(it.Title,it.Channel)
 	}
