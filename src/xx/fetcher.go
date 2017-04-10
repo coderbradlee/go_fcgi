@@ -132,7 +132,7 @@ func (s *mergedSub)Updates()<-chan Item {
 }
 func (s *mergedSub)Close()error {
 	for sub:=range s.subs{
-		s.sub.Close()
+		sub.Close()
 	}
 	return nil
 }
