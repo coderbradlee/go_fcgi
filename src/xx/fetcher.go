@@ -118,22 +118,19 @@ type mergedSub struct{
 	subs []Subscription
 }
 func (s *mergedSub)Updates()<-chan Item {
-	chans:=make(chan Item)
+	chans:=make(chan Item,2)
 	for{
 		for i:=0;i<len(s.subs);{
-			// select {
-			// 	case ret:=<-s.subs[i].Updates():
-			// 		// return <-ret
-			// 		// fmt.Println("ret:",i)
-			// 		// return chans
-			// 		go func() {
-			// 			chans<-ret
-			// 		}
-			// 	default:
-			// 		fmt.Println("continue")
-			// 		continue
-			// }
-			return s.subs[i].Updates()
+			select {
+				case ret:=<-s.subs[i].Updates():
+					chans <-ret
+					fmt.Println("ret:",i)
+					return chans
+				default:
+					fmt.Println("continue")
+					continue
+			}
+			// return s.subs[i].Updates()
 		}
 	}
 	
