@@ -108,11 +108,13 @@ func main() {
 	// 	fmt.Println(it.Title,it.Channel)
 	// }
 	s:=NewSubscription(NewFetcher("xx.com"))
+
 	time.AfterFunc(3*time.Second,func() {
 		fmt.Println("closed:",s.Close())})
+	fmt.Println("weird thing happend")
 	for it:=range s.Updates(){
 		fmt.Println(it.Title,it.Channel)
 	}
-	
+	fmt.Println("weird thing happend again")
 	panic("show me the stacks")
 }
