@@ -117,23 +117,37 @@ func (f *fetcherall)Fetch()(items []Item,next time.Time,err error) {
 type mergedSub struct{
 	subs []Subscription
 }
-func (s *mergedSub)Updates()<-chan Item {
-	chans:=make(chan Item)
-	go func() {
-		for{
-			for i:=0;i<len(s.subs);{
-				select {
-					case ret:=<-s.subs[i].Updates():
-						fmt.Println("ret:",ret)
-						chans <-ret
-					default:
-						fmt.Println("default")
-				}
-				// return s.subs[i].Updates()
-			}
-		}
-	}()
-	return chans
+func (s *mergedSub)Updates()(chans <-chan Item) {
+	// chans:=make(chan Item)
+	// go func() {
+	// 	for{
+	// 		for i:=0;i<len(s.subs);{
+	// 			select {
+	// 				case ret:=<-s.subs[i].Updates():
+	// 					fmt.Println("ret:",ret)
+	// 					chans <-ret
+	// 				default:
+	// 					fmt.Println("default")
+	// 			}
+	// 			// return s.subs[i].Updates()
+	// 		}
+	// 	}
+	// }()
+	// return chans
+	var wg sync.WaitGroup
+    wg.Add(len(s.subs))
+    for i, c := range s.subs {
+        go func(i int, c <-chan Item) {
+            for s := range c {
+                chans <- s
+            }
+            wg.Done()
+        }(i, c.Updates())
+    }
+    go func() {
+        wg.Wait()
+    }()
+    return 
 }
 func (s *mergedSub)Close()error {
 	for _,sub:=range s.subs{
@@ -153,6 +167,7 @@ func Merge(subs ...Subscription)Subscription {
 	// s:= &sub{fa,updates,cl,nil}
 	// go s.loop()
 	s:=&mergedSub{subs}
+
 	return s
 }
 
