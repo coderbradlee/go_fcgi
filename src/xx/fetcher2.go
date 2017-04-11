@@ -49,7 +49,7 @@ func (s *sub)loop() {
 					close(s.updates)
 					return
 				default:
-					// fmt.Println("default")
+					fmt.Println("default")
 			}
 			// fmt.Println("after select")
 			items,next,err:=f.Fetch()
@@ -58,7 +58,7 @@ func (s *sub)loop() {
 				time.Sleep(10*time.Second)
 			}
 			for _,item:=range items{
-				// fmt.Println("item input s.updates")
+				fmt.Println("item input s.updates")
 				s.updates<-item
 			}
 			if now:=time.Now();next.After(now){
