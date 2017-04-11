@@ -42,9 +42,8 @@ type fetchResult struct{
 }
 func (s *sub)loop() {
 	for _,f:=range s.fetchers{
-		fmt.Println("45:",f.(*fet).domain)
 		go func() {
-			
+			fmt.Println("45:",f.(*fet).domain)
 			// fmt.Println("after select")
 			items,next,err:=f.Fetch()
 			if err!=nil{
