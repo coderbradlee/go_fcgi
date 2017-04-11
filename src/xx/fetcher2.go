@@ -86,7 +86,7 @@ func NewSubscription(fetcher Fetcher)Subscription {
 	cl:=make(chan int)	
 	fet:=[]Fetcher{fetcher}
 	s:= &concreteSub{fet,updates,cl,nil}
-	go s.loop()
+	s.loop()
 	return s
 }
 
