@@ -88,6 +88,12 @@ func (s *concreteSub)Close()[]error {
 	go func() {
 		s.closing<-1
 	}()
+	go func() {
+		s.closing<-1
+	}()
+	go func() {
+		s.closing<-1
+	}()
 	fmt.Println("closing/////////////////////////////")
 	return s.errs
 }
