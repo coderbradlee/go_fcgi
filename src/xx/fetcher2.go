@@ -40,6 +40,12 @@ func (s *concreteSub)loop() {
 	for _,f:=range s.fetchers{
 		go func() {
 			for{
+				select{
+				case <-s.closing:
+					return
+				default:
+					
+				}
 				fmt.Println("45:",f.(*fet).domain)
 				// fmt.Println("after select")
 				items,next,err:=f.Fetch()
