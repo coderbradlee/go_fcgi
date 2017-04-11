@@ -159,9 +159,9 @@ func main() {
 	fmt.Println("what")
 	item,ok:=<-testchan
 	if ok{
-		fmt.Println("ok")
+		fmt.Println("ok",item)
 	}
-	
+
 	// test_pingpong()
 	// testreflect()
 	// testreflect1()
