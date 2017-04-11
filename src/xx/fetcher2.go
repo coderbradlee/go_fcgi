@@ -99,8 +99,8 @@ func NewSubscription(fetcher Fetcher)Subscription {
 func Merge(subs ...Subscription)Subscription {
 	updates:=make(chan Item)
 	cl:=make(chan int)	
-	fet:=[]Fetcher{}
-	merged:= &sub{fet,updates,cl,nil}
+	fets:=[]Fetcher{}
+	merged:= &sub{fets,updates,cl,nil}
 
 	for _,s:=range subs{
 		convert:=s.(*sub)
