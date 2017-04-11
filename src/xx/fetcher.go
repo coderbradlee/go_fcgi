@@ -136,17 +136,17 @@ func (s *mergedSub)Updates()(chans <-chan Item) {
 	// return chans
 	var wg sync.WaitGroup
     wg.Add(len(s.subs))
-    for i, c := range s.subs {
-        go func(i int, c <-chan Item) {
-            for s := range c {
+    for i, sub := range s.subs {
+        go func(i int, sub <-chan Item) {
+            for s := range sub {
                 chans <- s
             }
             wg.Done()
-        }(i, c.Updates())
+        }(i, sub.Updates())
     }
-    go func() {
-        wg.Wait()
-    }()
+    
+    wg.Wait()
+    
     return 
 }
 func (s *mergedSub)Close()error {
