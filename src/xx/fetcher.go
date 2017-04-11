@@ -143,6 +143,7 @@ func (s *mergedSub)Updates()<-chan Item {
         go func(i int, sub <-chan Item) {
             for s := range sub {
                 chans <- s
+                fmt.Println(s.Title,s.Channel)
             }
             wg.Done()
         }(i, sub.Updates())
