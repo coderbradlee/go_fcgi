@@ -107,7 +107,10 @@ func Merge(subs ...Subscription)Subscription {
 		merged.fetchers=append(merged.fetchers,convert.fetchers...)
 		s.Close()
 	}
-	fmt.Println("110:",merged.fetchers)
+	for _,s:=range merged.fetchers{
+		fmt.Println("111:",s.(*fet).domain)
+	}
+	
 	merged.loop()
 	return merged
 }
