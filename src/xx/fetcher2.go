@@ -97,7 +97,7 @@ func Merge(subs ...Subscription)Subscription {
 		s.Close()
 	}
 	s:= &sub{fet,updates,cl,nil}
-	s.loop()
+	go s.loop()
 	
 	return s
 }
