@@ -27,161 +27,83 @@ func (f *fet)Fetch()(items []Item,next time.Time,err error) {
 }
 type Subscription interface{
 	Updates()<-chan Item
-	Close()error
+	Close() []error
 }
 type sub struct{
-	fetcher Fetcher
+	fetchers []Fetcher
 	updates chan Item
 	closing chan int
+	errs []error
+}
+type fetchResult struct{
+	fetched []Item
+	next time.Time
 	err error
 }
 func (s *sub)loop() {
-	//call fetch
-	//send items on the updates channel
-	//exit when close is called,reporting any error
-	// for{
-	// 	if s.closed{
-	// 		close(s.updates)
-	// 		return
-	// 	}
-	// 	items,next,err:=s.fetcher.Fetch()
-	// 	if err!=nil{
-	// 		s.err=err
-	// 		time.Sleep(10*time.Second)
-	// 		continue
-	// 	}
-	// 	for _,item:=range items{
-	// 		s.updates<-item
-	// 	}
-	// 	if now:=time.Now();next.After(now){
-	// 		a:=next.Sub(now)
-	// 		fmt.Println("after:",a)
-	// 		time.Sleep(a)
-	// 	}
-	// }
-	
-	for{
-		select{
-			case <-s.closing:
-				// fmt.Println(cl)
-				close(s.updates)
-				return
-			default:
-				// fmt.Println("default")
-		}
-		// fmt.Println("after select")
-		items,next,err:=s.fetcher.Fetch()
-		if err!=nil{
-			s.err=err
-			time.Sleep(10*time.Second)
-			continue
-		}
-		for _,item:=range items{
-			// fmt.Println("item input s.updates")
-			s.updates<-item
-		}
-		if now:=time.Now();next.After(now){
-			a:=next.Sub(now)
-			fmt.Println("after:",a)
-			time.Sleep(a)
-		}
-	}
+	for _,f:=range s.fetcher{
+		go func() {
+			select{
+				case <-s.closing:
+					// fmt.Println(cl)
+					close(s.updates)
+					return
+				default:
+					// fmt.Println("default")
+			}
+			// fmt.Println("after select")
+			items,next,err:=f.Fetch()
+			if err!=nil{
+				s.err=append(s.err,err)
+				time.Sleep(10*time.Second)
+				continue
+			}
+			for _,item:=range items{
+				// fmt.Println("item input s.updates")
+				s.updates<-item
+			}
+			if now:=time.Now();next.After(now){
+				a:=next.Sub(now)
+				fmt.Println("after:",a)
+				time.Sleep(a)
+			}
+		}()
 }
 func (s *sub)Updates()<-chan Item {
 	return s.updates
 }
-func (s *sub)Close()error {
+func (s *sub)Close()[]error {
 	s.closing<-1
-	return s.err
+	return s.errs
 }
 func NewSubscription(fetcher Fetcher)Subscription {
 	updates:=make(chan Item)
 	cl:=make(chan int)	
-	s:= &sub{fetcher,updates,cl,nil}
+	fet:=[]Fetcher{fetcher}
+	s:= &sub{fet,updates,cl,nil}
 	go s.loop()
 	return s
 }
-type fetcherall struct{
-	domains []string
-}
-func (f *fetcherall)Fetch()(items []Item,next time.Time,err error) {
-	for _,dos:=range f.domains{
-		for i:=0;i<3;i++{
-			items=append(items,Item{dos,i})
-		}
-	}
-	
-	next=time.Now().Add(time.Second)
-	return
-}
-type mergedSub struct{
-	subs []Subscription
-}
-func (s *mergedSub)Updates()<-chan Item {
-	// chans:=make(chan Item)
-	// go func() {
-	// 	for{
-	// 		for i:=0;i<len(s.subs);{
-	// 			select {
-	// 				case ret:=<-s.subs[i].Updates():
-	// 					fmt.Println("ret:",ret)
-	// 					chans <-ret
-	// 				default:
-	// 					fmt.Println("default")
-	// 			}
-	// 			// return s.subs[i].Updates()
-	// 		}
-	// 	}
-	// }()
-	// return chans
-	leng:=len(s.subs)
-	fmt.Println(leng)
-	chans:=make(chan Item)
-	var wg sync.WaitGroup
-    // wg.Add(leng)
-    for i, sub := range s.subs {
-    	wg.Add(1)
-        go func(i int, sub <-chan Item) {
-            for s := range sub {
-                chans <- s
-                fmt.Println(s.Title,s.Channel)
-            }
-            defer wg.Done()
-        }(i, sub.Updates())
-    }
-    go func() {
-    	for it:=range chans{
-			fmt.Println(it.Title,it.Channel)
-		}
-    }()
-    wg.Wait()
-    
-    return chans
-}
-func (s *mergedSub)Close()error {
-	for _,sub:=range s.subs{
-		sub.Close()
-	}
-	return nil
-}
-func Merge(subs ...Subscription)Subscription {
-	// updates:=make(chan Item)
-	// var items []Item 
-	// var domains []string
-	// for _,sub:=range subs{
-	// 	domains=append(domains,sub.fetcher.domain)
-	// }
-	// fa:=&fetcherall{domains}
-	// cl:=make(chan int)	
-	// s:= &sub{fa,updates,cl,nil}
-	// go s.loop()
-	s:=&mergedSub{subs}
 
+func Merge(subs ...Subscription)Subscription {
+	updates:=make(chan Item)
+	cl:=make(chan int)	
+	fet:=[]Fetcher{}
+	merged:= &sub{fet,updates,cl,nil}
+
+	for _,s:=range subs{
+		convert:=s.(*sub)
+		merged.fetchers=append(merged.fetchers,convert.fetchers...)
+		s.Close()
+	}
+	s:= &sub{fet,updates,cl,nil}
+	s.loop()
+	
 	return s
 }
 
 func main() {
-	var domains []string=[]string{"xx.com","yy.com","zz.com"}
+	var domains =[]string{"xx.com","yy.com","zz.com"}
 	var subs []Subscription
 	for _,domain:=range domains{
 		subs=append(subs,NewSubscription(NewFetcher(domain)))
