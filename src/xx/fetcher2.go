@@ -43,31 +43,33 @@ type fetchResult struct{
 func (s *sub)loop() {
 	for _,f:=range s.fetchers{
 		go func() {
-			fmt.Println("45:",f.(*fet).domain)
-			// fmt.Println("after select")
-			items,next,err:=f.Fetch()
-			if err!=nil{
-				s.errs=append(s.errs,err)
-				time.Sleep(10*time.Second)
+			for{
+				fmt.Println("45:",f.(*fet).domain)
+				// fmt.Println("after select")
+				items,next,err:=f.Fetch()
+				if err!=nil{
+					s.errs=append(s.errs,err)
+					time.Sleep(10*time.Second)
+				}
+				for _,item:=range items{
+					fmt.Println("item input s.updates")
+					defer func() {
+				        if r := recover(); r != nil {
+				            err = fmt.Errorf("%v", r)
+				            fmt.Printf("write: error writing %d on channel: %v\n", 1, err)
+				            return
+				        }
+				        fmt.Printf("write: wrote %d on channel\n", 1)
+				    }()
+					s.updates<-item
+				}
+				if now:=time.Now();next.After(now){
+					a:=next.Sub(now)
+					fmt.Println("after:",a)
+					time.Sleep(a)
+				}
 			}
-			for _,item:=range items{
-				fmt.Println("item input s.updates")
-				defer func() {
-			        if r := recover(); r != nil {
-			            err = fmt.Errorf("%v", r)
-			            fmt.Printf("write: error writing %d on channel: %v\n", 1, err)
-			            return
-			        }
-			        fmt.Printf("write: wrote %d on channel\n", 1)
-			    }()
-				s.updates<-item
-			}
-			if now:=time.Now();next.After(now){
-				a:=next.Sub(now)
-				fmt.Println("after:",a)
-				time.Sleep(a)
-			}
-		}()
+		}()	
 	}
 }
 func (s *sub)Updates()<-chan Item {
