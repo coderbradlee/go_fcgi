@@ -45,7 +45,7 @@ func (s *sub)loop() {
 		go func() {
 			select{
 				case <-s.closing:
-					// fmt.Println(cl)
+					fmt.Println("closing")
 					close(s.updates)
 					return
 				default:
