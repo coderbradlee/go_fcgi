@@ -29,18 +29,14 @@ type Subscription interface{
 	Updates()<-chan Item
 	Close() []error
 }
-type sub struct{
+type concreteSub struct{
 	fetchers []Fetcher
 	updates chan Item
 	closing chan int
 	errs []error
 }
-type fetchResult struct{
-	fetched []Item
-	next time.Time
-	err error
-}
-func (s *sub)loop() {
+
+func (s *concreteSub)loop() {
 	for _,f:=range s.fetchers{
 		go func() {
 			for{
@@ -72,10 +68,10 @@ func (s *sub)loop() {
 		}()	
 	}
 }
-func (s *sub)Updates()<-chan Item {
+func (s *concreteSub)Updates()<-chan Item {
 	return s.updates
 }
-func (s *sub)Close()[]error {
+func (s *concreteSub)Close()[]error {
 	go func() {
 		select{
 			case <-s.closing:
@@ -93,7 +89,7 @@ func NewSubscription(fetcher Fetcher)Subscription {
 	updates:=make(chan Item)
 	cl:=make(chan int)	
 	fet:=[]Fetcher{fetcher}
-	s:= &sub{fet,updates,cl,nil}
+	s:= &concreteSub{fet,updates,cl,nil}
 	go s.loop()
 	return s
 }
@@ -102,10 +98,10 @@ func Merge(subs ...Subscription)Subscription {
 	updates:=make(chan Item)
 	cl:=make(chan int)	
 	fets:=[]Fetcher{}
-	merged:= &sub{fets,updates,cl,nil}
+	merged:= &concreteSub{fets,updates,cl,nil}
 
 	for _,s:=range subs{
-		convert:=s.(*sub)
+		convert:=s.(*concreteSub)
 		merged.fetchers=append(merged.fetchers,convert.fetchers...)
 		s.Close()
 	}

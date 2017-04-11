@@ -151,7 +151,10 @@ func test_pingpong() {
 	// <-table
 }
 func main() {
-	test_pingpong()
+	testchan:=make(chan int)
+	testchan<-1
+	fmt.Println("what")
+	// test_pingpong()
 	// testreflect()
 	// testreflect1()
 	//	service := "www.qq.com:80"
