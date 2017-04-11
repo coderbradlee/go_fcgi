@@ -41,7 +41,7 @@ type fetchResult struct{
 	err error
 }
 func (s *sub)loop() {
-	for _,f:=range s.fetcher{
+	for _,f:=range s.fetchers{
 		go func() {
 			select{
 				case <-s.closing:
@@ -54,7 +54,7 @@ func (s *sub)loop() {
 			// fmt.Println("after select")
 			items,next,err:=f.Fetch()
 			if err!=nil{
-				s.err=append(s.err,err)
+				s.errs=append(s.errs,err)
 				time.Sleep(10*time.Second)
 				continue
 			}
