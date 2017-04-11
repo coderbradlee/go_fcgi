@@ -207,7 +207,7 @@ func main() {
 	go func() {
 		b<-"b"
 	}()
-	a<-nil
+	a=nil
 	select{
 	case <-a:
 		fmt.Println("got a")
