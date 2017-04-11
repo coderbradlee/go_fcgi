@@ -72,13 +72,16 @@ func (s *concreteSub)Updates()<-chan Item {
 	return s.updates
 }
 func (s *concreteSub)Close()[]error {
+	// go func() {
+	// 	<-s.closing
+	// 	fmt.Println("closing")
+	// 	close(s.updates)
+
+	// }()
 	go func() {
-		<-s.closing
-		fmt.Println("closing")
-		close(s.updates)
+		s.closing<-1
 	}()
-	s.closing<-1
-	
+
 	return s.errs
 }
 func NewSubscription(fetcher Fetcher)Subscription {
@@ -117,8 +120,8 @@ func main() {
 	}
 	mainFeed:=Merge(subs...)
 	updates:=mainFeed.Updates()
-	// time.AfterFunc(5*time.Second,func() {
-	// fmt.Println("closed:",mainFeed.Close())})
+	time.AfterFunc(5*time.Second,func() {
+	fmt.Println("closed:",mainFeed.Close())})
 	for{
 		select{
 		case it:=<-updates:
