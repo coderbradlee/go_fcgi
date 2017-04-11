@@ -71,7 +71,6 @@ func (s *sub)Close()[]error {
 		case <-s.closing:
 			fmt.Println("closing")
 			close(s.updates)
-			return
 		default:
 			fmt.Println("default")
 	}
