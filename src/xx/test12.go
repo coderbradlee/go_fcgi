@@ -151,9 +151,17 @@ func test_pingpong() {
 	// <-table
 }
 func main() {
-	testchan:=make(chan int)
-	testchan<-1
+	testchan:=make(chan chan int)
+	closechan:=make(chan int)
+
+	testchan<-closechan
+	close(testchan)
 	fmt.Println("what")
+	item,ok:=<-testchan
+	if ok{
+		fmt.Println("ok")
+	}
+	
 	// test_pingpong()
 	// testreflect()
 	// testreflect1()
