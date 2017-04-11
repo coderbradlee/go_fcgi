@@ -135,7 +135,8 @@ func (s *mergedSub)Updates()<-chan Item {
 	// }()
 	// return chans
 	leng:=len(s.subs)
-	chans:=make(chan Item,leng)
+	fmt.Println(leng)
+	chans:=make(chan Item,leng*3)
 	var wg sync.WaitGroup
     wg.Add(leng)
     for i, sub := range s.subs {
@@ -146,7 +147,6 @@ func (s *mergedSub)Updates()<-chan Item {
             wg.Done()
         }(i, sub.Updates())
     }
-    
     wg.Wait()
     for it:=range chans{
 		fmt.Println(it.Title,it.Channel)
