@@ -153,7 +153,7 @@ func (s *mergedSub)Updates()<-chan Item {
     	for it:=range chans{
 			fmt.Println(it.Title,it.Channel)
 		}
-    }
+    }()
     wg.Wait()
     
     return chans
