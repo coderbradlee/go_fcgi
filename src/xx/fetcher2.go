@@ -96,10 +96,8 @@ func Merge(subs ...Subscription)Subscription {
 		merged.fetchers=append(merged.fetchers,convert.fetchers...)
 		s.Close()
 	}
-	s:= &sub{fet,updates,cl,nil}
-	go s.loop()
-	
-	return s
+	merged.loop()
+	return merged
 }
 
 func main() {
