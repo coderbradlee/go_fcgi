@@ -42,6 +42,7 @@ func (s *concreteSub)loop() {
 			for{
 				select{
 				case <-s.closing:
+					fmt.Println("select returnnnnnnnnnnnnnnnnnnnnnnnnnnnnn")
 					return
 				default:
 
