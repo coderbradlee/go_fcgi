@@ -117,7 +117,7 @@ func (f *fetcherall)Fetch()(items []Item,next time.Time,err error) {
 type mergedSub struct{
 	subs []Subscription
 }
-func (s *mergedSub)Updates()(chans chan Item) {
+func (s *mergedSub)Updates()(chans <-chan Item) {
 	// chans:=make(chan Item)
 	// go func() {
 	// 	for{
@@ -134,6 +134,7 @@ func (s *mergedSub)Updates()(chans chan Item) {
 	// 	}
 	// }()
 	// return chans
+	chans:=make(chan Item,len(s.subs))
 	var wg sync.WaitGroup
     wg.Add(len(s.subs))
     for i, sub := range s.subs {
