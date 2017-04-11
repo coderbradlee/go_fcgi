@@ -52,6 +52,14 @@ func (s *sub)loop() {
 			}
 			for _,item:=range items{
 				fmt.Println("item input s.updates")
+				defer func() {
+			        if r := recover(); r != nil {
+			            err = fmt.Errorf("%v", r)
+			            fmt.Printf("write: error writing %d on channel: %v\n", i, err)
+			            return
+			        }
+			        fmt.Printf("write: wrote %d on channel\n", 1)
+			    }()
 				s.updates<-item
 			}
 			if now:=time.Now();next.After(now){
