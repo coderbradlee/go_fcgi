@@ -55,7 +55,7 @@ func (s *sub)loop() {
 				defer func() {
 			        if r := recover(); r != nil {
 			            err = fmt.Errorf("%v", r)
-			            fmt.Printf("write: error writing %d on channel: %v\n", i, err)
+			            fmt.Printf("write: error writing %d on channel: %v\n", 1, err)
 			            return
 			        }
 			        fmt.Printf("write: wrote %d on channel\n", 1)
