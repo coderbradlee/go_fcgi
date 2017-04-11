@@ -69,21 +69,25 @@ func (s *sub)loop() {
 			default:
 				// fmt.Println("default")
 		}
-		// fmt.Println("after select")
-		items,next,err:=s.fetcher.Fetch()
-		if err!=nil{
-			s.err=err
-			time.Sleep(10*time.Second)
-			continue
-		}
-		for _,item:=range items{
-			// fmt.Println("item input s.updates")
-			s.updates<-item
-		}
+		var delay time.Duration
 		if now:=time.Now();next.After(now){
-			a:=next.Sub(now)
+			delay=next.Sub(now)
 			fmt.Println("after:",a)
-			time.Sleep(a)
+			// time.Sleep(a)
+		}
+		start:=time.After(delay)
+		select{
+		case <-start:
+			items,next,err:=s.fetcher.Fetch()
+			if err!=nil{
+				s.err=err
+				time.Sleep(10*time.Second)
+				continue
+			}
+			for _,item:=range items{
+				// fmt.Println("item input s.updates")
+				s.updates<-item
+			}
 		}
 	}
 }
