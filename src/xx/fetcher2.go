@@ -43,14 +43,7 @@ type fetchResult struct{
 func (s *sub)loop() {
 	for _,f:=range s.fetchers{
 		go func() {
-			select{
-				case <-s.closing:
-					fmt.Println("closing")
-					close(s.updates)
-					return
-				default:
-					fmt.Println("default")
-			}
+			
 			// fmt.Println("after select")
 			items,next,err:=f.Fetch()
 			if err!=nil{
@@ -74,6 +67,14 @@ func (s *sub)Updates()<-chan Item {
 }
 func (s *sub)Close()[]error {
 	s.closing<-1
+	select{
+		case <-s.closing:
+			fmt.Println("closing")
+			close(s.updates)
+			return
+		default:
+			fmt.Println("default")
+	}
 	return s.errs
 }
 func NewSubscription(fetcher Fetcher)Subscription {
