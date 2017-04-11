@@ -121,12 +121,12 @@ func main() {
 	updates:=mainFeed.Updates()
 	// time.AfterFunc(5*time.Second,func() {
 	// 	fmt.Println("closed:",mainFeed.Close())})
-	
+	for{
 		select{
 		case it:=<-updates:
 			fmt.Println(it.Title,it.Channel)
 		case <-time.After(5*time.Second):
 			mainFeed.Close()
 		}
-	
+	}
 }
