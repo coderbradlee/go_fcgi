@@ -125,6 +125,8 @@ func main() {
 		select{
 		case it:=<-updates:
 			fmt.Println(it.Title,it.Channel)
+		default:
+			return
 		}
 	}
 }
