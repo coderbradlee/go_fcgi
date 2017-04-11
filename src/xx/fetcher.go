@@ -148,7 +148,9 @@ func (s *mergedSub)Updates()<-chan Item {
     }
     
     wg.Wait()
-    
+    for it:=range chans{
+		fmt.Println(it.Title,it.Channel)
+	}
     return chans
 }
 func (s *mergedSub)Close()error {
@@ -179,9 +181,10 @@ func main() {
 	time.AfterFunc(3*time.Second,func() {
 		fmt.Println("closed:",merged.Close())
 	})
-	for it:=range merged.Updates(){
-		fmt.Println(it.Title,it.Channel)
-	}
+	merged.Updates()
+	// for it:=range merged.Updates(){
+	// 	fmt.Println(it.Title,it.Channel)
+	// }
 	// s:=NewSubscription(NewFetcher("xx.com"))
 
 	// time.AfterFunc(3*time.Second,func() {
