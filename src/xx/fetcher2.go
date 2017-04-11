@@ -119,14 +119,15 @@ func main() {
 	}
 	mainFeed:=Merge(subs...)
 	updates:=mainFeed.Updates()
-	time.AfterFunc(5*time.Second,func() {
-		fmt.Println("closed:",mainFeed.Close())})
+	// time.AfterFunc(5*time.Second,func() {
+	// 	fmt.Println("closed:",mainFeed.Close())})
 	for{
 		select{
 		case it:=<-updates:
 			fmt.Println(it.Title,it.Channel)
-		default:
-			return
+		case <-time.After(5*time.Second):
+			fmt.Println("mainfeed close")
+			mainFeed.Close()
 		}
 	}
 }
