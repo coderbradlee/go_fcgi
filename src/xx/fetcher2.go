@@ -66,14 +66,17 @@ func (s *sub)Updates()<-chan Item {
 	return s.updates
 }
 func (s *sub)Close()[]error {
+	go func() {
+		select{
+			case <-s.closing:
+				fmt.Println("closing")
+				close(s.updates)
+			default:
+				fmt.Println("default")
+		}
+	}()
 	s.closing<-1
-	select{
-		case <-s.closing:
-			fmt.Println("closing")
-			close(s.updates)
-		default:
-			fmt.Println("default")
-	}
+	
 	return s.errs
 }
 func NewSubscription(fetcher Fetcher)Subscription {
