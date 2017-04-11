@@ -182,7 +182,7 @@ func Merge(subs ...Subscription)Subscription {
 
 func main() {
 	var domains []string=[]string{"xx.com","yy.com","zz.com"}
-	var subs Subscription
+	var subs []Subscription
 	for _,domain:=range domains{
 		subs=append(subs,NewSubscription(NewFetcher(domain)))
 	}
