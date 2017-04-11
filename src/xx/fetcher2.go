@@ -68,6 +68,7 @@ func (s *sub)loop() {
 				time.Sleep(a)
 			}
 		}()
+	}
 }
 func (s *sub)Updates()<-chan Item {
 	return s.updates
