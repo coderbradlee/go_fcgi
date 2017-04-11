@@ -178,7 +178,7 @@ func Merge(subs ...Subscription)Subscription {
 func main() {
 	merged:=Merge(NewSubscription(NewFetcher("xx.com")),NewSubscription(NewFetcher("xx.org")),NewSubscription(NewFetcher("xx.cn")))
 
-	time.AfterFunc(3*time.Second,func() {
+	time.AfterFunc(10*time.Second,func() {
 		fmt.Println("closed:",merged.Close())
 	})
 	merged.Updates()
