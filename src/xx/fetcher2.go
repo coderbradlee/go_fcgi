@@ -42,6 +42,7 @@ type fetchResult struct{
 }
 func (s *sub)loop() {
 	for _,f:=range s.fetchers{
+		fmt.Println("45:",f.(*fet).domain)
 		go func() {
 			
 			// fmt.Println("after select")
@@ -107,9 +108,9 @@ func Merge(subs ...Subscription)Subscription {
 		merged.fetchers=append(merged.fetchers,convert.fetchers...)
 		s.Close()
 	}
-	for _,s:=range merged.fetchers{
-		fmt.Println("111:",s.(*fet).domain)
-	}
+	// for _,s:=range merged.fetchers{
+	// 	fmt.Println("111:",s.(*fet).domain)
+	// }
 	
 	merged.loop()
 	return merged
