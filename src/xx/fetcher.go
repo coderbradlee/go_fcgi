@@ -203,10 +203,10 @@ func main() {
 	a,b:=make(chan string),make(chan string)
 	go func() {
 		a<-"a"
-	}
+	}()
 	go func() {
 		b<-"b"
-	}
+	}()
 	a<-nil
 	select{
 	case <-a:
