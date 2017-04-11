@@ -56,7 +56,6 @@ func (s *sub)loop() {
 			if err!=nil{
 				s.errs=append(s.errs,err)
 				time.Sleep(10*time.Second)
-				continue
 			}
 			for _,item:=range items{
 				// fmt.Println("item input s.updates")
