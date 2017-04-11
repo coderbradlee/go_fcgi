@@ -181,12 +181,12 @@ func Merge(subs ...Subscription)Subscription {
 }
 
 func main() {
-	merged:=Merge(NewSubscription(NewFetcher("xx.com")),NewSubscription(NewFetcher("xx.org")),NewSubscription(NewFetcher("xx.cn")))
+	// merged:=Merge(NewSubscription(NewFetcher("xx.com")),NewSubscription(NewFetcher("xx.org")),NewSubscription(NewFetcher("xx.cn")))
 
-	time.AfterFunc(10*time.Second,func() {
-		fmt.Println("closed:",merged.Close())
-	})
-	merged.Updates()
+	// time.AfterFunc(10*time.Second,func() {
+	// 	fmt.Println("closed:",merged.Close())
+	// })
+	// merged.Updates()
 	// for it:=range merged.Updates(){
 	// 	fmt.Println(it.Title,it.Channel)
 	// }
@@ -200,4 +200,18 @@ func main() {
 	// }
 	// fmt.Println("weird thing happend again")
 	// panic("show me the stacks")
+	a,b:=make(chan string),make(chan string)
+	go func() {
+		a<-"a"
+	}
+	go func() {
+		b<-"b"
+	}
+	a<-nil
+	select{
+	case <-a:
+		fmt.Println("got a")
+	case <-b:
+		fmt.Println("got b")
+	}
 }
