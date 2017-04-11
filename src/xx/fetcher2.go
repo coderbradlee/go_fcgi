@@ -44,7 +44,7 @@ func (s *concreteSub)loop() {
 				case <-s.closing:
 					return
 				default:
-					
+
 				}
 				fmt.Println("45:",f.(*fet).domain)
 				// fmt.Println("after select")
@@ -133,7 +133,7 @@ func main() {
 		case it:=<-updates:
 			fmt.Println(it.Title,it.Channel)
 		case <-time.After(5*time.Second):
-			fmt.Println("mainfeed close")
+			fmt.Println("mainfeed close//////////////////////////////////")
 			mainFeed.Close()
 		}
 	}
