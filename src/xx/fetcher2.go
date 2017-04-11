@@ -73,13 +73,9 @@ func (s *concreteSub)Updates()<-chan Item {
 }
 func (s *concreteSub)Close()[]error {
 	go func() {
-		select{
-			case <-s.closing:
-				fmt.Println("closing")
-				close(s.updates)
-			default:
-				fmt.Println("default")
-		}
+		<-s.closing
+		fmt.Println("closing")
+		close(s.updates)
 	}()
 	s.closing<-1
 	
