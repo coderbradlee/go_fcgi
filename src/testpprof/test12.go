@@ -19,18 +19,20 @@ func deferlock() {
 }
 func test() {
 	for i:=0;i<1000000;i++{
+		j:=i
+		fmt.Println(j)
 		deferlock()
 	}
 }
 func main() {
-	cpu, _ := os.Create("cpu.out")
-	defer cpu.Close()
-	pprof.StartCPUProfile(cpu)
-	defer pprof.StopCPUProfile()
+	// cpu, _ := os.Create("cpu.out")
+	// defer cpu.Close()
+	// pprof.StartCPUProfile(cpu)
+	// defer pprof.StopCPUProfile()
 	// Memory
-	// mem, _ := os.Create("mem.out")
-	// defer mem.Close()
-	// defer pprof.WriteHeapProfile(mem)
+	mem, _ := os.Create("mem.out")
+	defer mem.Close()
+	defer pprof.WriteHeapProfile(mem)
 
 	test()
 	fmt.Println("done")
