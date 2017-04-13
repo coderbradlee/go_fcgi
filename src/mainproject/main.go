@@ -187,7 +187,7 @@ func startMartini() {
     m.Post("/po/deliver_goods",logPanics(deliver_goods_Handler))
     m.Post("/po/check",logPanics(po_check_Handler))
     //m.Post("/pdf",pdfHandler)
-    // m.Post("/pdf",logPanics(pdfHandler))
+    m.Get("/redis",logPanics(redisHandler))
     m.Post("/pdf",logPanics(pdfHandler2))
     m.Post("/test_mysql_time",logPanics(test_mysql_time))
     m.Get("/debug/pprof", pprof.Index)
