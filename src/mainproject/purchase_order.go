@@ -94,7 +94,7 @@ func level3(level12_chan chan<- error,t_purchase_order* purchase_order,t *Delive
 		level12_chan<-temp
 		fmt.Println("purchase_order.go 94")
 	}else{
-		level12_chan<-errors.New(nil)
+		level12_chan<-errors.New("nil")
 		fmt.Println("purchase_order.go 96")
 	}
 }
