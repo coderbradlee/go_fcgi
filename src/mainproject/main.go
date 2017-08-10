@@ -57,7 +57,7 @@ func init() {
     fmt.Printf("FastcgiPort %s\n",configuration.FastcgiPort)
     // fmt.Printf("Log_name %s\n",configuration.Log_name)
     fmt.Printf("HttpPort %s\n",configuration.HttpPort)
-    mysql_init()
+    //mysql_init()
     log_init()
     //fmt.Println(configuration.exec_time) // output: [UserA, UserB]
 }

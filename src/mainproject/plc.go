@@ -36,7 +36,7 @@ func reportHandler (w http.ResponseWriter, r *http.Request) {
 		// decoder := json.NewDecoder(r.Body)
 		body, _:= ioutil.ReadAll(r.Body)
 	    
-		log_str:=fmt.Sprintf("Started %s %s for %s:%s\nresponse:%s", r.Method, r.URL.Path, addr,body,"")
+		log_str:=fmt.Sprintf("Started %s %s from %s:%s\nresponse:%s", r.Method, r.URL.Path, addr,body,"")
 	    logger.Info(log_str)
 
 
