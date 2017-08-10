@@ -30,7 +30,7 @@ func reportHandler (w http.ResponseWriter, r *http.Request) {
 	 // 		log.Println("ioutil.ReadAll error", err) 
  	// 	}
  	// 	sbody :=string(body)
- 		var ret string
+ 		//var ret string
 		// // log.Println(sbody)
 		// log.Printf("Started %s %s for %s:%s", r.Method, r.URL.Path, addr,sbody)
 		// decoder := json.NewDecoder(r.Body)
