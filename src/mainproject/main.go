@@ -145,10 +145,15 @@ func test_log() {
     
 }
 func startMartini() {
+    // port:=fmt.Sprintf("%s",configuration.HttpPort)
+    // m := martini.Classic()
+    // m.Post("/po/deliver_goods",poHandler)
+    // m.RunOnAddr(port)
     port:=fmt.Sprintf("%s",configuration.HttpPort)
     m := martini.Classic()
-    m.Post("/po/deliver_goods",poHandler)
+    m.Post("/api/processParameter/report",reportHandler)
     m.RunOnAddr(port)
+    
     ////////////////////
 
     // log_name:=fmt.Sprintf("%s",configuration.Log_name)
